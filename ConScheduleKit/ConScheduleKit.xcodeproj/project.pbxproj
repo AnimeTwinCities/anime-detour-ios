@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C0D4E3D19EAEA2400AD6CF7 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0D4E3C19EAEA2400AD6CF7 /* Session.swift */; };
+		5C0D4E3E19EAEA2400AD6CF7 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0D4E3C19EAEA2400AD6CF7 /* Session.swift */; };
 		5C65B3A619EA14A400545FDA /* ConScheduleKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C65B3A519EA14A400545FDA /* ConScheduleKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5C65B3AC19EA14A400545FDA /* ConScheduleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3A019EA14A400545FDA /* ConScheduleKit.framework */; };
 		5C65B3C619EA14DB00545FDA /* ScheduleAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B3C519EA14DB00545FDA /* ScheduleAPIClient.swift */; };
@@ -25,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C0D4E3C19EAEA2400AD6CF7 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		5C65B3A019EA14A400545FDA /* ConScheduleKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ConScheduleKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C65B3A419EA14A400545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B3A519EA14A400545FDA /* ConScheduleKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConScheduleKit.h; sourceTree = "<group>"; };
@@ -76,6 +79,7 @@
 			children = (
 				5C65B3A519EA14A400545FDA /* ConScheduleKit.h */,
 				5C65B3C519EA14DB00545FDA /* ScheduleAPIClient.swift */,
+				5C0D4E3C19EAEA2400AD6CF7 /* Session.swift */,
 				5C65B3A319EA14A400545FDA /* Supporting Files */,
 			);
 			path = ConScheduleKit;
@@ -213,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C0D4E3D19EAEA2400AD6CF7 /* Session.swift in Sources */,
 				5C65B3C619EA14DB00545FDA /* ScheduleAPIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,6 +228,7 @@
 			files = (
 				5C65B3C719EA14DB00545FDA /* ScheduleAPIClient.swift in Sources */,
 				5C65B3C919EA1E0000545FDA /* ScheduleAPIClientTests.swift in Sources */,
+				5C0D4E3E19EAEA2400AD6CF7 /* Session.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +410,7 @@
 				5C65B3B819EA14A400545FDA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5C65B3B919EA14A400545FDA /* Build configuration list for PBXNativeTarget "ConScheduleKitTests" */ = {
 			isa = XCConfigurationList;
@@ -412,6 +419,7 @@
 				5C65B3BB19EA14A400545FDA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

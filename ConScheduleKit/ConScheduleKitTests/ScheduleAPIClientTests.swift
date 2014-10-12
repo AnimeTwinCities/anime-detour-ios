@@ -26,12 +26,13 @@ class ScheduleAPIKitTests: XCTestCase {
     
     func testSessionList() {
         let expectation = self.expectationWithDescription("API Call Happens")
-        self.apiClient.sessionList(since: nil, deletedSessions: false)
+        self.apiClient.sessionList(since: nil, deletedSessions: false) { (result, error) -> () in
+            expectation.fulfill()
+        }
         
         self.waitForExpectationsWithTimeout(60, handler: { (error: NSError!) -> Void in
             
         })
-        XCTAssertTrue(0 == 0, "Yep")
     }
     
 }

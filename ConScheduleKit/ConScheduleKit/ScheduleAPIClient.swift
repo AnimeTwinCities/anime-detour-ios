@@ -25,34 +25,30 @@ enum APIEndpoint {
     }
 }
 
+public typealias APICompletionHandler = (result: AnyObject?, error: NSError?) -> ()
+
 public class ScheduleAPIClient {
     let apiKey: String
     let subdomain: String
-    let urlSession: NSURLSession
+    internal lazy var urlSession: NSURLSession = NSURLSession.sharedSession()
     private var baseURL: NSURL {
         return NSURL(string: "http://\(self.subdomain).sched.org/api")!
     }
     
-    required public init(subdomain: String, apiKey: String, urlSession: NSURLSession) {
-        assert(countElements(subdomain) > 0, "Subdomain must be non-zero length.")
+    required public init(subdomain: String, apiKey: String) {
         self.apiKey = apiKey
         self.subdomain = subdomain
+    }
+    
+    convenience public init(subdomain: String, apiKey: String, urlSession: NSURLSession) {
+        assert(countElements(subdomain) > 0, "Subdomain must be non-zero length.")
+        self.init(subdomain: subdomain, apiKey: apiKey)
         self.urlSession = urlSession
-    }
-    
-    convenience public init(subdomain: String, apiKey: String, urlSessionConfiguration: NSURLSessionConfiguration) {
-        let urlSession = NSURLSession(configuration: urlSessionConfiguration)
-        self.init(subdomain: subdomain, apiKey: apiKey, urlSession: urlSession)
-    }
-    
-    convenience public init(subdomain: String, apiKey: String) {
-        let urlSession = NSURLSession.sharedSession()
-        self.init(subdomain: subdomain, apiKey: apiKey, urlSession: urlSession)
     }
     
     // MARK: - Endpoint Methods
     
-    public func sessionList(since: NSDate? = nil, deletedSessions: Bool) -> NSURLSessionDataTask {
+    public func sessionList(since: NSDate? = nil, deletedSessions: Bool, completionHandler: APICompletionHandler) -> NSURLSessionDataTask {
         // calls a URL like:
         // http://your_conference.sched.org/api/session/list?api_key=secret&since=1282755813&format=json&status=del&custom_data=Y
         var parameters: [String:String] = [:]
@@ -71,7 +67,9 @@ public class ScheduleAPIClient {
                 return
             }
             
-            let body: String = NSString(data: data, encoding: NSUTF8StringEncoding)!
+            var jsonError: NSError?
+            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
+            completionHandler(result: json, error: jsonError)
         })
         
         dataTask.resume()
@@ -96,5 +94,84 @@ public class ScheduleAPIClient {
             urlVars += ["\(k)=\(v)"]
         }
         return urlVars.isEmpty ? "" : ("?" + "&".join(urlVars))
+    }
+}
+
+// Formatter for use when parsing sched.org API dates
+let dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd hh:mm:ss" // 2015-08-04 09:00:00
+    return formatter
+}()
+
+public extension Session {
+    public func update(jsonObject json: [String : String]) {
+        if let key: String = json["event_key"] {
+            self.key = key
+        }
+        
+        if let active: Bool = json["active"].map({ (active: String) -> Bool in return active == "Y" }) {
+            self.active = active
+        }
+        
+        if let name: String = json["name"] {
+            self.name = name
+        }
+        
+        if let start: String = json["event_start"] {
+            if let date = dateFormatter.dateFromString(start) {
+                self.start = date
+            }
+        }
+        
+        if let end: String = json["event_end"] {
+            if let date = dateFormatter.dateFromString(end) {
+                self.end = date
+            }
+        }
+        
+        if let type: String = json["event_type"] {
+            self.type = type
+        }
+        
+        if let description: String = json["description"] {
+            self.description = description
+        }
+        
+        if let mediaURL: String = json["media_url"] {
+            self.mediaURL = mediaURL
+        }
+        
+        if let seatsString = json["seats"] {
+            if let seats = seatsString.toInt().map({ UInt($0) }) {
+                self.seats = seats
+            }
+        }
+        
+        if let goersString = json["goers"] {
+            if let goers = goersString.toInt().map({ UInt($0) }) {
+                self.goers = goers
+            }
+        }
+        
+        if let inviteOnly: Bool = json["inviteOnly"].map({ (inviteOnly: String) -> Bool in return inviteOnly == "Y" }) {
+            self.inviteOnly = inviteOnly
+        }
+        
+        if let venue: String = json["venue"] {
+            self.venue = venue
+        }
+        
+        if let address: String = json["address"] {
+            self.address = address
+        }
+        
+        if let sessionID: String = json["id"] {
+            self.sessionID = sessionID
+        }
+        
+        if let venueID: String = json["venue_id"] {
+            self.venueID = venueID
+        }
     }
 }
