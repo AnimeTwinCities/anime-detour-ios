@@ -8,11 +8,16 @@
 
 import UIKit
 
+import ConScheduleKit
+
 class FirstViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let apiClient = ScheduleAPIClient(subdomain: "ssetest2015", apiKey: "21856730f40671b94b132ca11d35cd5d")
+        apiClient.sessionList(since: nil, deletedSessions: false)
     }
 
     override func didReceiveMemoryWarning() {

@@ -24,6 +24,27 @@
 			remoteGlobalIDString = 5C65B36E19EA143A00545FDA;
 			remoteInfo = "Anime Detour";
 		};
+		5C65B3C119EA14A500545FDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5C65B3A019EA14A400545FDA;
+			remoteInfo = ConScheduleKit;
+		};
+		5C65B3C319EA14A500545FDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5C65B3AB19EA14A400545FDA;
+			remoteInfo = ConScheduleKitTests;
+		};
+		5C65B3CC19EA289A00545FDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C65B39F19EA14A400545FDA;
+			remoteInfo = ConScheduleKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +59,7 @@
 		5C65B38619EA143A00545FDA /* Anime DetourTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Anime DetourTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C65B38B19EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_DetourTests.swift; sourceTree = "<group>"; };
+		5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConScheduleKit.xcodeproj; path = ConScheduleKit/ConScheduleKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +86,7 @@
 				5C65B37119EA143A00545FDA /* Anime Detour */,
 				5C65B38919EA143A00545FDA /* Anime DetourTests */,
 				5C65B37019EA143A00545FDA /* Products */,
+				5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +138,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5C65B3BD19EA14A400545FDA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */,
+				5C65B3C419EA14A500545FDA /* ConScheduleKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -129,6 +161,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5C65B3CD19EA289A00545FDA /* PBXTargetDependency */,
 			);
 			name = "Anime Detour";
 			productName = "Anime Detour";
@@ -182,6 +215,12 @@
 			mainGroup = 5C65B36619EA143A00545FDA;
 			productRefGroup = 5C65B37019EA143A00545FDA /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5C65B3BD19EA14A400545FDA /* Products */;
+					ProjectRef = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				5C65B36E19EA143A00545FDA /* Anime Detour */,
@@ -189,6 +228,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ConScheduleKit.framework;
+			remoteRef = 5C65B3C119EA14A500545FDA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5C65B3C419EA14A500545FDA /* ConScheduleKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ConScheduleKitTests.xctest;
+			remoteRef = 5C65B3C319EA14A500545FDA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5C65B36D19EA143A00545FDA /* Resources */ = {
@@ -236,6 +292,11 @@
 			isa = PBXTargetDependency;
 			target = 5C65B36E19EA143A00545FDA /* Anime Detour */;
 			targetProxy = 5C65B38719EA143A00545FDA /* PBXContainerItemProxy */;
+		};
+		5C65B3CD19EA289A00545FDA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ConScheduleKit;
+			targetProxy = 5C65B3CC19EA289A00545FDA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
