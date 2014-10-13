@@ -100,7 +100,7 @@ public class ScheduleAPIClient {
 // Formatter for use when parsing sched.org API dates
 let dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
     let formatter = NSDateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd hh:mm:ss" // 2015-08-04 09:00:00
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // 2015-08-04 19:00:00
     return formatter
 }()
 
