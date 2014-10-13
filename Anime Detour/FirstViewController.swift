@@ -11,7 +11,7 @@ import UIKit
 import ConScheduleKit
 
 class FirstViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    lazy var apiClient = ScheduleAPIClient(subdomain: "ssetest2015", apiKey: "21856730f40671b94b132ca11d35cd5d")
+    lazy var apiClient = ScheduleAPIClient(subdomain: "ssetest2015", apiKey: "21856730f40671b94b132ca11d35cd5d", conLocationTimeZone: NSTimeZone(name: "America/Chicago")!)
     /**
      Collection view data source that we call through to from our data
      source methods.
@@ -34,7 +34,7 @@ class FirstViewController: UICollectionViewController, UICollectionViewDelegateF
             if let jsonSessions = result as? [[String : String]] {
                 let sessions = jsonSessions.map { (json: [String : String]) -> Session in
                     let session = Session()
-                    session.update(jsonObject: json)
+                    session.update(jsonObject: json, jsonDateFormatter: self!.apiClient.dateFormatter)
                     return session
                 }
                 

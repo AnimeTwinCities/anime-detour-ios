@@ -30,19 +30,30 @@ public typealias APICompletionHandler = (result: AnyObject?, error: NSError?) ->
 public class ScheduleAPIClient {
     let apiKey: String
     let subdomain: String
+    
+    /// Formatter for use when parsing sched.org API dates.
+    /// Do not modify.
+    public let dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // 2015-08-04 19:00:00
+        return formatter
+    }()
+    
     internal lazy var urlSession: NSURLSession = NSURLSession.sharedSession()
     private var baseURL: NSURL {
         return NSURL(string: "http://\(self.subdomain).sched.org/api")!
     }
     
-    required public init(subdomain: String, apiKey: String) {
+    required public init(subdomain: String, apiKey: String, conLocationTimeZone timeZone: NSTimeZone) {
         self.apiKey = apiKey
         self.subdomain = subdomain
+        
+        self.dateFormatter.timeZone = timeZone
     }
     
-    convenience public init(subdomain: String, apiKey: String, urlSession: NSURLSession) {
+    convenience public init(subdomain: String, apiKey: String, conLocationTimeZone timeZone: NSTimeZone, urlSession: NSURLSession) {
         assert(countElements(subdomain) > 0, "Subdomain must be non-zero length.")
-        self.init(subdomain: subdomain, apiKey: apiKey)
+        self.init(subdomain: subdomain, apiKey: apiKey, conLocationTimeZone: timeZone)
         self.urlSession = urlSession
     }
     
@@ -97,15 +108,8 @@ public class ScheduleAPIClient {
     }
 }
 
-// Formatter for use when parsing sched.org API dates
-let dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
-    let formatter = NSDateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // 2015-08-04 19:00:00
-    return formatter
-}()
-
 public extension Session {
-    public func update(jsonObject json: [String : String]) {
+    public func update(jsonObject json: [String : String], jsonDateFormatter dateFormatter: NSDateFormatter) {
         if let key: String = json["event_key"] {
             self.key = key
         }
