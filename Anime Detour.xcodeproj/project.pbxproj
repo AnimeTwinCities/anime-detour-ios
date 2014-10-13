@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
+		5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
+		5C16772D19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */; };
+		5C16773019EB6C030097B1D3 /* SessionCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772F19EB6C030097B1D3 /* SessionCollectionViewDataSource.swift */; };
 		5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37419EA143A00545FDA /* AppDelegate.swift */; };
 		5C65B37719EA143A00545FDA /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37619EA143A00545FDA /* FirstViewController.swift */; };
 		5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37819EA143A00545FDA /* SecondViewController.swift */; };
@@ -48,6 +52,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C16772819EB6B720097B1D3 /* SessionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
+		5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewCell.swift; sourceTree = "<group>"; };
+		5C16772F19EB6C030097B1D3 /* SessionCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		5C65B36F19EA143A00545FDA /* Anime Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Detour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C65B37319EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B37419EA143A00545FDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +87,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C16772619EB6B520097B1D3 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				5C16772819EB6B720097B1D3 /* SessionViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		5C16772B19EB6B8E0097B1D3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5C16772E19EB6BE10097B1D3 /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5C16772F19EB6C030097B1D3 /* SessionCollectionViewDataSource.swift */,
+			);
+			path = "Data Sources";
+			sourceTree = "<group>";
+		};
 		5C65B36619EA143A00545FDA = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +133,9 @@
 		5C65B37119EA143A00545FDA /* Anime Detour */ = {
 			isa = PBXGroup;
 			children = (
+				5C16772E19EB6BE10097B1D3 /* Data Sources */,
+				5C16772619EB6B520097B1D3 /* View Models */,
+				5C16772B19EB6B8E0097B1D3 /* Views */,
 				5C65B37419EA143A00545FDA /* AppDelegate.swift */,
 				5C65B37619EA143A00545FDA /* FirstViewController.swift */,
 				5C65B37819EA143A00545FDA /* SecondViewController.swift */,
@@ -271,7 +305,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C16773019EB6C030097B1D3 /* SessionCollectionViewDataSource.swift in Sources */,
+				5C16772D19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift in Sources */,
 				5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */,
+				5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
 				5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */,
 				5C65B37719EA143A00545FDA /* FirstViewController.swift in Sources */,
 			);
@@ -282,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C65B38D19EA143A00545FDA /* Anime_DetourTests.swift in Sources */,
+				5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

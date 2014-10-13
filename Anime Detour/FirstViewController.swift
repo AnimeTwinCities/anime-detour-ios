@@ -16,7 +16,7 @@ class FirstViewController: UICollectionViewController, UICollectionViewDelegateF
      Collection view data source that we call through to from our data
      source methods.
      */
-    private var dataSource = SessionTableViewDataSource()
+    private var dataSource = SessionCollectionViewDataSource()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,11 +46,6 @@ class FirstViewController: UICollectionViewController, UICollectionViewDelegateF
         })
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return self.dataSource.numberOfSectionsInCollectionView(collectionView)
     }
@@ -78,47 +73,4 @@ class FirstViewController: UICollectionViewController, UICollectionViewDelegateF
         
         return CGSize(width: cellWidth, height: 120)
     }
-}
-
-class SessionTableViewDataSource: NSObject, UICollectionViewDataSource {
-    var sessions: [Session] = []
-    var cellIdentifier = "SessionCell"
-    private var shortDateFormat = "MM/dd hh:mm a"
-    lazy var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = self.shortDateFormat
-        return formatter
-    }()
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sessions.count
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.cellIdentifier, forIndexPath: indexPath) as SessionCollectionViewCell
-        let session = self.sessions[indexPath.row]
-        cell.nameLabel.text = session.name
-        cell.descriptionLabel.text = session.description
-        
-        let startDateString = self.dateFormatter.stringFromDate(session.start)
-        let durationInSeconds = session.end.timeIntervalSinceDate(session.start)
-        let durationInMinutes = UInt(durationInSeconds / 60)
-        let durationString = "\(durationInMinutes) min."
-        cell.timeLabel.text = "\(startDateString) - \(durationString)"
-        
-        return cell
-    }
-}
-
-class SessionCollectionViewCell: UICollectionViewCell {
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
-    
-    @IBOutlet var timeLabel: UILabel!
-    
-    @IBOutlet var locationLabel: UILabel!
 }
