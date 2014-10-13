@@ -64,7 +64,7 @@ class FirstViewController: UICollectionViewController, UICollectionViewDelegateF
         let width = frame.width;
         var cellWidth: CGFloat
         let minCellWidth: CGFloat = 300
-        var maxCellWidth = CGFloat(2.0 / 3) * minCellWidth
+        var maxCellWidth = CGFloat(5.0 / 3) * minCellWidth
         if (width > maxCellWidth) {
             cellWidth = width / floor(width / minCellWidth)
         } else {
