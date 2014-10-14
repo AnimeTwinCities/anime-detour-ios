@@ -67,6 +67,8 @@
 		5C65B38B19EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_DetourTests.swift; sourceTree = "<group>"; };
 		5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConScheduleKit.xcodeproj; path = ConScheduleKit/ConScheduleKit.xcodeproj; sourceTree = "<group>"; };
+		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
+		5CB80EA119ECD07B008DBC8F /* Anime DetourTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Anime DetourTests-Bridging-Header.h"; path = "../Anime Detour/Anime DetourTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				5C16772E19EB6BE10097B1D3 /* Data Sources */,
 				5C16772619EB6B520097B1D3 /* View Models */,
 				5C16772B19EB6B8E0097B1D3 /* Views */,
+				5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */,
 				5C65B37419EA143A00545FDA /* AppDelegate.swift */,
 				5C65B37619EA143A00545FDA /* FirstViewController.swift */,
 				5C65B37819EA143A00545FDA /* SecondViewController.swift */,
@@ -158,6 +161,7 @@
 		5C65B38919EA143A00545FDA /* Anime DetourTests */ = {
 			isa = PBXGroup;
 			children = (
+				5CB80EA119ECD07B008DBC8F /* Anime DetourTests-Bridging-Header.h */,
 				5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */,
 				5C65B38A19EA143A00545FDA /* Supporting Files */,
 			);
@@ -439,9 +443,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Anime Detour/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime Detour-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -449,9 +456,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Anime Detour/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime Detour-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -459,6 +468,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -470,6 +480,8 @@
 				INFOPLIST_FILE = "Anime DetourTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime DetourTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anime Detour.app/Anime Detour";
 			};
 			name = Debug;
@@ -478,6 +490,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -485,6 +498,7 @@
 				INFOPLIST_FILE = "Anime DetourTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime DetourTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anime Detour.app/Anime Detour";
 			};
 			name = Release;
