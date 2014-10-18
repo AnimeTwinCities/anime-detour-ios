@@ -13,11 +13,13 @@ import ConScheduleKit
 
 class SessionsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     lazy var apiClient = ScheduleAPIClient(subdomain: "ssetest2015", apiKey: "21856730f40671b94b132ca11d35cd5d", conLocationTimeZone: NSTimeZone(name: "America/Chicago")!)
+    private var imagesURLSession = NSURLSession.sharedSession()
+    
     /**
     Collection view data source that we call through to from our data
     source methods.
     */
-    private var dataSource = SessionCollectionViewDataSource()
+    private var dataSource: SessionCollectionViewDataSource!
     private let sessionDetailSegueIdentifier = "SessionDetailSegueIdentifier"
     private var selectedSession: Session?
     
@@ -25,6 +27,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        self.dataSource = SessionCollectionViewDataSource(imagesURLSession: self.imagesURLSession)
         self.apiClient.sessionList(since: nil, deletedSessions: false, completionHandler: { [weak self] (result: AnyObject?, error: NSError?) -> () in
             if result == nil {
                 if let error = error {

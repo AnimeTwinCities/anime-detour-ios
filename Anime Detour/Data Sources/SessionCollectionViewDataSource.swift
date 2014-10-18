@@ -10,6 +10,7 @@ import UIKit
 import ConScheduleKit
 
 class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    let imagesURLSession: NSURLSession?
     internal var sessions: [Session] = []
     internal var cellIdentifier = "SessionCell"
     private var shortDateFormat = "MM/dd hh:mm a"
@@ -24,13 +25,18 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         return formatter
     }()
     
+    init(imagesURLSession: NSURLSession?) {
+        self.imagesURLSession = imagesURLSession
+        super.init()
+    }
+    
     func session(indexPath: NSIndexPath) -> Session {
         return self.sessions[indexPath.row]
     }
     
     func heightForWidth(cellWidth width: CGFloat, indexPath: NSIndexPath) -> CGFloat {
         let session = self.session(indexPath)
-        let viewModel = SessionViewModel(session: session, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+        let viewModel = SessionViewModel(session: session, imagesURLSession: nil, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
         let name = viewModel.name as NSString
         let description = viewModel.sessionDescription as NSString
         let time = viewModel.dateAndTime as NSString
@@ -72,7 +78,7 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.cellIdentifier, forIndexPath: indexPath) as SessionCollectionViewCell
         
         let session = self.session(indexPath)
-        let viewModel = SessionViewModel(session: session, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+        let viewModel = SessionViewModel(session: session, imagesURLSession: nil, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
         cell.viewModel = viewModel
         
         return cell

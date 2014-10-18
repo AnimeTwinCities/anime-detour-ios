@@ -20,36 +20,38 @@ import UIKit
     /// Value for the image view height constraint, if an image is available.
     @IBInspectable var imageHeight: CGFloat = 180
 
-    private var imageTask: NSURLSessionDataTask?
     private var image: UIImage? {
         didSet {
             self.imageView.image = self.image
+            
+            switch image {
+            case let .Some(image):
+                self.imageViewHeightConstraint.constant = self.imageHeight
+            default:
+                self.imageViewHeightConstraint.constant = 0
+            }
+            
+            self.layoutIfNeeded()
         }
     }
     
     internal var viewModel: SessionViewModel? {
         didSet {
+            let viewModel = self.viewModel
             self.nameLabel.text = viewModel?.name
             self.timeLabel.text = viewModel?.dateAndTime
             self.descriptionLabel.text = viewModel?.sessionDescription
             
-            self.imageTask?.cancel()
-            self.imageTask = nil
-            
-            if let imageURL = viewModel?.imageURL {
-                let imageTask = NSURLSession.sharedSession().dataTaskWithURL(imageURL, completionHandler: { [weak self] (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self?.imageTask = nil
-                        self?.image = UIImage(data: data)
-                    });
+            viewModel?.image({ [weak self] (image, error) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    switch image {
+                    case let .Some(image):
+                        self?.image = image
+                    default:
+                        self?.imageViewHeightConstraint.constant = 0
+                    }
                 })
-                self.imageTask = imageTask
-                imageTask.resume()
-                
-                self.imageViewHeightConstraint.constant = self.imageHeight
-            } else {
-                self.imageViewHeightConstraint.constant = 0
-            }
+            })
         }
     }
 }

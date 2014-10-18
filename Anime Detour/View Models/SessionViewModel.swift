@@ -11,9 +11,13 @@ import Foundation
 import ConScheduleKit
 
 class SessionViewModel {
+    let imageURLSession: NSURLSession?
     let session: Session
     let startDateFormatter: NSDateFormatter
     let shortEndDateFormatter: NSDateFormatter
+    let noImageURLSessionError = NSError(domain: "com.nagasoftworks.anime-detour", code: 1001, userInfo: nil)
+    
+    private var imageTask: NSURLSessionDataTask?
     
     var name: String {
         get {
@@ -52,14 +56,61 @@ class SessionViewModel {
         }
     }
     
-    var imageURL: NSURL? {
+    private var imageURL: NSURL? {
         get {
             return NSURL(string: session.mediaURL)
         }
     }
     
-    init(session: Session, sessionStartTimeFormatter startDateFormatter: NSDateFormatter, shortTimeFormatter: NSDateFormatter) {
+    private var image: UIImage?
+    
+    /**
+    Get the image for the session. Designed like a poor man's Future.
+    
+    :param: onLoad A callback to run when the image is available, or an error has occurred. May run immediately, and may not run on the same thread as the caller.
+    */
+    func image(onLoad: (image: UIImage?, error: NSError?) -> Void) {
+        if self.imageURLSession == nil {
+            onLoad(image: nil, error: self.noImageURLSessionError)
+            return
+        }
+        
+        if let image = self.image {
+            onLoad(image: image, error: nil)
+            return
+        }
+        
+        switch self.imageURL {
+        case let .Some(imageURL) where (imageURL.absoluteString.map(countElements) ?? 0) > 0:
+            let imageTask = self.imageURLSession?.dataTaskWithURL(imageURL, completionHandler: { [weak self] (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+                if let data = data {
+                    let image = UIImage(data: data)
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self?.imageTask = nil
+                        self?.image = image
+                        
+                        onLoad(image: image, error: nil)
+                    });
+                } else {
+                    onLoad(image: nil, error: error)
+                }
+            })
+            self.imageTask = imageTask
+            imageTask?.resume()
+        default:
+            onLoad(image: nil, error: nil)
+        }
+    }
+    
+    /**
+    Create a view model.
+    
+    :param: imagesURLSession A URL session to use when downloading images. If `nil`, will not attempt to download images.
+    */
+    init(session: Session, imagesURLSession: NSURLSession?, sessionStartTimeFormatter startDateFormatter: NSDateFormatter, shortTimeFormatter: NSDateFormatter) {
         self.session = session
+        self.imageURLSession = imagesURLSession
         self.startDateFormatter = startDateFormatter
         self.shortEndDateFormatter = shortTimeFormatter
     }
