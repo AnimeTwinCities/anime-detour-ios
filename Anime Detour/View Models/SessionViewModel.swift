@@ -21,7 +21,7 @@ class SessionViewModel {
         }
     }
     
-    var description: String {
+    var sessionDescription: String {
         get {
             return session.description
         }
@@ -49,6 +49,12 @@ class SessionViewModel {
             let endDateFormatter = longEndDate ? self.startDateFormatter : self.shortEndDateFormatter
             let endDateString = endDateFormatter.stringFromDate(session.end)
             return "\(startDateString) - \(endDateString)"
+        }
+    }
+    
+    var imageURL: NSURL? {
+        get {
+            return NSURL(string: session.mediaURL)
         }
     }
     

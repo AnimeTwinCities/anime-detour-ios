@@ -1,23 +1,26 @@
 //
-//  FirstViewController.swift
+//  SessionsViewController.swift
 //  Anime Detour
 //
-//  Created by Brendon Justin on 10/11/14.
+//  Created by Brendon Justin on 10/18/14.
 //  Copyright (c) 2014 Naga Softworks, LLC. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 import ConScheduleKit
 
-class FirstViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SessionsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     lazy var apiClient = ScheduleAPIClient(subdomain: "ssetest2015", apiKey: "21856730f40671b94b132ca11d35cd5d", conLocationTimeZone: NSTimeZone(name: "America/Chicago")!)
     /**
-     Collection view data source that we call through to from our data
-     source methods.
-     */
+    Collection view data source that we call through to from our data
+    source methods.
+    */
     private var dataSource = SessionCollectionViewDataSource()
-
+    private let sessionDetailSegueIdentifier = "SessionDetailSegueIdentifier"
+    private var selectedSession: Session?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -45,12 +48,12 @@ class FirstViewController: UICollectionViewController, UICollectionViewDelegateF
             }
         })
     }
-
+    
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
         self.collectionView?.collectionViewLayout.invalidateLayout()
     }
-
+    
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return self.dataSource.numberOfSectionsInCollectionView(collectionView)
     }
@@ -61,6 +64,12 @@ class FirstViewController: UICollectionViewController, UICollectionViewDelegateF
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         return self.dataSource.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.selectedSession = self.dataSource.session(indexPath)
+        
+        self.performSegueWithIdentifier(self.sessionDetailSegueIdentifier, sender: self)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -82,5 +91,11 @@ class FirstViewController: UICollectionViewController, UICollectionViewDelegateF
         let height = max(minimumHeight, calculatedHeight)
         
         return CGSize(width: cellWidth, height: height)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let detailVC = segue.destinationViewController as? SessionViewController {
+            detailVC.session = self.selectedSession!
+        }
     }
 }

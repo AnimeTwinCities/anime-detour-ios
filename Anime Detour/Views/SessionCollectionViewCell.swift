@@ -23,7 +23,7 @@ class SessionCollectionViewCell: UICollectionViewCell {
     var viewModel: SessionViewModel? {
         didSet {
             self.nameLabel.text = viewModel?.name
-            self.descriptionLabel.text = viewModel?.description
+            self.descriptionLabel.text = viewModel?.sessionDescription
             self.timeLabel.text = viewModel?.dateAndTime
         }
     }

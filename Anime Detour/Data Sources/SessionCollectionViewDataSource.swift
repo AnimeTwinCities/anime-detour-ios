@@ -32,7 +32,7 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         let session = self.session(indexPath)
         let viewModel = SessionViewModel(session: session, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
         let name = viewModel.name as NSString
-        let description = viewModel.description as NSString
+        let description = viewModel.sessionDescription as NSString
         let time = viewModel.dateAndTime as NSString
         
         let margins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
