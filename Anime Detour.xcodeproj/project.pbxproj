@@ -14,6 +14,8 @@
 		5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B436D19F0A19F009342C8 /* SessionViewController.swift */; };
 		5C54450C19F2D3A3003CC1C3 /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54450B19F2D3A3003CC1C3 /* SessionView.swift */; };
 		5C54451119F2D79B003CC1C3 /* SessionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451019F2D79B003CC1C3 /* SessionsViewController.swift */; };
+		5C54451619F31596003CC1C3 /* API Details.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C54451519F31596003CC1C3 /* API Details.plist */; };
+		5C54451919F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451819F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift */; };
 		5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37419EA143A00545FDA /* AppDelegate.swift */; };
 		5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37819EA143A00545FDA /* SecondViewController.swift */; };
 		5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37A19EA143A00545FDA /* Main.storyboard */; };
@@ -60,6 +62,8 @@
 		5C4B436D19F0A19F009342C8 /* SessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
 		5C54450B19F2D3A3003CC1C3 /* SessionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
 		5C54451019F2D79B003CC1C3 /* SessionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsViewController.swift; sourceTree = "<group>"; };
+		5C54451519F31596003CC1C3 /* API Details.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "API Details.plist"; sourceTree = "<group>"; };
+		5C54451819F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleAPIClient_Singleton.swift; sourceTree = "<group>"; };
 		5C65B36F19EA143A00545FDA /* Anime Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Detour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C65B37319EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B37419EA143A00545FDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +131,14 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
+		5C54451719F316EF003CC1C3 /* API Client */ = {
+			isa = PBXGroup;
+			children = (
+				5C54451819F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift */,
+			);
+			path = "API Client";
+			sourceTree = "<group>";
+		};
 		5C65B36619EA143A00545FDA = {
 			isa = PBXGroup;
 			children = (
@@ -149,16 +161,17 @@
 		5C65B37119EA143A00545FDA /* Anime Detour */ = {
 			isa = PBXGroup;
 			children = (
+				5C54451719F316EF003CC1C3 /* API Client */,
 				5C16772E19EB6BE10097B1D3 /* Data Sources */,
 				5C4B436B19F0A160009342C8 /* View Controllers */,
 				5C16772619EB6B520097B1D3 /* View Models */,
 				5C16772B19EB6B8E0097B1D3 /* Views */,
-				5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */,
 				5C65B37419EA143A00545FDA /* AppDelegate.swift */,
 				5C65B37819EA143A00545FDA /* SecondViewController.swift */,
 				5C65B37A19EA143A00545FDA /* Main.storyboard */,
 				5C65B37D19EA143A00545FDA /* Images.xcassets */,
 				5C65B37F19EA143A00545FDA /* LaunchScreen.xib */,
+				5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */,
 				5C65B37219EA143A00545FDA /* Supporting Files */,
 			);
 			path = "Anime Detour";
@@ -168,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				5C65B37319EA143A00545FDA /* Info.plist */,
+				5C54451519F31596003CC1C3 /* API Details.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -306,6 +320,7 @@
 				5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */,
 				5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */,
 				5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */,
+				5C54451619F31596003CC1C3 /* API Details.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +344,7 @@
 				5C54450C19F2D3A3003CC1C3 /* SessionView.swift in Sources */,
 				5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
 				5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */,
+				5C54451919F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
 				5C54451119F2D79B003CC1C3 /* SessionsViewController.swift in Sources */,
 			);
