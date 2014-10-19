@@ -9,12 +9,15 @@
         <!--Sessions-->
         <scene sceneID="BuY-0b-6dE">
             <objects>
-                <navigationController title="Sessions" id="1u1-vH-8X9" sceneMemberID="viewController">
+                <navigationController id="1u1-vH-8X9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Sessions" image="first" id="Ekl-6e-FaS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b5l-Fa-2yX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="iZr-Va-Caw">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="TFu-Xh-Dup" kind="relationship" relationship="rootViewController" id="dTy-Vf-Ou7"/>
                     </connections>
@@ -31,34 +34,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hZX-GI-FCX">
-                            <size key="itemSize" width="320" height="120"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
+                        <collectionViewLayout key="collectionViewLayout" id="53g-tj-L5K" customClass="FilmstripFlowLayout" customModule="Anime_Detour" customModuleProvider="target"/>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SessionCell" id="vik-VN-DWb" customClass="SessionCollectionViewCell" customModule="Anime_Detour" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpB-vJ-dHs">
-                                            <rect key="frame" x="8" y="8" width="304" height="20"/>
+                                            <rect key="frame" x="8" y="8" width="284" height="20"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uoV-HH-C1F">
-                                            <rect key="frame" x="8" y="36" width="304" height="20"/>
+                                            <rect key="frame" x="8" y="36" width="284" height="20"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday 12:30pm-1:45pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxU-Q0-kge" userLabel="Time">
-                                            <rect key="frame" x="8" y="95" width="304" height="17"/>
+                                            <rect key="frame" x="8" y="95" width="284" height="17"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -78,6 +76,7 @@
                                     <constraint firstItem="uoV-HH-C1F" firstAttribute="trailing" secondItem="vik-VN-DWb" secondAttribute="trailingMargin" id="vDF-8F-cAF"/>
                                     <constraint firstItem="RxU-Q0-kge" firstAttribute="leading" secondItem="vik-VN-DWb" secondAttribute="leadingMargin" id="wAc-r3-rz4"/>
                                 </constraints>
+                                <size key="customSize" width="300" height="120"/>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="uoV-HH-C1F" id="pbA-4k-qaH"/>
                                     <outlet property="nameLabel" destination="dpB-vJ-dHs" id="Gzv-Df-w6s"/>

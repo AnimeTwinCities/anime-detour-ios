@@ -26,7 +26,11 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.title = "Sessions"
+        
+        if let layout = (self.collectionView?.collectionViewLayout as? FilmstripGroupsFlowLayout) {
+            layout.itemSize = CGSize(width: 300, height: 120)
+        }
         
         self.dataSource = SessionCollectionViewDataSource(imagesURLSession: self.imagesURLSession)
         self.apiClient.sessionList(since: nil, deletedSessions: false, completionHandler: { [weak self] (result: AnyObject?, error: NSError?) -> () in
