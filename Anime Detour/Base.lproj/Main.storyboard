@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -205,6 +206,7 @@
                     <connections>
                         <segue destination="1u1-vH-8X9" kind="relationship" relationship="viewControllers" id="ANm-pE-8R2"/>
                         <segue destination="Yl9-Dc-0A2" kind="relationship" relationship="viewControllers" id="TH5-iN-1Rs"/>
+                        <segue destination="DMX-YY-Hjn" kind="relationship" relationship="viewControllers" id="5jW-7q-NpF"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -227,6 +229,65 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eq9-TY-mx7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="882" y="383"/>
+        </scene>
+        <!--Information-->
+        <scene sceneID="YKU-Xd-mvv">
+            <objects>
+                <viewController title="Information" id="DMX-YY-Hjn" customClass="InformationViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YyI-Me-0R3"/>
+                        <viewControllerLayoutGuide type="bottom" id="WHH-7f-o0p"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="72P-mE-hxU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kLy-N3-5eV">
+                                <rect key="frame" x="0.0" y="20" width="600" height="400"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="kLy-N3-5eV" secondAttribute="height" multiplier="3:2" id="BMN-7x-d2G"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="April 1-22, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QpG-ER-8nH">
+                                <rect key="frame" x="239" y="461" width="123" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9u-rX-fZK">
+                                <rect key="frame" x="164" y="490" width="272" height="30"/>
+                                <state key="normal" title="DoubleTree by Hilton, Bloomington, MN">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showVenueOnMap:" destination="DMX-YY-Hjn" eventType="touchUpInside" id="5Sn-q2-eDA"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Year's Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1XV-Ht-z6J">
+                                <rect key="frame" x="242" y="428" width="117" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="T9u-rX-fZK" firstAttribute="top" secondItem="QpG-ER-8nH" secondAttribute="bottom" constant="8" id="013-LX-dqN"/>
+                            <constraint firstItem="kLy-N3-5eV" firstAttribute="top" secondItem="YyI-Me-0R3" secondAttribute="bottom" id="DzW-G3-Riu"/>
+                            <constraint firstItem="QpG-ER-8nH" firstAttribute="top" secondItem="1XV-Ht-z6J" secondAttribute="bottom" constant="13" id="HjL-BD-wvz"/>
+                            <constraint firstAttribute="centerX" secondItem="1XV-Ht-z6J" secondAttribute="centerX" id="JNS-Pw-ydi"/>
+                            <constraint firstItem="1XV-Ht-z6J" firstAttribute="top" secondItem="kLy-N3-5eV" secondAttribute="bottom" constant="8" id="LXK-r5-WSF"/>
+                            <constraint firstAttribute="centerX" secondItem="QpG-ER-8nH" secondAttribute="centerX" id="eNI-gC-dkO"/>
+                            <constraint firstAttribute="centerX" secondItem="T9u-rX-fZK" secondAttribute="centerX" id="rGu-0f-fBG"/>
+                            <constraint firstAttribute="trailing" secondItem="kLy-N3-5eV" secondAttribute="trailing" id="sKY-7l-nP3"/>
+                            <constraint firstItem="kLy-N3-5eV" firstAttribute="leading" secondItem="72P-mE-hxU" secondAttribute="leading" id="ycD-Pq-7p3"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Info" image="first" id="94e-iW-iMF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eVN-7O-PYu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="882" y="1109"/>
         </scene>
     </scenes>
     <resources>

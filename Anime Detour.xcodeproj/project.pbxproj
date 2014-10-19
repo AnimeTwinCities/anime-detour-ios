@@ -19,6 +19,7 @@
 		5C54451E19F41D8A003CC1C3 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */; };
 		5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */; };
 		5C54452719F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5C54452619F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf */; };
+		5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452819F42E45003CC1C3 /* InformationViewController.swift */; };
 		5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37419EA143A00545FDA /* AppDelegate.swift */; };
 		5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37819EA143A00545FDA /* SecondViewController.swift */; };
 		5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37A19EA143A00545FDA /* Main.storyboard */; };
@@ -70,6 +71,7 @@
 		5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsDataSource.swift; sourceTree = "<group>"; };
 		5C54452619F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Dijkstra on numbering EWD831.pdf"; sourceTree = "<group>"; };
+		5C54452819F42E45003CC1C3 /* InformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		5C65B36F19EA143A00545FDA /* Anime Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Detour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C65B37319EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B37419EA143A00545FDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,9 +134,10 @@
 		5C4B436B19F0A160009342C8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5C54452819F42E45003CC1C3 /* InformationViewController.swift */,
+				5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */,
 				5C4B436D19F0A19F009342C8 /* SessionViewController.swift */,
 				5C54451019F2D79B003CC1C3 /* SessionsViewController.swift */,
-				5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
 				5C54451119F2D79B003CC1C3 /* SessionsViewController.swift in Sources */,
+				5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
