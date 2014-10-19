@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-@IBDesignable class SessionView: UIView {
+class SessionView: UIView {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
