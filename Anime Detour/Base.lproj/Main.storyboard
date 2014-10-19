@@ -8,7 +8,7 @@
         <!--Sessions-->
         <scene sceneID="BuY-0b-6dE">
             <objects>
-                <navigationController id="1u1-vH-8X9" sceneMemberID="viewController">
+                <navigationController title="Sessions" id="1u1-vH-8X9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Sessions" image="first" id="Ekl-6e-FaS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b5l-Fa-2yX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -99,6 +99,26 @@
             </objects>
             <point key="canvasLocation" x="1585" y="-357"/>
         </scene>
+        <!--Maps-->
+        <scene sceneID="Rpf-B4-LlJ">
+            <objects>
+                <viewController title="Maps" id="f6K-9H-ULo" customClass="MapsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Udh-lH-IFq"/>
+                        <viewControllerLayoutGuide type="bottom" id="bsv-w8-e94"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ljn-f5-zBq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Maps" image="second" id="ExJ-7G-PTb"/>
+                    <navigationItem key="navigationItem" id="ez4-dV-MOB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SSI-xb-WTq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1585" y="383"/>
+        </scene>
         <!--Session View Controller-->
         <scene sceneID="VF3-Dh-ytW">
             <objects>
@@ -184,14 +204,33 @@
                     </tabBar>
                     <connections>
                         <segue destination="1u1-vH-8X9" kind="relationship" relationship="viewControllers" id="ANm-pE-8R2"/>
+                        <segue destination="Yl9-Dc-0A2" kind="relationship" relationship="viewControllers" id="TH5-iN-1Rs"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
+        <!--Maps-->
+        <scene sceneID="35N-ZD-eol">
+            <objects>
+                <navigationController id="Yl9-Dc-0A2" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Maps" image="second" id="IAf-6C-gkZ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vNW-DR-L4M">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="f6K-9H-ULo" kind="relationship" relationship="rootViewController" id="9Ee-Yf-Lt2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eq9-TY-mx7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="882" y="383"/>
+        </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
+        <image name="second" width="30" height="30"/>
     </resources>
 </document>
