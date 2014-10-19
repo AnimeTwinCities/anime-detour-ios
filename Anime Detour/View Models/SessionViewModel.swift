@@ -93,6 +93,10 @@ class SessionViewModel {
                         onLoad(image: image, error: nil)
                     });
                 } else {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self?.imageTask = nil
+                        return
+                    })
                     onLoad(image: nil, error: error)
                 }
             })
