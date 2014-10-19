@@ -20,8 +20,9 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     source methods.
     */
     private var dataSource: SessionCollectionViewDataSource!
-    private let sessionDetailSegueIdentifier = "SessionDetailSegueIdentifier"
     private var selectedSession: Session?
+    
+    private let sessionDetailSegueIdentifier = "SessionDetailSegueIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,10 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
                 })
             }
         })
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.navigationController?.hidesBarsOnSwipe = true
     }
     
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
