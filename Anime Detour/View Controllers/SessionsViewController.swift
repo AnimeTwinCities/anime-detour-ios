@@ -83,28 +83,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         
         self.performSegueWithIdentifier(self.sessionDetailSegueIdentifier, sender: self)
     }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let frame = collectionView.frame
-        
-        let viewWidth = frame.width;
-        var cellWidth: CGFloat
-        let padding: CGFloat = 10
-        let minCellWidth: CGFloat = 300
-        var maxCellWidth = CGFloat(5.0 / 3) * minCellWidth
-        if (viewWidth > maxCellWidth) {
-            cellWidth = floor(viewWidth / floor(viewWidth / minCellWidth)) - padding
-        } else {
-            cellWidth = viewWidth
-        }
-        
-        let minimumHeight: CGFloat = 80
-        let calculatedHeight = self.dataSource.heightForWidth(cellWidth: cellWidth, indexPath: indexPath)
-        let height = max(minimumHeight, calculatedHeight)
-        
-        return CGSize(width: cellWidth, height: height)
-    }
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let detailVC = segue.destinationViewController as? SessionViewController {
             detailVC.session = self.selectedSession!
