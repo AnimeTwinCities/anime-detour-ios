@@ -34,7 +34,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewLayout key="collectionViewLayout" id="53g-tj-L5K" customClass="FilmstripFlowLayout" customModule="Anime_Detour" customModuleProvider="target"/>
+                        <gestureRecognizers/>
+                        <collectionViewLayout key="collectionViewLayout" id="53g-tj-L5K" customClass="FilmstripsFlowLayout" customModule="Anime_Detour" customModuleProvider="target"/>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SessionCell" id="vik-VN-DWb" customClass="SessionCollectionViewCell" customModule="Anime_Detour" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -87,15 +88,23 @@
                         <connections>
                             <outlet property="dataSource" destination="TFu-Xh-Dup" id="ykd-a1-cTc"/>
                             <outlet property="delegate" destination="TFu-Xh-Dup" id="Kg4-iI-fXc"/>
+                            <outletCollection property="gestureRecognizers" destination="cPP-nT-PlC" appends="YES" id="Fdd-Bq-9xJ"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="cPG-gu-p94"/>
                     <connections>
                         <outlet property="collectionView" destination="w2w-jg-QYf" id="SX0-9S-hYC"/>
+                        <outlet property="horizontalScrollRecognizer" destination="cPP-nT-PlC" id="IJK-EB-VJU"/>
                         <segue destination="DNg-fJ-Dxt" kind="show" identifier="SessionDetailSegueIdentifier" id="eGs-Bt-9cE"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YCW-lA-NGQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" maximumNumberOfTouches="1" id="cPP-nT-PlC">
+                    <connections>
+                        <action selector="pan:" destination="53g-tj-L5K" id="dOy-Fv-MnL"/>
+                        <outlet property="delegate" destination="TFu-Xh-Dup" id="k8J-u3-Cba"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1585" y="-357"/>
         </scene>

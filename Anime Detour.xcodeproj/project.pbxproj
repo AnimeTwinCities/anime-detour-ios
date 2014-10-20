@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C14EB1619F4547100A80F8A /* FilmstripFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C14EB1519F4547100A80F8A /* FilmstripFlowLayout.swift */; };
-		5C14EB1719F4547100A80F8A /* FilmstripFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C14EB1519F4547100A80F8A /* FilmstripFlowLayout.swift */; };
+		5C14EB1619F4547100A80F8A /* FilmstripsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C14EB1519F4547100A80F8A /* FilmstripsFlowLayout.swift */; };
+		5C14EB1719F4547100A80F8A /* FilmstripsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C14EB1519F4547100A80F8A /* FilmstripsFlowLayout.swift */; };
 		5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
 		5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
 		5C16772D19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */; };
@@ -62,7 +62,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5C14EB1519F4547100A80F8A /* FilmstripFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilmstripFlowLayout.swift; sourceTree = "<group>"; };
+		5C14EB1519F4547100A80F8A /* FilmstripsFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilmstripsFlowLayout.swift; sourceTree = "<group>"; };
 		5C16772819EB6B720097B1D3 /* SessionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C16772F19EB6C030097B1D3 /* SessionCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -111,7 +111,7 @@
 		5C14EB1319F453CC00A80F8A /* Collection View Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				5C14EB1519F4547100A80F8A /* FilmstripFlowLayout.swift */,
+				5C14EB1519F4547100A80F8A /* FilmstripsFlowLayout.swift */,
 			);
 			path = "Collection View Layouts";
 			sourceTree = "<group>";
@@ -381,7 +381,7 @@
 				5C54451919F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift in Sources */,
 				5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
-				5C14EB1619F4547100A80F8A /* FilmstripFlowLayout.swift in Sources */,
+				5C14EB1619F4547100A80F8A /* FilmstripsFlowLayout.swift in Sources */,
 				5C54451119F2D79B003CC1C3 /* SessionsViewController.swift in Sources */,
 				5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */,
 			);
@@ -391,7 +391,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C14EB1719F4547100A80F8A /* FilmstripFlowLayout.swift in Sources */,
+				5C14EB1719F4547100A80F8A /* FilmstripsFlowLayout.swift in Sources */,
 				5C65B38D19EA143A00545FDA /* Anime_DetourTests.swift in Sources */,
 				5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
 			);

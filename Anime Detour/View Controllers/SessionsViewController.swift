@@ -11,7 +11,7 @@ import UIKit
 
 import ConScheduleKit
 
-class SessionsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SessionsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     lazy var apiClient = ScheduleAPIClient.sharedInstance
     private var imagesURLSession = NSURLSession.sharedSession()
     
@@ -24,11 +24,14 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     
     private let sessionDetailSegueIdentifier = "SessionDetailSegueIdentifier"
     
+    // Gesture recognizers
+    @IBOutlet var horizontalScrollRecognizer: UIGestureRecognizer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Sessions"
         
-        if let layout = (self.collectionView?.collectionViewLayout as? FilmstripGroupsFlowLayout) {
+        if let layout = (self.collectionView.collectionViewLayout as? FilmstripsFlowLayout) {
             layout.itemSize = CGSize(width: 300, height: 120)
         }
         
@@ -51,7 +54,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self?.dataSource.sessions = sessions
-                    self?.collectionView?.reloadData()
+                    self?.collectionView.reloadData()
                 })
             }
         })
@@ -63,8 +66,10 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
-        self.collectionView?.collectionViewLayout.invalidateLayout()
+        self.collectionView.collectionViewLayout.invalidateLayout()
     }
+    
+    // MARK: Collection View Data Source
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return self.dataSource.numberOfSectionsInCollectionView(collectionView)
@@ -84,6 +89,34 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         self.performSegueWithIdentifier(self.sessionDetailSegueIdentifier, sender: self)
     }
 
+    // MARK: Gesture Recognizer Delegate
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if gestureRecognizer == self.horizontalScrollRecognizer {
+            let collectionView = self.collectionView
+            let location = touch.locationInView(collectionView)
+            let subview = collectionView.hitTest(location, withEvent: nil)
+            var inCell = false
+            var currentView = subview
+            while let superview = currentView?.superview {
+                if superview == collectionView {
+                    break
+                }
+                
+                if superview is UICollectionViewCell {
+                    inCell = true
+                    break
+                }
+            }
+            
+            return inCell
+        }
+        
+        return true
+    }
+    
+    // MARK: Navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let detailVC = segue.destinationViewController as? SessionViewController {
             detailVC.session = self.selectedSession!
