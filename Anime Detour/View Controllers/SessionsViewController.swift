@@ -95,6 +95,8 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         if gestureRecognizer == self.horizontalScrollRecognizer {
             let collectionView = self.collectionView
             let location = touch.locationInView(collectionView)
+
+            // Check if the touch is in a collection view cell. Return true if so.
             let subview = collectionView.hitTest(location, withEvent: nil)
             var inCell = false
             var currentView = subview
@@ -102,11 +104,12 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
                 if superview == collectionView {
                     break
                 }
-                
                 if superview is UICollectionViewCell {
                     inCell = true
                     break
                 }
+
+                currentView = superview
             }
             
             return inCell
