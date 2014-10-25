@@ -12,7 +12,7 @@ import UIKit
 
 import ConScheduleKit
 
-class SessionsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
+class SessionsViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy private var managedObjectContext: NSManagedObjectContext = {
         return ConModelsController.sharedInstance.managedObjectContext!

@@ -12,7 +12,7 @@ import UIKit
 Collection view layout that shows each section in a film strip, i.e. a horizontally scrolling list.
 Otherwise similar to a standard flow layout.
 */
-class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDelegate {
+class FilmstripsFlowLayout: UICollectionViewFlowLayout {
     /// Dictionary of section numbers to scroll offsets
     private var cumulativeOffsets: [Int : CGFloat] = [:]
     private var currentPanOffsets: [Int : CGFloat] = [:]
