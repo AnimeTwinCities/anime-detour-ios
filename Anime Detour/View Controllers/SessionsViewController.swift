@@ -21,9 +21,13 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     */
     private var dataSource: SessionCollectionViewDataSource!
     private var selectedSession: Session?
-    
+
     private let sessionDetailSegueIdentifier = "SessionDetailSegueIdentifier"
-    
+    private let sessionFilterSegueIdentifier = "SessionFilterSegueIdentifier"
+
+    /// Filter sections to only include those matching this name exactly (TODO)
+    var sectionFilterPredicate: String?
+
     // Gesture recognizers
     @IBOutlet var horizontalScrollRecognizer: UIGestureRecognizer?
     
@@ -92,7 +96,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     // MARK: Gesture Recognizer Delegate
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if gestureRecognizer == self.horizontalScrollRecognizer {
+        if gestureRecognizer == self.horizontalScrollRecognizer && self.collectionView.collectionViewLayout is FilmstripsFlowLayout {
             let collectionView = self.collectionView
             let location = touch.locationInView(collectionView)
 
@@ -123,6 +127,8 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let detailVC = segue.destinationViewController as? SessionViewController {
             detailVC.session = self.selectedSession!
+        } else if let detailVC = segue.destinationViewController as? SessionsViewController {
+            detailVC.useLayoutToLayoutNavigationTransitions = true
         }
     }
 }
