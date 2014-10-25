@@ -46,7 +46,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     var sectionFilterPredicate: String?
 
     // Gesture recognizers
-    @IBOutlet var horizontalScrollRecognizer: UIGestureRecognizer?
+    @IBOutlet var horizontalScrollRecognizer: UIPanGestureRecognizer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,6 +121,17 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
             return inCell
         }
         
+        return true
+    }
+
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == self.horizontalScrollRecognizer {
+            let recognizer = self.horizontalScrollRecognizer!
+            let velocity = recognizer.velocityInView(self.collectionView)
+            let horizontal = abs(velocity.x) > abs(velocity.y)
+            return horizontal
+        }
+
         return true
     }
     
