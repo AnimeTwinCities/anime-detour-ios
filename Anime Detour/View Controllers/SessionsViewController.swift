@@ -52,13 +52,16 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
         super.viewDidLoad()
         self.title = "Sessions"
 
-        if let layout = (self.collectionView.collectionViewLayout as? FilmstripsFlowLayout) {
+        let collectionView = self.collectionView
+        if let layout = (collectionView.collectionViewLayout as? FilmstripsFlowLayout) {
             layout.itemSize = CGSize(width: 300, height: 120)
+            layout.headerReferenceSize = CGSize(width: 300, height: 44)
         }
 
         let frc = self.sessionsFetchedResultsController
         self.dataSource = SessionCollectionViewDataSource(imagesURLSession: self.imagesURLSession, fetchedResultsController: frc)
-
+        self.dataSource.prepareCollectionView(collectionView)
+        
         var fetchError: NSError?
         let success = frc.performFetch(&fetchError)
         if let error = fetchError {
@@ -87,6 +90,10 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         return self.dataSource.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+    }
+
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        return self.dataSource.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

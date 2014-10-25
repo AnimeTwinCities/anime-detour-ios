@@ -14,7 +14,8 @@ import ConScheduleKit
 class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let imagesURLSession: NSURLSession?
     let fetchedResultsController: NSFetchedResultsController
-    internal var cellIdentifier = "SessionCell"
+    var cellIdentifier = "SessionCell"
+    var sectionHeaderIdentifier = "SessionSectionHeader"
     private var shortDateFormat = "MM/dd hh:mm a"
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
@@ -32,9 +33,20 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         self.fetchedResultsController = fetchedResultsController
         super.init()
     }
+
+    /// Prepare a collection view so the data source may supply it views.
+    func prepareCollectionView(collectionView: UICollectionView) {
+        collectionView.registerClass(SessionCollectionViewHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: self.sectionHeaderIdentifier)
+    }
     
     func session(indexPath: NSIndexPath) -> Session {
         return self.fetchedResultsController.objectAtIndexPath(indexPath) as Session
+    }
+
+    func headerText(forSection sectionNumber: Int) -> String {
+        let sectionInfo = self.fetchedResultsController.sections![sectionNumber] as NSFetchedResultsSectionInfo
+        let name = sectionInfo.name ?? "No header name"
+        return name
     }
     
     func heightForWidth(cellWidth width: CGFloat, indexPath: NSIndexPath) -> CGFloat {
@@ -88,5 +100,16 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         cell.viewModel = viewModel
         
         return cell
+    }
+
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionElementKindSectionHeader:
+            let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: self.sectionHeaderIdentifier, forIndexPath: indexPath) as SessionCollectionViewHeaderView
+            header.title = self.headerText(forSection: indexPath.section)
+            return header
+        default:
+            assertionFailure("Unexpected supplementary view kind: \(kind)")
+        }
     }
 }

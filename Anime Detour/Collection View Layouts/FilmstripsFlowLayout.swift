@@ -98,6 +98,11 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout {
         
         var attributes: [UICollectionViewLayoutAttributes] = []
         for (section, itemNumbers) in itemsPerSectionInRect {
+            // Assume section headers are present if the header reference size is set.
+            if self.headerReferenceSize != CGSizeZero {
+                attributes.append(self.layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader, atIndexPath: NSIndexPath(forItem: 0, inSection: section)))
+            }
+
             for itemNumber in itemNumbers {
                 attributes.append(self.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: itemNumber, inSection: section)))
             }
@@ -108,15 +113,28 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout {
     
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         let size = self.itemSize
+        let headerSize = self.headerReferenceSize
 
         let xOffsetForItemNumber: CGFloat = ceil(self.cellWidthWithSpacing * CGFloat(indexPath.item))
         let yOffsetForSectionNumber: CGFloat = ceil(self.sectionHeightWithSpacing * CGFloat(indexPath.section))
 
         let section = indexPath.section
-        let frame = CGRect(origin: CGPoint(x: xOffsetForItemNumber + self.totalOffset(forSection: section), y: yOffsetForSectionNumber), size: size)
+        let frame = CGRect(origin: CGPoint(x: xOffsetForItemNumber + self.totalOffset(forSection: section), y: headerSize.height + yOffsetForSectionNumber), size: size)
         let attributes = super.layoutAttributesForItemAtIndexPath(indexPath)
         attributes.frame = frame
         
+        return attributes
+    }
+
+    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
+        let size = self.headerReferenceSize
+        let yOffsetForSectionNumber: CGFloat = ceil(self.sectionHeightWithSpacing * CGFloat(indexPath.section))
+
+        let section = indexPath.section
+        let frame = CGRect(origin: CGPoint(x: 0, y: yOffsetForSectionNumber), size: size)
+        let attributes = super.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath)
+        attributes.frame = frame
+
         return attributes
     }
     
