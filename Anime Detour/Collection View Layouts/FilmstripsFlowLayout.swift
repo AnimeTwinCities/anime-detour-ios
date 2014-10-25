@@ -35,6 +35,18 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
             return sectionHeight
         }
     }
+
+    private var cellWidthWithPadding: CGFloat {
+        get {
+            let size = self.itemSize
+            let itemWidth = size.width
+            let layoutWidth = self.collectionView!.frame.width
+            let cellSpacing = self.minimumInteritemSpacing
+            let widthPlusPaddingPerCell = itemWidth + cellSpacing
+
+            return widthPlusPaddingPerCell
+        }
+    }
     
     // MARK: Collection View Layout
     
@@ -171,13 +183,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
     :param: forXCoordinate The X coordinate for which to get the item
     */
     private func itemNumber(forXCoordinate coordinate: CGFloat, inSection section: Int) -> Int {
-        let size = self.itemSize
-        let itemWidth = size.width
-        let layoutWidth = self.collectionView!.frame.width
-        let cellSpacing = self.minimumInteritemSpacing
-        let widthPlusPaddingPerCell = itemWidth + cellSpacing
-
-        let itemForCoordinate = Int(floor(coordinate / widthPlusPaddingPerCell))
+        let itemForCoordinate = Int(floor(coordinate / self.cellWidthWithPadding))
 
         return itemForCoordinate
     }
@@ -207,8 +213,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
 
     private func width(ofSection sectionNumber: Int) -> CGFloat {
         let itemsInSection = self.collectionView!.numberOfItemsInSection(sectionNumber)
-        let attributesForLastItemInSection = self.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: itemsInSection - 1, inSection: sectionNumber))
-        return attributesForLastItemInSection.frame.maxX
+        return CGFloat(itemsInSection) * self.cellWidthWithPadding
     }
 
     // MARK: Dynamics
@@ -226,12 +231,20 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
         }
 
         let collectionView = self.collectionView!
+        let viewWidth = collectionView.frame.width
         let widthOfSection = self.width(ofSection: sectionNumber)
-        if (offset < -widthOfSection) {
+        let rightSideSnapXCoord: CGFloat = {
+            if viewWidth > widthOfSection {
+                return 0
+            } else {
+                return -(widthOfSection - collectionView.frame.width)
+            }
+        }()
+        if (offset < rightSideSnapXCoord) {
             if let behavior = self.springsForLastItems[sectionNumber] {
                 // empty
             } else {
-                let springBehavior = UISnapBehavior(item: sectionDynamicItem, snapToPoint: CGPoint(x: collectionView.frame.width, y: sectionDynamicItem.center.y))!
+                let springBehavior = UISnapBehavior(item: sectionDynamicItem, snapToPoint: CGPoint(x: rightSideSnapXCoord, y: sectionDynamicItem.center.y))!
                 springBehavior.damping = 0.75
                 self.springsForLastItems[sectionNumber] = springBehavior
                 self.dynamicAnimator.addBehavior(springBehavior)
