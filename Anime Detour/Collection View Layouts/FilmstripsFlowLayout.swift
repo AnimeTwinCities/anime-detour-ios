@@ -25,7 +25,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
     /// Animator to animate horizontal cell scrolling
     lazy private var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator()
     
-    private var sectionHeight: CGFloat {
+    private var sectionHeightWithSpacing: CGFloat {
         get {
             let size = self.itemSize
             let lineSpacing = self.minimumLineSpacing
@@ -36,7 +36,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
         }
     }
 
-    private var cellWidthWithPadding: CGFloat {
+    private var cellWidthWithSpacing: CGFloat {
         get {
             let size = self.itemSize
             let itemWidth = size.width
@@ -52,32 +52,28 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         let positiveRect = rect.rectByIntersecting(self.positiveRect)
-        let size = self.itemSize
-        let lineSpacing = self.minimumLineSpacing
-        let cellSpacing = self.minimumInteritemSpacing
-        let headerSize = self.headerReferenceSize
-        
-        let sectionHeight = self.sectionHeight
+        let cellWidthWithSpacing = self.cellWidthWithSpacing
+
         let sectionsBeforeRect = self.section(forYCoordinate: positiveRect.minY)
         let lastPossibleSectionInRect = self.section(forYCoordinate: positiveRect.maxY)
         
         let totalSections = self.collectionView?.numberOfSections() ?? 0
         if totalSections == 0 {
-            return [AnyObject]()
+            return []
         }
         
         let firstSectionInRect = Int(min(sectionsBeforeRect, totalSections - 1))
         let lastSectionInRect = Int(min(totalSections, lastPossibleSectionInRect))
         let sectionsInRect = firstSectionInRect..<lastSectionInRect
         
-        let maxItemsPerSectionInRect = Int(ceil(positiveRect.width / (size.width + cellSpacing)))
+        let maxItemsPerSectionInRect = Int(ceil(positiveRect.width / cellWidthWithSpacing))
         
         let itemsPerSectionInRect: [Int : [Int]] = { () -> [Int : [Int]] in
             var itemSectionsAndNumbers = [Int : [Int]]()
             
             for section in sectionsInRect {
                 let scrollOffsetForSection = self.totalOffset(forSection: section)
-                let xOffsetForFirstItem: CGFloat = floor(positiveRect.minX / ceil(size.width + cellSpacing))
+                let xOffsetForFirstItem: CGFloat = floor(positiveRect.minX / ceil(cellWidthWithSpacing))
                 
                 let itemsInSection = self.collectionView?.numberOfItemsInSection(section) ?? 0
                 
@@ -86,7 +82,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
                 
                 var itemNumbers = [Int]()
                 for itemNumber in firstItemInRect..<itemsInSection {
-                    let xOffsetForItemNumber: CGFloat = ceil((size.width + cellSpacing) * CGFloat(itemNumber)) + xOffsetForFirstItem
+                    let xOffsetForItemNumber: CGFloat = ceil(cellWidthWithSpacing * CGFloat(itemNumber)) + xOffsetForFirstItem
                     if xOffsetForItemNumber <= positiveRect.maxX {
                         itemNumbers.append(itemNumber)
                     } else {
@@ -112,12 +108,9 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
     
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         let size = self.itemSize
-        let lineSpacing = self.minimumLineSpacing
-        let cellSpacing = self.minimumInteritemSpacing
-        let headerSize = self.headerReferenceSize
-        
-        let xOffsetForItemNumber: CGFloat = ceil((size.width + cellSpacing) * CGFloat(indexPath.item))
-        let yOffsetForSectionNumber: CGFloat = ceil((size.height + lineSpacing + headerSize.height) * CGFloat(indexPath.section))
+
+        let xOffsetForItemNumber: CGFloat = ceil(self.cellWidthWithSpacing * CGFloat(indexPath.item))
+        let yOffsetForSectionNumber: CGFloat = ceil(self.sectionHeightWithSpacing * CGFloat(indexPath.section))
 
         let section = indexPath.section
         let frame = CGRect(origin: CGPoint(x: xOffsetForItemNumber + self.totalOffset(forSection: section), y: yOffsetForSectionNumber), size: size)
@@ -141,15 +134,17 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
         if itemsInLastSection == 0 {
             return CGSizeZero
         }
-        
-        let attributesForLastSection = self.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: itemsInLastSection - 1, inSection: numberOfSections - 1))
-        let startsAtZero = CGRectUnion(attributesForLastSection.frame, CGRectZero)
-        
+
         var collectionViewFrame = self.collectionView?.frame ?? CGRectZero
-        collectionViewFrame.size = CGSize(width: collectionViewFrame.width, height: CGFloat.max)
-        let noWiderThanCollectionView = CGRectIntersection(startsAtZero, collectionViewFrame)
+        var cvHeight = collectionViewFrame.height
+        var cvWidth = collectionViewFrame.width
+        let contentHeight = max(CGFloat(numberOfSections) * self.sectionHeightWithSpacing, cvHeight)
+        let contentFrame = CGRect(origin: CGPointZero, size: CGSize(width: cvWidth, height: contentHeight))
+
+        let widthLimitingFrame = CGRect(origin: CGPointZero, size: CGSize(width: collectionViewFrame.width, height: CGFloat.max))
+        let widthLimitedContentFrame = CGRectIntersection(contentFrame, widthLimitingFrame)
         
-        return noWiderThanCollectionView.size
+        return widthLimitedContentFrame.size
     }
 
     // MARK: Offset Calculation
@@ -168,11 +163,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
     May be greater than the actual number of sections in the collection view.
     */
     private func section(forYCoordinate coordinate: CGFloat) -> Int {
-        let size = self.itemSize
-        let lineSpacing = self.minimumLineSpacing
-        let headerSize = self.headerReferenceSize
-        
-        let sectionHeight = self.sectionHeight
+        let sectionHeight = self.sectionHeightWithSpacing
         let sectionForCoordinate = Int(floor(coordinate / sectionHeight))
         
         return sectionForCoordinate
@@ -183,7 +174,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
     :param: forXCoordinate The X coordinate for which to get the item
     */
     private func itemNumber(forXCoordinate coordinate: CGFloat, inSection section: Int) -> Int {
-        let itemForCoordinate = Int(floor(coordinate / self.cellWidthWithPadding))
+        let itemForCoordinate = Int(floor(coordinate / self.cellWidthWithSpacing))
 
         return itemForCoordinate
     }
@@ -213,7 +204,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout, UIGestureRecognizerDeleg
 
     private func width(ofSection sectionNumber: Int) -> CGFloat {
         let itemsInSection = self.collectionView!.numberOfItemsInSection(sectionNumber)
-        return CGFloat(itemsInSection) * self.cellWidthWithPadding
+        return CGFloat(itemsInSection) * self.cellWidthWithSpacing
     }
 
     // MARK: Dynamics
