@@ -27,7 +27,7 @@ class SessionViewModel {
     
     var sessionDescription: String {
         get {
-            return session.description
+            return session.sessionDescription
         }
     }
     

@@ -6,12 +6,14 @@
 //  Copyright (c) 2014 Naga Softworks, LLC. All rights reserved.
 //
 
+import CoreData
 import UIKit
+
 import ConScheduleKit
 
 class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let imagesURLSession: NSURLSession?
-    internal var sessions: [Session] = []
+    let fetchedResultsController: NSFetchedResultsController
     internal var cellIdentifier = "SessionCell"
     private var shortDateFormat = "MM/dd hh:mm a"
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
@@ -25,13 +27,14 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         return formatter
     }()
     
-    init(imagesURLSession: NSURLSession?) {
+    init(imagesURLSession: NSURLSession?, fetchedResultsController: NSFetchedResultsController) {
         self.imagesURLSession = imagesURLSession
+        self.fetchedResultsController = fetchedResultsController
         super.init()
     }
     
     func session(indexPath: NSIndexPath) -> Session {
-        return self.sessions[indexPath.row]
+        return self.fetchedResultsController.objectAtIndexPath(indexPath) as Session
     }
     
     func heightForWidth(cellWidth width: CGFloat, indexPath: NSIndexPath) -> CGFloat {
@@ -67,11 +70,14 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+        return self.fetchedResultsController.sections?.count ?? 0
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sessions.count
+        let sections = self.fetchedResultsController.sections
+        let sectionInfo = sections![section] as NSFetchedResultsSectionInfo
+        let count = sectionInfo.numberOfObjects
+        return count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

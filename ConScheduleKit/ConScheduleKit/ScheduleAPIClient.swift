@@ -109,6 +109,8 @@ public class ScheduleAPIClient {
 }
 
 public extension Session {
+    /// Update the session's stored properties with information from an API response.
+    /// Does not save the object afterward.
     public func update(jsonObject json: [String : String], jsonDateFormatter dateFormatter: NSDateFormatter) {
         if let key: String = json["event_key"] {
             self.key = key
@@ -139,7 +141,7 @@ public extension Session {
         }
         
         if let description: String = json["description"] {
-            self.description = description
+            self.sessionDescription = description
         }
         
         if let mediaURL: String = json["media_url"] {
@@ -147,13 +149,13 @@ public extension Session {
         }
         
         if let seatsString = json["seats"] {
-            if let seats = seatsString.toInt().map({ UInt($0) }) {
+            if let seats = seatsString.toInt().map({ UInt32($0) }) {
                 self.seats = seats
             }
         }
         
         if let goersString = json["goers"] {
-            if let goers = goersString.toInt().map({ UInt($0) }) {
+            if let goers = goersString.toInt().map({ UInt32($0) }) {
                 self.goers = goers
             }
         }

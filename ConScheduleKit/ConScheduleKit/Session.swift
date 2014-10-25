@@ -8,24 +8,39 @@
 
 import Foundation
 
-public class Session {
-    public var key: String = ""
-    public var active: Bool = false
-    public var name: String = ""
-    public var start: NSDate = NSDate(timeIntervalSince1970: 0)
-    public var end: NSDate = NSDate(timeIntervalSince1970: 1)
-    public var type: String = ""
-    public var description: String = ""
-    public var mediaURL: String = ""
-    public var seats: UInt = 0
-    public var goers: UInt = 0
-    public var inviteOnly: Bool = false
-    public var venue: String = ""
-    public var address: String = ""
-    public var sessionID: String = ""
-    public var venueID: String = ""
-    
-    public init() {
-        
+import CoreData
+
+public class Session: NSManagedObject {
+    @NSManaged public var key: String
+    @NSManaged public var active: Bool
+    @NSManaged public var name: String
+    @NSManaged public var start: NSDate
+    @NSManaged public var end: NSDate
+    @NSManaged public var type: String
+    @NSManaged public var sessionDescription: String
+    @NSManaged public var mediaURL: String
+    @NSManaged public var seats: UInt32
+    @NSManaged public var goers: UInt32
+    @NSManaged public var inviteOnly: Bool
+    @NSManaged public var venue: String
+    @NSManaged public var address: String
+    @NSManaged public var sessionID: String
+    @NSManaged public var venueID: String
+
+    override public var description: String {
+        return "Session: \(name) - \(sessionDescription)"
+    }
+
+    public override func awakeFromInsert() {
+        // set empty default strings for String properties
+        self.key = ""
+        self.name = ""
+        self.type = ""
+        self.sessionDescription = ""
+        self.mediaURL = ""
+        self.venue = ""
+        self.address = ""
+        self.sessionID = ""
+        self.venueID = ""
     }
 }

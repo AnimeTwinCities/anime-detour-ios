@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C0EF2A619FB26F200FA8EEC /* ConScheduleData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2A419FB26F200FA8EEC /* ConScheduleData.xcdatamodeld */; };
+		5C0EF2A919FB296100FA8EEC /* ConModelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2A819FB296100FA8EEC /* ConModelsController.swift */; };
+		5C0EF2AA19FB296100FA8EEC /* ConModelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2A819FB296100FA8EEC /* ConModelsController.swift */; };
+		5C0EF2DD19FB2E4400FA8EEC /* ConModelsController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* ConModelsController_Singleton.swift */; };
+		5C0EF2DE19FB2E4400FA8EEC /* ConModelsController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* ConModelsController_Singleton.swift */; };
 		5C14EB1619F4547100A80F8A /* FilmstripsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C14EB1519F4547100A80F8A /* FilmstripsFlowLayout.swift */; };
 		5C14EB1719F4547100A80F8A /* FilmstripsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C14EB1519F4547100A80F8A /* FilmstripsFlowLayout.swift */; };
 		5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
@@ -62,6 +67,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C0EF2A519FB26F200FA8EEC /* ConScheduleData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ConScheduleData.xcdatamodel; sourceTree = "<group>"; };
+		5C0EF2A819FB296100FA8EEC /* ConModelsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConModelsController.swift; sourceTree = "<group>"; };
+		5C0EF2DC19FB2E4400FA8EEC /* ConModelsController_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConModelsController_Singleton.swift; sourceTree = "<group>"; };
 		5C14EB1519F4547100A80F8A /* FilmstripsFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilmstripsFlowLayout.swift; sourceTree = "<group>"; };
 		5C16772819EB6B720097B1D3 /* SessionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -108,6 +116,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C0EF2A719FB291900FA8EEC /* Model Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5C0EF2A819FB296100FA8EEC /* ConModelsController.swift */,
+				5C0EF2DC19FB2E4400FA8EEC /* ConModelsController_Singleton.swift */,
+			);
+			path = "Model Controllers";
+			sourceTree = "<group>";
+		};
 		5C14EB1319F453CC00A80F8A /* Collection View Layouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +211,7 @@
 				5C54451719F316EF003CC1C3 /* API Client */,
 				5C14EB1319F453CC00A80F8A /* Collection View Layouts */,
 				5C16772E19EB6BE10097B1D3 /* Data Sources */,
+				5C0EF2A719FB291900FA8EEC /* Model Controllers */,
 				5C4B436B19F0A160009342C8 /* View Controllers */,
 				5C16772619EB6B520097B1D3 /* View Models */,
 				5C16772B19EB6B8E0097B1D3 /* Views */,
@@ -204,6 +222,7 @@
 				5C65B37D19EA143A00545FDA /* Images.xcassets */,
 				5C65B37F19EA143A00545FDA /* LaunchScreen.xib */,
 				5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */,
+				5C0EF2A419FB26F200FA8EEC /* ConScheduleData.xcdatamodeld */,
 				5C65B37219EA143A00545FDA /* Supporting Files */,
 			);
 			path = "Anime Detour";
@@ -379,8 +398,11 @@
 				5C54451E19F41D8A003CC1C3 /* MapsViewController.swift in Sources */,
 				5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */,
 				5C54451919F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift in Sources */,
+				5C0EF2DD19FB2E4400FA8EEC /* ConModelsController_Singleton.swift in Sources */,
 				5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */,
+				5C0EF2A919FB296100FA8EEC /* ConModelsController.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
+				5C0EF2A619FB26F200FA8EEC /* ConScheduleData.xcdatamodeld in Sources */,
 				5C14EB1619F4547100A80F8A /* FilmstripsFlowLayout.swift in Sources */,
 				5C54451119F2D79B003CC1C3 /* SessionsViewController.swift in Sources */,
 				5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */,
@@ -391,9 +413,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C0EF2AA19FB296100FA8EEC /* ConModelsController.swift in Sources */,
 				5C14EB1719F4547100A80F8A /* FilmstripsFlowLayout.swift in Sources */,
 				5C65B38D19EA143A00545FDA /* Anime_DetourTests.swift in Sources */,
 				5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
+				5C0EF2DE19FB2E4400FA8EEC /* ConModelsController_Singleton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +628,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5C0EF2A419FB26F200FA8EEC /* ConScheduleData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5C0EF2A519FB26F200FA8EEC /* ConScheduleData.xcdatamodel */,
+			);
+			currentVersion = 5C0EF2A519FB26F200FA8EEC /* ConScheduleData.xcdatamodel */;
+			path = ConScheduleData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5C65B36719EA143A00545FDA /* Project object */;
 }
