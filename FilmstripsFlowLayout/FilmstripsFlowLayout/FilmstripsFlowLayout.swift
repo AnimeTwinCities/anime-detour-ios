@@ -12,7 +12,7 @@ import UIKit
 Collection view layout that shows each section in a film strip, i.e. a horizontally scrolling list.
 Otherwise similar to a standard flow layout.
 */
-class FilmstripsFlowLayout: UICollectionViewFlowLayout {
+public class FilmstripsFlowLayout: UICollectionViewFlowLayout {
     /// Dictionary of section numbers to scroll offsets
     private var cumulativeOffsets: [Int : CGFloat] = [:]
     private var currentPanOffsets: [Int : CGFloat] = [:]
@@ -50,7 +50,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout {
     
     // MARK: Collection View Layout
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
+    override public func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         let positiveRect = rect.rectByIntersecting(self.positiveRect)
         let cellWidthWithSpacing = self.cellWidthWithSpacing
 
@@ -111,7 +111,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
     
-    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
+    override public func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         let attributes = super.layoutAttributesForItemAtIndexPath(indexPath)
         attributes.frame = { () -> CGRect in
             let size = self.itemSize
@@ -128,7 +128,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 
-    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
+    override public func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         let attributes = super.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath)
         attributes.frame = { () -> CGRect in
             let size = self.headerReferenceSize
@@ -142,7 +142,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
     
-    override func collectionViewContentSize() -> CGSize {
+    override public func collectionViewContentSize() -> CGSize {
         // Find the size needed of the rect that starts at 0,0 and ends at the bottom right
         // coordinates of the last collection view item. If the size is wider than the collection view's
         // frame, trim it down, then return it.
@@ -340,7 +340,7 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout {
 }
 
 extension FilmstripsFlowLayout: SectionDynamicItemDelegate {
-    private func itemDidMove(sectionDynamicItem: SectionDynamicItem) {
+    internal func itemDidMove(sectionDynamicItem: SectionDynamicItem) {
         let newCenter = sectionDynamicItem.center
         let sectionNumber = sectionDynamicItem.sectionNumber
         let cumulativeOffset = (self.currentPanOffsets[sectionNumber] ?? 0) + newCenter.x
@@ -356,29 +356,3 @@ extension FilmstripsFlowLayout: SectionDynamicItemDelegate {
     }
 }
 
-private protocol SectionDynamicItemDelegate: NSObjectProtocol {
-    func itemDidMove(sectionDynamicItem: SectionDynamicItem)
-}
-
-/**
-Placeholder dynamic item whose sole purpose is to keep track of the scroll offset for a given section.
-*/
-private class SectionDynamicItem: NSObject, UIDynamicItem {
-    /// The location and size of the item. 1000x1000 is the size to get 1 pt/s^2 acceleration for
-    /// a magnitude 1 push behavior.
-    var bounds: CGRect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 1000, height: 1000))
-    var center: CGPoint = CGPointZero {
-        didSet {
-            self.delegate?.itemDidMove(self)
-        }
-    }
-    var transform: CGAffineTransform = CGAffineTransformIdentity
-    
-    let sectionNumber: Int
-    weak var delegate: SectionDynamicItemDelegate?
-    
-    init(sectionNumber: Int) {
-        self.sectionNumber = sectionNumber
-        super.init()
-    }
-}

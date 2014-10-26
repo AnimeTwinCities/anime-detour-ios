@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 
 import ConScheduleKit
+import FilmstripsFlowLayout
 
 class SessionsViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     private var imagesURLSession = NSURLSession.sharedSession()
