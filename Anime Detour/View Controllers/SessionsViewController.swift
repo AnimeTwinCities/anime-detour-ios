@@ -19,32 +19,51 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
         return ConModelsController.sharedInstance.managedObjectContext!
     }()
     lazy private var sessionsFetchedResultsController: NSFetchedResultsController = {
-        let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
-        let sessionsFetchRequest = NSFetchRequest(entityName: "Session")
-        sessionsFetchRequest.sortDescriptors = sortDescriptors
-
+        let sessionsFetchRequest = self.sessionsFetchRequest
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
         fetchedResultsController.delegate = self.fetchedResultsControllerDelegate
         return fetchedResultsController
     }()
+    lazy private var allSessionsPredicate: NSPredicate = NSPredicate(value: true)
     lazy private var fetchedResultsControllerDelegate: CollectionViewFetchedResultsControllerDelegate = {
         let delegate = CollectionViewFetchedResultsControllerDelegate()
         delegate.collectionView = self.collectionView
         return delegate
     }()
 
+    private var sessionsFetchRequest: NSFetchRequest {
+        get {
+            let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
+            let sessionsFetchRequest = NSFetchRequest(entityName: "Session")
+            sessionsFetchRequest.sortDescriptors = sortDescriptors
+            return sessionsFetchRequest
+        }
+    }
+    private var singleSectionSessionsPredicate: NSPredicate {
+        get {
+            return NSPredicate(format: "start == %@", argumentArray: [self.selectedSectionDate!])
+        }
+    }
+
+    private var isSingleSection: Bool {
+        get {
+            return self.useLayoutToLayoutNavigationTransitions
+        }
+    }
+
     /**
     Collection view data source that we call through to from our data
     source methods.
     */
     private var dataSource: SessionCollectionViewDataSource!
+
+    // Selections
+    private var selectedIndexPath: NSIndexPath?
     private var selectedSession: Session?
+    private var selectedSectionDate: NSDate?
 
     private let sessionDetailSegueIdentifier = "SessionDetailSegueIdentifier"
     private let sessionFilterSegueIdentifier = "SessionFilterSegueIdentifier"
-
-    /// Filter sections to only include those matching this name exactly (TODO)
-    var sectionFilterPredicate: String?
 
     // Gesture recognizers
     @IBOutlet var horizontalScrollRecognizer: UIPanGestureRecognizer?
@@ -53,13 +72,21 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
         super.viewDidLoad()
         self.title = "Sessions"
 
+        // If we are going to display only a single section, we do not need additional setup.
+        // The class displaying us is assumed to have taken care of any setup required.
+        if self.isSingleSection {
+            return
+        }
+
+        self.navigationController?.delegate = self
+
         let collectionView = self.collectionView
         if let layout = (collectionView.collectionViewLayout as? FilmstripsFlowLayout) {
             layout.itemSize = CGSize(width: 300, height: 120)
             layout.headerReferenceSize = CGSize(width: 300, height: 44)
         }
 
-        let frc = self.sessionsFetchedResultsController
+        var frc: NSFetchedResultsController = self.sessionsFetchedResultsController(self.sessionsFetchRequest)
         self.dataSource = SessionCollectionViewDataSource(imagesURLSession: self.imagesURLSession, fetchedResultsController: frc)
         self.dataSource.prepareCollectionView(collectionView)
         
@@ -69,14 +96,18 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
             NSLog("Error fetching sessions: \(error)")
         }
     }
-    
-    override func viewDidAppear(animated: Bool) {
-        self.navigationController?.hidesBarsOnSwipe = true
-    }
-    
+
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
         self.collectionView.collectionViewLayout.invalidateLayout()
+    }
+
+    // MARK: Data Fetching
+
+    func sessionsFetchedResultsController(fetchRequest: NSFetchRequest) -> NSFetchedResultsController {
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
+        fetchedResultsController.delegate = self.fetchedResultsControllerDelegate
+        return fetchedResultsController
     }
     
     // MARK: Collection View Data Source
@@ -96,11 +127,29 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         return self.dataSource.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
     }
-    
+
+    // MARK: Collection View Delegate
+
+    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Ignore selections if we're displaying only a single section.
+        return !self.isSingleSection
+    }
+
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.selectedSession = self.dataSource.session(indexPath)
-        
-        self.performSegueWithIdentifier(self.sessionDetailSegueIdentifier, sender: self)
+        self.selectedIndexPath = indexPath
+        let selectedSession = self.dataSource.session(indexPath)
+        self.selectedSectionDate = selectedSession.start
+
+        let singleSectionLayout = UICollectionViewFlowLayout()
+        if let currentLayout = self.collectionView.collectionViewLayout as? FilmstripsFlowLayout {
+            singleSectionLayout.itemSize = currentLayout.itemSize
+            singleSectionLayout.headerReferenceSize = currentLayout.headerReferenceSize
+            singleSectionLayout.minimumInteritemSpacing = currentLayout.minimumInteritemSpacing
+            singleSectionLayout.minimumLineSpacing = currentLayout.minimumLineSpacing
+        }
+        let sectionVC = SessionsViewController(collectionViewLayout: singleSectionLayout)
+        sectionVC.useLayoutToLayoutNavigationTransitions = true
+        self.navigationController?.showViewController(sectionVC, sender: self)
     }
 
     // MARK: Gesture Recognizer Delegate
@@ -148,8 +197,91 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let detailVC = segue.destinationViewController as? SessionViewController {
             detailVC.session = self.selectedSession!
-        } else if let detailVC = segue.destinationViewController as? SessionsViewController {
-            detailVC.useLayoutToLayoutNavigationTransitions = true
+        }
+    }
+}
+
+extension SessionsViewController: UINavigationControllerDelegate {
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        // TODO: The transition triggering `willShowViewController` may be cancelled.
+        // This leads to bad state when transitioning from a single section view to the
+        // full session list. Guard logic in the single section VC's `viewWillAppear`
+        // may be useful to solve this issue.
+
+        if self.selectedIndexPath == nil {
+            return
+        }
+
+        let collectionView = self.collectionView
+        let section = self.selectedIndexPath!.section
+
+        // NOTE: Relies on `viewController` automatically becoming the delegate of the collection view
+        // if this is a `useLayoutToLayoutNavigationTransitions` push or pop transition.
+        if viewController != self {
+            let lastSection = collectionView.numberOfSections() - 1
+
+            if let pushed = viewController as? SessionsViewController {
+                collectionView.performBatchUpdates({ () -> Void in
+                    let predicate = self.singleSectionSessionsPredicate
+                    let fetchRequest = self.sessionsFetchRequest
+                    fetchRequest.predicate = predicate
+
+                    var frc: NSFetchedResultsController = self.sessionsFetchedResultsController(fetchRequest)
+                    self.dataSource = SessionCollectionViewDataSource(imagesURLSession: self.imagesURLSession, fetchedResultsController: frc)
+
+                    var fetchError: NSError?
+                    let success = frc.performFetch(&fetchError)
+                    if let error = fetchError {
+                        NSLog("Error fetching sessions: \(error)")
+                    }
+
+                    let indexSet = NSMutableIndexSet()
+                    if section > 0 {
+                        let firstRange = NSMakeRange(0, section)
+                        indexSet.addIndexesInRange(firstRange)
+                    }
+
+                    if section < lastSection {
+                        let lastRange = NSMakeRange(section + 1, lastSection - section)
+                        indexSet.addIndexesInRange(lastRange)
+                    }
+
+                    collectionView.deleteSections(indexSet)
+                    }, completion: nil)
+
+                assert(collectionView.numberOfSections() == 1, "Collection view should have only one section after push")
+            }
+        } else {
+            assert(collectionView.numberOfSections() == 1, "Collection view should have only one section before push")
+
+            collectionView.performBatchUpdates({ () -> Void in
+                let predicate = self.allSessionsPredicate
+                let fetchRequest = self.sessionsFetchRequest
+                fetchRequest.predicate = predicate
+
+                var frc: NSFetchedResultsController = self.sessionsFetchedResultsController(fetchRequest)
+                self.dataSource = SessionCollectionViewDataSource(imagesURLSession: self.imagesURLSession, fetchedResultsController: frc)
+
+                var fetchError: NSError?
+                let success = frc.performFetch(&fetchError)
+                if let error = fetchError {
+                    NSLog("Error fetching sessions: \(error)")
+                }
+
+                let lastSection = frc.sections!.count - 1
+
+                let indexSet = NSMutableIndexSet()
+                if section > 0 {
+                    let firstRange = NSMakeRange(0, section)
+                    indexSet.addIndexesInRange(firstRange)
+                }
+
+                if section < lastSection {
+                    let lastRange = NSMakeRange(section + 1, lastSection - section)
+                    indexSet.addIndexesInRange(lastRange)
+                }
+                collectionView.insertSections(indexSet)
+                }, completion: nil)
         }
     }
 }

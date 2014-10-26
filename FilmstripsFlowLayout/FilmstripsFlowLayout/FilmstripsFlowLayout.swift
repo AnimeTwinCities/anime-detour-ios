@@ -12,7 +12,12 @@ import UIKit
 Collection view layout that shows each section in a film strip, i.e. a horizontally scrolling list.
 Otherwise similar to a standard flow layout.
 */
-public class FilmstripsFlowLayout: UICollectionViewFlowLayout {
+public class FilmstripsFlowLayout: UICollectionViewLayout {
+    public var itemSize: CGSize = CGSizeZero
+    public var minimumLineSpacing: CGFloat = 0
+    public var minimumInteritemSpacing: CGFloat = 0
+    public var headerReferenceSize: CGSize = CGSizeZero
+
     /// Dictionary of section numbers to scroll offsets
     private var cumulativeOffsets: [Int : CGFloat] = [:]
     private var currentPanOffsets: [Int : CGFloat] = [:]
@@ -112,7 +117,7 @@ public class FilmstripsFlowLayout: UICollectionViewFlowLayout {
     }
     
     override public func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
-        let attributes = super.layoutAttributesForItemAtIndexPath(indexPath)
+        let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
         attributes.frame = { () -> CGRect in
             let size = self.itemSize
             let headerSize = self.headerReferenceSize
@@ -129,7 +134,7 @@ public class FilmstripsFlowLayout: UICollectionViewFlowLayout {
     }
 
     override public func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
-        let attributes = super.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath)
+        let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, withIndexPath: indexPath)
         attributes.frame = { () -> CGRect in
             let size = self.headerReferenceSize
             let yOffsetForSectionNumber: CGFloat = ceil(self.sectionHeightWithSpacing * CGFloat(indexPath.section))
@@ -169,6 +174,10 @@ public class FilmstripsFlowLayout: UICollectionViewFlowLayout {
         return widthLimitedContentFrame.size
     }
 
+    public override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+        return true
+    }
+    
     // MARK: Offset Calculation
 
     private func totalOffset(forSection section: Int) -> CGFloat {
@@ -291,7 +300,7 @@ public class FilmstripsFlowLayout: UICollectionViewFlowLayout {
         self.currentPanOffsets[sectionOfPan] = currentPanOffset
 
         let indexPaths = self.indexPathsCurrentlyDisplayed(inSection: sectionOfPan)
-        let context = UICollectionViewFlowLayoutInvalidationContext()
+        let context = UICollectionViewLayoutInvalidationContext()
         context.invalidateItemsAtIndexPaths(indexPaths)
         self.invalidateLayoutWithContext(context)
 

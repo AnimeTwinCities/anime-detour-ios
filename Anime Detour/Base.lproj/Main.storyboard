@@ -96,7 +96,6 @@
                         <outlet property="collectionView" destination="w2w-jg-QYf" id="SX0-9S-hYC"/>
                         <outlet property="horizontalScrollRecognizer" destination="cPP-nT-PlC" id="IJK-EB-VJU"/>
                         <segue destination="DNg-fJ-Dxt" kind="show" identifier="SessionDetailSegueIdentifier" id="eGs-Bt-9cE"/>
-                        <segue destination="7Ta-iF-kDa" kind="show" identifier="SessionFilterSegueIdentifier" id="gUp-rk-4gp"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YCW-lA-NGQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -298,97 +297,9 @@
             </objects>
             <point key="canvasLocation" x="882" y="1109"/>
         </scene>
-        <!--Sessions Filtered View Controller-->
-        <scene sceneID="cVH-43-syM">
-            <objects>
-                <collectionViewController id="7Ta-iF-kDa" userLabel="Sessions Filtered View Controller" customClass="SessionsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="it7-jy-qGD">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <gestureRecognizers/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qW6-y4-IRg">
-                            <size key="itemSize" width="300" height="120"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SessionCell" id="Cjg-ce-SxU" customClass="SessionCollectionViewCell" customModule="Anime_Detour" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kE9-il-tbo">
-                                            <rect key="frame" x="8" y="8" width="284" height="20"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZx-kq-YhG">
-                                            <rect key="frame" x="8" y="36" width="284" height="20"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday 12:30pm-1:45pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLA-to-ipL" userLabel="Time">
-                                            <rect key="frame" x="8" y="95" width="284" height="17"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="WLA-to-ipL" firstAttribute="trailing" secondItem="Cjg-ce-SxU" secondAttribute="trailingMargin" id="1rQ-eG-Y0a"/>
-                                    <constraint firstItem="kE9-il-tbo" firstAttribute="leading" secondItem="Cjg-ce-SxU" secondAttribute="leadingMargin" id="OeG-xf-J7f"/>
-                                    <constraint firstItem="WLA-to-ipL" firstAttribute="bottom" secondItem="Cjg-ce-SxU" secondAttribute="bottomMargin" id="VSn-JP-EVn"/>
-                                    <constraint firstItem="kE9-il-tbo" firstAttribute="trailing" secondItem="Cjg-ce-SxU" secondAttribute="trailingMargin" id="Ztl-tu-FJK"/>
-                                    <constraint firstItem="WLA-to-ipL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="OZx-kq-YhG" secondAttribute="bottom" constant="8" id="cyR-nT-gPu"/>
-                                    <constraint firstItem="OZx-kq-YhG" firstAttribute="trailing" secondItem="Cjg-ce-SxU" secondAttribute="trailingMargin" id="fyL-Bf-UZe"/>
-                                    <constraint firstItem="OZx-kq-YhG" firstAttribute="top" secondItem="kE9-il-tbo" secondAttribute="bottom" constant="8" id="h0T-m9-lfS"/>
-                                    <constraint firstItem="WLA-to-ipL" firstAttribute="leading" secondItem="Cjg-ce-SxU" secondAttribute="leadingMargin" id="rUu-MP-lLd"/>
-                                    <constraint firstItem="OZx-kq-YhG" firstAttribute="leading" secondItem="Cjg-ce-SxU" secondAttribute="leadingMargin" id="s0t-Pf-lvy"/>
-                                    <constraint firstItem="kE9-il-tbo" firstAttribute="top" secondItem="Cjg-ce-SxU" secondAttribute="topMargin" id="wiD-J7-lE4"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="descriptionLabel" destination="OZx-kq-YhG" id="luE-OJ-SCX"/>
-                                    <outlet property="nameLabel" destination="kE9-il-tbo" id="2aL-up-EH1"/>
-                                    <outlet property="timeLabel" destination="WLA-to-ipL" id="Ct8-sH-rmn"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="7Ta-iF-kDa" id="9TW-4p-BJl"/>
-                            <outlet property="delegate" destination="7Ta-iF-kDa" id="NCs-Em-pqq"/>
-                            <outletCollection property="gestureRecognizers" destination="58R-HF-bZF" appends="YES" id="69Y-tu-yxF"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="fNm-i7-8ud"/>
-                    <connections>
-                        <outlet property="collectionView" destination="it7-jy-qGD" id="Bx8-C4-3rs"/>
-                        <outlet property="horizontalScrollRecognizer" destination="cPP-nT-PlC" id="Q7b-3y-dna"/>
-                        <segue destination="DNg-fJ-Dxt" kind="show" identifier="SessionDetailSegueIdentifier" id="WkH-c5-JHD"/>
-                    </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PIN-hU-K0R" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" maximumNumberOfTouches="1" id="58R-HF-bZF">
-                    <connections>
-                        <outlet property="delegate" destination="7Ta-iF-kDa" id="Re0-yx-yub"/>
-                    </connections>
-                </panGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="2266" y="-1031"/>
-        </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="eGs-Bt-9cE"/>
-    </inferredMetricsTieBreakers>
 </document>
