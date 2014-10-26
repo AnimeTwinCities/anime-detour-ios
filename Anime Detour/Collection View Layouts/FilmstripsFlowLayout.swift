@@ -112,28 +112,32 @@ class FilmstripsFlowLayout: UICollectionViewFlowLayout {
     }
     
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
-        let size = self.itemSize
-        let headerSize = self.headerReferenceSize
-
-        let xOffsetForItemNumber: CGFloat = ceil(self.cellWidthWithSpacing * CGFloat(indexPath.item))
-        let yOffsetForSectionNumber: CGFloat = ceil(self.sectionHeightWithSpacing * CGFloat(indexPath.section))
-
-        let section = indexPath.section
-        let frame = CGRect(origin: CGPoint(x: xOffsetForItemNumber + self.totalOffset(forSection: section), y: headerSize.height + yOffsetForSectionNumber), size: size)
         let attributes = super.layoutAttributesForItemAtIndexPath(indexPath)
-        attributes.frame = frame
+        attributes.frame = { () -> CGRect in
+            let size = self.itemSize
+            let headerSize = self.headerReferenceSize
+
+            let xOffsetForItemNumber: CGFloat = ceil(self.cellWidthWithSpacing * CGFloat(indexPath.item))
+            let yOffsetForSectionNumber: CGFloat = ceil(self.sectionHeightWithSpacing * CGFloat(indexPath.section))
+
+            let section = indexPath.section
+            let frame = CGRect(origin: CGPoint(x: xOffsetForItemNumber + self.totalOffset(forSection: section), y: headerSize.height + yOffsetForSectionNumber), size: size)
+            return frame
+        }()
         
         return attributes
     }
 
     override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
-        let size = self.headerReferenceSize
-        let yOffsetForSectionNumber: CGFloat = ceil(self.sectionHeightWithSpacing * CGFloat(indexPath.section))
-
-        let section = indexPath.section
-        let frame = CGRect(origin: CGPoint(x: 0, y: yOffsetForSectionNumber), size: size)
         let attributes = super.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath)
-        attributes.frame = frame
+        attributes.frame = { () -> CGRect in
+            let size = self.headerReferenceSize
+            let yOffsetForSectionNumber: CGFloat = ceil(self.sectionHeightWithSpacing * CGFloat(indexPath.section))
+
+            let section = indexPath.section
+            let frame = CGRect(origin: CGPoint(x: 0, y: yOffsetForSectionNumber), size: size)
+            return frame
+        }()
 
         return attributes
     }
