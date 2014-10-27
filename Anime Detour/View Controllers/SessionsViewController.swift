@@ -62,9 +62,6 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
     private var selectedSession: Session?
     private var selectedSectionDate: NSDate?
 
-    private let sessionDetailSegueIdentifier = "SessionDetailSegueIdentifier"
-    private let sessionFilterSegueIdentifier = "SessionFilterSegueIdentifier"
-
     // Gesture recognizers
     @IBOutlet var horizontalScrollRecognizer: UIPanGestureRecognizer?
     
