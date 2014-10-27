@@ -10,12 +10,27 @@ import UIKit
 
 /**
 Collection view layout that shows each section in a film strip, i.e. a horizontally scrolling list.
-Otherwise similar to a standard flow layout.
+Supports vertical scrolling only. Otherwise similar to a UICollectionViewFlowLayout flow layout.
 */
 public class FilmstripsFlowLayout: UICollectionViewLayout {
+    /// Reusable view type for section headers. Only provided as a convenience;
+    /// matches `UICollectionElementKindSectionHeader`.
+    public class var FilmstripsCollectionElementKindSectionHeader: String {
+        get {
+            return UICollectionElementKindSectionHeader
+        }
+    }
+
+    /// Emulates `UICollectionViewFlowLayout`'s `itemSize` unless set to CGSizeZero.
     public var itemSize: CGSize = CGSizeZero
+
+    /// Emulates `UICollectionViewFlowLayout`'s `minimumLineSpacing`.
     public var minimumLineSpacing: CGFloat = 0
+
+    /// Emulates `UICollectionViewFlowLayout`'s `minimumInteritemSpacing`.
     public var minimumInteritemSpacing: CGFloat = 0
+
+    /// Emulates `UICollectionViewFlowLayout`'s `headerReferenceSize` unless set to CGSizeZero.
     public var headerReferenceSize: CGSize = CGSizeZero
 
     /// Dictionary of section numbers to scroll offsets
@@ -25,11 +40,15 @@ public class FilmstripsFlowLayout: UICollectionViewLayout {
     private var sectionDynamicBehaviors: [Int : [UIDynamicBehavior]] = [:]
     private var springsForFirstItems: [Int : UISnapBehavior] = [:]
     private var springsForLastItems: [Int : UISnapBehavior] = [:]
+
+    /// Available as a convenience for when `CGRect` calculations require
+    /// limiting to positive X and Y coordinates.
     lazy private var positiveRect = CGRect(x: 0, y: 0, width: Int.max, height: Int.max)
     
     /// Animator to animate horizontal cell scrolling
     lazy private var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator()
-    
+
+    /// The total height of a single section, including line spacing.
     private var sectionHeightWithSpacing: CGFloat {
         get {
             let size = self.itemSize
@@ -41,6 +60,7 @@ public class FilmstripsFlowLayout: UICollectionViewLayout {
         }
     }
 
+    /// The total width of a single cell, including cell spacing.
     private var cellWidthWithSpacing: CGFloat {
         get {
             let size = self.itemSize
@@ -180,6 +200,10 @@ public class FilmstripsFlowLayout: UICollectionViewLayout {
     
     // MARK: Offset Calculation
 
+    /**
+    Calculate the total X offset for a single section, taking into account
+    past panning and panning from the current pan gesture, if any.
+    */
     private func totalOffset(forSection section: Int) -> CGFloat {
         let cumulativeOffset = self.cumulativeOffsets[section] ?? 0
         let panOffset = self.currentPanOffsets[section] ?? 0
@@ -233,6 +257,9 @@ public class FilmstripsFlowLayout: UICollectionViewLayout {
         return paths
     }
 
+    /**
+    Get the total width that the cells in a section would fill.
+    */
     private func width(ofSection sectionNumber: Int) -> CGFloat {
         let itemsInSection = self.collectionView!.numberOfItemsInSection(sectionNumber)
         return CGFloat(itemsInSection) * self.cellWidthWithSpacing
@@ -240,6 +267,10 @@ public class FilmstripsFlowLayout: UICollectionViewLayout {
 
     // MARK: Dynamics
 
+    /**
+    Add "springs" (snap behaviors) to the start and end of a section, as necessary, to snap the first or last
+    cell in a section to the left or right edge of the collection view, respectively.
+    */
     private func addSpringsAsNecessary(toDynamicItem sectionDynamicItem: SectionDynamicItem, forOffset offset: CGFloat, inSection sectionNumber: Int) {
         if (offset > 0) {
             if let behavior = self.springsForFirstItems[sectionNumber] {
@@ -274,6 +305,9 @@ public class FilmstripsFlowLayout: UICollectionViewLayout {
         }
     }
 
+    /**
+    Get the existing dynamic item, or create a new one if no item exists, for a section.
+    */
     private func dynamicItem(forSection sectionNumber: Int) -> SectionDynamicItem {
         if let sectionItem = self.sectionDynamicItems[sectionNumber] {
             return sectionItem
