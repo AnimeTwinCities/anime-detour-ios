@@ -1,6 +1,6 @@
 //
 //  SectionDynamicItem.swift
-//  FilmstripsFlowLayout
+//  FilmstripsCollectionLayout
 //
 //  Created by Brendon Justin on 10/26/14.
 //  Copyright (c) 2014 Naga Softworks, LLC. All rights reserved.

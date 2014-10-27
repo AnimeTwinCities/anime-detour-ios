@@ -1,6 +1,6 @@
 //
-//  FilmstripsFlowLayout.swift
-//  Anime Detour
+//  FilmstripsCollectionLayout.swift
+//  FilmstripsCollectionLayout
 //
 //  Created by Brendon Justin on 10/19/14.
 //  Copyright (c) 2014 Naga Softworks, LLC. All rights reserved.
@@ -12,7 +12,7 @@ import UIKit
 Collection view layout that shows each section in a film strip, i.e. a horizontally scrolling list.
 Supports vertical scrolling only. Otherwise similar to a UICollectionViewFlowLayout flow layout.
 */
-public class FilmstripsFlowLayout: UICollectionViewLayout {
+public class FilmstripsCollectionLayout: UICollectionViewLayout {
     /// Reusable view type for section headers. Only provided as a convenience;
     /// matches `UICollectionElementKindSectionHeader`.
     public class var FilmstripsCollectionElementKindSectionHeader: String {
@@ -382,7 +382,7 @@ public class FilmstripsFlowLayout: UICollectionViewLayout {
     }
 }
 
-extension FilmstripsFlowLayout: SectionDynamicItemDelegate {
+extension FilmstripsCollectionLayout: SectionDynamicItemDelegate {
     internal func itemDidMove(sectionDynamicItem: SectionDynamicItem) {
         let newCenter = sectionDynamicItem.center
         let sectionNumber = sectionDynamicItem.sectionNumber
@@ -398,4 +398,3 @@ extension FilmstripsFlowLayout: SectionDynamicItemDelegate {
         self.invalidateLayoutWithContext(context)
     }
 }
-

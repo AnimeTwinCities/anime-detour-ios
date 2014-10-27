@@ -63,26 +63,26 @@
 			remoteGlobalIDString = 5C65B39F19EA14A400545FDA;
 			remoteInfo = ConScheduleKit;
 		};
-		5CDB836C19FD51720097D442 /* PBXContainerItemProxy */ = {
+		5C7CF14A19FF188700B06F4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5CDB836719FD51720097D442 /* FilmstripsFlowLayout.xcodeproj */;
+			containerPortal = 5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5CDB834B19FD51710097D442;
-			remoteInfo = FilmstripsFlowLayout;
+			remoteGlobalIDString = 5C9058E319FDCF3200E23961;
+			remoteInfo = FilmstripsCollectionLayout;
 		};
-		5CDB836E19FD51720097D442 /* PBXContainerItemProxy */ = {
+		5C7CF14C19FF188700B06F4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5CDB836719FD51720097D442 /* FilmstripsFlowLayout.xcodeproj */;
+			containerPortal = 5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5CDB835619FD51720097D442;
-			remoteInfo = FilmstripsFlowLayoutTests;
+			remoteGlobalIDString = 5C9058EE19FDCF3200E23961;
+			remoteInfo = FilmstripsCollectionLayoutTests;
 		};
-		5CDB837219FD51CE0097D442 /* PBXContainerItemProxy */ = {
+		5C7CF14E19FF189400B06F4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5CDB836719FD51720097D442 /* FilmstripsFlowLayout.xcodeproj */;
+			containerPortal = 5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 5CDB834A19FD51710097D442;
-			remoteInfo = FilmstripsFlowLayout;
+			remoteGlobalIDString = 5C9058E219FDCF3200E23961;
+			remoteInfo = FilmstripsCollectionLayout;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -113,10 +113,10 @@
 		5C65B38B19EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_DetourTests.swift; sourceTree = "<group>"; };
 		5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConScheduleKit.xcodeproj; path = ConScheduleKit/ConScheduleKit.xcodeproj; sourceTree = "<group>"; };
+		5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FilmstripsCollectionLayout.xcodeproj; path = FilmstripsCollectionLayout/FilmstripsCollectionLayout.xcodeproj; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CB80EA119ECD07B008DBC8F /* Anime DetourTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Anime DetourTests-Bridging-Header.h"; path = "../Anime Detour/Anime DetourTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CDB833E19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewHeaderView.swift; sourceTree = "<group>"; };
-		5CDB836719FD51720097D442 /* FilmstripsFlowLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FilmstripsFlowLayout.xcodeproj; path = FilmstripsFlowLayout/FilmstripsFlowLayout.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,7 +207,7 @@
 				5C65B38919EA143A00545FDA /* Anime DetourTests */,
 				5C65B37019EA143A00545FDA /* Products */,
 				5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */,
-				5CDB836719FD51720097D442 /* FilmstripsFlowLayout.xcodeproj */,
+				5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -278,11 +278,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5CDB836819FD51720097D442 /* Products */ = {
+		5C7CF14619FF188600B06F4B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5CDB836D19FD51720097D442 /* FilmstripsFlowLayout.framework */,
-				5CDB836F19FD51720097D442 /* FilmstripsFlowLayoutTests.xctest */,
+				5C7CF14B19FF188700B06F4B /* FilmstripsCollectionLayout.framework */,
+				5C7CF14D19FF188700B06F4B /* FilmstripsCollectionLayoutTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,7 +302,7 @@
 			);
 			dependencies = (
 				5C65B3CD19EA289A00545FDA /* PBXTargetDependency */,
-				5CDB837319FD51CE0097D442 /* PBXTargetDependency */,
+				5C7CF14F19FF189400B06F4B /* PBXTargetDependency */,
 			);
 			name = "Anime Detour";
 			productName = "Anime Detour";
@@ -362,8 +362,8 @@
 					ProjectRef = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
 				},
 				{
-					ProductGroup = 5CDB836819FD51720097D442 /* Products */;
-					ProjectRef = 5CDB836719FD51720097D442 /* FilmstripsFlowLayout.xcodeproj */;
+					ProductGroup = 5C7CF14619FF188600B06F4B /* Products */;
+					ProjectRef = 5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -389,18 +389,18 @@
 			remoteRef = 5C65B3C319EA14A500545FDA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5CDB836D19FD51720097D442 /* FilmstripsFlowLayout.framework */ = {
+		5C7CF14B19FF188700B06F4B /* FilmstripsCollectionLayout.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = FilmstripsFlowLayout.framework;
-			remoteRef = 5CDB836C19FD51720097D442 /* PBXContainerItemProxy */;
+			path = FilmstripsCollectionLayout.framework;
+			remoteRef = 5C7CF14A19FF188700B06F4B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5CDB836F19FD51720097D442 /* FilmstripsFlowLayoutTests.xctest */ = {
+		5C7CF14D19FF188700B06F4B /* FilmstripsCollectionLayoutTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = FilmstripsFlowLayoutTests.xctest;
-			remoteRef = 5CDB836E19FD51720097D442 /* PBXContainerItemProxy */;
+			path = FilmstripsCollectionLayoutTests.xctest;
+			remoteRef = 5C7CF14C19FF188700B06F4B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -475,10 +475,10 @@
 			name = ConScheduleKit;
 			targetProxy = 5C65B3CC19EA289A00545FDA /* PBXContainerItemProxy */;
 		};
-		5CDB837319FD51CE0097D442 /* PBXTargetDependency */ = {
+		5C7CF14F19FF189400B06F4B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = FilmstripsFlowLayout;
-			targetProxy = 5CDB837219FD51CE0097D442 /* PBXContainerItemProxy */;
+			name = FilmstripsCollectionLayout;
+			targetProxy = 5C7CF14E19FF189400B06F4B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

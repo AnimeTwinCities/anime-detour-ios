@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 import ConScheduleKit
-import FilmstripsFlowLayout
+import FilmstripsCollectionLayout
 
 class SessionsViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     private var imagesURLSession = NSURLSession.sharedSession()
@@ -78,7 +78,7 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
         self.navigationController?.delegate = self
 
         let collectionView = self.collectionView
-        if let layout = (collectionView.collectionViewLayout as? FilmstripsFlowLayout) {
+        if let layout = (collectionView.collectionViewLayout as? FilmstripsCollectionLayout) {
             layout.itemSize = CGSize(width: 300, height: 120)
             layout.headerReferenceSize = CGSize(width: 300, height: 44)
         }
@@ -138,7 +138,7 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
         self.selectedSectionDate = selectedSession.start
 
         let singleSectionLayout = UICollectionViewFlowLayout()
-        if let currentLayout = self.collectionView.collectionViewLayout as? FilmstripsFlowLayout {
+        if let currentLayout = self.collectionView.collectionViewLayout as? FilmstripsCollectionLayout {
             singleSectionLayout.itemSize = currentLayout.itemSize
             singleSectionLayout.headerReferenceSize = currentLayout.headerReferenceSize
             singleSectionLayout.minimumInteritemSpacing = currentLayout.minimumInteritemSpacing
@@ -152,7 +152,7 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
     // MARK: Gesture Recognizer Delegate
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if gestureRecognizer == self.horizontalScrollRecognizer && self.collectionView.collectionViewLayout is FilmstripsFlowLayout {
+        if gestureRecognizer == self.horizontalScrollRecognizer && self.collectionView.collectionViewLayout is FilmstripsCollectionLayout {
             let collectionView = self.collectionView
             let location = touch.locationInView(collectionView)
 
