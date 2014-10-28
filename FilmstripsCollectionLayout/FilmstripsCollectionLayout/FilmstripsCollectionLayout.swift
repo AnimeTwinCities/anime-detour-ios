@@ -349,12 +349,19 @@ public class FilmstripsCollectionLayout: UICollectionViewLayout {
             self.currentPanOffsets[sectionOfPan] = nil
 
             let velocity = recognizer.velocityInView(self.collectionView)
+            let xVel = velocity.x
 
             sectionDynamicItem.delegate = self
+
+            // Require a minimum velocity to continue scrolling after the pan is finished.
+            if abs(xVel) < 75 {
+                return
+            }
+
             let items = [sectionDynamicItem]
             let behavior = UIPushBehavior(items: items, mode: .Instantaneous)
-            behavior.pushDirection = CGVector(dx: velocity.x > 0 ? 1 : -1, dy: 0)
-            behavior.magnitude = abs(velocity.x)
+            behavior.pushDirection = CGVector(dx: xVel > 0 ? 1 : -1, dy: 0)
+            behavior.magnitude = abs(xVel)
 
             let resistance = UIDynamicItemBehavior(items: items)
             resistance.resistance = 1
