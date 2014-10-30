@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.apiClient.sessionList(since: nil, deletedSessions: false, completionHandler: { [weak self] (result: AnyObject?, error: NSError?) -> () in
                 if result == nil {
                     if let error = error {
-                        // empty
+                        NSLog("Error fetching session list")
                     }
 
                     return
