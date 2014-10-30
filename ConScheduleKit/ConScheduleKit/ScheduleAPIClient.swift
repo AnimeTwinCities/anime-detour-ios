@@ -75,6 +75,7 @@ public class ScheduleAPIClient {
         let dataTask = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
             if let error = error {
                 NSLog("Error getting session list: \(error)")
+                completionHandler(result: nil, error: error)
                 return
             }
             
