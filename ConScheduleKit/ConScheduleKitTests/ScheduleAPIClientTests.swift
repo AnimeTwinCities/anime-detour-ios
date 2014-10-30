@@ -16,7 +16,7 @@ class ScheduleAPIKitTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        self.apiClient = ScheduleAPIClient(subdomain: "ssetest2015", apiKey: "21856730f40671b94b132ca11d35cd5d")
+        self.apiClient = ScheduleAPIClient(subdomain: "ssetest2015", apiKey: "21856730f40671b94b132ca11d35cd5d", conLocationTimeZone: NSTimeZone(name: "America/Chicago")!)
     }
     
     override func tearDown() {
