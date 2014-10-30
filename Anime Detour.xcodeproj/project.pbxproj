@@ -31,6 +31,8 @@
 		5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37D19EA143A00545FDA /* Images.xcassets */; };
 		5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37F19EA143A00545FDA /* LaunchScreen.xib */; };
 		5C65B38D19EA143A00545FDA /* Anime_DetourTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */; };
+		5C95D3441A01FE1600091B4F /* ConScheduleKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5C95D3481A01FE1600091B4F /* FilmstripsCollectionLayout.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7CF14B19FF188700B06F4B /* FilmstripsCollectionLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5CDB833F19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,7 +86,36 @@
 			remoteGlobalIDString = 5C9058E219FDCF3200E23961;
 			remoteInfo = FilmstripsCollectionLayout;
 		};
+		5C95D3451A01FE1600091B4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C65B39F19EA14A400545FDA;
+			remoteInfo = ConScheduleKit;
+		};
+		5C95D3491A01FE1600091B4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C9058E219FDCF3200E23961;
+			remoteInfo = FilmstripsCollectionLayout;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5C95D33A1A01FDAD00091B4F /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5C95D3441A01FE1600091B4F /* ConScheduleKit.framework in Copy Frameworks */,
+				5C95D3481A01FE1600091B4F /* FilmstripsCollectionLayout.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5C0EF2A519FB26F200FA8EEC /* ConScheduleData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ConScheduleData.xcdatamodel; sourceTree = "<group>"; };
@@ -297,12 +328,15 @@
 				5C65B36B19EA143A00545FDA /* Sources */,
 				5C65B36C19EA143A00545FDA /* Frameworks */,
 				5C65B36D19EA143A00545FDA /* Resources */,
+				5C95D33A1A01FDAD00091B4F /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				5C65B3CD19EA289A00545FDA /* PBXTargetDependency */,
 				5C7CF14F19FF189400B06F4B /* PBXTargetDependency */,
+				5C95D3461A01FE1600091B4F /* PBXTargetDependency */,
+				5C95D34A1A01FE1600091B4F /* PBXTargetDependency */,
 			);
 			name = "Anime Detour";
 			productName = "Anime Detour";
@@ -480,6 +514,16 @@
 			name = FilmstripsCollectionLayout;
 			targetProxy = 5C7CF14E19FF189400B06F4B /* PBXContainerItemProxy */;
 		};
+		5C95D3461A01FE1600091B4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ConScheduleKit;
+			targetProxy = 5C95D3451A01FE1600091B4F /* PBXContainerItemProxy */;
+		};
+		5C95D34A1A01FE1600091B4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FilmstripsCollectionLayout;
+			targetProxy = 5C95D3491A01FE1600091B4F /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -584,6 +628,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Anime Detour/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -597,6 +642,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Anime Detour/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

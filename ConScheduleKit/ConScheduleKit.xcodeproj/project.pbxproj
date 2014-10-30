@@ -171,6 +171,7 @@
 				TargetAttributes = {
 					5C65B39F19EA14A400545FDA = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = PK2N799QL2;
 					};
 					5C65B3AA19EA14A400545FDA = {
 						CreatedOnToolsVersion = 6.1;
