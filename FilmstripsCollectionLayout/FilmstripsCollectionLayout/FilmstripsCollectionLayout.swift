@@ -74,6 +74,14 @@ public class FilmstripsCollectionLayout: UICollectionViewLayout {
     }
     
     // MARK: Collection View Layout
+
+    override public func prepareForTransitionToLayout(newLayout: UICollectionViewLayout!) {
+        // Stop animating if we're about to do a layout transition
+        self.dynamicAnimator.removeAllBehaviors()
+
+        self.springsForFirstItems.removeAll(keepCapacity: true)
+        self.springsForLastItems.removeAll(keepCapacity: true)
+    }
     
     override public func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         let positiveRect = rect.rectByIntersecting(self.positiveRect)
