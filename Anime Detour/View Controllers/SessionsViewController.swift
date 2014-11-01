@@ -39,13 +39,8 @@ class SessionsViewController: UICollectionViewController {
             return sessionsFetchRequest
         }
     }
-    private var singleSectionSessionsPredicate: NSPredicate {
-        get {
-            return NSPredicate(format: "start == %@", argumentArray: [self.selectedSectionDate!])
-        }
-    }
 
-    private var isSingleSection: Bool {
+    private var isDetail: Bool {
         get {
             return self.useLayoutToLayoutNavigationTransitions
         }
@@ -69,13 +64,11 @@ class SessionsViewController: UICollectionViewController {
         super.viewDidLoad()
         self.title = "Sessions"
 
-        // If we are going to display only a single section, we do not need additional setup.
+        // If we are going to display detail cells, we do not need additional setup.
         // The class displaying us is assumed to have taken care of any setup required.
-        if self.isSingleSection {
+        if self.isDetail {
             return
         }
-
-        self.navigationController?.delegate = self
 
         let collectionView = self.collectionView
         if let layout = (collectionView.collectionViewLayout as? FilmstripsCollectionLayout) {
@@ -128,8 +121,8 @@ class SessionsViewController: UICollectionViewController {
     // MARK: Collection View Delegate
 
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Ignore selections if we're displaying only a single section.
-        return !self.isSingleSection
+        // Ignore selections if we're displaying detail cells.
+        return !self.isDetail
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -195,91 +188,6 @@ extension SessionsViewController: UIGestureRecognizerDelegate {
         }
         
         return true
-    }
-}
-
-extension SessionsViewController: UINavigationControllerDelegate {
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
-        // TODO: The transition triggering `willShowViewController` may be cancelled.
-        // This leads to bad state when transitioning from a single section view to the
-        // full session list. Guard logic in the single section VC's `viewWillAppear`
-        // may be useful to solve this issue.
-
-        if self.selectedIndexPath == nil {
-            return
-        }
-
-        let collectionView = self.collectionView
-        let section = self.selectedIndexPath!.section
-
-        // NOTE: Relies on `viewController` automatically becoming the delegate of the collection view
-        // if this is a `useLayoutToLayoutNavigationTransitions` push or pop transition.
-        if viewController != self {
-            let lastSection = collectionView.numberOfSections() - 1
-
-            if let pushed = viewController as? SessionsViewController {
-                collectionView.performBatchUpdates({ () -> Void in
-                    let predicate = self.singleSectionSessionsPredicate
-                    let fetchRequest = self.sessionsFetchRequest
-                    fetchRequest.predicate = predicate
-
-                    var frc: NSFetchedResultsController = self.sessionsFetchedResultsController(fetchRequest)
-                    self.dataSource = SessionCollectionViewDataSource(imagesURLSession: self.imagesURLSession, fetchedResultsController: frc)
-
-                    var fetchError: NSError?
-                    let success = frc.performFetch(&fetchError)
-                    if let error = fetchError {
-                        NSLog("Error fetching sessions: \(error)")
-                    }
-
-                    let indexSet = NSMutableIndexSet()
-                    if section > 0 {
-                        let firstRange = NSMakeRange(0, section)
-                        indexSet.addIndexesInRange(firstRange)
-                    }
-
-                    if section < lastSection {
-                        let lastRange = NSMakeRange(section + 1, lastSection - section)
-                        indexSet.addIndexesInRange(lastRange)
-                    }
-
-                    collectionView.deleteSections(indexSet)
-                    }, completion: nil)
-
-                assert(collectionView.numberOfSections() == 1, "Collection view should have only one section after push")
-            }
-        } else {
-            assert(collectionView.numberOfSections() == 1, "Collection view should have only one section before push")
-
-            collectionView.performBatchUpdates({ () -> Void in
-                let predicate = self.allSessionsPredicate
-                let fetchRequest = self.sessionsFetchRequest
-                fetchRequest.predicate = predicate
-
-                var frc: NSFetchedResultsController = self.sessionsFetchedResultsController(fetchRequest)
-                self.dataSource = SessionCollectionViewDataSource(imagesURLSession: self.imagesURLSession, fetchedResultsController: frc)
-
-                var fetchError: NSError?
-                let success = frc.performFetch(&fetchError)
-                if let error = fetchError {
-                    NSLog("Error fetching sessions: \(error)")
-                }
-
-                let lastSection = frc.sections!.count - 1
-
-                let indexSet = NSMutableIndexSet()
-                if section > 0 {
-                    let firstRange = NSMakeRange(0, section)
-                    indexSet.addIndexesInRange(firstRange)
-                }
-
-                if section < lastSection {
-                    let lastRange = NSMakeRange(section + 1, lastSection - section)
-                    indexSet.addIndexesInRange(lastRange)
-                }
-                collectionView.insertSections(indexSet)
-                }, completion: nil)
-        }
     }
 }
 
