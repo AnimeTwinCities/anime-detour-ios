@@ -13,7 +13,7 @@ import UIKit
 import ConScheduleKit
 import FilmstripsCollectionLayout
 
-class SessionsViewController: UICollectionViewController, UIGestureRecognizerDelegate {
+class SessionsViewController: UICollectionViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy private var managedObjectContext: NSManagedObjectContext = {
         return ConModelsController.sharedInstance.managedObjectContext!
@@ -148,9 +148,17 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
         sectionVC.useLayoutToLayoutNavigationTransitions = true
         self.navigationController?.showViewController(sectionVC, sender: self)
     }
-
-    // MARK: Gesture Recognizer Delegate
     
+    // MARK: Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let detailVC = segue.destinationViewController as? SessionViewController {
+            detailVC.session = self.selectedSession!
+        }
+    }
+}
+
+extension SessionsViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         if gestureRecognizer == self.horizontalScrollRecognizer && self.collectionView.collectionViewLayout is FilmstripsCollectionLayout {
             let collectionView = self.collectionView
@@ -171,10 +179,10 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
 
                 currentView = superview
             }
-            
+
             return inCell
         }
-        
+
         return true
     }
 
@@ -185,16 +193,8 @@ class SessionsViewController: UICollectionViewController, UIGestureRecognizerDel
             let horizontal = abs(velocity.x) > abs(velocity.y)
             return horizontal
         }
-
+        
         return true
-    }
-    
-    // MARK: Navigation
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let detailVC = segue.destinationViewController as? SessionViewController {
-            detailVC.session = self.selectedSession!
-        }
     }
 }
 
