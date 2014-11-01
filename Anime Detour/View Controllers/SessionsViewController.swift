@@ -153,7 +153,11 @@ class SessionsViewController: UICollectionViewController {
 
 extension SessionsViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if gestureRecognizer == self.horizontalScrollRecognizer && self.collectionView.collectionViewLayout is FilmstripsCollectionLayout {
+        if gestureRecognizer != self.horizontalScrollRecognizer {
+            return true
+        }
+
+        if self.collectionView.collectionViewLayout is FilmstripsCollectionLayout {
             let collectionView = self.collectionView
             let location = touch.locationInView(collectionView)
 
@@ -176,7 +180,7 @@ extension SessionsViewController: UIGestureRecognizerDelegate {
             return inCell
         }
 
-        return true
+        return false
     }
 
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
