@@ -13,7 +13,7 @@ import UIKit
 import ConScheduleKit
 import FilmstripsCollectionLayout
 
-class SessionsViewController: UICollectionViewController {
+class SessionsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy private var managedObjectContext: NSManagedObjectContext = {
         return ConModelsController.sharedInstance.managedObjectContext!
@@ -46,6 +46,9 @@ class SessionsViewController: UICollectionViewController {
         }
     }
 
+    /// Fetched results controller currently in use
+    private var fetchedResultsController: NSFetchedResultsController!
+
     /**
     Collection view data source that we call through to from our data
     source methods.
@@ -72,11 +75,12 @@ class SessionsViewController: UICollectionViewController {
 
         let collectionView = self.collectionView
         if let layout = (collectionView.collectionViewLayout as? FilmstripsCollectionLayout) {
-            layout.itemSize = CGSize(width: 300, height: 120)
+            layout.itemSize = CGSize(width: 300, height: 88)
             layout.headerReferenceSize = CGSize(width: 300, height: 44)
         }
 
         var frc: NSFetchedResultsController = self.sessionsFetchedResultsController(self.sessionsFetchRequest)
+        self.fetchedResultsController = frc
         self.dataSource = SessionCollectionViewDataSource(imagesURLSession: self.imagesURLSession, fetchedResultsController: frc)
         self.dataSource.prepareCollectionView(collectionView)
         
@@ -132,16 +136,22 @@ class SessionsViewController: UICollectionViewController {
 
         let singleSectionLayout = UICollectionViewFlowLayout()
         if let currentLayout = self.collectionView.collectionViewLayout as? FilmstripsCollectionLayout {
-            singleSectionLayout.itemSize = currentLayout.itemSize
             singleSectionLayout.headerReferenceSize = currentLayout.headerReferenceSize
             singleSectionLayout.minimumInteritemSpacing = currentLayout.minimumInteritemSpacing
             singleSectionLayout.minimumLineSpacing = currentLayout.minimumLineSpacing
         }
         let sectionVC = SessionsViewController(collectionViewLayout: singleSectionLayout)
         sectionVC.useLayoutToLayoutNavigationTransitions = true
+        let collectionView: UICollectionView = self.collectionView
         self.navigationController?.showViewController(sectionVC, sender: self)
     }
-    
+
+    // MARK: Collection View Delegate Flow Layout
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSize(width: 300, height: 200)
+    }
+
     // MARK: Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

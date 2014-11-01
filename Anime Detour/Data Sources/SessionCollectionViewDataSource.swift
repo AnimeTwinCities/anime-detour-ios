@@ -14,8 +14,9 @@ import ConScheduleKit
 class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let imagesURLSession: NSURLSession?
     let fetchedResultsController: NSFetchedResultsController
-    var cellIdentifier = "SessionCell"
+    var sessionCellIdentifier = "SessionCell"
     var sectionHeaderIdentifier = "SessionSectionHeader"
+
     private var shortDateFormat = "MM/dd hh:mm a"
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
@@ -93,7 +94,7 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.cellIdentifier, forIndexPath: indexPath) as SessionCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.sessionCellIdentifier, forIndexPath: indexPath) as SessionCollectionViewCell
         
         let session = self.session(indexPath)
         let viewModel = SessionViewModel(session: session, imagesURLSession: nil, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)

@@ -55,14 +55,20 @@ class SessionViewModel {
             return "\(startDateString) - \(endDateString)"
         }
     }
+
+    var location: String? {
+        get {
+            return session.venue
+        }
+    }
+
+    private var image: UIImage?
     
     private var imageURL: NSURL? {
         get {
             return NSURL(string: session.mediaURL)
         }
     }
-    
-    private var image: UIImage?
     
     /**
     Get the image for the session. Designed like a poor man's Future.
