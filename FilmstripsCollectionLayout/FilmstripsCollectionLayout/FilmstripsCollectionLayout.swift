@@ -324,10 +324,13 @@ public class FilmstripsCollectionLayout: UICollectionViewLayout {
     */
     @IBAction func pan(recognizer: UIPanGestureRecognizer) {
         let collectionView = self.collectionView!
-        let collectionViewLocation = recognizer.locationInView(collectionView)
-        
-        let sectionOfPan = self.section(forYCoordinate: collectionViewLocation.y)
         let translation = recognizer.translationInView(collectionView)
+        let sectionOfPan = { () -> Int in
+            let currentLocation = recognizer.locationInView(collectionView)
+            let startingYCoordinate = currentLocation.y - translation.y
+            let section = self.section(forYCoordinate: startingYCoordinate)
+            return section
+        }()
 
         // Update the amount of panning done
         let currentPanOffset = translation.x
