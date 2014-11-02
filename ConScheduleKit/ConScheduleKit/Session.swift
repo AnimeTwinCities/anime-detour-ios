@@ -31,6 +31,14 @@ public class Session: NSManagedObject {
         return "Session: \(name) - \(sessionDescription)"
     }
 
+    /// All of the types of this Session. Ordered by importance. Assumes `type` is a
+    /// comma-separated list of types.
+    public var types: [String] {
+        get {
+            return self.type.componentsSeparatedByString(",")
+        }
+    }
+
     public override func awakeFromInsert() {
         // set empty default strings for String properties
         self.key = ""
