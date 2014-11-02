@@ -1,6 +1,6 @@
 # Anime Detour
 
-Anime Detour schedule app. Pulls data from (sched.org)[sched.org]
+Anime Detour schedule app. Pulls data from [sched.org](sched.org)
 
 ## Getting Started
 
