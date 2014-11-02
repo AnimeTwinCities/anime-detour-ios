@@ -10,12 +10,35 @@ import Foundation
 
 import ConScheduleKit
 
+/**
+Delegate protocol with which view model state changes, where allowed,
+are communicated.
+*/
+protocol SessionViewModelDelegate {
+    func bookmarkImageChanged(bookmarkImage: UIImage)
+}
+
+/**
+View model for Sessions. State changes, where handled, are communicated to the `delegate`.
+*/
 class SessionViewModel {
     let imageURLSession: NSURLSession?
     let session: Session
+    private var bookmarked: Bool = false
+    var bookmarkImage: UIImage {
+        get {
+            if self.bookmarked {
+                return UIImage(named: "second")!
+            } else {
+                return UIImage(named: "first")!
+            }
+        }
+    }
     let startDateFormatter: NSDateFormatter
     let shortEndDateFormatter: NSDateFormatter
     let noImageURLSessionError = NSError(domain: "com.nagasoftworks.anime-detour", code: 1001, userInfo: nil)
+
+    var delegate: SessionViewModelDelegate?
     
     private var imageTask: NSURLSessionDataTask?
     
@@ -111,6 +134,11 @@ class SessionViewModel {
         default:
             onLoad(image: nil, error: nil)
         }
+    }
+
+    func toggleBookmarked() {
+        self.bookmarked = !self.bookmarked
+        self.delegate?.bookmarkImageChanged(self.bookmarkImage)
     }
     
     /**

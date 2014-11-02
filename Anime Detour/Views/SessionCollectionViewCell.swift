@@ -12,7 +12,7 @@ import UIKit
 Displays Session information. Shows more information if its height exceeds
 a certain threshold.
 */
-class SessionCollectionViewCell: UICollectionViewCell {
+class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate {
     /// The height above which we will enable "large" mode.
     private let largeHeightThreshold: CGFloat = 120
 
@@ -20,15 +20,27 @@ class SessionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
+    @IBOutlet var bookmarkButton: UIButton!
 
     @IBOutlet var descriptionConstraints: [NSLayoutConstraint]!
 
     var viewModel: SessionViewModel? {
         didSet {
+            if let oldValue = oldValue {
+                if let delegate = oldValue.delegate as? SessionCollectionViewCell {
+                    if delegate == self {
+                        oldValue.delegate = nil
+                    }
+                }
+            }
+
+            viewModel?.delegate = self
             self.nameLabel.text = viewModel?.name
             self.descriptionLabel.text = viewModel?.sessionDescription
             self.locationLabel.text = viewModel?.location
             self.timeLabel.text = viewModel?.dateAndTime
+
+            self.bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
         }
     }
 
@@ -45,9 +57,13 @@ class SessionCollectionViewCell: UICollectionViewCell {
             if self.isDetail! {
                 self.descriptionLabel.hidden = false
                 self.addConstraints(self.descriptionConstraints)
+
+                self.bookmarkButton.hidden = false
             } else {
                 self.descriptionLabel.hidden = true
                 self.removeConstraints(self.descriptionConstraints)
+
+                self.bookmarkButton.hidden = true
             }
         }
     }
@@ -68,5 +84,23 @@ class SessionCollectionViewCell: UICollectionViewCell {
             self.isDetail = false
         }
         super.layoutSubviews()
+    }
+
+    override func prepareForReuse() {
+        if let viewModel = self.viewModel {
+            viewModel.delegate = nil
+        }
+    }
+
+    // MARK: Bookmarking
+
+    @IBAction func toggleBookmark(sender: AnyObject) {
+        self.viewModel?.toggleBookmarked()
+    }
+
+    // MARK: Session View Model Delegate
+
+    func bookmarkImageChanged(bookmarkImage: UIImage) {
+        self.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
     }
 }

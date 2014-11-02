@@ -92,11 +92,13 @@
                                     <constraint firstItem="dpB-vJ-dHs" firstAttribute="trailing" secondItem="vik-VN-DWb" secondAttribute="trailingMargin" id="HEY-R4-Va6"/>
                                     <constraint firstItem="IQC-lG-gUQ" firstAttribute="leading" secondItem="vik-VN-DWb" secondAttribute="leadingMargin" id="IIX-Lu-Q8c"/>
                                     <constraint firstItem="RxU-Q0-kge" firstAttribute="trailing" secondItem="vik-VN-DWb" secondAttribute="trailingMargin" id="KWy-px-aiP"/>
+                                    <constraint firstItem="1ZK-BN-mQ4" firstAttribute="centerY" secondItem="IQC-lG-gUQ" secondAttribute="centerY" id="M0v-G5-lYD"/>
                                     <constraint firstItem="IQC-lG-gUQ" firstAttribute="top" secondItem="dpB-vJ-dHs" secondAttribute="bottom" constant="8" id="R3F-fY-GJq"/>
                                     <constraint firstItem="RxU-Q0-kge" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IQC-lG-gUQ" secondAttribute="bottom" constant="8" id="RwB-pX-yjO"/>
                                     <constraint firstItem="dpB-vJ-dHs" firstAttribute="top" secondItem="vik-VN-DWb" secondAttribute="topMargin" id="SeX-lU-cRe"/>
                                     <constraint firstItem="qFu-Jb-oR8" firstAttribute="trailing" secondItem="vik-VN-DWb" secondAttribute="trailingMargin" id="SpR-sY-HBB"/>
                                     <constraint firstItem="qFu-Jb-oR8" firstAttribute="bottom" secondItem="vik-VN-DWb" secondAttribute="bottomMargin" placeholder="YES" id="dPs-Jf-ylX"/>
+                                    <constraint firstItem="1ZK-BN-mQ4" firstAttribute="trailing" secondItem="vik-VN-DWb" secondAttribute="trailing" id="eW6-sh-xrk"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="IQC-lG-gUQ" secondAttribute="trailing" id="fkQ-6q-vDb"/>
                                     <constraint firstItem="qFu-Jb-oR8" firstAttribute="top" secondItem="IQC-lG-gUQ" secondAttribute="bottom" constant="8" placeholder="YES" id="pkW-3q-rew"/>
                                     <constraint firstItem="qFu-Jb-oR8" firstAttribute="leading" secondItem="vik-VN-DWb" secondAttribute="leadingMargin" id="psO-Fm-KWd"/>
@@ -111,6 +113,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
+                                    <outlet property="bookmarkButton" destination="1ZK-BN-mQ4" id="dnL-rq-blh"/>
                                     <outlet property="descriptionLabel" destination="qFu-Jb-oR8" id="yYW-sG-mtA"/>
                                     <outlet property="locationLabel" destination="RxU-Q0-kge" id="kAb-Od-Pj4"/>
                                     <outlet property="nameLabel" destination="dpB-vJ-dHs" id="Gzv-Df-w6s"/>
