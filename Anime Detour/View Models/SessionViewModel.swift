@@ -94,6 +94,18 @@ class SessionViewModel {
         }
     }
 
+    var type: String {
+        get {
+            return session.type
+        }
+    }
+
+    var types: [String] {
+        get {
+            return session.types
+        }
+    }
+
     private var image: UIImage?
     
     private var imageURL: NSURL? {

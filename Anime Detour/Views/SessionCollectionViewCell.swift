@@ -21,8 +21,16 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var bookmarkButton: UIButton!
+    @IBOutlet var typesLabel: UILabel!
 
-    @IBOutlet var descriptionConstraints: [NSLayoutConstraint]!
+    /// Views which should only display in expanded "detail" mode
+    @IBOutlet var detailViews: [UIView]!
+
+    /// Layout constraints for use only in expanded "detail" mode
+    @IBOutlet var detailConstraints: [NSLayoutConstraint]!
+
+    /// Layout constraints for use only in compact "summary" mode
+    @IBOutlet var summaryConstraints: [NSLayoutConstraint]!
 
     var viewModel: SessionViewModel? {
         didSet {
@@ -39,6 +47,7 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
             self.descriptionLabel.text = viewModel?.sessionDescription
             self.locationLabel.text = viewModel?.location
             self.timeLabel.text = viewModel?.dateAndTime
+            self.typesLabel.text = viewModel?.type
 
             self.bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
         }
@@ -54,16 +63,20 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
                 }
             }
 
-            if self.isDetail! {
-                self.descriptionLabel.hidden = false
-                self.addConstraints(self.descriptionConstraints)
+            let isDetail = self.isDetail!
 
-                self.bookmarkButton.hidden = false
+            if isDetail {
+                for view in self.detailViews {
+                    self.contentView.addSubview(view)
+                }
+                self.addConstraints(self.detailConstraints)
+                self.removeConstraints(self.summaryConstraints)
             } else {
-                self.descriptionLabel.hidden = true
-                self.removeConstraints(self.descriptionConstraints)
-
-                self.bookmarkButton.hidden = true
+                for view in self.detailViews {
+                    view.removeFromSuperview()
+                }
+                self.removeConstraints(self.detailConstraints)
+                self.addConstraints(self.summaryConstraints)
             }
         }
     }
