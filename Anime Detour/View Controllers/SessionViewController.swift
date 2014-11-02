@@ -14,11 +14,12 @@ import ConScheduleKit
 class SessionViewController: UIViewController {
     @IBOutlet var sessionView: SessionView!
     let imagesURLSession = NSURLSession.sharedSession()
+    let userDataController = UserDataController.sharedInstance
     
     var session: Session! {
         didSet {
             if let sessionView = self.sessionView {
-                let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+                let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
                 sessionView.viewModel = viewModel
             }
         }
@@ -40,7 +41,7 @@ class SessionViewController: UIViewController {
         super.viewDidLoad()
         
         if let session = self.session {
-            let viewModel = SessionViewModel(session: session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+            let viewModel = SessionViewModel(session: session, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
             self.sessionView.viewModel = viewModel
         }
     }

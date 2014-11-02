@@ -14,6 +14,7 @@ import ConScheduleKit
 class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let imagesURLSession: NSURLSession?
     let fetchedResultsController: NSFetchedResultsController
+    let userDataController: UserDataController?
     var sessionCellIdentifier = "SessionCell"
     var sectionHeaderIdentifier = "SessionSectionHeader"
 
@@ -28,10 +29,18 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         formatter.dateFormat = "hh:mm a"
         return formatter
     }()
+
+    /**
+    Create a data source.
     
-    init(imagesURLSession: NSURLSession?, fetchedResultsController: NSFetchedResultsController) {
+    :param: imagesURLSession The NSURLSession to use for downloading images. If `nil`, images will not be downloaded.
+    :param: fetchedResultsController An FRC fetching Sessions to display in a collection view.
+    :param: userDataController A controller for interacting with user models, e.g. bookmarked Sessions.
+    */
+    init(fetchedResultsController: NSFetchedResultsController, imagesURLSession: NSURLSession?, userDataController: UserDataController?) {
         self.imagesURLSession = imagesURLSession
         self.fetchedResultsController = fetchedResultsController
+        self.userDataController = userDataController
         super.init()
     }
 
@@ -52,7 +61,7 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     func heightForWidth(cellWidth width: CGFloat, indexPath: NSIndexPath) -> CGFloat {
         let session = self.session(indexPath)
-        let viewModel = SessionViewModel(session: session, imagesURLSession: nil, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+        let viewModel = SessionViewModel(session: session, imagesURLSession: nil, userDataController: nil, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
         let name = viewModel.name as NSString
         let description = viewModel.sessionDescription as NSString
         let time = viewModel.dateAndTime as NSString
@@ -97,7 +106,7 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.sessionCellIdentifier, forIndexPath: indexPath) as SessionCollectionViewCell
         
         let session = self.session(indexPath)
-        let viewModel = SessionViewModel(session: session, imagesURLSession: nil, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+        let viewModel = SessionViewModel(session: session, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
         cell.viewModel = viewModel
         
         return cell

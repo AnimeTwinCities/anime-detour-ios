@@ -15,6 +15,7 @@ import FilmstripsCollectionLayout
 
 class SessionsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     private var imagesURLSession = NSURLSession.sharedSession()
+    lazy var userDataController = UserDataController.sharedInstance
     lazy private var managedObjectContext: NSManagedObjectContext = {
         return ConModelsController.sharedInstance.managedObjectContext!
     }()
@@ -81,7 +82,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
 
         var frc: NSFetchedResultsController = self.sessionsFetchedResultsController(self.sessionsFetchRequest)
         self.fetchedResultsController = frc
-        self.dataSource = SessionCollectionViewDataSource(imagesURLSession: self.imagesURLSession, fetchedResultsController: frc)
+        self.dataSource = SessionCollectionViewDataSource(fetchedResultsController: frc, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController)
         self.dataSource.prepareCollectionView(collectionView)
         
         var fetchError: NSError?

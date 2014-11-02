@@ -23,8 +23,17 @@ View model for Sessions. State changes, where handled, are communicated to the `
 */
 class SessionViewModel {
     let imageURLSession: NSURLSession?
+    let userDataController: UserDataController?
     let session: Session
-    private var bookmarked: Bool = false
+    private var bookmarked: Bool {
+        get {
+            if let modelsController = self.userDataController {
+                return modelsController.isBookmarked(self.session)
+            }
+
+            return false
+        }
+    }
     var bookmarkImage: UIImage {
         get {
             if self.bookmarked {
@@ -137,7 +146,12 @@ class SessionViewModel {
     }
 
     func toggleBookmarked() {
-        self.bookmarked = !self.bookmarked
+        if self.bookmarked {
+            self.userDataController?.removeBookmark(self.session)
+        } else {
+            self.userDataController?.bookmark(self.session)
+        }
+
         self.delegate?.bookmarkImageChanged(self.bookmarkImage)
     }
     
@@ -146,9 +160,10 @@ class SessionViewModel {
     
     :param: imagesURLSession A URL session to use when downloading images. If `nil`, will not attempt to download images.
     */
-    init(session: Session, imagesURLSession: NSURLSession?, sessionStartTimeFormatter startDateFormatter: NSDateFormatter, shortTimeFormatter: NSDateFormatter) {
+    init(session: Session, imagesURLSession: NSURLSession?, userDataController: UserDataController?, sessionStartTimeFormatter startDateFormatter: NSDateFormatter, shortTimeFormatter: NSDateFormatter) {
         self.session = session
         self.imageURLSession = imagesURLSession
+        self.userDataController = userDataController
         self.startDateFormatter = startDateFormatter
         self.shortEndDateFormatter = shortTimeFormatter
     }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="SessionBookmark" representedClassName="Anime_Detour.SessionBookmark" syncable="YES">
+        <attribute name="sessionID" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="SessionBookmark" positionX="-54" positionY="-9" width="128" height="30"/>
+    </elements>
+</model>
