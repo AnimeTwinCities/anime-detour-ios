@@ -203,7 +203,8 @@ public class FilmstripsCollectionLayout: UICollectionViewLayout {
     }
 
     public override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-        return true
+        // We do not depend on the collection view's bounds.
+        return false
     }
     
     // MARK: Offset Calculation
