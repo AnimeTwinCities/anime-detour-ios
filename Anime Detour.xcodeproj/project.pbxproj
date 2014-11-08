@@ -32,8 +32,6 @@
 		5C631A221A06AD31002F193A /* UserDataController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A201A06AD31002F193A /* UserDataController_Singleton.swift */; };
 		5C631A251A06AF62002F193A /* SessionBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A241A06AF62002F193A /* SessionBookmark.swift */; };
 		5C631A261A06AF62002F193A /* SessionBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A241A06AF62002F193A /* SessionBookmark.swift */; };
-		5C631A281A06DA8F002F193A /* SessionTypes.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C631A271A06DA8F002F193A /* SessionTypes.xcassets */; };
-		5C631A291A06DA8F002F193A /* SessionTypes.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C631A271A06DA8F002F193A /* SessionTypes.xcassets */; };
 		5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37419EA143A00545FDA /* AppDelegate.swift */; };
 		5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37819EA143A00545FDA /* SecondViewController.swift */; };
 		5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37A19EA143A00545FDA /* Main.storyboard */; };
@@ -42,6 +40,7 @@
 		5C65B38D19EA143A00545FDA /* Anime_DetourTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */; };
 		5C95D3441A01FE1600091B4F /* ConScheduleKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C95D3481A01FE1600091B4F /* FilmstripsCollectionLayout.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7CF14B19FF188700B06F4B /* FilmstripsCollectionLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5CC67FF21A0DCCFB007CBEBD /* SessionTypes.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CC67FF11A0DCCFB007CBEBD /* SessionTypes.xcassets */; };
 		5CDB833F19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift */; };
 /* End PBXBuildFile section */
 
@@ -146,7 +145,6 @@
 		5C631A1D1A06AC5E002F193A /* UserDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataController.swift; sourceTree = "<group>"; };
 		5C631A201A06AD31002F193A /* UserDataController_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataController_Singleton.swift; sourceTree = "<group>"; };
 		5C631A241A06AF62002F193A /* SessionBookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionBookmark.swift; sourceTree = "<group>"; };
-		5C631A271A06DA8F002F193A /* SessionTypes.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SessionTypes.xcassets; sourceTree = "<group>"; };
 		5C65B36F19EA143A00545FDA /* Anime Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Detour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C65B37319EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B37419EA143A00545FDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +159,7 @@
 		5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FilmstripsCollectionLayout.xcodeproj; path = FilmstripsCollectionLayout/FilmstripsCollectionLayout.xcodeproj; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CB80EA119ECD07B008DBC8F /* Anime DetourTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Anime DetourTests-Bridging-Header.h"; path = "../Anime Detour/Anime DetourTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		5CC67FF11A0DCCFB007CBEBD /* SessionTypes.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SessionTypes.xcassets; sourceTree = "<group>"; };
 		5CDB833E19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -290,7 +289,7 @@
 				5C65B37819EA143A00545FDA /* SecondViewController.swift */,
 				5C65B37A19EA143A00545FDA /* Main.storyboard */,
 				5C65B37D19EA143A00545FDA /* Images.xcassets */,
-				5C631A271A06DA8F002F193A /* SessionTypes.xcassets */,
+				5CC67FF11A0DCCFB007CBEBD /* SessionTypes.xcassets */,
 				5C65B37F19EA143A00545FDA /* LaunchScreen.xib */,
 				5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */,
 				5C0EF2A419FB26F200FA8EEC /* ConScheduleData.xcdatamodeld */,
@@ -475,7 +474,7 @@
 				5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */,
 				5C54452719F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf in Resources */,
 				5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */,
-				5C631A281A06DA8F002F193A /* SessionTypes.xcassets in Resources */,
+				5CC67FF21A0DCCFB007CBEBD /* SessionTypes.xcassets in Resources */,
 				5C54451619F31596003CC1C3 /* API Details.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,7 +483,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C631A291A06DA8F002F193A /* SessionTypes.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

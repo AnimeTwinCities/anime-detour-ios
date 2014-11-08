@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B17" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -133,6 +133,7 @@
                                     <outlet property="descriptionLabel" destination="qFu-Jb-oR8" id="yYW-sG-mtA"/>
                                     <outlet property="locationLabel" destination="RxU-Q0-kge" id="kAb-Od-Pj4"/>
                                     <outlet property="nameLabel" destination="dpB-vJ-dHs" id="Gzv-Df-w6s"/>
+                                    <outlet property="primaryTypeImage" destination="45R-wY-U2c" id="5oY-fv-7d6"/>
                                     <outlet property="timeLabel" destination="IQC-lG-gUQ" id="0nI-KT-JGX"/>
                                     <outlet property="typesLabel" destination="BZI-ez-YLJ" id="2ko-Ly-qdL"/>
                                     <outletCollection property="detailConstraints" destination="FvP-OY-qUn" collectionClass="NSMutableArray" id="9uq-Cu-SEN"/>

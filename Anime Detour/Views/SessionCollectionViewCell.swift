@@ -22,6 +22,7 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var bookmarkButton: UIButton!
     @IBOutlet var typesLabel: UILabel!
+    @IBOutlet var primaryTypeImage: UIImageView!
 
     /// Views which should only display in expanded "detail" mode
     @IBOutlet var detailViews: [UIView]!
@@ -48,6 +49,7 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
             self.locationLabel.text = viewModel?.location
             self.timeLabel.text = viewModel?.dateAndTime
             self.typesLabel.text = viewModel?.type
+            self.primaryTypeImage.image = viewModel?.primaryTypeImage
 
             self.bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
         }
