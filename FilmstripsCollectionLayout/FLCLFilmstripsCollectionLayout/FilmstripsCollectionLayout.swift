@@ -10,9 +10,9 @@ import UIKit
 
 /**
 Collection view layout that shows each section in a film strip, i.e. a horizontally scrolling list.
-Supports vertical scrolling only. Otherwise similar to a UICollectionViewFlowLayout flow layout.
+Supports vertical scrolling only. Otherwise similar to a UICollectionViewFlowLayout layout.
 */
-public class FilmstripsCollectionLayout: UICollectionViewLayout {
+@objc(FLCLFilmstripsCollectionLayout) public class FilmstripsCollectionLayout: UICollectionViewLayout {
     /// Reusable view type for section headers. Only provided as a convenience;
     /// matches `UICollectionElementKindSectionHeader`.
     public class var FilmstripsCollectionElementKindSectionHeader: String {

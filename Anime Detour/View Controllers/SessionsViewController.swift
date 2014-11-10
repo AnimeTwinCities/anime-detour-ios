@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 import ConScheduleKit
-import FilmstripsCollectionLayout
+import FLCLFilmstripsCollectionLayout
 
 class SessionsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     private var imagesURLSession = NSURLSession.sharedSession()

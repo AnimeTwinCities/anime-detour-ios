@@ -38,8 +38,10 @@
 		5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37D19EA143A00545FDA /* Images.xcassets */; };
 		5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37F19EA143A00545FDA /* LaunchScreen.xib */; };
 		5C65B38D19EA143A00545FDA /* Anime_DetourTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */; };
-		5C95D3441A01FE1600091B4F /* ConScheduleKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5C95D3481A01FE1600091B4F /* FilmstripsCollectionLayout.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7CF14B19FF188700B06F4B /* FilmstripsCollectionLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5C7666971A1062F200ACFDE8 /* ConScheduleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */; };
+		5C7666981A1062F200ACFDE8 /* ConScheduleKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5C76669B1A1062FB00ACFDE8 /* FLCLFilmstripsCollectionLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7666911A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayout.framework */; };
+		5C76669C1A1062FB00ACFDE8 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7666911A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5CC67FF21A0DCCFB007CBEBD /* SessionTypes.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CC67FF11A0DCCFB007CBEBD /* SessionTypes.xcassets */; };
 		5CDB833F19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift */; };
 /* End PBXBuildFile section */
@@ -66,33 +68,33 @@
 			remoteGlobalIDString = 5C65B3AB19EA14A400545FDA;
 			remoteInfo = ConScheduleKitTests;
 		};
-		5C65B3CC19EA289A00545FDA /* PBXContainerItemProxy */ = {
+		5C7666901A1062C900ACFDE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C7CF14519FF188600B06F4B /* FLCLFilmstripsCollectionLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5C9058E319FDCF3200E23961;
+			remoteInfo = FLCLFilmstripsCollectionLayout;
+		};
+		5C7666921A1062C900ACFDE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C7CF14519FF188600B06F4B /* FLCLFilmstripsCollectionLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5C9058EE19FDCF3200E23961;
+			remoteInfo = FLCLFilmstripsCollectionLayoutTests;
+		};
+		5C7666991A1062F200ACFDE8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 5C65B39F19EA14A400545FDA;
 			remoteInfo = ConScheduleKit;
 		};
-		5C7CF14A19FF188700B06F4B /* PBXContainerItemProxy */ = {
+		5C76669D1A1062FB00ACFDE8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5C9058E319FDCF3200E23961;
-			remoteInfo = FilmstripsCollectionLayout;
-		};
-		5C7CF14C19FF188700B06F4B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5C9058EE19FDCF3200E23961;
-			remoteInfo = FilmstripsCollectionLayoutTests;
-		};
-		5C7CF14E19FF189400B06F4B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */;
+			containerPortal = 5C7CF14519FF188600B06F4B /* FLCLFilmstripsCollectionLayout.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 5C9058E219FDCF3200E23961;
-			remoteInfo = FilmstripsCollectionLayout;
+			remoteInfo = FLCLFilmstripsCollectionLayout;
 		};
 		5C95D3451A01FE1600091B4F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -100,13 +102,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5C65B39F19EA14A400545FDA;
 			remoteInfo = ConScheduleKit;
-		};
-		5C95D3491A01FE1600091B4F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 5C9058E219FDCF3200E23961;
-			remoteInfo = FilmstripsCollectionLayout;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -117,8 +112,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5C95D3441A01FE1600091B4F /* ConScheduleKit.framework in Copy Frameworks */,
-				5C95D3481A01FE1600091B4F /* FilmstripsCollectionLayout.framework in Copy Frameworks */,
+				5C76669C1A1062FB00ACFDE8 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */,
+				5C7666981A1062F200ACFDE8 /* ConScheduleKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,7 +151,7 @@
 		5C65B38B19EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_DetourTests.swift; sourceTree = "<group>"; };
 		5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConScheduleKit.xcodeproj; path = ConScheduleKit/ConScheduleKit.xcodeproj; sourceTree = "<group>"; };
-		5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FilmstripsCollectionLayout.xcodeproj; path = FilmstripsCollectionLayout/FilmstripsCollectionLayout.xcodeproj; sourceTree = "<group>"; };
+		5C7CF14519FF188600B06F4B /* FLCLFilmstripsCollectionLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FLCLFilmstripsCollectionLayout.xcodeproj; path = FilmstripsCollectionLayout/FLCLFilmstripsCollectionLayout.xcodeproj; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CB80EA119ECD07B008DBC8F /* Anime DetourTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Anime DetourTests-Bridging-Header.h"; path = "../Anime Detour/Anime DetourTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CC67FF11A0DCCFB007CBEBD /* SessionTypes.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SessionTypes.xcassets; sourceTree = "<group>"; };
@@ -168,6 +163,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C76669B1A1062FB00ACFDE8 /* FLCLFilmstripsCollectionLayout.framework in Frameworks */,
+				5C7666971A1062F200ACFDE8 /* ConScheduleKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +258,7 @@
 				5C65B38919EA143A00545FDA /* Anime DetourTests */,
 				5C65B37019EA143A00545FDA /* Products */,
 				5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */,
-				5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */,
+				5C7CF14519FF188600B06F4B /* FLCLFilmstripsCollectionLayout.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -335,11 +332,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5C7CF14619FF188600B06F4B /* Products */ = {
+		5C76668B1A1062C800ACFDE8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5C7CF14B19FF188700B06F4B /* FilmstripsCollectionLayout.framework */,
-				5C7CF14D19FF188700B06F4B /* FilmstripsCollectionLayoutTests.xctest */,
+				5C7666911A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayout.framework */,
+				5C7666931A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayoutTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -359,10 +356,9 @@
 			buildRules = (
 			);
 			dependencies = (
-				5C65B3CD19EA289A00545FDA /* PBXTargetDependency */,
-				5C7CF14F19FF189400B06F4B /* PBXTargetDependency */,
+				5C76669E1A1062FB00ACFDE8 /* PBXTargetDependency */,
 				5C95D3461A01FE1600091B4F /* PBXTargetDependency */,
-				5C95D34A1A01FE1600091B4F /* PBXTargetDependency */,
+				5C76669A1A1062F200ACFDE8 /* PBXTargetDependency */,
 			);
 			name = "Anime Detour";
 			productName = "Anime Detour";
@@ -422,8 +418,8 @@
 					ProjectRef = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
 				},
 				{
-					ProductGroup = 5C7CF14619FF188600B06F4B /* Products */;
-					ProjectRef = 5C7CF14519FF188600B06F4B /* FilmstripsCollectionLayout.xcodeproj */;
+					ProductGroup = 5C76668B1A1062C800ACFDE8 /* Products */;
+					ProjectRef = 5C7CF14519FF188600B06F4B /* FLCLFilmstripsCollectionLayout.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -449,18 +445,18 @@
 			remoteRef = 5C65B3C319EA14A500545FDA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5C7CF14B19FF188700B06F4B /* FilmstripsCollectionLayout.framework */ = {
+		5C7666911A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayout.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = FilmstripsCollectionLayout.framework;
-			remoteRef = 5C7CF14A19FF188700B06F4B /* PBXContainerItemProxy */;
+			path = FLCLFilmstripsCollectionLayout.framework;
+			remoteRef = 5C7666901A1062C900ACFDE8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5C7CF14D19FF188700B06F4B /* FilmstripsCollectionLayoutTests.xctest */ = {
+		5C7666931A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayoutTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = FilmstripsCollectionLayoutTests.xctest;
-			remoteRef = 5C7CF14C19FF188700B06F4B /* PBXContainerItemProxy */;
+			path = FLCLFilmstripsCollectionLayoutTests.xctest;
+			remoteRef = 5C7666921A1062C900ACFDE8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -538,25 +534,20 @@
 			target = 5C65B36E19EA143A00545FDA /* Anime Detour */;
 			targetProxy = 5C65B38719EA143A00545FDA /* PBXContainerItemProxy */;
 		};
-		5C65B3CD19EA289A00545FDA /* PBXTargetDependency */ = {
+		5C76669A1A1062F200ACFDE8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ConScheduleKit;
-			targetProxy = 5C65B3CC19EA289A00545FDA /* PBXContainerItemProxy */;
+			targetProxy = 5C7666991A1062F200ACFDE8 /* PBXContainerItemProxy */;
 		};
-		5C7CF14F19FF189400B06F4B /* PBXTargetDependency */ = {
+		5C76669E1A1062FB00ACFDE8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = FilmstripsCollectionLayout;
-			targetProxy = 5C7CF14E19FF189400B06F4B /* PBXContainerItemProxy */;
+			name = FLCLFilmstripsCollectionLayout;
+			targetProxy = 5C76669D1A1062FB00ACFDE8 /* PBXContainerItemProxy */;
 		};
 		5C95D3461A01FE1600091B4F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ConScheduleKit;
 			targetProxy = 5C95D3451A01FE1600091B4F /* PBXContainerItemProxy */;
-		};
-		5C95D34A1A01FE1600091B4F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FilmstripsCollectionLayout;
-			targetProxy = 5C95D3491A01FE1600091B4F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

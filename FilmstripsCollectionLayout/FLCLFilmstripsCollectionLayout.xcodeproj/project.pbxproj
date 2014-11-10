@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C9058E919FDCF3200E23961 /* FilmstripsCollectionLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C9058E819FDCF3200E23961 /* FilmstripsCollectionLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5C9058EF19FDCF3200E23961 /* FilmstripsCollectionLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C9058E319FDCF3200E23961 /* FilmstripsCollectionLayout.framework */; };
+		5C9058E919FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C9058E819FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5C9058EF19FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C9058E319FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.framework */; };
 		5C90590919FDCF4400E23961 /* FilmstripsCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90590819FDCF4400E23961 /* FilmstripsCollectionLayout.swift */; };
 		5C90590A19FDCF4400E23961 /* FilmstripsCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90590819FDCF4400E23961 /* FilmstripsCollectionLayout.swift */; };
 		5C90590C19FDCF4C00E23961 /* SectionDynamicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90590B19FDCF4C00E23961 /* SectionDynamicItem.swift */; };
@@ -26,10 +26,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5C9058E319FDCF3200E23961 /* FilmstripsCollectionLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FilmstripsCollectionLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C9058E319FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FLCLFilmstripsCollectionLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C9058E719FDCF3200E23961 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5C9058E819FDCF3200E23961 /* FilmstripsCollectionLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilmstripsCollectionLayout.h; sourceTree = "<group>"; };
-		5C9058EE19FDCF3200E23961 /* FilmstripsCollectionLayoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FilmstripsCollectionLayoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C9058E819FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLCLFilmstripsCollectionLayout.h; sourceTree = "<group>"; };
+		5C9058EE19FDCF3200E23961 /* FLCLFilmstripsCollectionLayoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FLCLFilmstripsCollectionLayoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C9058F419FDCF3200E23961 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C90590819FDCF4400E23961 /* FilmstripsCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilmstripsCollectionLayout.swift; sourceTree = "<group>"; };
 		5C90590B19FDCF4C00E23961 /* SectionDynamicItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionDynamicItem.swift; sourceTree = "<group>"; };
@@ -47,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C9058EF19FDCF3200E23961 /* FilmstripsCollectionLayout.framework in Frameworks */,
+				5C9058EF19FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,8 +57,8 @@
 		5C9058D919FDCF3200E23961 = {
 			isa = PBXGroup;
 			children = (
-				5C9058E519FDCF3200E23961 /* FilmstripsCollectionLayout */,
-				5C9058F219FDCF3200E23961 /* FilmstripsCollectionLayoutTests */,
+				5C9058E519FDCF3200E23961 /* FLCLFilmstripsCollectionLayout */,
+				5C9058F219FDCF3200E23961 /* FLCLFilmstripsCollectionLayoutTests */,
 				5C9058E419FDCF3200E23961 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,21 +66,21 @@
 		5C9058E419FDCF3200E23961 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5C9058E319FDCF3200E23961 /* FilmstripsCollectionLayout.framework */,
-				5C9058EE19FDCF3200E23961 /* FilmstripsCollectionLayoutTests.xctest */,
+				5C9058E319FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.framework */,
+				5C9058EE19FDCF3200E23961 /* FLCLFilmstripsCollectionLayoutTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5C9058E519FDCF3200E23961 /* FilmstripsCollectionLayout */ = {
+		5C9058E519FDCF3200E23961 /* FLCLFilmstripsCollectionLayout */ = {
 			isa = PBXGroup;
 			children = (
-				5C9058E819FDCF3200E23961 /* FilmstripsCollectionLayout.h */,
+				5C9058E819FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.h */,
 				5C90590819FDCF4400E23961 /* FilmstripsCollectionLayout.swift */,
 				5C90590B19FDCF4C00E23961 /* SectionDynamicItem.swift */,
 				5C9058E619FDCF3200E23961 /* Supporting Files */,
 			);
-			path = FilmstripsCollectionLayout;
+			path = FLCLFilmstripsCollectionLayout;
 			sourceTree = "<group>";
 		};
 		5C9058E619FDCF3200E23961 /* Supporting Files */ = {
@@ -91,12 +91,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5C9058F219FDCF3200E23961 /* FilmstripsCollectionLayoutTests */ = {
+		5C9058F219FDCF3200E23961 /* FLCLFilmstripsCollectionLayoutTests */ = {
 			isa = PBXGroup;
 			children = (
 				5C9058F319FDCF3200E23961 /* Supporting Files */,
 			);
-			path = FilmstripsCollectionLayoutTests;
+			path = FLCLFilmstripsCollectionLayoutTests;
 			sourceTree = "<group>";
 		};
 		5C9058F319FDCF3200E23961 /* Supporting Files */ = {
@@ -114,16 +114,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C9058E919FDCF3200E23961 /* FilmstripsCollectionLayout.h in Headers */,
+				5C9058E919FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		5C9058E219FDCF3200E23961 /* FilmstripsCollectionLayout */ = {
+		5C9058E219FDCF3200E23961 /* FLCLFilmstripsCollectionLayout */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5C9058F919FDCF3200E23961 /* Build configuration list for PBXNativeTarget "FilmstripsCollectionLayout" */;
+			buildConfigurationList = 5C9058F919FDCF3200E23961 /* Build configuration list for PBXNativeTarget "FLCLFilmstripsCollectionLayout" */;
 			buildPhases = (
 				5C9058DE19FDCF3200E23961 /* Sources */,
 				5C9058DF19FDCF3200E23961 /* Frameworks */,
@@ -134,14 +134,14 @@
 			);
 			dependencies = (
 			);
-			name = FilmstripsCollectionLayout;
+			name = FLCLFilmstripsCollectionLayout;
 			productName = FLCLFilmstripsCollectionLayout;
-			productReference = 5C9058E319FDCF3200E23961 /* FilmstripsCollectionLayout.framework */;
+			productReference = 5C9058E319FDCF3200E23961 /* FLCLFilmstripsCollectionLayout.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		5C9058ED19FDCF3200E23961 /* FilmstripsCollectionLayoutTests */ = {
+		5C9058ED19FDCF3200E23961 /* FLCLFilmstripsCollectionLayoutTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5C9058FC19FDCF3200E23961 /* Build configuration list for PBXNativeTarget "FilmstripsCollectionLayoutTests" */;
+			buildConfigurationList = 5C9058FC19FDCF3200E23961 /* Build configuration list for PBXNativeTarget "FLCLFilmstripsCollectionLayoutTests" */;
 			buildPhases = (
 				5C9058EA19FDCF3200E23961 /* Sources */,
 				5C9058EB19FDCF3200E23961 /* Frameworks */,
@@ -152,9 +152,9 @@
 			dependencies = (
 				5C9058F119FDCF3200E23961 /* PBXTargetDependency */,
 			);
-			name = FilmstripsCollectionLayoutTests;
+			name = FLCLFilmstripsCollectionLayoutTests;
 			productName = FLCLFilmstripsCollectionLayoutTests;
-			productReference = 5C9058EE19FDCF3200E23961 /* FilmstripsCollectionLayoutTests.xctest */;
+			productReference = 5C9058EE19FDCF3200E23961 /* FLCLFilmstripsCollectionLayoutTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -175,7 +175,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5C9058DD19FDCF3200E23961 /* Build configuration list for PBXProject "FilmstripsCollectionLayout" */;
+			buildConfigurationList = 5C9058DD19FDCF3200E23961 /* Build configuration list for PBXProject "FLCLFilmstripsCollectionLayout" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -187,8 +187,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5C9058E219FDCF3200E23961 /* FilmstripsCollectionLayout */,
-				5C9058ED19FDCF3200E23961 /* FilmstripsCollectionLayoutTests */,
+				5C9058E219FDCF3200E23961 /* FLCLFilmstripsCollectionLayout */,
+				5C9058ED19FDCF3200E23961 /* FLCLFilmstripsCollectionLayoutTests */,
 			);
 		};
 /* End PBXProject section */
@@ -234,7 +234,7 @@
 /* Begin PBXTargetDependency section */
 		5C9058F119FDCF3200E23961 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5C9058E219FDCF3200E23961 /* FilmstripsCollectionLayout */;
+			target = 5C9058E219FDCF3200E23961 /* FLCLFilmstripsCollectionLayout */;
 			targetProxy = 5C9058F019FDCF3200E23961 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -333,10 +333,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = FilmstripsCollectionLayout/Info.plist;
+				INFOPLIST_FILE = FLCLFilmstripsCollectionLayout/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = FilmstripsCollectionLayout;
+				PRODUCT_NAME = FLCLFilmstripsCollectionLayout;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -350,10 +350,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = FilmstripsCollectionLayout/Info.plist;
+				INFOPLIST_FILE = FLCLFilmstripsCollectionLayout/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = FilmstripsCollectionLayout;
+				PRODUCT_NAME = FLCLFilmstripsCollectionLayout;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -369,9 +369,9 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = FilmstripsCollectionLayoutTests/Info.plist;
+				INFOPLIST_FILE = FLCLFilmstripsCollectionLayoutTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = FilmstripsCollectionLayoutTests;
+				PRODUCT_NAME = FLCLFilmstripsCollectionLayoutTests;
 			};
 			name = Debug;
 		};
@@ -382,16 +382,16 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = FilmstripsCollectionLayoutTests/Info.plist;
+				INFOPLIST_FILE = FLCLFilmstripsCollectionLayoutTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = FilmstripsCollectionLayoutTests;
+				PRODUCT_NAME = FLCLFilmstripsCollectionLayoutTests;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5C9058DD19FDCF3200E23961 /* Build configuration list for PBXProject "FilmstripsCollectionLayout" */ = {
+		5C9058DD19FDCF3200E23961 /* Build configuration list for PBXProject "FLCLFilmstripsCollectionLayout" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C9058F719FDCF3200E23961 /* Debug */,
@@ -400,7 +400,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5C9058F919FDCF3200E23961 /* Build configuration list for PBXNativeTarget "FilmstripsCollectionLayout" */ = {
+		5C9058F919FDCF3200E23961 /* Build configuration list for PBXNativeTarget "FLCLFilmstripsCollectionLayout" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C9058FA19FDCF3200E23961 /* Debug */,
@@ -409,7 +409,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5C9058FC19FDCF3200E23961 /* Build configuration list for PBXNativeTarget "FilmstripsCollectionLayoutTests" */ = {
+		5C9058FC19FDCF3200E23961 /* Build configuration list for PBXNativeTarget "FLCLFilmstripsCollectionLayoutTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C9058FD19FDCF3200E23961 /* Debug */,

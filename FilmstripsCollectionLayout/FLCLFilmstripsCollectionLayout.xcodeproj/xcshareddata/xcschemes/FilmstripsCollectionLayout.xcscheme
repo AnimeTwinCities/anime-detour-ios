@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5C9058E219FDCF3200E23961"
-               BuildableName = "FilmstripsCollectionLayout.framework"
-               BlueprintName = "FilmstripsCollectionLayout"
-               ReferencedContainer = "container:FilmstripsCollectionLayout.xcodeproj">
+               BuildableName = "FLCLFilmstripsCollectionLayout.framework"
+               BlueprintName = "FLCLFilmstripsCollectionLayout"
+               ReferencedContainer = "container:FLCLFilmstripsCollectionLayout.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5C9058ED19FDCF3200E23961"
-               BuildableName = "FilmstripsCollectionLayoutTests.xctest"
-               BlueprintName = "FilmstripsCollectionLayoutTests"
-               ReferencedContainer = "container:FilmstripsCollectionLayout.xcodeproj">
+               BuildableName = "FLCLFilmstripsCollectionLayoutTests.xctest"
+               BlueprintName = "FLCLFilmstripsCollectionLayoutTests"
+               ReferencedContainer = "container:FLCLFilmstripsCollectionLayout.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5C9058ED19FDCF3200E23961"
-               BuildableName = "FilmstripsCollectionLayoutTests.xctest"
-               BlueprintName = "FilmstripsCollectionLayoutTests"
-               ReferencedContainer = "container:FilmstripsCollectionLayout.xcodeproj">
+               BuildableName = "FLCLFilmstripsCollectionLayoutTests.xctest"
+               BlueprintName = "FLCLFilmstripsCollectionLayoutTests"
+               ReferencedContainer = "container:FLCLFilmstripsCollectionLayout.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5C9058E219FDCF3200E23961"
-            BuildableName = "FilmstripsCollectionLayout.framework"
-            BlueprintName = "FilmstripsCollectionLayout"
-            ReferencedContainer = "container:FilmstripsCollectionLayout.xcodeproj">
+            BuildableName = "FLCLFilmstripsCollectionLayout.framework"
+            BlueprintName = "FLCLFilmstripsCollectionLayout"
+            ReferencedContainer = "container:FLCLFilmstripsCollectionLayout.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5C9058E219FDCF3200E23961"
-            BuildableName = "FilmstripsCollectionLayout.framework"
-            BlueprintName = "FilmstripsCollectionLayout"
-            ReferencedContainer = "container:FilmstripsCollectionLayout.xcodeproj">
+            BuildableName = "FLCLFilmstripsCollectionLayout.framework"
+            BlueprintName = "FLCLFilmstripsCollectionLayout"
+            ReferencedContainer = "container:FLCLFilmstripsCollectionLayout.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5C9058E219FDCF3200E23961"
-            BuildableName = "FilmstripsCollectionLayout.framework"
-            BlueprintName = "FilmstripsCollectionLayout"
-            ReferencedContainer = "container:FilmstripsCollectionLayout.xcodeproj">
+            BuildableName = "FLCLFilmstripsCollectionLayout.framework"
+            BlueprintName = "FLCLFilmstripsCollectionLayout"
+            ReferencedContainer = "container:FLCLFilmstripsCollectionLayout.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
