@@ -14,6 +14,10 @@
 		5C65B3C619EA14DB00545FDA /* ScheduleAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B3C519EA14DB00545FDA /* ScheduleAPIClient.swift */; };
 		5C65B3C719EA14DB00545FDA /* ScheduleAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B3C519EA14DB00545FDA /* ScheduleAPIClient.swift */; };
 		5C65B3C919EA1E0000545FDA /* ScheduleAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B3C819EA1E0000545FDA /* ScheduleAPIClientTests.swift */; };
+		5C6AA6991A15982C008B80C7 /* ModelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6AA6981A15982C008B80C7 /* ModelsController.swift */; };
+		5C6AA69A1A15982C008B80C7 /* ModelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6AA6981A15982C008B80C7 /* ModelsController.swift */; };
+		5C6AA6A01A159C09008B80C7 /* ConScheduleKit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C6AA69E1A159C09008B80C7 /* ConScheduleKit.xcdatamodeld */; };
+		5C6AA6A11A159C09008B80C7 /* ConScheduleKit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C6AA69E1A159C09008B80C7 /* ConScheduleKit.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +39,8 @@
 		5C65B3B119EA14A400545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B3C519EA14DB00545FDA /* ScheduleAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleAPIClient.swift; sourceTree = "<group>"; };
 		5C65B3C819EA1E0000545FDA /* ScheduleAPIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleAPIClientTests.swift; sourceTree = "<group>"; };
+		5C6AA6981A15982C008B80C7 /* ModelsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelsController.swift; sourceTree = "<group>"; };
+		5C6AA69F1A159C09008B80C7 /* ConScheduleKit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ConScheduleKit.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +83,10 @@
 		5C65B3A219EA14A400545FDA /* ConScheduleKit */ = {
 			isa = PBXGroup;
 			children = (
+				5C6AA69C1A159AC5008B80C7 /* API Client */,
+				5C6AA69B1A159A7F008B80C7 /* Models */,
+				5C6AA6951A159807008B80C7 /* Model Controllers */,
 				5C65B3A519EA14A400545FDA /* ConScheduleKit.h */,
-				5C65B3C519EA14DB00545FDA /* ScheduleAPIClient.swift */,
-				5C0D4E3C19EAEA2400AD6CF7 /* Session.swift */,
 				5C65B3A319EA14A400545FDA /* Supporting Files */,
 			);
 			path = ConScheduleKit;
@@ -108,6 +115,31 @@
 				5C65B3B119EA14A400545FDA /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5C6AA6951A159807008B80C7 /* Model Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5C6AA6981A15982C008B80C7 /* ModelsController.swift */,
+			);
+			path = "Model Controllers";
+			sourceTree = "<group>";
+		};
+		5C6AA69B1A159A7F008B80C7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5C6AA69E1A159C09008B80C7 /* ConScheduleKit.xcdatamodeld */,
+				5C0D4E3C19EAEA2400AD6CF7 /* Session.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5C6AA69C1A159AC5008B80C7 /* API Client */ = {
+			isa = PBXGroup;
+			children = (
+				5C65B3C519EA14DB00545FDA /* ScheduleAPIClient.swift */,
+			);
+			path = "API Client";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +250,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C6AA6A01A159C09008B80C7 /* ConScheduleKit.xcdatamodeld in Sources */,
+				5C6AA6991A15982C008B80C7 /* ModelsController.swift in Sources */,
 				5C0D4E3D19EAEA2400AD6CF7 /* Session.swift in Sources */,
 				5C65B3C619EA14DB00545FDA /* ScheduleAPIClient.swift in Sources */,
 			);
@@ -230,6 +264,8 @@
 				5C65B3C719EA14DB00545FDA /* ScheduleAPIClient.swift in Sources */,
 				5C65B3C919EA1E0000545FDA /* ScheduleAPIClientTests.swift in Sources */,
 				5C0D4E3E19EAEA2400AD6CF7 /* Session.swift in Sources */,
+				5C6AA69A1A15982C008B80C7 /* ModelsController.swift in Sources */,
+				5C6AA6A11A159C09008B80C7 /* ConScheduleKit.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +459,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5C6AA69E1A159C09008B80C7 /* ConScheduleKit.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5C6AA69F1A159C09008B80C7 /* ConScheduleKit.xcdatamodel */,
+			);
+			currentVersion = 5C6AA69F1A159C09008B80C7 /* ConScheduleKit.xcdatamodel */;
+			path = ConScheduleKit.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5C65B39719EA14A400545FDA /* Project object */;
 }

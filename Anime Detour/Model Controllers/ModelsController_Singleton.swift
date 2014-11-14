@@ -8,13 +8,15 @@
 
 import Foundation
 
-private var _onceToken: dispatch_once_t = 0
-private var _sharedInstance: ConModelsController!
+import ConScheduleKit
 
-extension ConModelsController {
-    class var sharedInstance: ConModelsController {
+private var _onceToken: dispatch_once_t = 0
+private var _sharedInstance: ModelsController!
+
+extension ModelsController {
+    class var sharedInstance: ModelsController {
         dispatch_once(&_onceToken) {
-            _sharedInstance = ConModelsController()
+            _sharedInstance = ModelsController()
         }
 
         return _sharedInstance

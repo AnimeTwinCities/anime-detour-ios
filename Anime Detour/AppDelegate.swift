@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     lazy var apiClient = ScheduleAPIClient.sharedInstance
-    lazy var modelsController = ConModelsController.sharedInstance
+    lazy var modelsController = ModelsController.sharedInstance
     lazy var backgroundContext: NSManagedObjectContext = {
         let context = self.modelsController.createManagedObjectContext(.PrivateQueueConcurrencyType)!
         NSNotificationCenter.defaultCenter().addObserverForName(NSManagedObjectContextDidSaveNotification, object: context, queue: NSOperationQueue.mainQueue(), usingBlock: { [weak self] (note: NSNotification!) -> Void in

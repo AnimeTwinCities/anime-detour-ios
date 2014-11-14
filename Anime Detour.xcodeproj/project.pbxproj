@@ -7,11 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C0EF2A619FB26F200FA8EEC /* ConScheduleData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2A419FB26F200FA8EEC /* ConScheduleData.xcdatamodeld */; };
-		5C0EF2A919FB296100FA8EEC /* ConModelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2A819FB296100FA8EEC /* ConModelsController.swift */; };
-		5C0EF2AA19FB296100FA8EEC /* ConModelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2A819FB296100FA8EEC /* ConModelsController.swift */; };
-		5C0EF2DD19FB2E4400FA8EEC /* ConModelsController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* ConModelsController_Singleton.swift */; };
-		5C0EF2DE19FB2E4400FA8EEC /* ConModelsController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* ConModelsController_Singleton.swift */; };
+		5C0EF2DD19FB2E4400FA8EEC /* ModelsController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* ModelsController_Singleton.swift */; };
+		5C0EF2DE19FB2E4400FA8EEC /* ModelsController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* ModelsController_Singleton.swift */; };
 		5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
 		5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
 		5C16772D19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */; };
@@ -121,9 +118,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5C0EF2A519FB26F200FA8EEC /* ConScheduleData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ConScheduleData.xcdatamodel; sourceTree = "<group>"; };
-		5C0EF2A819FB296100FA8EEC /* ConModelsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConModelsController.swift; sourceTree = "<group>"; };
-		5C0EF2DC19FB2E4400FA8EEC /* ConModelsController_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConModelsController_Singleton.swift; sourceTree = "<group>"; };
+		5C0EF2DC19FB2E4400FA8EEC /* ModelsController_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelsController_Singleton.swift; sourceTree = "<group>"; };
 		5C16772819EB6B720097B1D3 /* SessionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C16772F19EB6C030097B1D3 /* SessionCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -181,8 +176,7 @@
 		5C0EF2A719FB291900FA8EEC /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5C0EF2A819FB296100FA8EEC /* ConModelsController.swift */,
-				5C0EF2DC19FB2E4400FA8EEC /* ConModelsController_Singleton.swift */,
+				5C0EF2DC19FB2E4400FA8EEC /* ModelsController_Singleton.swift */,
 				5C631A1D1A06AC5E002F193A /* UserDataController.swift */,
 				5C631A201A06AD31002F193A /* UserDataController_Singleton.swift */,
 			);
@@ -289,7 +283,6 @@
 				5CC67FF11A0DCCFB007CBEBD /* SessionTypes.xcassets */,
 				5C65B37F19EA143A00545FDA /* LaunchScreen.xib */,
 				5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */,
-				5C0EF2A419FB26F200FA8EEC /* ConScheduleData.xcdatamodeld */,
 				5C631A181A06ABD5002F193A /* UserData.xcdatamodeld */,
 				5C65B37219EA143A00545FDA /* Supporting Files */,
 			);
@@ -498,13 +491,11 @@
 				5C54451E19F41D8A003CC1C3 /* MapsViewController.swift in Sources */,
 				5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */,
 				5C54451919F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift in Sources */,
-				5C0EF2DD19FB2E4400FA8EEC /* ConModelsController_Singleton.swift in Sources */,
+				5C0EF2DD19FB2E4400FA8EEC /* ModelsController_Singleton.swift in Sources */,
 				5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */,
-				5C0EF2A919FB296100FA8EEC /* ConModelsController.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
 				5C631A1E1A06AC5E002F193A /* UserDataController.swift in Sources */,
 				5C631A251A06AF62002F193A /* SessionBookmark.swift in Sources */,
-				5C0EF2A619FB26F200FA8EEC /* ConScheduleData.xcdatamodeld in Sources */,
 				5C54451119F2D79B003CC1C3 /* SessionsViewController.swift in Sources */,
 				5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */,
 				5CDB833F19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift in Sources */,
@@ -516,13 +507,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C0EF2AA19FB296100FA8EEC /* ConModelsController.swift in Sources */,
 				5C631A1F1A06AC5E002F193A /* UserDataController.swift in Sources */,
 				5C65B38D19EA143A00545FDA /* Anime_DetourTests.swift in Sources */,
 				5C631A261A06AF62002F193A /* SessionBookmark.swift in Sources */,
 				5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
 				5C631A221A06AD31002F193A /* UserDataController_Singleton.swift in Sources */,
-				5C0EF2DE19FB2E4400FA8EEC /* ConModelsController_Singleton.swift in Sources */,
+				5C0EF2DE19FB2E4400FA8EEC /* ModelsController_Singleton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,16 +737,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		5C0EF2A419FB26F200FA8EEC /* ConScheduleData.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				5C0EF2A519FB26F200FA8EEC /* ConScheduleData.xcdatamodel */,
-			);
-			currentVersion = 5C0EF2A519FB26F200FA8EEC /* ConScheduleData.xcdatamodel */;
-			path = ConScheduleData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		5C631A181A06ABD5002F193A /* UserData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
