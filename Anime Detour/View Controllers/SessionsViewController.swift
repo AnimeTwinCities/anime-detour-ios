@@ -17,7 +17,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy var userDataController = UserDataController.sharedInstance
     lazy private var managedObjectContext: NSManagedObjectContext = {
-        return ModelsController.sharedInstance.managedObjectContext!
+        return CoreDataController.sharedInstance.managedObjectContext!
     }()
     lazy private var sessionsFetchedResultsController: NSFetchedResultsController = {
         let sessionsFetchRequest = self.sessionsFetchRequest

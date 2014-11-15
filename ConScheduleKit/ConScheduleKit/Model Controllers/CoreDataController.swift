@@ -9,7 +9,7 @@
 import CoreData
 import UIKit
 
-public class ModelsController: NSObject {
+public class CoreDataController: NSObject {
     public class var errorDomain: String {
         get {
             return "com.nagasoftworks.con-schedule-kit"
@@ -26,7 +26,7 @@ public class ModelsController: NSObject {
 
     private lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle(forClass: ModelsController.self).URLForResource("ConScheduleKit", withExtension: "momd")!
+        let modelURL = NSBundle(forClass: CoreDataController.self).URLForResource("ConScheduleKit", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
 

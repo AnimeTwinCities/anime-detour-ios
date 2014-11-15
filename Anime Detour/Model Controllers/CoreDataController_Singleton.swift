@@ -11,12 +11,12 @@ import Foundation
 import ConScheduleKit
 
 private var _onceToken: dispatch_once_t = 0
-private var _sharedInstance: ModelsController!
+private var _sharedInstance: CoreDataController!
 
-extension ModelsController {
-    class var sharedInstance: ModelsController {
+extension CoreDataController {
+    class var sharedInstance: CoreDataController {
         dispatch_once(&_onceToken) {
-            _sharedInstance = ModelsController()
+            _sharedInstance = CoreDataController()
         }
 
         return _sharedInstance

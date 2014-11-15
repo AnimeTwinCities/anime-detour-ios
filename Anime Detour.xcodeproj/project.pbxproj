@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C0EF2DD19FB2E4400FA8EEC /* ModelsController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* ModelsController_Singleton.swift */; };
-		5C0EF2DE19FB2E4400FA8EEC /* ModelsController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* ModelsController_Singleton.swift */; };
+		5C0EF2DD19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */; };
+		5C0EF2DE19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */; };
 		5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
 		5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
 		5C16772D19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */; };
@@ -118,7 +118,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5C0EF2DC19FB2E4400FA8EEC /* ModelsController_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelsController_Singleton.swift; sourceTree = "<group>"; };
+		5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController_Singleton.swift; sourceTree = "<group>"; };
 		5C16772819EB6B720097B1D3 /* SessionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewCell.swift; sourceTree = "<group>"; };
 		5C16772F19EB6C030097B1D3 /* SessionCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 		5C0EF2A719FB291900FA8EEC /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5C0EF2DC19FB2E4400FA8EEC /* ModelsController_Singleton.swift */,
+				5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */,
 				5C631A1D1A06AC5E002F193A /* UserDataController.swift */,
 				5C631A201A06AD31002F193A /* UserDataController_Singleton.swift */,
 			);
@@ -491,7 +491,7 @@
 				5C54451E19F41D8A003CC1C3 /* MapsViewController.swift in Sources */,
 				5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */,
 				5C54451919F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift in Sources */,
-				5C0EF2DD19FB2E4400FA8EEC /* ModelsController_Singleton.swift in Sources */,
+				5C0EF2DD19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */,
 				5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
 				5C631A1E1A06AC5E002F193A /* UserDataController.swift in Sources */,
@@ -512,7 +512,7 @@
 				5C631A261A06AF62002F193A /* SessionBookmark.swift in Sources */,
 				5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
 				5C631A221A06AD31002F193A /* UserDataController_Singleton.swift in Sources */,
-				5C0EF2DE19FB2E4400FA8EEC /* ModelsController_Singleton.swift in Sources */,
+				5C0EF2DE19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
