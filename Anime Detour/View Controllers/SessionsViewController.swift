@@ -74,7 +74,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
             return
         }
 
-        let collectionView = self.collectionView
+        let collectionView = self.collectionView!
         if let layout = (collectionView.collectionViewLayout as? FilmstripsCollectionLayout) {
             layout.itemSize = CGSize(width: 300, height: 88)
             layout.headerReferenceSize = CGSize(width: 300, height: 44)
@@ -94,7 +94,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
 
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
-        self.collectionView.collectionViewLayout.invalidateLayout()
+        self.collectionView?.collectionViewLayout.invalidateLayout()
     }
 
     // MARK: Data Fetching
@@ -136,14 +136,13 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         self.selectedSectionDate = selectedSession.start
 
         let singleSectionLayout = UICollectionViewFlowLayout()
-        if let currentLayout = self.collectionView.collectionViewLayout as? FilmstripsCollectionLayout {
+        if let currentLayout = collectionView.collectionViewLayout as? FilmstripsCollectionLayout {
             singleSectionLayout.headerReferenceSize = currentLayout.headerReferenceSize
             singleSectionLayout.minimumInteritemSpacing = currentLayout.minimumInteritemSpacing
             singleSectionLayout.minimumLineSpacing = currentLayout.minimumLineSpacing
         }
         let sectionVC = SessionsViewController(collectionViewLayout: singleSectionLayout)
         sectionVC.useLayoutToLayoutNavigationTransitions = true
-        let collectionView: UICollectionView = self.collectionView
         self.navigationController?.showViewController(sectionVC, sender: self)
     }
 
@@ -168,8 +167,8 @@ extension SessionsViewController: UIGestureRecognizerDelegate {
             return true
         }
 
-        if self.collectionView.collectionViewLayout is FilmstripsCollectionLayout {
-            let collectionView = self.collectionView
+        if let layout = self.collectionView?.collectionViewLayout as? FilmstripsCollectionLayout {
+            let collectionView = self.collectionView!
             let location = touch.locationInView(collectionView)
 
             // Check if the touch is in a collection view cell. Return true if so.
