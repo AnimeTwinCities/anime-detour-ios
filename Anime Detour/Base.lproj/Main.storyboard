@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B17" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -162,9 +162,24 @@
                             <outletCollection property="gestureRecognizers" destination="cPP-nT-PlC" appends="YES" id="Fdd-Bq-9xJ"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="cPG-gu-p94"/>
+                    <navigationItem key="navigationItem" id="cPG-gu-p94">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="jP1-ni-Hl9">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="First"/>
+                                <segment title="Second"/>
+                                <segment title="Third"/>
+                            </segments>
+                            <connections>
+                                <action selector="goToDay:" destination="TFu-Xh-Dup" eventType="valueChanged" id="nhU-FO-dLY"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="w2w-jg-QYf" id="SX0-9S-hYC"/>
+                        <outlet property="daySegmentedControl" destination="jP1-ni-Hl9" id="BTa-7x-76y"/>
                         <outlet property="horizontalScrollRecognizer" destination="cPP-nT-PlC" id="IJK-EB-VJU"/>
                         <segue destination="DNg-fJ-Dxt" kind="show" identifier="SessionDetailSegueIdentifier" id="eGs-Bt-9cE"/>
                     </connections>

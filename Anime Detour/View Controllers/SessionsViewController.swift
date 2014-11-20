@@ -61,6 +61,40 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     private var selectedSession: Session?
     private var selectedSectionDate: NSDate?
 
+
+
+    /**
+    Create an array of dates, set to midnight, of each day of the con.
+
+    Hard-coded for Anime Detour.
+    */
+    private lazy var days: [NSDate] = {
+        let calendar = NSCalendar.currentCalendar()
+
+        // Components for Friday at midnight
+        let components = NSDateComponents()
+//        components.year = 2015
+//        components.month = 3
+//        components.day = 27
+        components.year = 2014
+        components.month = 4
+        components.day = 4
+        components.hour = 0
+        components.minute = 0
+        components.timeZone = calendar.timeZone
+
+        let friday = calendar.dateFromComponents(components)!
+        components.day += 1
+        let saturday = calendar.dateFromComponents(components)!
+        components.day += 1
+        let sunday = calendar.dateFromComponents(components)!
+
+        return [friday, saturday, sunday]
+    }()
+
+    // Controls
+    @IBOutlet var daySegmentedControl: UISegmentedControl?
+
     // Gesture recognizers
     @IBOutlet var horizontalScrollRecognizer: UIPanGestureRecognizer?
     
@@ -72,6 +106,17 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         // The class displaying us is assumed to have taken care of any setup required.
         if self.isDetail {
             return
+        }
+
+        // Set the names of the days on the day chooser segmented control
+        if let daysControl = self.daySegmentedControl {
+            let formatter = NSDateFormatter()
+            // The full name of the day of the week, e.g. Monday
+            formatter.dateFormat = "EEEE"
+
+            for (idx, date) in enumerate(self.days) {
+                daysControl.setTitle(formatter.stringFromDate(date), forSegmentAtIndex: idx)
+            }
         }
 
         let collectionView = self.collectionView!
@@ -146,6 +191,17 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         self.navigationController?.showViewController(sectionVC, sender: self)
     }
 
+    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        if let cell = cell as? SessionCollectionViewCell {
+            let vm = cell.viewModel
+            if let startDate = vm?.session.start {
+                if let dateIdx = self.dayIndex(startDate) {
+                    self.daySegmentedControl?.selectedSegmentIndex = dateIdx
+                }
+            }
+        }
+    }
+
     // MARK: Collection View Delegate Flow Layout
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -158,6 +214,67 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         if let detailVC = segue.destinationViewController as? SessionViewController {
             detailVC.session = self.selectedSession!
         }
+    }
+}
+
+/// Day selection indicator logic
+extension SessionsViewController {
+    @IBAction func goToDay(sender: UISegmentedControl) {
+        let selectedIdx = sender.selectedSegmentIndex
+
+        // Scroll to the first session for the selected day
+        let date = self.days[selectedIdx]
+        if let indexPath = self.indexPath(date) {
+            self.collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.Top, animated: true)
+        }
+    }
+
+    /**
+    Find the index path of the first Session with a start time of `date` or later
+    */
+    private func indexPath(date: NSDate) -> NSIndexPath? {
+        let predicate = NSPredicate(format: "start >= %@", argumentArray: [date])
+        let moc = self.managedObjectContext
+        let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true)]
+        let fetchRequest = NSFetchRequest()
+        fetchRequest.entity = NSEntityDescription.entityForName("Session", inManagedObjectContext: moc)
+        fetchRequest.predicate = predicate
+        fetchRequest.sortDescriptors = sortDescriptors
+
+        if let results = moc.executeFetchRequest(fetchRequest, error: nil) as? [Session] {
+            if let first = results.first {
+                return self.fetchedResultsController.indexPathForObject(first)
+            }
+        }
+
+        return nil
+    }
+
+    /**
+    Finds the index of the date in `self.days` which is the same day as `date`.
+    
+    :returns: An index, or `nil` if no matching date was found.
+    */
+    private func dayIndex(date: NSDate) -> Int? {
+        let days = self.days
+        let dateAsInterval = date.timeIntervalSinceReferenceDate
+        let fridayAsInterval = days[0].timeIntervalSinceReferenceDate
+        let saturdayAsInterval = days[1].timeIntervalSinceReferenceDate
+        let sundayAsInterval = days[2].timeIntervalSinceReferenceDate
+
+        var dateIdx: Int?
+        switch dateAsInterval {
+        case fridayAsInterval ..< saturdayAsInterval:
+            dateIdx = 0
+        case saturdayAsInterval ..< sundayAsInterval:
+            dateIdx = 1
+        case sundayAsInterval ..< NSDate.distantFuture().timeIntervalSinceReferenceDate:
+            dateIdx = 2
+        default:
+            break
+        }
+
+        return dateIdx
     }
 }
 
