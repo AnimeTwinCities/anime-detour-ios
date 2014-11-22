@@ -88,7 +88,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         var fetchError: NSError?
         let success = frc.performFetch(&fetchError)
         if let error = fetchError {
-            NSLog("Error fetching sessions: \(error)")
+            NSLog("Error fetching sessions: %@", error)
         }
     }
 
