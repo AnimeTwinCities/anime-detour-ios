@@ -218,7 +218,7 @@ private class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetche
     // MARK: Fetched Results Controller Delegate
 
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        // empty
+        self.cumulativeChanges.removeAll(keepCapacity: false)
     }
 
     private func controllerDidChangeContent(controller: NSFetchedResultsController) {
