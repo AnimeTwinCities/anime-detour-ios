@@ -19,7 +19,7 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     var sessionCellIdentifier = "SessionCell"
     var sectionHeaderIdentifier = "SessionSectionHeader"
 
-    private var shortDateFormat = "MM/dd hh:mm a"
+    private var shortDateFormat = "EEEE – hh:mm a" // like "Friday – 12:45 PM"
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
         formatter.dateFormat = self.shortDateFormat
@@ -61,9 +61,17 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         return self.fetchedResultsController.objectAtIndexPath(indexPath) as Session
     }
 
+    /**
+    The text to display in a section header.
+
+    :param: forSection Section number. Must be a section number known to the fetched results controller.
+    */
     func headerText(forSection sectionNumber: Int) -> String {
         let sectionInfo = self.fetchedResultsController.sections![sectionNumber] as NSFetchedResultsSectionInfo
-        let name = sectionInfo.name ?? "No header name"
+        // If the fetched results controller has a section, it must have at least one item in it.
+        // Force unwrapping it is safe.
+        let start = (sectionInfo.objects as [Session]).first!.start
+        let name = self.dateFormatter.stringFromDate(start)
         return name
     }
     
