@@ -61,7 +61,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     private var selectedSession: Session?
     private var selectedSectionDate: NSDate?
 
-
+    private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
 
     /**
     Create an array of dates, set to midnight, of each day of the con.
@@ -69,8 +69,6 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     Hard-coded for Anime Detour.
     */
     private lazy var days: [NSDate] = {
-        let calendar = NSCalendar.currentCalendar()
-
         // Components for Friday at midnight
         let components = NSDateComponents()
 //        components.year = 2015
@@ -81,8 +79,9 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         components.day = 4
         components.hour = 0
         components.minute = 0
-        components.timeZone = calendar.timeZone
+        components.timeZone = self.timeZone
 
+        let calendar = NSCalendar.currentCalendar()
         let friday = calendar.dateFromComponents(components)!
         components.day += 1
         let saturday = calendar.dateFromComponents(components)!
@@ -127,7 +126,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
 
         var frc: NSFetchedResultsController = self.sessionsFetchedResultsController(self.sessionsFetchRequest)
         self.fetchedResultsController = frc
-        self.dataSource = SessionCollectionViewDataSource(fetchedResultsController: frc, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController)
+        self.dataSource = SessionCollectionViewDataSource(fetchedResultsController: frc, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController)
         self.dataSource.prepareCollectionView(collectionView)
         
         var fetchError: NSError?

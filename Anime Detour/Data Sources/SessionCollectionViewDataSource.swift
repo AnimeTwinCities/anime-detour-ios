@@ -14,6 +14,7 @@ import ConScheduleKit
 class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let imagesURLSession: NSURLSession?
     let fetchedResultsController: NSFetchedResultsController
+    let timeZone: NSTimeZone?
     let userDataController: UserDataController?
     var sessionCellIdentifier = "SessionCell"
     var sectionHeaderIdentifier = "SessionSectionHeader"
@@ -22,11 +23,17 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
         formatter.dateFormat = self.shortDateFormat
+        if let timeZone = self.timeZone {
+            formatter.timeZone = timeZone
+        }
         return formatter
     }()
     lazy private var timeOnlyDateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
         formatter.dateFormat = "hh:mm a"
+        if let timeZone = self.timeZone {
+            formatter.timeZone = timeZone
+        }
         return formatter
     }()
 
@@ -37,9 +44,10 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     :param: fetchedResultsController An FRC fetching Sessions to display in a collection view.
     :param: userDataController A controller for interacting with user models, e.g. bookmarked Sessions.
     */
-    init(fetchedResultsController: NSFetchedResultsController, imagesURLSession: NSURLSession?, userDataController: UserDataController?) {
+    init(fetchedResultsController: NSFetchedResultsController, timeZone: NSTimeZone?, imagesURLSession: NSURLSession?, userDataController: UserDataController?) {
         self.imagesURLSession = imagesURLSession
         self.fetchedResultsController = fetchedResultsController
+        self.timeZone = timeZone
         self.userDataController = userDataController
         super.init()
     }
