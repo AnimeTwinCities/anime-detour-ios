@@ -44,6 +44,13 @@ class SessionViewModel {
         }
     }
     /// Get the colored circle image for the primary type of the session, if we have an image for that type.
+    var primaryTypeColor: UIColor? {
+        get {
+            let firstType = self.session.types.first
+            return firstType.map(self.color) ?? nil
+        }
+    }
+    /// Get the colored circle image for the primary type of the session, if we have an image for that type.
     var primaryTypeImage: UIImage? {
         get {
             let firstType = self.session.types.first
@@ -189,6 +196,31 @@ class SessionViewModel {
         }
 
         self.delegate?.bookmarkImageChanged(self.bookmarkImage)
+    }
+
+    private func color(sessionType: String) -> UIColor? {
+        switch sessionType.lowercaseString {
+        case "programming":
+            // #ffab36
+            return UIColor(red: 255 / 255, green: 171 / 255, blue: 54 / 255, alpha: 1)
+        case "video":
+            // #ffab36
+            return UIColor(red: 95 / 255, green: 251 / 255, blue: 86 / 255, alpha: 1)
+        case "room parties":
+            // #fac0fe
+            return UIColor(red: 250 / 255, green: 192 / 255, blue: 254 / 255, alpha: 1)
+        case "photoshoot":
+            // #00fec8
+            return UIColor(red: 0 / 255, green: 254 / 255, blue: 200 / 255, alpha: 1)
+        case "guest relations":
+            // #b6caff
+            return UIColor(red: 182 / 255, green: 202 / 255, blue: 255 / 255, alpha: 1)
+        case "gaming":
+            // #fbff96
+            return UIColor(red: 251 / 255, green: 255 / 255, blue: 150 / 255, alpha: 1)
+        default:
+            return nil
+        }
     }
 
     private func sessionTypeToImageName(sessionType: String) -> String {

@@ -22,7 +22,8 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var bookmarkButton: UIButton!
     @IBOutlet var typesLabel: UILabel!
-    @IBOutlet var primaryTypeImage: UIImageView!
+    @IBOutlet var primaryTypeIndicator: UIView!
+    @IBOutlet var backgroundPrimaryTypeIndicator: UIView!
 
     /// Views which should only display in expanded "detail" mode
     @IBOutlet var detailViews: [UIView]!
@@ -49,7 +50,20 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
             self.locationLabel.text = viewModel?.location
             self.timeLabel.text = viewModel?.dateAndTime
             self.typesLabel.text = viewModel?.type
-            self.primaryTypeImage.image = viewModel?.primaryTypeImage
+            self.primaryTypeIndicator.backgroundColor = viewModel?.primaryTypeColor
+            self.backgroundPrimaryTypeIndicator.backgroundColor = viewModel?.primaryTypeColor
+
+            let leftMargin = self.layoutMargins.left
+
+            // Set rounded corners on the background session type indicator's layer.
+            let backgroundPrimaryTypeLayer = self.backgroundPrimaryTypeIndicator.layer
+            backgroundPrimaryTypeLayer.cornerRadius = leftMargin
+            backgroundPrimaryTypeLayer.masksToBounds = true
+
+            // Set rounded corners on the session type indicator's layer.
+            let primaryTypeLayer = self.primaryTypeIndicator.layer
+            primaryTypeLayer.cornerRadius = 10.0 // half the width of the type indicator view
+            primaryTypeLayer.masksToBounds = true
 
             self.bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
         }
@@ -67,19 +81,32 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
 
             let isDetail = self.isDetail!
 
+            var viewsToRemove: [UIView]
+            var viewsToAdd: [UIView]
+            var toRemove: [NSLayoutConstraint]
+            var toAdd: [NSLayoutConstraint]
             if isDetail {
                 for view in self.detailViews {
                     self.contentView.addSubview(view)
                 }
-                self.addConstraints(self.detailConstraints)
-                self.removeConstraints(self.summaryConstraints)
+
+                toAdd = self.detailConstraints
+                toRemove = self.summaryConstraints
+
+                self.backgroundPrimaryTypeIndicator.hidden = true
             } else {
                 for view in self.detailViews {
                     view.removeFromSuperview()
                 }
-                self.removeConstraints(self.detailConstraints)
-                self.addConstraints(self.summaryConstraints)
+
+                toAdd = self.summaryConstraints
+                toRemove = self.detailConstraints
+
+                self.backgroundPrimaryTypeIndicator.hidden = false
             }
+
+            self.removeConstraints(toRemove)
+            self.addConstraints(toAdd)
         }
     }
 
