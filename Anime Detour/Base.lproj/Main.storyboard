@@ -40,6 +40,9 @@
                                 <userDefinedRuntimeAttribute type="size" keyPath="itemSize">
                                     <size key="value" width="300" height="88"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="rect" keyPath="sectionInset">
+                                    <rect key="value" x="10" y="0.0" width="10" height="0.0"/>
+                                </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="lineSpacing">
                                     <real key="value" value="0.0"/>
                                 </userDefinedRuntimeAttribute>
