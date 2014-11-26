@@ -33,6 +33,12 @@ public class FilmstripsCollectionLayout: UICollectionViewLayout {
     /// Inspired by `UICollectionViewFlowLayout`'s `minimumInteritemSpacing`.
     @IBInspectable public var itemSpacing: CGFloat = 0
 
+    /// Meant to emulate `UICollectionViewFlowLayout`'s `sectionInset`.
+    /// Each property will be used according to this correspondence with UIEdgeInsets:
+    /// x: left, y: top, width: right, height: bottom.
+    /// Currently only the x coordinate of the origin is used, i.e. the left inset.
+    @IBInspectable public var sectionInset: CGRect = CGRectZero
+
     /// Emulates `UICollectionViewFlowLayout`'s `headerReferenceSize` unless set to CGSizeZero.
     public var headerReferenceSize: CGSize = CGSizeZero
 
@@ -103,13 +109,15 @@ public class FilmstripsCollectionLayout: UICollectionViewLayout {
         let sectionsInRect = firstSectionInRect..<lastSectionInRect
         
         let maxItemsPerSectionInRect = Int(ceil(positiveRect.width / cellWidthWithSpacing))
-        
+
+        let leftXInset = self.sectionInset.minX
+
         let itemsPerSectionInRect: [Int : [Int]] = { () -> [Int : [Int]] in
             var itemSectionsAndNumbers = [Int : [Int]]()
             
             for section in sectionsInRect {
                 let scrollOffsetForSection = self.totalOffset(forSection: section)
-                let xOffsetForFirstItem: CGFloat = floor(positiveRect.minX / ceil(cellWidthWithSpacing))
+                let xOffsetForFirstItem: CGFloat = floor(max(positiveRect.minX - leftXInset, 0.0) / ceil(cellWidthWithSpacing))
                 
                 let itemsInSection = self.collectionView?.numberOfItemsInSection(section) ?? 0
                 
@@ -153,7 +161,7 @@ public class FilmstripsCollectionLayout: UICollectionViewLayout {
             let size = self.itemSize
             let headerSize = self.headerReferenceSize
 
-            let xOffsetForItemNumber: CGFloat = ceil(self.cellWidthWithSpacing * CGFloat(indexPath.item))
+            let xOffsetForItemNumber: CGFloat = ceil(self.cellWidthWithSpacing * CGFloat(indexPath.item)) + self.sectionInset.minX
             let yOffsetForSectionNumber: CGFloat = ceil(self.sectionHeightWithSpacing * CGFloat(indexPath.section))
 
             let section = indexPath.section
@@ -302,7 +310,7 @@ public class FilmstripsCollectionLayout: UICollectionViewLayout {
             if viewWidth > widthOfSection {
                 return 0
             } else {
-                return -(widthOfSection - collectionView.frame.width)
+                return -(widthOfSection + self.sectionInset.width - collectionView.frame.width)
             }
         }()
         if (offset < rightSideSnapXCoord) {
