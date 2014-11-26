@@ -120,7 +120,6 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
 
         let collectionView = self.collectionView!
         if let layout = (collectionView.collectionViewLayout as? FilmstripsCollectionLayout) {
-            layout.itemSize = CGSize(width: 300, height: 88)
             layout.headerReferenceSize = CGSize(width: 300, height: 44)
         }
 
@@ -182,8 +181,8 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         let singleSectionLayout = UICollectionViewFlowLayout()
         if let currentLayout = collectionView.collectionViewLayout as? FilmstripsCollectionLayout {
             singleSectionLayout.headerReferenceSize = currentLayout.headerReferenceSize
-            singleSectionLayout.minimumInteritemSpacing = currentLayout.minimumInteritemSpacing
-            singleSectionLayout.minimumLineSpacing = currentLayout.minimumLineSpacing
+            singleSectionLayout.minimumInteritemSpacing = currentLayout.itemSpacing
+            singleSectionLayout.minimumLineSpacing = currentLayout.lineSpacing
         }
         let sectionVC = SessionsViewController(collectionViewLayout: singleSectionLayout)
         sectionVC.useLayoutToLayoutNavigationTransitions = true

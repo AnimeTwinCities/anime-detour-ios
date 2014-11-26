@@ -12,7 +12,10 @@ import UIKit
 Collection view layout that shows each section in a film strip, i.e. a horizontally scrolling list.
 Supports vertical scrolling only. Otherwise similar to a UICollectionViewFlowLayout layout.
 */
-@objc(FLCLFilmstripsCollectionLayout) public class FilmstripsCollectionLayout: UICollectionViewLayout {
+// Including this makes our properties not @IBInspectable in a storyboard,
+// so skip it as of 11/25/14.
+//@objc(FLCLFilmstripsCollectionLayout)
+public class FilmstripsCollectionLayout: UICollectionViewLayout {
     /// Reusable view type for section headers. Only provided as a convenience;
     /// matches `UICollectionElementKindSectionHeader`.
     public class var FilmstripsCollectionElementKindSectionHeader: String {
@@ -21,14 +24,14 @@ Supports vertical scrolling only. Otherwise similar to a UICollectionViewFlowLay
         }
     }
 
-    /// Emulates `UICollectionViewFlowLayout`'s `itemSize` unless set to CGSizeZero.
-    public var itemSize: CGSize = CGSizeZero
+    /// Inspired by `UICollectionViewFlowLayout`'s `itemSize`. Note that self-sizing cells are unsupported.
+    @IBInspectable public var itemSize: CGSize = CGSizeZero
 
-    /// Emulates `UICollectionViewFlowLayout`'s `minimumLineSpacing`.
-    public var minimumLineSpacing: CGFloat = 0
+    /// Inspired by `UICollectionViewFlowLayout`'s `minimumLineSpacing`.
+    @IBInspectable public var lineSpacing: CGFloat = 0
 
-    /// Emulates `UICollectionViewFlowLayout`'s `minimumInteritemSpacing`.
-    public var minimumInteritemSpacing: CGFloat = 0
+    /// Inspired by `UICollectionViewFlowLayout`'s `minimumInteritemSpacing`.
+    @IBInspectable public var itemSpacing: CGFloat = 0
 
     /// Emulates `UICollectionViewFlowLayout`'s `headerReferenceSize` unless set to CGSizeZero.
     public var headerReferenceSize: CGSize = CGSizeZero
@@ -52,7 +55,7 @@ Supports vertical scrolling only. Otherwise similar to a UICollectionViewFlowLay
     private var sectionHeightWithSpacing: CGFloat {
         get {
             let size = self.itemSize
-            let lineSpacing = self.minimumLineSpacing
+            let lineSpacing = self.lineSpacing
             let headerSize = self.headerReferenceSize
             
             let sectionHeight = headerSize.height + lineSpacing + size.height + lineSpacing
@@ -66,7 +69,7 @@ Supports vertical scrolling only. Otherwise similar to a UICollectionViewFlowLay
             let size = self.itemSize
             let itemWidth = size.width
             let layoutWidth = self.collectionView!.frame.width
-            let cellSpacing = self.minimumInteritemSpacing
+            let cellSpacing = self.itemSpacing
             let widthPlusPaddingPerCell = itemWidth + cellSpacing
 
             return widthPlusPaddingPerCell
