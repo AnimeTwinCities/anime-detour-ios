@@ -50,17 +50,6 @@ class SessionViewModel {
             return firstType.map(self.color) ?? nil
         }
     }
-    /// Get the colored circle image for the primary type of the session, if we have an image for that type.
-    var primaryTypeImage: UIImage? {
-        get {
-            let firstType = self.session.types.first
-            if let imageName = firstType.map(self.sessionTypeToImageName) {
-                return UIImage(named: imageName)
-            }
-
-            return nil
-        }
-    }
     let startDateFormatter: NSDateFormatter
     let shortEndDateFormatter: NSDateFormatter
     let noImageURLSessionError = NSError(domain: "com.nagasoftworks.anime-detour", code: 1001, userInfo: nil)
@@ -221,12 +210,5 @@ class SessionViewModel {
         default:
             return nil
         }
-    }
-
-    private func sessionTypeToImageName(sessionType: String) -> String {
-        let lowercase = sessionType.lowercaseStringWithLocale(NSLocale(localeIdentifier: "en_US"))
-        let nospaces = lowercase.stringByReplacingOccurrencesOfString(" ", withString: "_")
-        let imageName = "type_circle_\(nospaces)"
-        return imageName
     }
 }

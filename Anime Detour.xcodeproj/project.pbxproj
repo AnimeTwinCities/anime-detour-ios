@@ -39,7 +39,6 @@
 		5C7666981A1062F200ACFDE8 /* ConScheduleKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C76669B1A1062FB00ACFDE8 /* FLCLFilmstripsCollectionLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7666911A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayout.framework */; };
 		5C76669C1A1062FB00ACFDE8 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7666911A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5CC67FF21A0DCCFB007CBEBD /* SessionTypes.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CC67FF11A0DCCFB007CBEBD /* SessionTypes.xcassets */; };
 		5CDB833F19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift */; };
 /* End PBXBuildFile section */
 
@@ -149,7 +148,6 @@
 		5C7CF14519FF188600B06F4B /* FLCLFilmstripsCollectionLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FLCLFilmstripsCollectionLayout.xcodeproj; path = FilmstripsCollectionLayout/FLCLFilmstripsCollectionLayout.xcodeproj; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CB80EA119ECD07B008DBC8F /* Anime DetourTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Anime DetourTests-Bridging-Header.h"; path = "../Anime Detour/Anime DetourTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		5CC67FF11A0DCCFB007CBEBD /* SessionTypes.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SessionTypes.xcassets; sourceTree = "<group>"; };
 		5CDB833E19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -280,7 +278,6 @@
 				5C65B37819EA143A00545FDA /* SecondViewController.swift */,
 				5C65B37A19EA143A00545FDA /* Main.storyboard */,
 				5C65B37D19EA143A00545FDA /* Images.xcassets */,
-				5CC67FF11A0DCCFB007CBEBD /* SessionTypes.xcassets */,
 				5C65B37F19EA143A00545FDA /* LaunchScreen.xib */,
 				5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */,
 				5C631A181A06ABD5002F193A /* UserData.xcdatamodeld */,
@@ -463,7 +460,6 @@
 				5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */,
 				5C54452719F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf in Resources */,
 				5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */,
-				5CC67FF21A0DCCFB007CBEBD /* SessionTypes.xcassets in Resources */,
 				5C54451619F31596003CC1C3 /* API Details.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
