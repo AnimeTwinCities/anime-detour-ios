@@ -36,50 +36,40 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
 
     var viewModel: SessionViewModel? {
         didSet {
-            if let oldValue = oldValue {
-                if let delegate = oldValue.delegate as? SessionCollectionViewCell {
-                    if delegate == self {
-                        oldValue.delegate = nil
-                    }
-                }
+            switch oldValue {
+            case let .Some(oldValue) where oldValue.delegate as? SessionCollectionViewCell == self:
+                oldValue.delegate = nil
+            default:
+                break
             }
 
-            viewModel?.delegate = self
-            self.nameLabel.text = viewModel?.name
-            self.descriptionLabel.text = viewModel?.sessionDescription
-            self.locationLabel.text = viewModel?.location
-            self.timeLabel.text = viewModel?.dateAndTime
-            self.typesLabel.text = viewModel?.type
-            self.primaryTypeIndicator.backgroundColor = viewModel?.primaryTypeColor
-            self.backgroundPrimaryTypeIndicator.backgroundColor = viewModel?.primaryTypeColor
+            if let viewModel = viewModel {
+                viewModel.delegate = self
+                self.nameLabel.text = viewModel.name
+                self.descriptionLabel.text = viewModel.sessionDescription
+                self.locationLabel.text = viewModel.location
+                self.timeLabel.text = viewModel.dateAndTime
+                self.typesLabel.text = viewModel.type
+                self.primaryTypeIndicator.backgroundColor = viewModel.primaryTypeColor
+                self.backgroundPrimaryTypeIndicator.backgroundColor = viewModel.primaryTypeColor
 
-            let leftMargin = self.layoutMargins.left
-
-            // Set rounded corners on the background session type indicator's layer.
-            let backgroundPrimaryTypeLayer = self.backgroundPrimaryTypeIndicator.layer
-            backgroundPrimaryTypeLayer.cornerRadius = leftMargin
-            backgroundPrimaryTypeLayer.masksToBounds = true
-
-            // Set rounded corners on the session type indicator's layer.
-            let primaryTypeLayer = self.primaryTypeIndicator.layer
-            primaryTypeLayer.cornerRadius = 10.0 // half the width of the type indicator view
-            primaryTypeLayer.masksToBounds = true
-
-            self.bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
+                self.bookmarkButton.setImage(viewModel.bookmarkImage, forState: .Normal)
+            }
         }
     }
 
     /// If `true`, the cell will display additional information, including the session description.
     private var isDetail: Bool! {
         didSet {
-            if let oldValue = oldValue {
-                // If the value is unchanged, do nothing.
-                if oldValue == self.isDetail {
-                    return
-                }
-            }
-
             let isDetail = self.isDetail!
+
+            // If the value is unchanged, do nothing.
+            switch oldValue {
+            case .Some(oldValue) where oldValue == isDetail:
+                return
+            default:
+                break
+            }
 
             var viewsToRemove: [UIView]
             var viewsToAdd: [UIView]
@@ -117,21 +107,29 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
     override func awakeFromNib() {
         // Set `isDetail` here its didSet will run.
         self.isDetail = false
+
+        let leftMargin = self.layoutMargins.left
+
+        // Set rounded corners on the background session type indicator's layer.
+        let backgroundPrimaryTypeLayer = self.backgroundPrimaryTypeIndicator.layer
+        backgroundPrimaryTypeLayer.cornerRadius = leftMargin
+        backgroundPrimaryTypeLayer.masksToBounds = true
+
+        // Set rounded corners on the session type indicator's layer.
+        let primaryTypeLayer = self.primaryTypeIndicator.layer
+        primaryTypeLayer.cornerRadius = 10.0 // half the width of the type indicator view
+        primaryTypeLayer.masksToBounds = true
     }
 
     override func layoutSubviews() {
-        if self.frame.height > self.largeHeightThreshold {
-            self.isDetail = true
-        } else {
-            self.isDetail = false
-        }
+        let overHeightThreshold = self.frame.height > self.largeHeightThreshold
+        self.isDetail = overHeightThreshold
+
         super.layoutSubviews()
     }
 
     override func prepareForReuse() {
-        if let viewModel = self.viewModel {
-            viewModel.delegate = nil
-        }
+        self.viewModel?.delegate = nil
     }
 
     // MARK: Bookmarking
