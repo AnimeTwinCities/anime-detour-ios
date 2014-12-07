@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5C0EF2DD19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */; };
-		5C0EF2DE19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */; };
 		5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
-		5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772819EB6B720097B1D3 /* SessionViewModel.swift */; };
 		5C16772D19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772C19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift */; };
 		5C16773019EB6C030097B1D3 /* SessionCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16772F19EB6C030097B1D3 /* SessionCollectionViewDataSource.swift */; };
 		5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B436D19F0A19F009342C8 /* SessionViewController.swift */; };
@@ -24,17 +22,13 @@
 		5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452819F42E45003CC1C3 /* InformationViewController.swift */; };
 		5C631A1A1A06ABD5002F193A /* UserData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A181A06ABD5002F193A /* UserData.xcdatamodeld */; };
 		5C631A1E1A06AC5E002F193A /* UserDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A1D1A06AC5E002F193A /* UserDataController.swift */; };
-		5C631A1F1A06AC5E002F193A /* UserDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A1D1A06AC5E002F193A /* UserDataController.swift */; };
 		5C631A211A06AD31002F193A /* UserDataController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A201A06AD31002F193A /* UserDataController_Singleton.swift */; };
-		5C631A221A06AD31002F193A /* UserDataController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A201A06AD31002F193A /* UserDataController_Singleton.swift */; };
 		5C631A251A06AF62002F193A /* SessionBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A241A06AF62002F193A /* SessionBookmark.swift */; };
-		5C631A261A06AF62002F193A /* SessionBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A241A06AF62002F193A /* SessionBookmark.swift */; };
 		5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37419EA143A00545FDA /* AppDelegate.swift */; };
 		5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37819EA143A00545FDA /* SecondViewController.swift */; };
 		5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37A19EA143A00545FDA /* Main.storyboard */; };
 		5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37D19EA143A00545FDA /* Images.xcassets */; };
 		5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37F19EA143A00545FDA /* LaunchScreen.xib */; };
-		5C65B38D19EA143A00545FDA /* Anime_DetourTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */; };
 		5C7666971A1062F200ACFDE8 /* ConScheduleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */; };
 		5C7666981A1062F200ACFDE8 /* ConScheduleKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C76669B1A1062FB00ACFDE8 /* FLCLFilmstripsCollectionLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7666911A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayout.framework */; };
@@ -43,13 +37,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5C65B38719EA143A00545FDA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5C65B36719EA143A00545FDA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5C65B36E19EA143A00545FDA;
-			remoteInfo = "Anime Detour";
-		};
 		5C65B3C119EA14A500545FDA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
@@ -141,13 +128,9 @@
 		5C65B37B19EA143A00545FDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C65B37D19EA143A00545FDA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5C65B38019EA143A00545FDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		5C65B38619EA143A00545FDA /* Anime DetourTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Anime DetourTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C65B38B19EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_DetourTests.swift; sourceTree = "<group>"; };
 		5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConScheduleKit.xcodeproj; path = ConScheduleKit/ConScheduleKit.xcodeproj; sourceTree = "<group>"; };
 		5C7CF14519FF188600B06F4B /* FLCLFilmstripsCollectionLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FLCLFilmstripsCollectionLayout.xcodeproj; path = FilmstripsCollectionLayout/FLCLFilmstripsCollectionLayout.xcodeproj; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
-		5CB80EA119ECD07B008DBC8F /* Anime DetourTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Anime DetourTests-Bridging-Header.h"; path = "../Anime Detour/Anime DetourTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CDB833E19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,13 +141,6 @@
 			files = (
 				5C76669B1A1062FB00ACFDE8 /* FLCLFilmstripsCollectionLayout.framework in Frameworks */,
 				5C7666971A1062F200ACFDE8 /* ConScheduleKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5C65B38319EA143A00545FDA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,7 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				5C65B37119EA143A00545FDA /* Anime Detour */,
-				5C65B38919EA143A00545FDA /* Anime DetourTests */,
 				5C65B37019EA143A00545FDA /* Products */,
 				5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */,
 				5C7CF14519FF188600B06F4B /* FLCLFilmstripsCollectionLayout.xcodeproj */,
@@ -258,7 +233,6 @@
 			isa = PBXGroup;
 			children = (
 				5C65B36F19EA143A00545FDA /* Anime Detour.app */,
-				5C65B38619EA143A00545FDA /* Anime DetourTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -291,24 +265,6 @@
 			children = (
 				5C65B37319EA143A00545FDA /* Info.plist */,
 				5C54451519F31596003CC1C3 /* API Details.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		5C65B38919EA143A00545FDA /* Anime DetourTests */ = {
-			isa = PBXGroup;
-			children = (
-				5CB80EA119ECD07B008DBC8F /* Anime DetourTests-Bridging-Header.h */,
-				5C65B38C19EA143A00545FDA /* Anime_DetourTests.swift */,
-				5C65B38A19EA143A00545FDA /* Supporting Files */,
-			);
-			path = "Anime DetourTests";
-			sourceTree = "<group>";
-		};
-		5C65B38A19EA143A00545FDA /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				5C65B38B19EA143A00545FDA /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -355,24 +311,6 @@
 			productReference = 5C65B36F19EA143A00545FDA /* Anime Detour.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5C65B38519EA143A00545FDA /* Anime DetourTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5C65B39319EA143A00545FDA /* Build configuration list for PBXNativeTarget "Anime DetourTests" */;
-			buildPhases = (
-				5C65B38219EA143A00545FDA /* Sources */,
-				5C65B38319EA143A00545FDA /* Frameworks */,
-				5C65B38419EA143A00545FDA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5C65B38819EA143A00545FDA /* PBXTargetDependency */,
-			);
-			name = "Anime DetourTests";
-			productName = "Anime DetourTests";
-			productReference = 5C65B38619EA143A00545FDA /* Anime DetourTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -384,10 +322,6 @@
 				TargetAttributes = {
 					5C65B36E19EA143A00545FDA = {
 						CreatedOnToolsVersion = 6.1;
-					};
-					5C65B38519EA143A00545FDA = {
-						CreatedOnToolsVersion = 6.1;
-						TestTargetID = 5C65B36E19EA143A00545FDA;
 					};
 				};
 			};
@@ -415,7 +349,6 @@
 			projectRoot = "";
 			targets = (
 				5C65B36E19EA143A00545FDA /* Anime Detour */,
-				5C65B38519EA143A00545FDA /* Anime DetourTests */,
 			);
 		};
 /* End PBXProject section */
@@ -464,13 +397,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5C65B38419EA143A00545FDA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -499,27 +425,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5C65B38219EA143A00545FDA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5C631A1F1A06AC5E002F193A /* UserDataController.swift in Sources */,
-				5C65B38D19EA143A00545FDA /* Anime_DetourTests.swift in Sources */,
-				5C631A261A06AF62002F193A /* SessionBookmark.swift in Sources */,
-				5C16772A19EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
-				5C631A221A06AD31002F193A /* UserDataController_Singleton.swift in Sources */,
-				5C0EF2DE19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5C65B38819EA143A00545FDA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5C65B36E19EA143A00545FDA /* Anime Detour */;
-			targetProxy = 5C65B38719EA143A00545FDA /* PBXContainerItemProxy */;
-		};
 		5C76669A1A1062F200ACFDE8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ConScheduleKit;
@@ -661,45 +569,6 @@
 			};
 			name = Release;
 		};
-		5C65B39419EA143A00545FDA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Anime DetourTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime DetourTests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anime Detour.app/Anime Detour";
-			};
-			name = Debug;
-		};
-		5C65B39519EA143A00545FDA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Anime DetourTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime DetourTests-Bridging-Header.h";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anime Detour.app/Anime Detour";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -717,15 +586,6 @@
 			buildConfigurations = (
 				5C65B39119EA143A00545FDA /* Debug */,
 				5C65B39219EA143A00545FDA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5C65B39319EA143A00545FDA /* Build configuration list for PBXNativeTarget "Anime DetourTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5C65B39419EA143A00545FDA /* Debug */,
-				5C65B39519EA143A00545FDA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
