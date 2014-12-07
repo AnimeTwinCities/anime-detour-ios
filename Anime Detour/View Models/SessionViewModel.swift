@@ -26,28 +26,17 @@ class SessionViewModel {
     let userDataController: UserDataController?
     let session: Session
     private var bookmarked: Bool {
-        get {
-            if let modelsController = self.userDataController {
-                return modelsController.isBookmarked(self.session)
-            }
-
-            return false
+        if let modelsController = self.userDataController {
+            return modelsController.isBookmarked(self.session)
         }
+
+        return false
     }
     var bookmarkImage: UIImage {
-        get {
-            if self.bookmarked {
-                return UIImage(named: "second")!
-            } else {
-                return UIImage(named: "first")!
-            }
-        }
-    }
-    /// Get the colored circle image for the primary type of the session, if we have an image for that type.
-    var primaryTypeColor: UIColor? {
-        get {
-            let firstType = self.session.types.first
-            return firstType.map(self.color) ?? nil
+        if self.bookmarked {
+            return UIImage(named: "second")!
+        } else {
+            return UIImage(named: "first")!
         }
     }
     let startDateFormatter: NSDateFormatter
@@ -55,76 +44,72 @@ class SessionViewModel {
     let noImageURLSessionError = NSError(domain: "com.nagasoftworks.anime-detour", code: 1001, userInfo: nil)
 
     var delegate: SessionViewModelDelegate?
-    
+
     private var imageTask: NSURLSessionDataTask?
-    
+
     var name: String {
-        get {
-            return session.name
-        }
+        return session.name
     }
-    
+
     var sessionDescription: String {
-        get {
-            return session.sessionDescription
-        }
+        return session.sessionDescription
     }
-    
+
     var dateAndTime: String {
-        get {
-            var midnightMorningAfterStartDate: NSDate! = {
-                var midnightMorningOfStartDate: NSDate?
-                var duration: NSTimeInterval = 0
-                let calendar = NSCalendar.currentCalendar()
-                calendar.rangeOfUnit(.DayCalendarUnit, startDate: &midnightMorningOfStartDate, interval: &duration, forDate: self.session.start)
-                
-                let components = NSDateComponents()
-                components.day = 1
-                
-                return calendar.dateByAddingComponents(components, toDate: midnightMorningOfStartDate!, options: NSCalendarOptions.allZeros)
-                }()
-            
-            let startDateString = self.startDateFormatter.stringFromDate(session.start)
-            
-            // Show long end date format if the end time is the next day and more than
-            // 12 hours (43200 seconds) after the start date
-            var longEndDate = session.end.timeIntervalSinceDate(midnightMorningAfterStartDate) > 0 && session.end.timeIntervalSinceDate(session.start) > 43199
-            let endDateFormatter = longEndDate ? self.startDateFormatter : self.shortEndDateFormatter
-            let endDateString = endDateFormatter.stringFromDate(session.end)
-            return "\(startDateString) - \(endDateString)"
-        }
+        var midnightMorningAfterStartDate: NSDate! = {
+            var midnightMorningOfStartDate: NSDate?
+            var duration: NSTimeInterval = 0
+            let calendar = NSCalendar.currentCalendar()
+            calendar.rangeOfUnit(.DayCalendarUnit, startDate: &midnightMorningOfStartDate, interval: &duration, forDate: self.session.start)
+
+            let components = NSDateComponents()
+            components.day = 1
+
+            return calendar.dateByAddingComponents(components, toDate: midnightMorningOfStartDate!, options: NSCalendarOptions.allZeros)
+            }()
+
+        let startDateString = self.startDateFormatter.stringFromDate(session.start)
+
+        // Show long end date format if the end time is the next day and more than
+        // 12 hours (43200 seconds) after the start date
+        var longEndDate = session.end.timeIntervalSinceDate(midnightMorningAfterStartDate) > 0 && session.end.timeIntervalSinceDate(session.start) > 43199
+        let endDateFormatter = longEndDate ? self.startDateFormatter : self.shortEndDateFormatter
+        let endDateString = endDateFormatter.stringFromDate(session.end)
+        return "\(startDateString) - \(endDateString)"
     }
 
     var location: String? {
-        get {
-            return session.venue
-        }
+        return session.venue
+    }
+
+    /**
+    The primary color for our session, i.e. the color corresponding to our session's
+    primary type.
+    */
+    var primaryColor: UIColor {
+        // Default to gray #333333
+        return self.sessionType?.color ?? UIColor(red: 51 / 255, green: 51 / 255, blue: 51 / 255, alpha: 1)
     }
 
     var type: String {
-        get {
-            return session.type
-        }
+        return session.type
     }
 
     var types: [String] {
-        get {
-            return session.types
-        }
+        return session.types
     }
 
-    var sessionType: SessionType? {
-        get {
-            return SessionType.from(self.type)
-        }
+    /**
+    The primary type of our session.
+    */
+    private var sessionType: SessionType? {
+        return SessionType.from(self.type)
     }
 
     private var image: UIImage?
-    
+
     private var imageURL: NSURL? {
-        get {
-            return NSURL(string: session.mediaURL)
-        }
+        return NSURL(string: session.mediaURL)
     }
 
     /**
@@ -139,10 +124,10 @@ class SessionViewModel {
         self.startDateFormatter = startDateFormatter
         self.shortEndDateFormatter = shortTimeFormatter
     }
-    
+
     /**
     Get the image for the session. Designed like a poor man's Future.
-    
+
     :param: onLoad A callback to run when the image is available, or an error has occurred. May run immediately, and may not run on the same thread as the caller.
     */
     func image(onLoad: (image: UIImage?, error: NSError?) -> Void) {
@@ -150,22 +135,22 @@ class SessionViewModel {
             onLoad(image: nil, error: self.noImageURLSessionError)
             return
         }
-        
+
         if let image = self.image {
             onLoad(image: image, error: nil)
             return
         }
-        
+
         switch self.imageURL {
         case let .Some(imageURL) where (imageURL.absoluteString.map(countElements) ?? 0) > 0:
             let imageTask = self.imageURLSession?.dataTaskWithURL(imageURL, completionHandler: { [weak self] (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
                 if let data = data {
                     let image = UIImage(data: data)
-                    
+
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self?.imageTask = nil
                         self?.image = image
-                        
+
                         onLoad(image: image, error: nil)
                     });
                 } else {
@@ -191,9 +176,5 @@ class SessionViewModel {
         }
 
         self.delegate?.bookmarkImageChanged(self.bookmarkImage)
-    }
-
-    private func color(sessionType: String) -> UIColor? {
-        return self.sessionType?.color
     }
 }

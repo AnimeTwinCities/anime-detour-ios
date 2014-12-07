@@ -50,8 +50,8 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
                 self.locationLabel.text = viewModel.location
                 self.timeLabel.text = viewModel.dateAndTime
                 self.typesLabel.text = viewModel.type
-                self.primaryTypeIndicator.backgroundColor = viewModel.primaryTypeColor
-                self.backgroundPrimaryTypeIndicator.backgroundColor = viewModel.primaryTypeColor
+                self.primaryTypeIndicator.backgroundColor = viewModel.primaryColor
+                self.backgroundPrimaryTypeIndicator.backgroundColor = viewModel.primaryColor
 
                 self.bookmarkButton.setImage(viewModel.bookmarkImage, forState: .Normal)
             }
