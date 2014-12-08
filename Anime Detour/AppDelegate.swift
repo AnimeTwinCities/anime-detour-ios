@@ -3,7 +3,7 @@
 //  Anime Detour
 //
 //  Created by Brendon Justin on 10/11/14.
-//  Copyright (c) 2014 Naga Softworks, LLC. All rights reserved.
+//  Copyright (c) 2014 Anime Twin Cities, Inc. All rights reserved.
 //
 
 import CoreData

@@ -3,7 +3,7 @@
 //  Anime Detour
 //
 //  Created by Brendon Justin on 10/12/14.
-//  Copyright (c) 2014 Naga Softworks, LLC. All rights reserved.
+//  Copyright (c) 2014 Anime Twin Cities, Inc. All rights reserved.
 //
 
 import Foundation
@@ -41,7 +41,7 @@ class SessionViewModel {
     }
     let startDateFormatter: NSDateFormatter
     let shortEndDateFormatter: NSDateFormatter
-    let noImageURLSessionError = NSError(domain: "com.nagasoftworks.anime-detour", code: 1001, userInfo: nil)
+    let noImageURLSessionError = NSError(domain: "com.animedetour.mobile", code: 1001, userInfo: nil)
 
     var delegate: SessionViewModelDelegate?
 
