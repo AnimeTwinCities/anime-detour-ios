@@ -121,6 +121,8 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
     }
 
     override func awakeFromNib() {
+        super.awakeFromNib()
+        
         self.waitingForAwakeFromNib = false
 
         // Set `isDetail` here its didSet will run.
