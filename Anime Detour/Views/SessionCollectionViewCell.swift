@@ -16,6 +16,9 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
     /// The height above which we will enable "large" mode.
     private let largeHeightThreshold: CGFloat = 120
 
+    /// `true` until `awakeFromNib` has run.
+    private var waitingForAwakeFromNib = true
+
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
@@ -100,11 +103,26 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
         }
     }
 
+    override var bounds: CGRect {
+        didSet {
+            if self.waitingForAwakeFromNib {
+                return
+            }
+
+            if self.bounds.size != oldValue.size {
+                let overHeightThreshold = self.frame.height > self.largeHeightThreshold
+                self.isDetail = overHeightThreshold
+            }
+        }
+    }
+
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
     override func awakeFromNib() {
+        self.waitingForAwakeFromNib = false
+
         // Set `isDetail` here its didSet will run.
         self.isDetail = false
 
@@ -119,13 +137,6 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
         let primaryTypeLayer = self.primaryTypeIndicator.layer
         primaryTypeLayer.cornerRadius = 10.0 // half the width of the type indicator view
         primaryTypeLayer.masksToBounds = true
-    }
-
-    override func layoutSubviews() {
-        let overHeightThreshold = self.frame.height > self.largeHeightThreshold
-        self.isDetail = overHeightThreshold
-
-        super.layoutSubviews()
     }
 
     override func prepareForReuse() {
