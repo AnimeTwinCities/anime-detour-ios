@@ -96,7 +96,9 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
 
     // Gesture recognizers
     @IBOutlet var horizontalScrollRecognizer: UIPanGestureRecognizer?
-    
+
+    // MARK: - View Controller
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Sessions"
@@ -140,7 +142,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         self.collectionView?.collectionViewLayout.invalidateLayout()
     }
 
-    // MARK: Data Fetching
+    // MARK: - Data Fetching
 
     func sessionsFetchedResultsController(fetchRequest: NSFetchRequest) -> NSFetchedResultsController {
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
@@ -148,7 +150,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         return fetchedResultsController
     }
     
-    // MARK: Collection View Data Source
+    // MARK: - Collection View Data Source
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return self.dataSource.numberOfSectionsInCollectionView(collectionView)
@@ -166,7 +168,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         return self.dataSource.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
     }
 
-    // MARK: Collection View Delegate
+    // MARK: - Collection View Delegate
 
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Ignore selections if we're displaying detail cells.
@@ -190,17 +192,19 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     }
 
     override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        if self.scrollingToDay {
+            return
+        }
+
         if let cell = cell as? SessionCollectionViewCell {
-            let vm = cell.viewModel
-            if let startDate = vm?.session.start {
-                if let dateIdx = self.dayIndex(startDate) {
-                    self.daySegmentedControl?.selectedSegmentIndex = dateIdx
-                }
+            let startDate = cell.viewModel?.session.start
+            if let startDateIdx = startDate.flatMap(self.dayIndex) {
+                self.daySegmentedControl?.selectedSegmentIndex = startDateIdx
             }
         }
     }
 
-    // MARK: Collection View Delegate Flow Layout
+    // MARK: - Collection View Delegate Flow Layout
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSize(width: 300, height: 200)
