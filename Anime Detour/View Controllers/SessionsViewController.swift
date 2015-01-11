@@ -91,6 +91,10 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         return [friday, saturday, sunday]
     }()
 
+    /// `true` indicates that the view is currently scrolling to the first item on
+    /// a particular day.
+    private var scrollingToDay = false
+
     // Controls
     @IBOutlet var daySegmentedControl: UISegmentedControl?
 
@@ -210,7 +214,13 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         return CGSize(width: 300, height: 200)
     }
 
-    // MARK: Navigation
+    // MARK: - Scroll View Delegate
+
+    override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        self.scrollingToDay = false
+    }
+
+    // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let detailVC = segue.destinationViewController as? SessionViewController {
@@ -227,6 +237,7 @@ extension SessionsViewController {
         // Scroll to the first session for the selected day
         let date = self.days[selectedIdx]
         if let indexPath = self.indexPath(date) {
+            self.scrollingToDay = true
             self.collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.Top, animated: true)
         }
     }
