@@ -34,6 +34,7 @@
 		5C76669B1A1062FB00ACFDE8 /* FLCLFilmstripsCollectionLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7666911A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayout.framework */; };
 		5C76669C1A1062FB00ACFDE8 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7666911A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5CDB833F19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift */; };
+		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
 		5CE8FE4C1A6309F400D1F516 /* FlatMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8FE4B1A6309F400D1F516 /* FlatMap.swift */; };
 /* End PBXBuildFile section */
@@ -134,6 +135,7 @@
 		5C7CF14519FF188600B06F4B /* FLCLFilmstripsCollectionLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FLCLFilmstripsCollectionLayout.xcodeproj; path = FilmstripsCollectionLayout/FLCLFilmstripsCollectionLayout.xcodeproj; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CDB833E19FC56DE0097D442 /* SessionCollectionViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewHeaderView.swift; sourceTree = "<group>"; };
+		5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		5CE11EAC1A34E299005903A4 /* SessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
 		5CE8FE4B1A6309F400D1F516 /* FlatMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -247,6 +249,7 @@
 			children = (
 				5C54451719F316EF003CC1C3 /* API Client */,
 				5C16772E19EB6BE10097B1D3 /* Data Sources */,
+				5CDD6E941A630CA200BB2AA3 /* Delegates */,
 				5CE8FE481A6309C000D1F516 /* Extensions */,
 				5C0EF2A719FB291900FA8EEC /* Model Controllers */,
 				5C631A231A06AF22002F193A /* Models */,
@@ -291,6 +294,14 @@
 				5C7666931A1062C900ACFDE8 /* FLCLFilmstripsCollectionLayoutTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5CDD6E941A630CA200BB2AA3 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		5CE8FE481A6309C000D1F516 /* Extensions */ = {
@@ -419,6 +430,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */,
 				5C16773019EB6C030097B1D3 /* SessionCollectionViewDataSource.swift in Sources */,
 				5C631A211A06AD31002F193A /* UserDataController_Singleton.swift in Sources */,
 				5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */,
