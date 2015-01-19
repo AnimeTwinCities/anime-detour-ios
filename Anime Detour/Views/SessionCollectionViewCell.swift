@@ -153,7 +153,8 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
 
     // MARK: Session View Model Delegate
 
-    func bookmarkImageChanged(bookmarkImage: UIImage) {
+    func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
         self.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
+        self.bookmarkButton.accessibilityLabel = accessibilityLabel
     }
 }

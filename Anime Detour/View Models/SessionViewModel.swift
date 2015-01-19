@@ -15,7 +15,7 @@ Delegate protocol with which view model state changes, where allowed,
 are communicated.
 */
 protocol SessionViewModelDelegate {
-    func bookmarkImageChanged(bookmarkImage: UIImage)
+    func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String)
 }
 
 /**
@@ -34,9 +34,16 @@ class SessionViewModel {
     }
     var bookmarkImage: UIImage {
         if self.bookmarked {
-            return UIImage(named: "second")!
+            return UIImage(named: "star_filled")!
         } else {
-            return UIImage(named: "first")!
+            return UIImage(named: "star")!
+        }
+    }
+    var bookmarkAccessibilityLabel: String {
+        if self.bookmarked {
+            return "Remove Bookmark"
+        } else {
+            return "Bookmark"
         }
     }
     let startDateFormatter: NSDateFormatter
@@ -175,6 +182,6 @@ class SessionViewModel {
             self.userDataController?.bookmark(self.session)
         }
 
-        self.delegate?.bookmarkImageChanged(self.bookmarkImage)
+        self.delegate?.bookmarkImageChanged(self.bookmarkImage, accessibilityLabel: self.bookmarkAccessibilityLabel)
     }
 }

@@ -11,9 +11,8 @@ import Foundation
 import UIKit
 
 import ConScheduleKit
-import FLCLFilmstripsCollectionLayout
 
-class SessionsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SessionsViewController: UITableViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy var userDataController = UserDataController.sharedInstance
     lazy private var managedObjectContext: NSManagedObjectContext = {
@@ -26,9 +25,9 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         return fetchedResultsController
     }()
     lazy private var allSessionsPredicate: NSPredicate = NSPredicate(value: true)
-    lazy private var fetchedResultsControllerDelegate: CollectionViewFetchedResultsControllerDelegate = {
-        let delegate = CollectionViewFetchedResultsControllerDelegate()
-        delegate.collectionView = self.collectionView
+    lazy private var fetchedResultsControllerDelegate: TableViewFetchedResultsControllerDelegate = {
+        let delegate = TableViewFetchedResultsControllerDelegate()
+        delegate.tableView = self.tableView
         return delegate
     }()
 
@@ -41,12 +40,6 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         }
     }
 
-    private var isDetail: Bool {
-        get {
-            return self.useLayoutToLayoutNavigationTransitions
-        }
-    }
-
     /// Fetched results controller currently in use
     private var fetchedResultsController: NSFetchedResultsController!
 
@@ -54,7 +47,7 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     Collection view data source that we call through to from our data
     source methods.
     */
-    private var dataSource: SessionCollectionViewDataSource!
+    private var dataSource: SessionTableViewDataSource!
 
     // Selections
     private var selectedIndexPath: NSIndexPath?
@@ -98,20 +91,11 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     // Controls
     @IBOutlet var daySegmentedControl: UISegmentedControl?
 
-    // Gesture recognizers
-    @IBOutlet var horizontalScrollRecognizer: UIPanGestureRecognizer?
-
     // MARK: - View Controller
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Sessions"
-
-        // If we are going to display detail cells, we do not need additional setup.
-        // The class displaying us is assumed to have taken care of any setup required.
-        if self.isDetail {
-            return
-        }
 
         // Set the names of the days on the day chooser segmented control
         if let daysControl = self.daySegmentedControl {
@@ -124,26 +108,16 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
             }
         }
 
-        let collectionView = self.collectionView!
-        if let layout = (collectionView.collectionViewLayout as? FilmstripsCollectionLayout) {
-            layout.headerReferenceSize = CGSize(width: 300, height: 44)
-        }
-
         var frc: NSFetchedResultsController = self.sessionsFetchedResultsController(self.sessionsFetchRequest)
         self.fetchedResultsController = frc
-        self.dataSource = SessionCollectionViewDataSource(fetchedResultsController: frc, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController)
-        self.dataSource.prepareCollectionView(collectionView)
+        self.dataSource = SessionTableViewDataSource(fetchedResultsController: frc, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController)
+        self.dataSource.prepareTableView(self.tableView)
         
         var fetchError: NSError?
         let success = frc.performFetch(&fetchError)
         if let error = fetchError {
             NSLog("Error fetching sessions: %@", error)
         }
-    }
-
-    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
-        self.collectionView?.collectionViewLayout.invalidateLayout()
     }
 
     // MARK: - Data Fetching
@@ -154,64 +128,33 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
         return fetchedResultsController
     }
     
-    // MARK: - Collection View Data Source
-    
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return self.dataSource.numberOfSectionsInCollectionView(collectionView)
-    }
-    
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.dataSource.collectionView(collectionView, numberOfItemsInSection: section)
-    }
-    
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        return self.dataSource.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+    // MARK: - Table View Data Source
+
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return self.dataSource.numberOfSectionsInTableView(tableView)
     }
 
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        return self.dataSource.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.dataSource.tableView(tableView, numberOfRowsInSection: section)
     }
 
-    // MARK: - Collection View Delegate
-
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Ignore selections if we're displaying detail cells.
-        return !self.isDetail
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        return self.dataSource.tableView(tableView, cellForRowAtIndexPath: indexPath)
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.selectedIndexPath = indexPath
-        let selectedSession = self.dataSource.session(indexPath)
-        self.selectedSectionDate = selectedSession.start
+    // MARK: - Table View Delegate
 
-        let singleSectionLayout = UICollectionViewFlowLayout()
-        if let currentLayout = collectionView.collectionViewLayout as? FilmstripsCollectionLayout {
-            singleSectionLayout.headerReferenceSize = currentLayout.headerReferenceSize
-            singleSectionLayout.minimumInteritemSpacing = currentLayout.itemSpacing
-            singleSectionLayout.minimumLineSpacing = currentLayout.lineSpacing
-        }
-        let sectionVC = SessionsViewController(collectionViewLayout: singleSectionLayout)
-        sectionVC.useLayoutToLayoutNavigationTransitions = true
-        self.navigationController?.showViewController(sectionVC, sender: self)
-    }
-
-    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if self.scrollingToDay {
             return
         }
 
-        if let cell = cell as? SessionCollectionViewCell {
+        if let cell = cell as? SessionTableViewCell {
             let startDate = cell.viewModel?.session.start
             if let startDateIdx = startDate.flatMap(self.dayIndex) {
                 self.daySegmentedControl?.selectedSegmentIndex = startDateIdx
             }
         }
-    }
-
-    // MARK: - Collection View Delegate Flow Layout
-
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: 300, height: 200)
     }
 
     // MARK: - Scroll View Delegate
@@ -224,7 +167,8 @@ class SessionsViewController: UICollectionViewController, UICollectionViewDelega
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let detailVC = segue.destinationViewController as? SessionViewController {
-            detailVC.session = self.selectedSession!
+            let selectedSession = self.tableView.indexPathForSelectedRow().map(self.dataSource.session)
+            detailVC.session = selectedSession!
         }
     }
 }
@@ -238,7 +182,7 @@ extension SessionsViewController {
         let date = self.days[selectedIdx]
         if let indexPath = self.indexPath(date) {
             self.scrollingToDay = true
-            self.collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.Top, animated: true)
+            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
         }
     }
 
@@ -288,49 +232,5 @@ extension SessionsViewController {
         }
 
         return dateIdx
-    }
-}
-
-extension SessionsViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if gestureRecognizer != self.horizontalScrollRecognizer {
-            return true
-        }
-
-        if let layout = self.collectionView?.collectionViewLayout as? FilmstripsCollectionLayout {
-            let collectionView = self.collectionView!
-            let location = touch.locationInView(collectionView)
-
-            // Check if the touch is in a collection view cell. Return true if so.
-            let subview = collectionView.hitTest(location, withEvent: nil)
-            var inCell = false
-            var currentView = subview
-            while let superview = currentView?.superview {
-                if superview == collectionView {
-                    break
-                }
-                if superview is UICollectionViewCell {
-                    inCell = true
-                    break
-                }
-
-                currentView = superview
-            }
-
-            return inCell
-        }
-
-        return false
-    }
-
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == self.horizontalScrollRecognizer {
-            let recognizer = self.horizontalScrollRecognizer!
-            let velocity = recognizer.velocityInView(self.collectionView)
-            let horizontal = abs(velocity.x) > abs(velocity.y)
-            return horizontal
-        }
-        
-        return true
     }
 }
