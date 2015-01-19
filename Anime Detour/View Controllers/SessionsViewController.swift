@@ -95,7 +95,6 @@ class SessionsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Sessions"
 
         // Set the names of the days on the day chooser segmented control
         if let daysControl = self.daySegmentedControl {

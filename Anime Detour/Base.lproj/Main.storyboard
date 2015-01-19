@@ -128,7 +128,7 @@
                             <outlet property="delegate" destination="77A-5m-tbi" id="akv-bt-VAi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="pXn-Ma-bD3"/>
+                    <navigationItem key="navigationItem" title="Sessions" id="pXn-Ma-bD3"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hUJ-hX-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
