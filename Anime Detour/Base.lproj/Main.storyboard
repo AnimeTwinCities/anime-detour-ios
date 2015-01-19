@@ -172,39 +172,66 @@
                                     <constraint firstAttribute="height" constant="180" id="Qrx-W1-Oyc"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXu-41-Pn3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXu-41-Pn3">
                                 <rect key="frame" x="16" y="252" width="568" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5l-Uu-P7x">
-                                <rect key="frame" x="16" y="280" width="568" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day and Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5l-Uu-P7x">
+                                <rect key="frame" x="16" y="280" width="89" height="17"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZwL-3i-7wT">
-                                <rect key="frame" x="16" y="305" width="568" height="20"/>
+                                <rect key="frame" x="16" y="326" width="568" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqp-MC-HLN">
+                                <rect key="frame" x="16" y="301" width="56" height="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hwn-J7-CVo" userLabel="Bookmark">
+                                <rect key="frame" x="540" y="277" width="44" height="44"/>
+                                <accessibility key="accessibilityConfiguration" label="Bookmark"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="f39-vd-g5c"/>
+                                    <constraint firstAttribute="height" constant="44" id="hYl-2x-1Z5"/>
+                                </constraints>
+                                <state key="normal" image="star">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="bookmarkButtonTapped:" destination="WKk-dk-Wu9" eventType="touchUpInside" id="sjJ-qK-DAB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="G5l-Uu-P7x" firstAttribute="top" secondItem="nXu-41-Pn3" secondAttribute="bottom" constant="8" id="0bH-DW-kfB"/>
                             <constraint firstItem="nXu-41-Pn3" firstAttribute="top" secondItem="W7H-vM-dUQ" secondAttribute="bottom" constant="8" id="39H-S1-Wjc"/>
+                            <constraint firstItem="rqp-MC-HLN" firstAttribute="top" secondItem="G5l-Uu-P7x" secondAttribute="bottom" constant="4" id="3dg-NY-6wE"/>
                             <constraint firstAttribute="trailing" secondItem="W7H-vM-dUQ" secondAttribute="trailing" id="6Oj-Ng-YHp"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="G5l-Uu-P7x" secondAttribute="trailing" id="9Jh-n1-zLR"/>
+                            <constraint firstItem="Hwn-J7-CVo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rqp-MC-HLN" secondAttribute="trailing" constant="8" id="7cD-wg-fCa"/>
+                            <constraint firstItem="Hwn-J7-CVo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="G5l-Uu-P7x" secondAttribute="trailing" constant="8" id="CYQ-QA-fQW"/>
                             <constraint firstItem="W7H-vM-dUQ" firstAttribute="top" secondItem="I33-I3-oUL" secondAttribute="bottom" id="DAJ-Zl-peA"/>
+                            <constraint firstItem="ZwL-3i-7wT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Hwn-J7-CVo" secondAttribute="bottom" constant="5" id="Km3-mJ-mjf"/>
+                            <constraint firstItem="ZwL-3i-7wT" firstAttribute="top" secondItem="rqp-MC-HLN" secondAttribute="bottom" constant="8" id="PrP-sL-kKs"/>
+                            <constraint firstItem="G5l-Uu-P7x" firstAttribute="leading" secondItem="rqp-MC-HLN" secondAttribute="leading" id="QuW-EJ-9es"/>
+                            <constraint firstItem="EAt-J4-GYA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ZwL-3i-7wT" secondAttribute="bottom" id="RtE-Dc-opx"/>
                             <constraint firstItem="G5l-Uu-P7x" firstAttribute="leading" secondItem="WKk-dk-Wu9" secondAttribute="leadingMargin" id="UvK-jd-MH2"/>
+                            <constraint firstItem="Hwn-J7-CVo" firstAttribute="trailing" secondItem="WKk-dk-Wu9" secondAttribute="trailingMargin" id="VxP-jS-UMR"/>
+                            <constraint firstItem="Hwn-J7-CVo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nXu-41-Pn3" secondAttribute="bottom" constant="5" id="aap-wV-XSq"/>
                             <constraint firstItem="ZwL-3i-7wT" firstAttribute="trailing" secondItem="WKk-dk-Wu9" secondAttribute="trailingMargin" id="eYH-IX-323"/>
                             <constraint firstItem="ZwL-3i-7wT" firstAttribute="leading" secondItem="WKk-dk-Wu9" secondAttribute="leadingMargin" id="eyQ-lJ-Nuh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="nXu-41-Pn3" secondAttribute="trailing" id="mE4-Fn-7Um"/>
+                            <constraint firstItem="nXu-41-Pn3" firstAttribute="trailing" secondItem="WKk-dk-Wu9" secondAttribute="trailingMargin" id="o5y-8p-fAI"/>
                             <constraint firstItem="nXu-41-Pn3" firstAttribute="leading" secondItem="WKk-dk-Wu9" secondAttribute="leadingMargin" id="pim-ud-jJR"/>
                             <constraint firstItem="W7H-vM-dUQ" firstAttribute="leading" secondItem="WKk-dk-Wu9" secondAttribute="leading" id="tkZ-dV-MNM"/>
-                            <constraint firstItem="ZwL-3i-7wT" firstAttribute="top" secondItem="G5l-Uu-P7x" secondAttribute="bottom" constant="8" id="yRh-xX-nJD"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="imageHeight">
@@ -212,9 +239,11 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                         <connections>
+                            <outlet property="bookmarkButton" destination="Hwn-J7-CVo" id="tft-FB-drJ"/>
                             <outlet property="descriptionLabel" destination="ZwL-3i-7wT" id="aRH-kW-S2l"/>
                             <outlet property="imageView" destination="W7H-vM-dUQ" id="qgM-4W-OTs"/>
                             <outlet property="imageViewHeightConstraint" destination="Qrx-W1-Oyc" id="TCp-vu-wbX"/>
+                            <outlet property="locationLabel" destination="rqp-MC-HLN" id="V06-mM-Ih2"/>
                             <outlet property="nameLabel" destination="nXu-41-Pn3" id="t5D-4K-l09"/>
                             <outlet property="timeLabel" destination="G5l-Uu-P7x" id="a1x-gL-Pxa"/>
                         </connections>

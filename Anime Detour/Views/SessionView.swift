@@ -9,11 +9,15 @@
 import Foundation
 import UIKit
 
-class SessionView: UIView {
+class SessionView: UIView, SessionViewModelDelegate {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var locationLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
+
     @IBOutlet var imageView: UIImageView!
+
+    @IBOutlet var bookmarkButton: UIButton!
     
     @IBOutlet var imageViewHeightConstraint: NSLayoutConstraint!
     
@@ -34,13 +38,21 @@ class SessionView: UIView {
             self.layoutIfNeeded()
         }
     }
+
+    @IBAction func bookmarkButtonTapped(sender: AnyObject) {
+        self.viewModel?.toggleBookmarked()
+    }
     
-    internal var viewModel: SessionViewModel? {
+    var viewModel: SessionViewModel? {
         didSet {
             let viewModel = self.viewModel
             self.nameLabel.text = viewModel?.name
             self.timeLabel.text = viewModel?.dateAndTime
+            self.locationLabel.text = viewModel?.location
             self.descriptionLabel.text = viewModel?.sessionDescription
+
+            self.bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
+            self.bookmarkButton.accessibilityLabel = viewModel?.bookmarkAccessibilityLabel
             
             viewModel?.image({ [weak self] (image, error) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -53,5 +65,12 @@ class SessionView: UIView {
                 })
             })
         }
+    }
+
+    // MARK: - Session View Model Delegate
+
+    func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
+        self.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
+        self.bookmarkButton.accessibilityLabel = accessibilityLabel
     }
 }

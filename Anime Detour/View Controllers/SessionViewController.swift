@@ -11,7 +11,7 @@ import UIKit
 
 import ConScheduleKit
 
-class SessionViewController: UIViewController {
+class SessionViewController: UIViewController, SessionViewModelDelegate {
     @IBOutlet var sessionView: SessionView!
     let imagesURLSession = NSURLSession.sharedSession()
     let userDataController = UserDataController.sharedInstance
@@ -39,10 +39,16 @@ class SessionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let session = self.session {
-            let viewModel = SessionViewModel(session: session, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
-            self.sessionView.viewModel = viewModel
-        }
+
+        let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+        viewModel.delegate = self
+        self.sessionView.viewModel = viewModel
+    }
+
+    // MARK: - Session View Model Delegate
+
+    func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
+        self.sessionView.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
+        self.sessionView.bookmarkButton.accessibilityLabel = accessibilityLabel
     }
 }
