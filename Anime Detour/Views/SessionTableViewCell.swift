@@ -14,15 +14,6 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var bookmarkButton: UIButton!
 
-    /// Views which should only display in expanded "detail" mode
-    @IBOutlet var detailViews: [UIView]!
-
-    /// Layout constraints for use only in expanded "detail" mode
-    @IBOutlet var detailConstraints: [NSLayoutConstraint]!
-
-    /// Layout constraints for use only in compact "summary" mode
-    @IBOutlet var summaryConstraints: [NSLayoutConstraint]!
-
     var viewModel: SessionViewModel? {
         didSet {
             switch oldValue {
