@@ -1,5 +1,5 @@
 //
-//  SessionsViewController.swift
+//  SessionTableViewController.swift
 //  Anime Detour
 //
 //  Created by Brendon Justin on 10/18/14.
@@ -12,7 +12,7 @@ import UIKit
 
 import ConScheduleKit
 
-class SessionsViewController: UITableViewController {
+class SessionTableViewController: UITableViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy var userDataController = UserDataController.sharedInstance
     lazy private var managedObjectContext: NSManagedObjectContext = {
@@ -173,7 +173,7 @@ class SessionsViewController: UITableViewController {
 }
 
 /// Day selection indicator logic
-extension SessionsViewController {
+extension SessionTableViewController {
     @IBAction func goToDay(sender: UISegmentedControl) {
         let selectedIdx = sender.selectedSegmentIndex
 

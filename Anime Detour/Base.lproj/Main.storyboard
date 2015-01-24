@@ -29,7 +29,7 @@
         <!--Sessions-->
         <scene sceneID="1yQ-Bb-U3t">
             <objects>
-                <tableViewController title="Sessions" id="77A-5m-tbi" customClass="SessionsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Sessions" id="77A-5m-tbi" customClass="SessionTableViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="OyL-v5-OYx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
