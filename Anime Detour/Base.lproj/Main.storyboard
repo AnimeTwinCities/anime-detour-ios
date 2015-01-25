@@ -154,10 +154,10 @@
             </objects>
             <point key="canvasLocation" x="1585" y="383"/>
         </scene>
-        <!--Session View Controller-->
+        <!--Details-->
         <scene sceneID="VF3-Dh-ytW">
             <objects>
-                <viewController id="DNg-fJ-Dxt" customClass="SessionViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Details" id="DNg-fJ-Dxt" customClass="SessionViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="I33-I3-oUL"/>
                         <viewControllerLayoutGuide type="bottom" id="EAt-J4-GYA"/>
