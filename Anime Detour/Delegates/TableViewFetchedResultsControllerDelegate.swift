@@ -16,13 +16,11 @@ class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsContr
     }
 
     var tableView: UITableView?
-    private var sectionsChangedDuringUpdate: Bool = false
-    private var cumulativeChanges: [FetchedResultsControllerChange] = []
 
     // MARK: Fetched Results Controller Delegate
 
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        self.cumulativeChanges.removeAll(keepCapacity: false)
+        self.tableView?.beginUpdates()
     }
 
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
