@@ -1,24 +1,21 @@
 //
-//  ScheduleAPIClient.swift
-//  ConScheduleKit
+//  AnimeDetourAPIClient.swift
+//  Anime Detour API
 //
 //  Created by Brendon Justin on 10/11/14.
-//  Copyright (c) 2014 Naga Softworks, LLC. All rights reserved.
+//  Copyright (c) 2014 Anime Detour. All rights reserved.
 //
 
 import Foundation
 
 enum APIEndpoint {
     case SessionList
-    case SessionCount
     
     var relativeURL: String {
         var url: String
         switch self {
-        case .SessionCount:
-            url = "/session/count"
         case .SessionList:
-            url = "/session/list"
+            url = "/sched_events"
         }
         
         return url
@@ -28,9 +25,6 @@ enum APIEndpoint {
 public typealias APICompletionHandler = (result: AnyObject?, error: NSError?) -> ()
 
 public class AnimeDetourAPIClient {
-    let apiKey: String
-    let subdomain: String
-    
     /// Formatter for use when parsing sched.org API dates.
     /// Do not modify.
     public let dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
@@ -41,36 +35,22 @@ public class AnimeDetourAPIClient {
     
     internal lazy var urlSession: NSURLSession = NSURLSession.sharedSession()
     private var baseURL: NSURL {
-        return NSURL(string: "http://\(self.subdomain).sched.org/api")!
+        return NSURL(string: "http://animedetour.com")!
     }
     
-    required public init(subdomain: String, apiKey: String, conLocationTimeZone timeZone: NSTimeZone) {
-        self.apiKey = apiKey
-        self.subdomain = subdomain
-        
-        self.dateFormatter.timeZone = timeZone
+    required public init() {
+        self.dateFormatter.timeZone = NSTimeZone(name: "America/Chicago")
     }
     
-    convenience public init(subdomain: String, apiKey: String, conLocationTimeZone timeZone: NSTimeZone, urlSession: NSURLSession) {
-        assert(countElements(subdomain) > 0, "Subdomain must be non-zero length.")
-        self.init(subdomain: subdomain, apiKey: apiKey, conLocationTimeZone: timeZone)
+    convenience public init(urlSession: NSURLSession) {
+        self.init()
         self.urlSession = urlSession
     }
     
     // MARK: - Endpoint Methods
     
-    public func sessionList(since: NSDate? = nil, deletedSessions: Bool, completionHandler: APICompletionHandler) -> NSURLSessionDataTask {
-        // calls a URL like:
-        // http://your_conference.sched.org/api/session/list?api_key=secret&since=1282755813&format=json&status=del&custom_data=Y
-        var parameters: [String:String] = [:]
-        if let since = since {
-            parameters["since"] = "\(since.timeIntervalSince1970)"
-        }
-        if deletedSessions {
-            parameters["status"] = "del"
-        }
-        
-        let url = self.url(fromEndpoint:.SessionList, queryParameters: parameters)
+    public func sessionList(completionHandler: APICompletionHandler) -> NSURLSessionDataTask {
+        let url = self.url(fromEndpoint: .SessionList)
         let request = NSURLRequest(URL: url)
         let dataTask = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
             if let error = error {
@@ -91,9 +71,6 @@ public class AnimeDetourAPIClient {
     // MARK: - Request Building Methods
     
     private func url(fromEndpoint endpoint: APIEndpoint, var queryParameters: [String : String] = [:]) -> NSURL {
-        queryParameters["api_key"] = self.apiKey
-        queryParameters["format"] = "json"
-        
         var relativeURL = endpoint.relativeURL
         relativeURL.extend(self.queryString(fromDictionary: queryParameters))
         return NSURL(string: "\(self.baseURL)\(relativeURL)")!

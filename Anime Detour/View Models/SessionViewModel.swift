@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import UIKit
 
-import ConScheduleKit
+import AnimeDetourAPI
 
 /**
 Delegate protocol with which view model state changes, where allowed,

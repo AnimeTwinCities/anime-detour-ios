@@ -9,14 +9,14 @@
 import CoreData
 import UIKit
 
-import ConScheduleKit
+import AnimeDetourAPI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    lazy var apiClient = ScheduleAPIClient.sharedInstance
+    lazy var apiClient = AnimeDetourAPIClient.sharedInstance
     lazy var coreDataController = CoreDataController.sharedInstance
     lazy var backgroundContext: NSManagedObjectContext = {
         let context = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)!
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         userDefaults.registerDefaults(defaultUserDefaults)
 
         if userDefaults.boolForKey(initialSessionsFetchCompleteKey) == false {
-            self.apiClient.sessionList(since: nil, deletedSessions: false, completionHandler: { [weak self] (result: AnyObject?, error: NSError?) -> () in
+            self.apiClient.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
                 if result == nil {
                     if let error = error {
                         NSLog("Error fetching session list")
@@ -57,16 +57,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
 
                         var error: NSError?
-                        context.save(&error)
-
-                        if let error = error {
-                            NSLog("Error saving sessions: \(error)")
-                        } else {
+                        if context.save(&error) {
                             userDefaults.setBool(true, forKey: initialSessionsFetchCompleteKey)
+                        } else {
+                            if let error = error {
+                                NSLog("Error saving sessions: \(error)")
+                            } else {
+                                NSLog("Unknown error saving sessions")
+                            }
                         }
                     }
                 }
-            })
+            }
         }
 
         return true

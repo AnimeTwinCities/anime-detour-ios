@@ -10,7 +10,7 @@ import CoreData
 import Foundation
 import UIKit
 
-import ConScheduleKit
+import AnimeDetourAPI
 
 class SessionTableViewController: UITableViewController {
     private var imagesURLSession = NSURLSession.sharedSession()

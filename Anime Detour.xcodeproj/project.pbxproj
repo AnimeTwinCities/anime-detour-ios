@@ -20,8 +20,7 @@
 		5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B436D19F0A19F009342C8 /* SessionViewController.swift */; };
 		5C54450C19F2D3A3003CC1C3 /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54450B19F2D3A3003CC1C3 /* SessionView.swift */; };
 		5C54451119F2D79B003CC1C3 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451019F2D79B003CC1C3 /* SessionTableViewController.swift */; };
-		5C54451619F31596003CC1C3 /* API Details.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C54451519F31596003CC1C3 /* API Details.plist */; };
-		5C54451919F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451819F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift */; };
+		5C54451919F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451819F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift */; };
 		5C54451E19F41D8A003CC1C3 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */; };
 		5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */; };
 		5C54452719F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5C54452619F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf */; };
@@ -35,8 +34,8 @@
 		5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37A19EA143A00545FDA /* Main.storyboard */; };
 		5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37D19EA143A00545FDA /* Images.xcassets */; };
 		5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37F19EA143A00545FDA /* LaunchScreen.xib */; };
-		5C7666971A1062F200ACFDE8 /* ConScheduleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */; };
-		5C7666981A1062F200ACFDE8 /* ConScheduleKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5C6C31971A75A312008FC08F /* Anime Detour API.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3025B61A759EB000ACE278 /* Anime Detour API.framework */; };
+		5C6C31981A75A312008FC08F /* Anime Detour API.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3025B61A759EB000ACE278 /* Anime Detour API.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */; };
 		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
@@ -65,33 +64,19 @@
 			remoteGlobalIDString = 5C9058E219FDCF3200E23961;
 			remoteInfo = FLCLFilmstripsCollectionLayout;
 		};
-		5C65B3C119EA14A500545FDA /* PBXContainerItemProxy */ = {
+		5C3025B51A759EB000ACE278 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
+			containerPortal = 5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5C65B3A019EA14A400545FDA;
-			remoteInfo = ConScheduleKit;
+			remoteGlobalIDString = 5C3025941A759EAF00ACE278;
+			remoteInfo = "Anime Detour API";
 		};
-		5C65B3C319EA14A500545FDA /* PBXContainerItemProxy */ = {
+		5C6C31991A75A312008FC08F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5C65B3AB19EA14A400545FDA;
-			remoteInfo = ConScheduleKitTests;
-		};
-		5C7666991A1062F200ACFDE8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
+			containerPortal = 5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 5C65B39F19EA14A400545FDA;
-			remoteInfo = ConScheduleKit;
-		};
-		5C95D3451A01FE1600091B4F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 5C65B39F19EA14A400545FDA;
-			remoteInfo = ConScheduleKit;
+			remoteGlobalIDString = 5C3025931A759EAF00ACE278;
+			remoteInfo = AnimeDetourAPI;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -103,7 +88,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				5C3025891A74939F00ACE278 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */,
-				5C7666981A1062F200ACFDE8 /* ConScheduleKit.framework in Copy Frameworks */,
+				5C6C31981A75A312008FC08F /* Anime Detour API.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -121,11 +106,11 @@
 		5C16948C1A6CB6880082F197 /* SessionCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		5C16948E1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewHeaderView.swift; sourceTree = "<group>"; };
 		5C3025801A746A7500ACE278 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Anime Detour API.xcodeproj"; path = "Anime Detour API/Anime Detour API.xcodeproj"; sourceTree = "<group>"; };
 		5C4B436D19F0A19F009342C8 /* SessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
 		5C54450B19F2D3A3003CC1C3 /* SessionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
 		5C54451019F2D79B003CC1C3 /* SessionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
-		5C54451519F31596003CC1C3 /* API Details.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "API Details.plist"; sourceTree = "<group>"; };
-		5C54451819F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleAPIClient_Singleton.swift; sourceTree = "<group>"; };
+		5C54451819F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetourAPIClient_Singleton.swift; sourceTree = "<group>"; };
 		5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsDataSource.swift; sourceTree = "<group>"; };
 		5C54452619F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Dijkstra on numbering EWD831.pdf"; sourceTree = "<group>"; };
@@ -141,7 +126,6 @@
 		5C65B37B19EA143A00545FDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C65B37D19EA143A00545FDA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5C65B38019EA143A00545FDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ConScheduleKit.xcodeproj; path = ConScheduleKit/ConScheduleKit.xcodeproj; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewHeaderView.swift; sourceTree = "<group>"; };
 		5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
@@ -154,7 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C7666971A1062F200ACFDE8 /* ConScheduleKit.framework in Frameworks */,
+				5C6C31971A75A312008FC08F /* Anime Detour API.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +194,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5C3025B11A759EAF00ACE278 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C3025B61A759EB000ACE278 /* Anime Detour API.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5C4B436B19F0A160009342C8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,7 +216,7 @@
 		5C54451719F316EF003CC1C3 /* API Client */ = {
 			isa = PBXGroup;
 			children = (
-				5C54451819F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift */,
+				5C54451819F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift */,
 			);
 			path = "API Client";
 			sourceTree = "<group>";
@@ -251,7 +243,7 @@
 			children = (
 				5C65B37119EA143A00545FDA /* Anime Detour */,
 				5C65B37019EA143A00545FDA /* Products */,
-				5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */,
+				5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */,
 				5C1694831A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -293,18 +285,8 @@
 			isa = PBXGroup;
 			children = (
 				5C65B37319EA143A00545FDA /* Info.plist */,
-				5C54451519F31596003CC1C3 /* API Details.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		5C65B3BD19EA14A400545FDA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */,
-				5C65B3C419EA14A500545FDA /* ConScheduleKitTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		5CDD6E941A630CA200BB2AA3 /* Delegates */ = {
@@ -341,8 +323,7 @@
 			);
 			dependencies = (
 				5C3025851A74939700ACE278 /* PBXTargetDependency */,
-				5C95D3461A01FE1600091B4F /* PBXTargetDependency */,
-				5C76669A1A1062F200ACFDE8 /* PBXTargetDependency */,
+				5C6C319A1A75A312008FC08F /* PBXTargetDependency */,
 			);
 			name = "Anime Detour";
 			productName = "Anime Detour";
@@ -377,8 +358,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 5C65B3BD19EA14A400545FDA /* Products */;
-					ProjectRef = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
+					ProductGroup = 5C3025B11A759EAF00ACE278 /* Products */;
+					ProjectRef = 5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */;
 				},
 				{
 					ProductGroup = 5C1694841A6CA8780082F197 /* Products */;
@@ -407,18 +388,11 @@
 			remoteRef = 5C16948A1A6CA8780082F197 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5C65B3C219EA14A500545FDA /* ConScheduleKit.framework */ = {
+		5C3025B61A759EB000ACE278 /* Anime Detour API.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = ConScheduleKit.framework;
-			remoteRef = 5C65B3C119EA14A500545FDA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5C65B3C419EA14A500545FDA /* ConScheduleKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ConScheduleKitTests.xctest;
-			remoteRef = 5C65B3C319EA14A500545FDA /* PBXContainerItemProxy */;
+			path = "Anime Detour API.framework";
+			remoteRef = 5C3025B51A759EB000ACE278 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -432,7 +406,6 @@
 				5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */,
 				5C54452719F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf in Resources */,
 				5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */,
-				5C54451619F31596003CC1C3 /* API Details.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,7 +431,7 @@
 				5C16948F1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift in Sources */,
 				5C1694821A6AF83C0082F197 /* TableViewFetchedResultsControllerDelegate.swift in Sources */,
 				5CE8FE4C1A6309F400D1F516 /* FlatMap.swift in Sources */,
-				5C54451919F31713003CC1C3 /* ScheduleAPIClient_Singleton.swift in Sources */,
+				5C54451919F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift in Sources */,
 				5C0EF2DD19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */,
 				5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
@@ -480,15 +453,10 @@
 			name = FLCLFilmstripsCollectionLayout;
 			targetProxy = 5C3025841A74939700ACE278 /* PBXContainerItemProxy */;
 		};
-		5C76669A1A1062F200ACFDE8 /* PBXTargetDependency */ = {
+		5C6C319A1A75A312008FC08F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = ConScheduleKit;
-			targetProxy = 5C7666991A1062F200ACFDE8 /* PBXContainerItemProxy */;
-		};
-		5C95D3461A01FE1600091B4F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ConScheduleKit;
-			targetProxy = 5C95D3451A01FE1600091B4F /* PBXContainerItemProxy */;
+			name = AnimeDetourAPI;
+			targetProxy = 5C6C31991A75A312008FC08F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
