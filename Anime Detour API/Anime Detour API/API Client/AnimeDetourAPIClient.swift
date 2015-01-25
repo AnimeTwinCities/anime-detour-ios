@@ -9,11 +9,14 @@
 import Foundation
 
 enum APIEndpoint {
+    case GuestList
     case SessionList
     
     var relativeURL: String {
         var url: String
         switch self {
+        case .GuestList:
+            url = "/guest_list/2/"
         case .SessionList:
             url = "/sched_events"
         }
@@ -48,6 +51,25 @@ public class AnimeDetourAPIClient {
     }
     
     // MARK: - Endpoint Methods
+
+    public func guestList(completionHandler: APICompletionHandler) -> NSURLSessionDataTask {
+        let url = self.url(fromEndpoint: .GuestList)
+        let request = NSURLRequest(URL: url)
+        let dataTask = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+            if let error = error {
+                NSLog("Error getting guest list: \(error)")
+                completionHandler(result: nil, error: error)
+                return
+            }
+
+            var jsonError: NSError?
+            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
+            completionHandler(result: json, error: jsonError)
+        })
+
+        dataTask.resume()
+        return dataTask
+    }
     
     public func sessionList(completionHandler: APICompletionHandler) -> NSURLSessionDataTask {
         let url = self.url(fromEndpoint: .SessionList)
@@ -83,6 +105,38 @@ public class AnimeDetourAPIClient {
             urlVars += ["\(k)=\(v)"]
         }
         return urlVars.isEmpty ? "" : ("?" + "&".join(urlVars))
+    }
+}
+
+public extension Guest {
+    /// Update the Guest's stored properties with information from an API response.
+    /// Does not save the object afterward.
+    public func update(categoryName category: String, jsonObject json: [String : String]) {
+        self.category = category
+
+        if let id = json["id"] {
+            self.guestID = id
+        }
+
+        if let firstName = json["FirstName"] {
+            self.firstName = firstName
+        }
+
+        if let lastName = json["LastName"] {
+            self.lastName = lastName
+        }
+
+        if let bio = json["Bio"] {
+            self.bio = bio
+        }
+
+        if let photoPath = json["PhotoPath"] {
+            self.photoPath = photoPath
+        }
+
+        if let hiResPhotoPath = json["HiResPhotoPath"] {
+            self.hiResPhotoPath = hiResPhotoPath
+        }
     }
 }
 

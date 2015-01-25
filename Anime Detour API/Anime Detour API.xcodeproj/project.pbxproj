@@ -12,16 +12,18 @@
 		5C3025C11A759ED200ACE278 /* AnimeDetourAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3025BF1A759ED200ACE278 /* AnimeDetourAPIClient.swift */; };
 		5C3025C41A759EDB00ACE278 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3025C21A759EDB00ACE278 /* CoreDataController.swift */; };
 		5C6C319E1A75A471008FC08F /* AnimeDetourAPI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C319C1A75A470008FC08F /* AnimeDetourAPI.xcdatamodeld */; };
+		5C6C31A21A75AAC0008FC08F /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C31A11A75AAC0008FC08F /* Guest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5C3025941A759EAF00ACE278 /* Anime Detour API.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Anime Detour API.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C3025941A759EAF00ACE278 /* Anime Detour API.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Anime Detour API.framework"; path = AnimeDetourAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C3025981A759EAF00ACE278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C3025991A759EAF00ACE278 /* Anime Detour API.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour API.h"; sourceTree = "<group>"; };
 		5C3025BB1A759ECD00ACE278 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		5C3025BF1A759ED200ACE278 /* AnimeDetourAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetourAPIClient.swift; sourceTree = "<group>"; };
 		5C3025C21A759EDB00ACE278 /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		5C6C319D1A75A471008FC08F /* AnimeDetourAPI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AnimeDetourAPI.xcdatamodel; sourceTree = "<group>"; };
+		5C6C31A11A75AAC0008FC08F /* Guest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				5C6C319C1A75A470008FC08F /* AnimeDetourAPI.xcdatamodeld */,
+				5C6C31A11A75AAC0008FC08F /* Guest.swift */,
 				5C3025BB1A759ECD00ACE278 /* Session.swift */,
 			);
 			path = Models;
@@ -174,6 +177,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C6C31A21A75AAC0008FC08F /* Guest.swift in Sources */,
 				5C3025C11A759ED200ACE278 /* AnimeDetourAPIClient.swift in Sources */,
 				5C3025BE1A759ECD00ACE278 /* Session.swift in Sources */,
 				5C3025C41A759EDB00ACE278 /* CoreDataController.swift in Sources */,

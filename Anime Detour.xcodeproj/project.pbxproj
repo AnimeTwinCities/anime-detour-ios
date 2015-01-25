@@ -36,6 +36,7 @@
 		5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37F19EA143A00545FDA /* LaunchScreen.xib */; };
 		5C6C31971A75A312008FC08F /* Anime Detour API.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3025B61A759EB000ACE278 /* Anime Detour API.framework */; };
 		5C6C31981A75A312008FC08F /* Anime Detour API.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3025B61A759EB000ACE278 /* Anime Detour API.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5C6C31A41A75ADBD008FC08F /* GuestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C31A31A75ADBD008FC08F /* GuestTableViewController.swift */; };
 		5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */; };
 		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
@@ -126,6 +127,7 @@
 		5C65B37B19EA143A00545FDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C65B37D19EA143A00545FDA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5C65B38019EA143A00545FDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		5C6C31A31A75ADBD008FC08F /* GuestTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestTableViewController.swift; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewHeaderView.swift; sourceTree = "<group>"; };
 		5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 		5C4B436B19F0A160009342C8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5C6C31A31A75ADBD008FC08F /* GuestTableViewController.swift */,
 				5C54452819F42E45003CC1C3 /* InformationViewController.swift */,
 				5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */,
 				5C4B436D19F0A19F009342C8 /* SessionViewController.swift */,
@@ -435,6 +438,7 @@
 				5C0EF2DD19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */,
 				5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
+				5C6C31A41A75ADBD008FC08F /* GuestTableViewController.swift in Sources */,
 				5C631A1E1A06AC5E002F193A /* UserDataController.swift in Sources */,
 				5C631A251A06AF62002F193A /* SessionBookmark.swift in Sources */,
 				5C54451119F2D79B003CC1C3 /* SessionTableViewController.swift in Sources */,

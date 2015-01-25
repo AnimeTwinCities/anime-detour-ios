@@ -27,6 +27,10 @@ public class Session: NSManagedObject {
     @NSManaged public var sessionID: String
     @NSManaged public var venueID: String
 
+    class public var entityName: String {
+        return "Session"
+    }
+
     override public var description: String {
         return "Session: \(name) - \(sessionDescription)"
     }
@@ -40,6 +44,8 @@ public class Session: NSManagedObject {
     }
 
     public override func awakeFromInsert() {
+        super.awakeFromInsert()
+
         // set empty default strings for String properties
         self.key = ""
         self.name = ""
