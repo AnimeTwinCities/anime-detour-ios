@@ -15,7 +15,7 @@ class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsContr
         case Section(sectionInfo: NSFetchedResultsSectionInfo, sectionIndex: Int, type: NSFetchedResultsChangeType)
     }
 
-    var tableView: UITableView?
+    weak var tableView: UITableView?
 
     // MARK: Fetched Results Controller Delegate
 
