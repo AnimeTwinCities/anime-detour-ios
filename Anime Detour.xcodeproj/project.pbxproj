@@ -15,6 +15,7 @@
 		5C1694821A6AF83C0082F197 /* TableViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1694811A6AF83C0082F197 /* TableViewFetchedResultsControllerDelegate.swift */; };
 		5C16948D1A6CB6880082F197 /* SessionCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16948C1A6CB6880082F197 /* SessionCollectionViewDataSource.swift */; };
 		5C16948F1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16948E1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift */; };
+		5C3025811A746A7500ACE278 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3025801A746A7500ACE278 /* UIColor.swift */; };
 		5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B436D19F0A19F009342C8 /* SessionViewController.swift */; };
 		5C54450C19F2D3A3003CC1C3 /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54450B19F2D3A3003CC1C3 /* SessionView.swift */; };
 		5C54451119F2D79B003CC1C3 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451019F2D79B003CC1C3 /* SessionTableViewController.swift */; };
@@ -110,6 +111,7 @@
 		5C1694831A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FLCLFilmstripsCollectionLayout.xcodeproj; path = FilmstripsCollectionLayout/FLCLFilmstripsCollectionLayout.xcodeproj; sourceTree = "<group>"; };
 		5C16948C1A6CB6880082F197 /* SessionCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		5C16948E1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewHeaderView.swift; sourceTree = "<group>"; };
+		5C3025801A746A7500ACE278 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		5C4B436D19F0A19F009342C8 /* SessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
 		5C54450B19F2D3A3003CC1C3 /* SessionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
 		5C54451019F2D79B003CC1C3 /* SessionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				5CE8FE4B1A6309F400D1F516 /* FlatMap.swift */,
+				5C3025801A746A7500ACE278 /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				5C16948D1A6CB6880082F197 /* SessionCollectionViewDataSource.swift in Sources */,
 				5C54450C19F2D3A3003CC1C3 /* SessionView.swift in Sources */,
 				5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
+				5C3025811A746A7500ACE278 /* UIColor.swift in Sources */,
 				5C54451E19F41D8A003CC1C3 /* MapsViewController.swift in Sources */,
 				5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */,
 				5C16948F1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift in Sources */,

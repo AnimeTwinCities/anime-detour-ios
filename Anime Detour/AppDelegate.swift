@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.setColors()
+        self.setColors(application)
 
         let initialSessionsFetchCompleteKey = "initialSessionFetchComplete"
         let defaultUserDefaults: [NSObject : AnyObject] = [initialSessionsFetchCompleteKey : NSNumber(bool: false)]
@@ -78,8 +78,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.primaryContext.mergeChangesFromContextDidSaveNotification(notification)
     }
 
-    private func setColors() {
-        let mainColor = UIColor.orangeColor()
+    private func setColors(application: UIApplication) {
+        let mainColor = UIColor.adr_orange
         let secondaryColor = UIColor.whiteColor()
 
         self.window?.tintColor = mainColor
@@ -87,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navBarAppearanceProxy = UINavigationBar.appearance()
         navBarAppearanceProxy.tintColor = secondaryColor
         navBarAppearanceProxy.barTintColor = mainColor
+        navBarAppearanceProxy.translucent = false
 
         let attrs = [NSForegroundColorAttributeName : secondaryColor]
         navBarAppearanceProxy.titleTextAttributes = attrs
