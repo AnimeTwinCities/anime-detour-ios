@@ -98,12 +98,14 @@ class SessionViewModel {
         return self.sessionType?.color ?? UIColor(red: 51 / 255, green: 51 / 255, blue: 51 / 255, alpha: 1)
     }
 
+    /// The Session's primary type.
     var type: String {
         return session.type
     }
 
-    var types: [String] {
-        return session.types
+    /// A comma-separated string of all of the Session's types.
+    var types: String {
+        return ", ".join(session.types)
     }
 
     /**

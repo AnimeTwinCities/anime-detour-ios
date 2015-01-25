@@ -14,6 +14,7 @@ class SessionView: UIView, SessionViewModelDelegate {
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var typesLabel: UILabel!
 
     @IBOutlet var imageView: UIImageView!
 
@@ -50,6 +51,7 @@ class SessionView: UIView, SessionViewModelDelegate {
             self.timeLabel.text = viewModel?.dateAndTime
             self.locationLabel.text = viewModel?.location
             self.descriptionLabel.text = viewModel?.sessionDescription
+            self.typesLabel.text = viewModel?.types
 
             self.bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
             self.bookmarkButton.accessibilityLabel = viewModel?.bookmarkAccessibilityLabel
