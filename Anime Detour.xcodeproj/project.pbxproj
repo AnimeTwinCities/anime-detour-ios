@@ -16,6 +16,7 @@
 		5C16948D1A6CB6880082F197 /* SessionCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16948C1A6CB6880082F197 /* SessionCollectionViewDataSource.swift */; };
 		5C16948F1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16948E1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift */; };
 		5C3025811A746A7500ACE278 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3025801A746A7500ACE278 /* UIColor.swift */; };
+		5C3025891A74939F00ACE278 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1694891A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B436D19F0A19F009342C8 /* SessionViewController.swift */; };
 		5C54450C19F2D3A3003CC1C3 /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54450B19F2D3A3003CC1C3 /* SessionView.swift */; };
 		5C54451119F2D79B003CC1C3 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451019F2D79B003CC1C3 /* SessionTableViewController.swift */; };
@@ -57,6 +58,13 @@
 			remoteGlobalIDString = 5C9058EE19FDCF3200E23961;
 			remoteInfo = FLCLFilmstripsCollectionLayoutTests;
 		};
+		5C3025841A74939700ACE278 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C1694831A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C9058E219FDCF3200E23961;
+			remoteInfo = FLCLFilmstripsCollectionLayout;
+		};
 		5C65B3C119EA14A500545FDA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5C65B3BC19EA14A400545FDA /* ConScheduleKit.xcodeproj */;
@@ -94,6 +102,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5C3025891A74939F00ACE278 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */,
 				5C7666981A1062F200ACFDE8 /* ConScheduleKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -331,6 +340,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5C3025851A74939700ACE278 /* PBXTargetDependency */,
 				5C95D3461A01FE1600091B4F /* PBXTargetDependency */,
 				5C76669A1A1062F200ACFDE8 /* PBXTargetDependency */,
 			);
@@ -465,6 +475,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5C3025851A74939700ACE278 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FLCLFilmstripsCollectionLayout;
+			targetProxy = 5C3025841A74939700ACE278 /* PBXContainerItemProxy */;
+		};
 		5C76669A1A1062F200ACFDE8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ConScheduleKit;
