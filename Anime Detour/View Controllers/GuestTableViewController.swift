@@ -13,6 +13,7 @@ import AnimeDetourAPI
 
 class GuestTableViewController: UITableViewController {
 
+    @IBInspectable var detailIdentifier: String!
     @IBInspectable var reuseIdentifier: String!
 
     /// Lazily created FRC. To use, first perform a fetch on it.
@@ -64,19 +65,25 @@ class GuestTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(self.reuseIdentifier, forIndexPath: indexPath) as UITableViewCell
 
         let guest = self.guest(indexPath)
-        cell.textLabel?.text = "\(guest.firstName) \(guest.lastName)"
+        let viewModel = GuestViewModel(guest: guest)
+        cell.textLabel?.text = viewModel.name
 
         return cell
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        switch (segue.identifier) {
+        case .Some(self.detailIdentifier):
+            let cell = sender as UITableViewCell
+            let guest = self.guest(self.tableView.indexPathForCell(cell)!)
+            let guestVC = segue.destinationViewController as GuestViewController
+            guestVC.guest = guest
+        default:
+            fatalError("Unexpected segue encountered.")
+        }
     }
-    */
 
 }
