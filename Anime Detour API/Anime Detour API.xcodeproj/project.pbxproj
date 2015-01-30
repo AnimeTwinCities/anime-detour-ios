@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5C3025941A759EAF00ACE278 /* Anime Detour API.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Anime Detour API.framework"; path = AnimeDetourAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C3025941A759EAF00ACE278 /* AnimeDetourAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimeDetourAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C3025981A759EAF00ACE278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C3025991A759EAF00ACE278 /* Anime Detour API.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour API.h"; sourceTree = "<group>"; };
 		5C3025BB1A759ECD00ACE278 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		5C3025951A759EAF00ACE278 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5C3025941A759EAF00ACE278 /* Anime Detour API.framework */,
+				5C3025941A759EAF00ACE278 /* AnimeDetourAPI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,7 +128,7 @@
 			);
 			name = AnimeDetourAPI;
 			productName = "Anime Detour API";
-			productReference = 5C3025941A759EAF00ACE278 /* Anime Detour API.framework */;
+			productReference = 5C3025941A759EAF00ACE278 /* AnimeDetourAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
