@@ -14,7 +14,14 @@ import AnimeDetourAPI
 class GuestViewModel {
     let name: String
     let bio: String
-    let htmlBio: NSAttributedString
+    private(set) lazy var htmlBio: NSAttributedString = {
+        let data = self.bio.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+        let string = NSAttributedString(data: data,
+            options: [NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType],
+            documentAttributes: nil,
+            error: nil)
+        return string!
+    }()
 
     /// A photo for the guest. If the hiResPhoto is not yet available,
     /// the smallPhoto will be used instead. If neither is available, will be `nil`.
@@ -25,9 +32,5 @@ class GuestViewModel {
     init(guest: Guest) {
         self.name = "\(guest.firstName) \(guest.lastName)"
         self.bio = guest.bio
-        self.htmlBio = NSAttributedString(data: self.bio.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!,
-            options: [NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType],
-            documentAttributes: nil,
-            error: nil)!
     }
 }
