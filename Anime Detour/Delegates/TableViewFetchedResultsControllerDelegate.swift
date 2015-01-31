@@ -10,12 +10,9 @@ import UIKit
 import CoreData
 
 class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsControllerDelegate {
-    private enum FetchedResultsControllerChange {
-        case Object(anObject: AnyObject, indexPath: NSIndexPath?, type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
-        case Section(sectionInfo: NSFetchedResultsSectionInfo, sectionIndex: Int, type: NSFetchedResultsChangeType)
-    }
 
     weak var tableView: UITableView?
+    weak var customizer: TableViewFetchedResultsControllerCellCustomizer?
 
     // MARK: Fetched Results Controller Delegate
 
@@ -28,8 +25,6 @@ class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsContr
     }
 
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-        let change = FetchedResultsControllerChange.Section(sectionInfo: sectionInfo, sectionIndex: sectionIndex, type: type)
-
         let tableView = self.tableView
         let indexSet = NSIndexSet(index: sectionIndex)
         switch type {
@@ -58,8 +53,18 @@ class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsContr
                 // Must fix later.
                 tableView.moveRowAtIndexPath(indexPath, toIndexPath: newIndexPath)
             case .Update:
-                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                switch (self.tableView?.cellForRowAtIndexPath(indexPath), self.customizer) {
+                case let (.Some(cell), .Some(customizer)):
+                    customizer.configure(cell, atIndexPath: indexPath)
+                default:
+                    break
+                }
             }
         }
     }
+}
+
+// Declared 'class' to allow weak references.
+protocol TableViewFetchedResultsControllerCellCustomizer: class {
+    func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath)
 }
