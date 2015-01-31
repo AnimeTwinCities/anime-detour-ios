@@ -26,6 +26,51 @@
             </objects>
             <point key="canvasLocation" x="882" y="-357"/>
         </scene>
+        <!--Session Types-->
+        <scene sceneID="Scj-Ma-9MS">
+            <objects>
+                <tableViewController id="bct-Vd-5ck" customClass="SessionFilterTableViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="sEJ-ve-LqC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TypeReuseIdentifier" textLabel="GqL-y5-qp6" style="IBUITableViewCellStyleDefault" id="Ucb-tk-Put">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ucb-tk-Put" id="M9K-TX-eCp">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GqL-y5-qp6">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bct-Vd-5ck" id="GBH-hK-Xs1"/>
+                            <outlet property="delegate" destination="bct-Vd-5ck" id="jFU-kg-HK1"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Session Types" id="o1M-DA-AuN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Cum-y6-sPs">
+                            <connections>
+                                <segue destination="OTn-xu-9Q7" kind="unwind" unwindAction="unwindAfterFiltering:" id="ruB-Gf-0M4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="reuseIdentifier" value="TypeReuseIdentifier"/>
+                    </userDefinedRuntimeAttributes>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="usB-3K-JR2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="OTn-xu-9Q7" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2936" y="-1033"/>
+        </scene>
         <!--Sessions-->
         <scene sceneID="1yQ-Bb-U3t">
             <objects>
@@ -119,7 +164,7 @@
                                     <outlet property="locationLabel" destination="bEh-HC-LC5" id="LLR-YA-GXo"/>
                                     <outlet property="nameLabel" destination="dOL-D2-zNo" id="PzH-ct-JI9"/>
                                     <outlet property="timeLabel" destination="XFj-f6-b5p" id="vxc-Bp-3ua"/>
-                                    <segue destination="DNg-fJ-Dxt" kind="show" id="xbX-hn-wid"/>
+                                    <segue destination="DNg-fJ-Dxt" kind="show" identifier="SessionDetail" id="xbX-hn-wid"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -128,7 +173,15 @@
                             <outlet property="delegate" destination="77A-5m-tbi" id="akv-bt-VAi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Sessions" id="pXn-Ma-bD3"/>
+                    <navigationItem key="navigationItem" title="Sessions" id="pXn-Ma-bD3">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="oZr-ay-WXn">
+                            <connections>
+                                <segue destination="API-Hz-EWN" kind="popoverPresentation" identifier="FilterSessions" popoverAnchorBarButtonItem="oZr-ay-WXn" id="yry-qZ-pra">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hUJ-hX-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -298,6 +351,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SSI-xb-WTq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1585" y="1075"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lzR-xN-uF8">
+            <objects>
+                <navigationController id="API-Hz-EWN" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="W12-55-Jqz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bct-Vd-5ck" kind="relationship" relationship="rootViewController" id="fgN-yU-Vuo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D0c-eI-ob4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2266" y="-1033"/>
         </scene>
         <!--Details-->
         <scene sceneID="VF3-Dh-ytW">

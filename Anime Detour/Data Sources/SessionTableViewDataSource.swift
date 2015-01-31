@@ -11,6 +11,9 @@ import UIKit
 
 import AnimeDetourAPI
 
+/**
+Data source adapting Sessions to a table view.
+*/
 class SessionTableViewDataSource: NSObject, UITableViewDataSource {
     let imagesURLSession: NSURLSession?
     let fetchedResultsController: NSFetchedResultsController

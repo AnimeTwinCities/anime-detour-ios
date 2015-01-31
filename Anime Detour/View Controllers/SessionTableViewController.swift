@@ -15,6 +15,9 @@ import AnimeDetourAPI
 class SessionTableViewController: UITableViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy var userDataController = UserDataController.sharedInstance
+
+    // MARK: Core Data
+
     lazy private var managedObjectContext: NSManagedObjectContext = {
         return CoreDataController.sharedInstance.managedObjectContext!
     }()
@@ -24,17 +27,52 @@ class SessionTableViewController: UITableViewController {
         fetchedResultsController.delegate = self.fetchedResultsControllerDelegate
         return fetchedResultsController
     }()
-    lazy private var allSessionsPredicate: NSPredicate = NSPredicate(value: true)
+
+    /// Type name for which the Session list will be filtered.
+    /// Must not be changed before `fetchedResultsController` is created.
+    private var filteredType: String? {
+        didSet {
+            if self.filteredType == oldValue {
+                return
+            }
+
+            self.fetchedResultsController.fetchRequest.predicate = self.filteredSessionsPredicate
+
+            var error: NSError?
+            self.fetchedResultsController.performFetch(&error)
+
+            if let error = error {
+                let errorDesc = error.userInfo?[NSLocalizedDescriptionKey] as? String ?? "Unknown error"
+                println("Error performing Session fetch: %@", errorDesc)
+            }
+
+            self.tableView.reloadData()
+        }
+    }
+    private var filteredSessionsPredicate: NSPredicate? {
+        if let filteredType = self.filteredType {
+            let begins = NSPredicate(format: "type BEGINSWITH %@", filteredType)!
+            let contains = NSPredicate(format: "type CONTAINS %@", ", " + filteredType + ",")!
+            let ends = NSPredicate(format: "type ENDSWITH %@", ", " + filteredType)!
+            let pred = NSCompoundPredicate.orPredicateWithSubpredicates([begins, contains, ends])
+            return pred
+        } else {
+            return nil
+        }
+    }
     lazy private var fetchedResultsControllerDelegate: TableViewFetchedResultsControllerDelegate = {
         let delegate = TableViewFetchedResultsControllerDelegate()
         delegate.tableView = self.tableView
         return delegate
     }()
 
+    /**
+    Fetch request for all Sessions, sorted by start time then name. Creates a new fetch request on every access.
+    */
     private var sessionsFetchRequest: NSFetchRequest {
         get {
             let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
-            let sessionsFetchRequest = NSFetchRequest(entityName: "Session")
+            let sessionsFetchRequest = NSFetchRequest(entityName: Session.entityName)
             sessionsFetchRequest.sortDescriptors = sortDescriptors
             return sessionsFetchRequest
         }
@@ -43,16 +81,20 @@ class SessionTableViewController: UITableViewController {
     /// Fetched results controller currently in use
     private var fetchedResultsController: NSFetchedResultsController!
 
+    // MARK: Table view
+
     /**
-    Collection view data source that we call through to from our data
+    Table view data source that we call through to from our data
     source methods.
     */
     private var dataSource: SessionTableViewDataSource!
 
-    // Selections
+    // MARK: Selections
     private var selectedIndexPath: NSIndexPath?
     private var selectedSession: Session?
     private var selectedSectionDate: NSDate?
+
+    // MARK: Day indicator
 
     private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
 
@@ -88,8 +130,14 @@ class SessionTableViewController: UITableViewController {
     /// a particular day.
     private var scrollingToDay = false
 
-    // Controls
+    // MARK: Controls
+
     @IBOutlet var daySegmentedControl: UISegmentedControl?
+
+    // MARK: - Segue identifiers
+
+    private class var detailSegueIdentifier: String { return "SessionDetail" }
+    private class var filterSegueIdentifier: String { return "FilterSessions" }
 
     // MARK: - View Controller
 
@@ -107,11 +155,12 @@ class SessionTableViewController: UITableViewController {
             }
         }
 
-        var frc: NSFetchedResultsController = self.sessionsFetchedResultsController(self.sessionsFetchRequest)
-        self.fetchedResultsController = frc
+        self.fetchedResultsController = self.sessionsFetchedResultsController
+        let frc = self.fetchedResultsController
+
         self.dataSource = SessionTableViewDataSource(fetchedResultsController: frc, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController)
         self.dataSource.prepareTableView(self.tableView)
-        
+
         var fetchError: NSError?
         let success = frc.performFetch(&fetchError)
         if let error = fetchError {
@@ -119,14 +168,6 @@ class SessionTableViewController: UITableViewController {
         }
     }
 
-    // MARK: - Data Fetching
-
-    func sessionsFetchedResultsController(fetchRequest: NSFetchRequest) -> NSFetchedResultsController {
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
-        fetchedResultsController.delegate = self.fetchedResultsControllerDelegate
-        return fetchedResultsController
-    }
-    
     // MARK: - Table View Data Source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -165,14 +206,67 @@ class SessionTableViewController: UITableViewController {
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let detailVC = segue.destinationViewController as? SessionViewController {
+        switch (segue.identifier) {
+        case .Some(SessionTableViewController.detailSegueIdentifier):
+            let detailVC = segue.destinationViewController as SessionViewController
             let selectedSession = self.tableView.indexPathForSelectedRow().map(self.dataSource.session)
             detailVC.session = selectedSession!
+        case .Some(SessionTableViewController.filterSegueIdentifier):
+            let navController = segue.destinationViewController as UINavigationController
+            let filterVC = navController.topViewController as SessionFilterTableViewController
+            filterVC.selectedType = self.filteredType.map { .Named($0) } ?? .All
+            filterVC.sessionTypes = { () -> [String] in
+                let typeKey = "type"
+                let request = NSFetchRequest(entityName: Session.entityName)
+                request.propertiesToFetch = [ typeKey ]
+                request.resultType = NSFetchRequestResultType.DictionaryResultType
+                request.returnsDistinctResults = true
+
+                if let results = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [[String:String]] {
+                    // This is probably very slow...
+                    var types = results.map { dict -> String in return dict[typeKey]! }.flatMap { types in types.componentsSeparatedByString(",") }
+                    var uniqueing = [String:Void]()
+                    for type in types {
+                        uniqueing[type] = ()
+                    }
+
+                    types = uniqueing.keys.array
+                    sort(&types)
+                    return types
+                }
+
+                return []
+            }()
+
+            let popoverController = filterVC.popoverPresentationController
+            popoverController?.delegate = self
+        default:
+            // Segues we don't know about are fine.
+            break
         }
+    }
+
+    @IBAction func unwindAfterFiltering(segue: UIStoryboardSegue) {
+        let filterVC = segue.sourceViewController as SessionFilterTableViewController
+        switch filterVC.selectedType {
+        case .All:
+            self.filteredType = nil
+        case let .Named(typeName):
+            self.filteredType = typeName
+        }
+
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
-/// Day selection indicator logic
+// MARK - 
+extension SessionTableViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .Popover
+    }
+}
+
+// MARK: - Day selection indicator logic
 extension SessionTableViewController {
     @IBAction func goToDay(sender: UISegmentedControl) {
         let selectedIdx = sender.selectedSegmentIndex
@@ -193,7 +287,7 @@ extension SessionTableViewController {
         let moc = self.managedObjectContext
         let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true)]
         let fetchRequest = NSFetchRequest()
-        fetchRequest.entity = NSEntityDescription.entityForName("Session", inManagedObjectContext: moc)
+        fetchRequest.entity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: moc)
         fetchRequest.predicate = predicate
         fetchRequest.sortDescriptors = sortDescriptors
 
