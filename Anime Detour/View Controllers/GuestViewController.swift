@@ -12,7 +12,8 @@ import AnimeDetourAPI
 
 class GuestViewController: UIViewController {
 
-    var guest: Guest!
+    lazy var imageSession = NSURLSession.sharedSession()
+    var guestViewModel: GuestViewModel!
 
     private var guestView: GuestView {
         return self.view as GuestView
@@ -21,8 +22,7 @@ class GuestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let viewModel = GuestViewModel(guest: guest)
-        self.guestView.viewModel = viewModel
+        self.guestView.viewModel = self.guestViewModel
     }
 
 }

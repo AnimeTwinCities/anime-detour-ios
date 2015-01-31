@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GuestView: UIView {
+class GuestView: UIView, GuestViewModelDelegate {
 
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
@@ -17,10 +17,26 @@ class GuestView: UIView {
 
     var viewModel: GuestViewModel! {
         didSet {
-            self.imageView.image = self.viewModel.photo
-            self.imageZeroHeightConstraint.priority = self.viewModel.photo == nil ? 1000 : 1
+            self.viewModel.delegate = self
+
+            let photo = self.viewModel.hiResPhoto(true) ?? self.viewModel.photo
+            self.imageView.image = photo
+
+            self.imageZeroHeightConstraint.priority = photo == nil ? 1000 : 1
             self.nameLabel.text = self.viewModel.name
             self.bioView.attributedText = self.viewModel.htmlBio
         }
+    }
+
+    // MARK: - Guest View Model Delegate
+
+    func didDownloadPhoto(viewModel: GuestViewModel, photo: UIImage, hiRes: Bool) {
+        self.imageView.image = photo
+
+        self.imageZeroHeightConstraint.priority = 1
+    }
+
+    func didFailDownloadingPhoto(viewModel: GuestViewModel, error: NSError) {
+        // empty
     }
 }

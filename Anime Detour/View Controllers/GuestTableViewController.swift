@@ -11,7 +11,9 @@ import UIKit
 
 import AnimeDetourAPI
 
-class GuestTableViewController: UITableViewController {
+class GuestTableViewController: UITableViewController, TableViewFetchedResultsControllerCellCustomizer {
+
+    lazy var imageSession: NSURLSession = NSURLSession.sharedSession()
 
     @IBInspectable var detailIdentifier: String!
     @IBInspectable var reuseIdentifier: String!
@@ -36,6 +38,7 @@ class GuestTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.fetchedResultsControllerDelegate.tableView = self.tableView
+        self.fetchedResultsControllerDelegate.customizer = self
 
         let frc = self.fetchedResultsController
         frc.delegate = self.fetchedResultsControllerDelegate
@@ -60,15 +63,20 @@ class GuestTableViewController: UITableViewController {
         return (self.fetchedResultsController.sections?[section] as? NSFetchedResultsSectionInfo)?.numberOfObjects ?? 0
     }
 
-
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(self.reuseIdentifier, forIndexPath: indexPath) as UITableViewCell
+        self.configure(cell, atIndexPath: indexPath)
+        return cell
+    }
+
+    // MARK: - Table view cell customizer
+
+    func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
+        let cell = cell as GuestTableViewCell
 
         let guest = self.guest(indexPath)
-        let viewModel = GuestViewModel(guest: guest)
-        cell.textLabel?.text = viewModel.name
-
-        return cell
+        let viewModel = GuestViewModel(guest: guest, imageSession: self.imageSession)
+        cell.viewModel = viewModel
     }
 
     // MARK: - Navigation
@@ -77,10 +85,10 @@ class GuestTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch (segue.identifier) {
         case .Some(self.detailIdentifier):
-            let cell = sender as UITableViewCell
-            let guest = self.guest(self.tableView.indexPathForCell(cell)!)
+            let cell = sender as GuestTableViewCell
+            let guestViewModel = cell.viewModel
             let guestVC = segue.destinationViewController as GuestViewController
-            guestVC.guest = guest
+            guestVC.guestViewModel = guestViewModel
         default:
             fatalError("Unexpected segue encountered.")
         }
