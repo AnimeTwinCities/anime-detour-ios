@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Guest" representedClassName="AnimeDetourAPI.Guest" syncable="YES">
         <attribute name="bio" attributeType="String" syncable="YES"/>
         <attribute name="category" attributeType="String" syncable="YES"/>
         <attribute name="firstName" attributeType="String" syncable="YES"/>
         <attribute name="guestID" attributeType="String" syncable="YES"/>
-        <attribute name="hiResPhotoPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hiResPhotoData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="hiResPhotoPath" attributeType="String" syncable="YES"/>
         <attribute name="lastName" attributeType="String" syncable="YES"/>
-        <attribute name="photoPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photoData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="photoPath" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Session" representedClassName="AnimeDetourAPI.Session" syncable="YES">
         <attribute name="active" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
@@ -27,7 +29,7 @@
         <attribute name="venueID" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Guest" positionX="-54" positionY="108" width="128" height="180"/>
         <element name="Session" positionX="-63" positionY="-18" width="128" height="268"/>
-        <element name="Guest" positionX="-54" positionY="108" width="128" height="148"/>
     </elements>
 </model>
