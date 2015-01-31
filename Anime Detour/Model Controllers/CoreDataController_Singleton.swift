@@ -8,7 +8,7 @@
 
 import Foundation
 
-import ConScheduleKit
+import AnimeDetourAPI
 
 private var _onceToken: dispatch_once_t = 0
 private var _sharedInstance: CoreDataController!

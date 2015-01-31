@@ -9,7 +9,7 @@
 import CoreData
 import UIKit
 
-import ConScheduleKit
+import AnimeDetourAPI
 
 class SessionTableViewDataSource: NSObject, UITableViewDataSource {
     let imagesURLSession: NSURLSession?

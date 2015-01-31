@@ -9,14 +9,14 @@
 import CoreData
 import UIKit
 
-import ConScheduleKit
+import AnimeDetourAPI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    lazy var apiClient = ScheduleAPIClient.sharedInstance
+    lazy var apiClient = AnimeDetourAPIClient.sharedInstance
     lazy var coreDataController = CoreDataController.sharedInstance
     lazy var backgroundContext: NSManagedObjectContext = {
         let context = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)!
@@ -33,13 +33,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.setColors(application)
 
+        let initialGuestFetchCompleteKey = "initialGuestFetchComplete"
         let initialSessionsFetchCompleteKey = "initialSessionFetchComplete"
-        let defaultUserDefaults: [NSObject : AnyObject] = [initialSessionsFetchCompleteKey : NSNumber(bool: false)]
+        let defaultUserDefaults: [NSObject : AnyObject] = [initialGuestFetchCompleteKey : NSNumber(bool: false),
+            initialSessionsFetchCompleteKey : NSNumber(bool: false)]
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.registerDefaults(defaultUserDefaults)
 
-        if userDefaults.boolForKey(initialSessionsFetchCompleteKey) == false {
-            self.apiClient.sessionList(since: nil, deletedSessions: false, completionHandler: { [weak self] (result: AnyObject?, error: NSError?) -> () in
+        if !userDefaults.boolForKey(initialSessionsFetchCompleteKey) {
+            self.apiClient.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
                 if result == nil {
                     if let error = error {
                         NSLog("Error fetching session list")
@@ -50,23 +52,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 if let jsonSessions = result as? [[String : String]] {
                     if let context = self?.backgroundContext {
-                        let sessionEntity = NSEntityDescription.entityForName("Session", inManagedObjectContext: context)!
+                        let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
                         for json: [String : String] in jsonSessions {
                             let session = Session(entity: sessionEntity, insertIntoManagedObjectContext: context)
                             session.update(jsonObject: json, jsonDateFormatter: self!.apiClient.dateFormatter)
                         }
 
                         var error: NSError?
-                        context.save(&error)
-
-                        if let error = error {
-                            NSLog("Error saving sessions: \(error)")
-                        } else {
+                        if context.save(&error) {
                             userDefaults.setBool(true, forKey: initialSessionsFetchCompleteKey)
+                        } else {
+                            if let error = error {
+                                NSLog("Error saving sessions: \(error)")
+                            } else {
+                                NSLog("Unknown error saving sessions")
+                            }
                         }
                     }
                 }
-            })
+            }
+        }
+
+        if !userDefaults.boolForKey(initialGuestFetchCompleteKey) {
+            self.apiClient.guestList { [weak self] (result, error) -> () in
+                if result == nil {
+                    if let error = error {
+                        NSLog("Error fetching guest list")
+                    }
+
+                    return
+                }
+
+                if let guestsJson = result as? [[String : AnyObject]] {
+                    if let context = self?.backgroundContext {
+                        let guestEntity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: context)!
+
+                        for category in guestsJson {
+                            if let categoryName = category["categoryname"] as? String {
+                                if let guests = category["guests"] as? [[String : String]] {
+                                    for json: [String : String] in guests {
+                                        let guest = Guest(entity: guestEntity, insertIntoManagedObjectContext: context)
+                                        guest.update(categoryName: categoryName, jsonObject: json)
+                                    }
+                                }
+                            }
+                        }
+
+                        var error: NSError?
+                        if context.save(&error) {
+                            userDefaults.setBool(true, forKey: initialGuestFetchCompleteKey)
+                        } else {
+                            if let error = error {
+                                NSLog("Error saving guests: \(error)")
+                            } else {
+                                NSLog("Unknown error saving guests")
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         return true
