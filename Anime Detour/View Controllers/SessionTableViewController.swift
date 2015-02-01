@@ -237,9 +237,6 @@ class SessionTableViewController: UITableViewController {
 
                 return []
             }()
-
-            let popoverController = filterVC.popoverPresentationController
-            popoverController?.delegate = self
         default:
             // Segues we don't know about are fine.
             break
@@ -256,13 +253,6 @@ class SessionTableViewController: UITableViewController {
         }
 
         self.dismissViewControllerAnimated(true, completion: nil)
-    }
-}
-
-// MARK - 
-extension SessionTableViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .Popover
     }
 }
 
