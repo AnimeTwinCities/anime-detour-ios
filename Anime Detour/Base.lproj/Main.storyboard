@@ -174,7 +174,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sessions" id="pXn-Ma-bD3">
-                        <barButtonItem key="leftBarButtonItem" title="Filter" id="oZr-ay-WXn">
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="oZr-ay-WXn">
                             <connections>
                                 <segue destination="API-Hz-EWN" kind="popoverPresentation" identifier="FilterSessions" popoverAnchorBarButtonItem="oZr-ay-WXn" id="yry-qZ-pra">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
