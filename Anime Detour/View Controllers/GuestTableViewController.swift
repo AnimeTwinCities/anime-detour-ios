@@ -87,7 +87,7 @@ class GuestTableViewController: UITableViewController, TableViewFetchedResultsCo
         case .Some(self.detailIdentifier):
             let cell = sender as GuestTableViewCell
             let guestViewModel = cell.viewModel
-            let guestVC = segue.destinationViewController as GuestViewController
+            let guestVC = segue.destinationViewController as GuestDetailTableViewController
             guestVC.guestViewModel = guestViewModel
         default:
             fatalError("Unexpected segue encountered.")

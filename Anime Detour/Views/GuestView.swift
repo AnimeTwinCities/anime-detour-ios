@@ -19,7 +19,7 @@ class GuestView: UIView, GuestViewModelDelegate {
         didSet {
             self.viewModel.delegate = self
 
-            let photo = self.viewModel.hiResPhoto(true) ?? self.viewModel.photo
+            let photo = self.viewModel.hiResPhoto(true, lowResPhotoPlaceholder: true) ?? self.viewModel.photo
             self.imageView.image = photo
 
             self.imageZeroHeightConstraint.priority = photo == nil ? 1000 : 1
