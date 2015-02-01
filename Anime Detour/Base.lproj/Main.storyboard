@@ -255,10 +255,10 @@
             </objects>
             <point key="canvasLocation" x="1585" y="351"/>
         </scene>
-        <!--Guest-->
+        <!--Guest Details-->
         <scene sceneID="gIX-su-qn5">
             <objects>
-                <viewController title="Guest" id="wHy-TT-raU" customClass="GuestViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Guest Details" id="wHy-TT-raU" customClass="GuestViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4cd-Cg-VSs"/>
                         <viewControllerLayoutGuide type="bottom" id="647-Ce-4ye"/>
@@ -368,10 +368,10 @@
             </objects>
             <point key="canvasLocation" x="2266" y="-1033"/>
         </scene>
-        <!--Details-->
+        <!--Session Details-->
         <scene sceneID="VF3-Dh-ytW">
             <objects>
-                <viewController title="Details" id="DNg-fJ-Dxt" customClass="SessionViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Session Details" id="DNg-fJ-Dxt" customClass="SessionViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="I33-I3-oUL"/>
                         <viewControllerLayoutGuide type="bottom" id="EAt-J4-GYA"/>
