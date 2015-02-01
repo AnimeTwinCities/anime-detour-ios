@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="882" y="-357"/>
         </scene>
-        <!--Session Types-->
+        <!--Filter Sessions-->
         <scene sceneID="Scj-Ma-9MS">
             <objects>
                 <tableViewController id="bct-Vd-5ck" customClass="SessionFilterTableViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
@@ -55,7 +55,7 @@
                             <outlet property="delegate" destination="bct-Vd-5ck" id="jFU-kg-HK1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Session Types" id="o1M-DA-AuN">
+                    <navigationItem key="navigationItem" title="Filter Sessions" id="o1M-DA-AuN">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Cum-y6-sPs">
                             <connections>
                                 <segue destination="OTn-xu-9Q7" kind="unwind" unwindAction="unwindAfterFiltering:" id="ruB-Gf-0M4"/>
