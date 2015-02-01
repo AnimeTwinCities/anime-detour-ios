@@ -10,18 +10,13 @@ import UIKit
 
 class SessionFilterTableViewController: UITableViewController {
 
-    enum SelectedType {
-        case All
-        case Named(String)
-    }
-
     @IBInspectable var reuseIdentifier: String!
 
     var sessionTypes: [String]!
 
     /// The current selection on which to filter.
     /// Setting the selected type will update the table view.
-    var selectedType: SelectedType = .All {
+    var selectedType: SelectedSessionType = .All {
         didSet {
             if sessionTypes == nil {
                 return
@@ -41,7 +36,7 @@ class SessionFilterTableViewController: UITableViewController {
 
     /// The index path corresponding to a session type.
     /// Depends on `sessionTypes`. Must only be called when `sessionTypes` is non-nil.
-    private func indexPath(type: SelectedType) -> NSIndexPath {
+    private func indexPath(type: SelectedSessionType) -> NSIndexPath {
         var indexPath: NSIndexPath
         switch type {
         case .All:
@@ -78,7 +73,7 @@ class SessionFilterTableViewController: UITableViewController {
     // MARK: - Table view delegate
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var selectedType: SelectedType
+        var selectedType: SelectedSessionType
         switch (indexPath.section, indexPath.row) {
         case (0, _):
             selectedType = .All

@@ -173,7 +173,7 @@
                             <outlet property="delegate" destination="77A-5m-tbi" id="akv-bt-VAi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Sessions" id="pXn-Ma-bD3">
+                    <navigationItem key="navigationItem" id="pXn-Ma-bD3">
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="oZr-ay-WXn">
                             <connections>
                                 <segue destination="API-Hz-EWN" kind="popoverPresentation" identifier="FilterSessions" popoverAnchorBarButtonItem="oZr-ay-WXn" id="yry-qZ-pra">

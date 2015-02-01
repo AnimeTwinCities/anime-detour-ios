@@ -29,12 +29,15 @@ class SessionTableViewController: UITableViewController {
     }()
 
     /// Type name for which the Session list will be filtered.
+    /// Updating this property will update out `title`.
     /// Must not be changed before `fetchedResultsController` is created.
-    private var filteredType: String? {
+    private var filteredType: SelectedSessionType = .All {
         didSet {
             if self.filteredType == oldValue {
                 return
             }
+
+            self.title = self.filteredTitle(self.filteredType)
 
             self.fetchedResultsController.fetchRequest.predicate = self.filteredSessionsPredicate
 
@@ -50,14 +53,15 @@ class SessionTableViewController: UITableViewController {
         }
     }
     private var filteredSessionsPredicate: NSPredicate? {
-        if let filteredType = self.filteredType {
-            let begins = NSPredicate(format: "type BEGINSWITH %@", filteredType)!
-            let contains = NSPredicate(format: "type CONTAINS %@", ", " + filteredType + ",")!
-            let ends = NSPredicate(format: "type ENDSWITH %@", ", " + filteredType)!
+        switch self.filteredType {
+        case .All:
+            return nil
+        case let .Named(type):
+            let begins = NSPredicate(format: "type BEGINSWITH %@", type)!
+            let contains = NSPredicate(format: "type CONTAINS %@", ", " + type + ",")!
+            let ends = NSPredicate(format: "type ENDSWITH %@", ", " + type)!
             let pred = NSCompoundPredicate.orPredicateWithSubpredicates([begins, contains, ends])
             return pred
-        } else {
-            return nil
         }
     }
     lazy private var fetchedResultsControllerDelegate: TableViewFetchedResultsControllerDelegate = {
@@ -134,7 +138,7 @@ class SessionTableViewController: UITableViewController {
 
     @IBOutlet var daySegmentedControl: UISegmentedControl?
 
-    // MARK: - Segue identifiers
+    // MARK: Segue identifiers
 
     private class var detailSegueIdentifier: String { return "SessionDetail" }
     private class var filterSegueIdentifier: String { return "FilterSessions" }
@@ -143,6 +147,8 @@ class SessionTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.title = self.filteredTitle(self.filteredType)
 
         // Set the names of the days on the day chooser segmented control
         if let daysControl = self.daySegmentedControl {
@@ -165,6 +171,17 @@ class SessionTableViewController: UITableViewController {
         let success = frc.performFetch(&fetchError)
         if let error = fetchError {
             NSLog("Error fetching sessions: %@", error)
+        }
+    }
+
+    // MARK: Visual properties
+
+    func filteredTitle(filteredSessionType: SelectedSessionType) -> String {
+        switch self.filteredType {
+        case .All:
+            return "Sessions"
+        case let .Named(type):
+            return type
         }
     }
 
@@ -214,7 +231,7 @@ class SessionTableViewController: UITableViewController {
         case .Some(SessionTableViewController.filterSegueIdentifier):
             let navController = segue.destinationViewController as UINavigationController
             let filterVC = navController.topViewController as SessionFilterTableViewController
-            filterVC.selectedType = self.filteredType.map { .Named($0) } ?? .All
+            filterVC.selectedType = self.filteredType
             filterVC.sessionTypes = { () -> [String] in
                 let typeKey = "type"
                 let request = NSFetchRequest(entityName: Session.entityName)
@@ -245,12 +262,7 @@ class SessionTableViewController: UITableViewController {
 
     @IBAction func unwindAfterFiltering(segue: UIStoryboardSegue) {
         let filterVC = segue.sourceViewController as SessionFilterTableViewController
-        switch filterVC.selectedType {
-        case .All:
-            self.filteredType = nil
-        case let .Named(typeName):
-            self.filteredType = typeName
-        }
+        self.filteredType = filterVC.selectedType
 
         self.dismissViewControllerAnimated(true, completion: nil)
     }

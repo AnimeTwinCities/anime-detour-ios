@@ -41,6 +41,7 @@
 		5C6C31981A75A312008FC08F /* AnimeDetourAPI.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3025B61A759EB000ACE278 /* AnimeDetourAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C6C31A41A75ADBD008FC08F /* GuestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C31A31A75ADBD008FC08F /* GuestTableViewController.swift */; };
 		5C6C31AE1A75E158008FC08F /* GuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C31AD1A75E158008FC08F /* GuestViewModel.swift */; };
+		5C8834041A7EB87700573DAD /* SelectedSessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8834031A7EB87700573DAD /* SelectedSessionType.swift */; };
 		5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */; };
 		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
@@ -136,6 +137,7 @@
 		5C65B38019EA143A00545FDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		5C6C31A31A75ADBD008FC08F /* GuestTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestTableViewController.swift; sourceTree = "<group>"; };
 		5C6C31AD1A75E158008FC08F /* GuestViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestViewModel.swift; sourceTree = "<group>"; };
+		5C8834031A7EB87700573DAD /* SelectedSessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSessionType.swift; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewHeaderView.swift; sourceTree = "<group>"; };
 		5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			children = (
 				5C631A241A06AF62002F193A /* SessionBookmark.swift */,
 				5CE11EAC1A34E299005903A4 /* SessionType.swift */,
+				5C8834031A7EB87700573DAD /* SelectedSessionType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */,
 				5C16773019EB6C030097B1D3 /* SessionTableViewDataSource.swift in Sources */,
 				5C631A211A06AD31002F193A /* UserDataController_Singleton.swift in Sources */,
+				5C8834041A7EB87700573DAD /* SelectedSessionType.swift in Sources */,
 				5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */,
 				5C16772D19EB6BBB0097B1D3 /* SessionCollectionViewCell.swift in Sources */,
 				5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */,
