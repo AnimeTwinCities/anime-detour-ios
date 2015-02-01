@@ -17,6 +17,7 @@
 		5C16948F1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16948E1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift */; };
 		5C204F9E1A7B33210050B793 /* GuestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C204F9D1A7B33210050B793 /* GuestTableViewCell.swift */; };
 		5C204FA51A7D6BC90050B793 /* SessionFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C204FA41A7D6BC90050B793 /* SessionFilterTableViewController.swift */; };
+		5C204FAC1A7DB7F50050B793 /* GuestDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C204FAB1A7DB7F50050B793 /* GuestDetailTableViewController.swift */; };
 		5C3025811A746A7500ACE278 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3025801A746A7500ACE278 /* UIColor.swift */; };
 		5C3025891A74939F00ACE278 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1694891A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B436D19F0A19F009342C8 /* SessionViewController.swift */; };
@@ -113,6 +114,7 @@
 		5C16948E1A6CB6CA0082F197 /* SessionCollectionViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewHeaderView.swift; sourceTree = "<group>"; };
 		5C204F9D1A7B33210050B793 /* GuestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestTableViewCell.swift; sourceTree = "<group>"; };
 		5C204FA41A7D6BC90050B793 /* SessionFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionFilterTableViewController.swift; sourceTree = "<group>"; };
+		5C204FAB1A7DB7F50050B793 /* GuestDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestDetailTableViewController.swift; sourceTree = "<group>"; };
 		5C3025801A746A7500ACE278 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Anime Detour API.xcodeproj"; path = "Anime Detour API/Anime Detour API.xcodeproj"; sourceTree = "<group>"; };
 		5C4B436D19F0A19F009342C8 /* SessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			children = (
 				5C6C31A31A75ADBD008FC08F /* GuestTableViewController.swift */,
 				5C6C31A81A75DF17008FC08F /* GuestViewController.swift */,
+				5C204FAB1A7DB7F50050B793 /* GuestDetailTableViewController.swift */,
 				5C54452819F42E45003CC1C3 /* InformationViewController.swift */,
 				5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */,
 				5C204FA41A7D6BC90050B793 /* SessionFilterTableViewController.swift */,
@@ -465,6 +468,7 @@
 				5C1694801A6AF76C0082F197 /* SessionTableViewCell.swift in Sources */,
 				5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */,
 				5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */,
+				5C204FAC1A7DB7F50050B793 /* GuestDetailTableViewController.swift in Sources */,
 				5C631A1A1A06ABD5002F193A /* UserData.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

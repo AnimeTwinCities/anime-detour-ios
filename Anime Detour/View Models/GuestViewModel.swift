@@ -115,9 +115,15 @@ class GuestViewModel: Equatable {
         return nil
     }
 
-    func hiResPhoto(downloadIfNecessary: Bool) -> UIImage? {
+    func hiResPhoto(downloadIfNecessary: Bool, lowResPhotoPlaceholder: Bool) -> UIImage? {
         if let photo = self.hiResPhoto {
             return photo
+        }
+
+        if lowResPhotoPlaceholder {
+            if let photo = self.photo {
+                return photo
+            }
         }
 
         if !downloadIfNecessary {
