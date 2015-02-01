@@ -18,10 +18,10 @@ class SessionTableViewController: UITableViewController {
 
     // MARK: Core Data
 
-    lazy private var managedObjectContext: NSManagedObjectContext = {
-        return CoreDataController.sharedInstance.managedObjectContext!
-    }()
-    lazy private var sessionsFetchedResultsController: NSFetchedResultsController = {
+    lazy private var managedObjectContext: NSManagedObjectContext = CoreDataController.sharedInstance.managedObjectContext!
+
+    /// Fetched results controller over `Session`s.
+    lazy private var fetchedResultsController: NSFetchedResultsController = {
         let sessionsFetchRequest = self.sessionsFetchRequest
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
         fetchedResultsController.delegate = self.fetchedResultsControllerDelegate
@@ -82,9 +82,6 @@ class SessionTableViewController: UITableViewController {
         }
     }
 
-    /// Fetched results controller currently in use
-    private var fetchedResultsController: NSFetchedResultsController!
-
     // MARK: Table view
 
     /**
@@ -99,7 +96,7 @@ class SessionTableViewController: UITableViewController {
     private var selectedSectionDate: NSDate?
 
     // MARK: Day indicator
-
+    lazy private var dayScroller: SessionDayScroller = SessionDayScroller(fetchedResultsController: self.fetchedResultsController, targetView: .TableView(self.tableView), daySegmentedControl: self.daySegmentedControl)
     private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
 
     /**
@@ -130,10 +127,6 @@ class SessionTableViewController: UITableViewController {
         return [friday, saturday, sunday]
     }()
 
-    /// `true` indicates that the view is currently scrolling to the first item on
-    /// a particular day.
-    private var scrollingToDay = false
-
     // MARK: Controls
 
     @IBOutlet var daySegmentedControl: UISegmentedControl?
@@ -161,7 +154,6 @@ class SessionTableViewController: UITableViewController {
             }
         }
 
-        self.fetchedResultsController = self.sessionsFetchedResultsController
         let frc = self.fetchedResultsController
 
         self.dataSource = SessionTableViewDataSource(fetchedResultsController: frc, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController)
@@ -202,22 +194,13 @@ class SessionTableViewController: UITableViewController {
     // MARK: - Table View Delegate
 
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if self.scrollingToDay {
-            return
-        }
-
-        if let cell = cell as? SessionTableViewCell {
-            let startDate = cell.viewModel?.session.start
-            if let startDateIdx = startDate.flatMap(self.dayIndex) {
-                self.daySegmentedControl?.selectedSegmentIndex = startDateIdx
-            }
-        }
+        self.dayScroller.willDisplayItemAtIndexPath(indexPath)
     }
 
     // MARK: - Scroll View Delegate
 
     override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        self.scrollingToDay = false
+        self.dayScroller.scrollViewDidEndScrollingAnimation()
     }
 
     // MARK: - Navigation
@@ -247,9 +230,8 @@ class SessionTableViewController: UITableViewController {
                         uniqueing[type] = ()
                     }
 
-                    types = uniqueing.keys.array
-                    sort(&types)
-                    return types
+                    let uniqueTypes = uniqueing.keys.array
+                    return sorted(uniqueTypes)
                 }
 
                 return []
@@ -268,25 +250,35 @@ class SessionTableViewController: UITableViewController {
     }
 }
 
-// MARK: - Day selection indicator logic
-extension SessionTableViewController {
-    @IBAction func goToDay(sender: UISegmentedControl) {
-        let selectedIdx = sender.selectedSegmentIndex
+private class SessionDayScroller {
+    private enum TargetView {
+        case CollectionView(UICollectionView)
+        case TableView(UITableView)
+    }
 
-        // Scroll to the first session for the selected day
-        let date = self.days[selectedIdx]
-        if let indexPath = self.indexPath(date) {
-            self.scrollingToDay = true
-            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
-        }
+    private let fetchedResultsController: NSFetchedResultsController
+    private let targetView: TargetView
+    private let daySegmentedControl: UISegmentedControl?
+
+    /// `true` indicates that the view is currently scrolling to the first item on
+    /// a particular day.
+    private(set) var scrollingToDay = false
+
+    /**
+    :param: days The days
+    */
+    init(fetchedResultsController: NSFetchedResultsController, targetView: TargetView, daySegmentedControl: UISegmentedControl?) {
+        self.fetchedResultsController = fetchedResultsController
+        self.targetView = targetView
+        self.daySegmentedControl = daySegmentedControl
     }
 
     /**
     Find the index path of the first Session with a start time of `date` or later
     */
-    private func indexPath(date: NSDate) -> NSIndexPath? {
+    private func indexPathOfSection(date: NSDate) -> NSIndexPath? {
         let predicate = NSPredicate(format: "start >= %@", argumentArray: [date])
-        let moc = self.managedObjectContext
+        let moc = self.fetchedResultsController.managedObjectContext
         let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true)]
         let fetchRequest = NSFetchRequest()
         fetchRequest.entity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: moc)
@@ -302,9 +294,50 @@ extension SessionTableViewController {
         return nil
     }
 
+    /// Scroll to the first session for the day
+    func scroll(date: NSDate) {
+        if let indexPath = self.indexPathOfSection(date) {
+            self.scrollingToDay = true
+            switch self.targetView {
+            case let .CollectionView(cv):
+                fatalError("Collection view support not yet implemented")
+            case let .TableView(tv):
+                tv.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            }
+        }
+    }
+
+    func willDisplayItemAtIndexPath(indexPath: NSIndexPath) {
+        if self.scrollingToDay {
+            return
+        }
+
+        if let session = self.fetchedResultsController.objectAtIndexPath(indexPath) as? Session {
+            let startDate = session.start
+            if let startDateIdx = self.indexPathOfSection(startDate)?.section {
+                self.daySegmentedControl?.selectedSegmentIndex = startDateIdx
+            }
+        }
+    }
+
+    // MARK: - Scroll View Delegate
+
+    func scrollViewDidEndScrollingAnimation() {
+        self.scrollingToDay = false
+    }
+}
+
+// MARK: - Day selection indicator logic
+extension SessionTableViewController {
+    @IBAction func goToDay(sender: UISegmentedControl) {
+        let selectedIdx = sender.selectedSegmentIndex
+        let day = self.days[selectedIdx]
+        self.dayScroller.scroll(day)
+    }
+
     /**
     Finds the index of the date in `self.days` which is the same day as `date`.
-    
+
     :returns: An index, or `nil` if no matching date was found.
     */
     private func dayIndex(date: NSDate) -> Int? {
