@@ -12,7 +12,7 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
-    @IBOutlet var bookmarkButton: UIButton!
+    @IBOutlet var bookmarkButton: UIButton?
 
     var viewModel: SessionViewModel? {
         didSet {
@@ -29,7 +29,7 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
                 self.locationLabel.text = viewModel.location
                 self.timeLabel.text = viewModel.dateAndTime
 
-                self.bookmarkButton.setImage(viewModel.bookmarkImage, forState: .Normal)
+                self.bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
             }
         }
     }
@@ -51,8 +51,8 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
     // MARK: Session View Model Delegate
     
     func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
-        self.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
-        self.bookmarkButton.accessibilityLabel = accessibilityLabel
+        self.bookmarkButton?.setImage(bookmarkImage, forState: .Normal)
+        self.bookmarkButton?.accessibilityLabel = accessibilityLabel
     }
 
 }
