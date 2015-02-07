@@ -15,6 +15,7 @@ import AnimeDetourAPI
 class SessionTableViewController: UITableViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy var userDataController = UserDataController.sharedInstance
+    @IBInspectable var isBookmarks: Bool = false
 
     // MARK: Core Data
 
@@ -39,7 +40,7 @@ class SessionTableViewController: UITableViewController {
 
             self.title = self.filteredTitle(self.filteredType)
 
-            self.fetchedResultsController.fetchRequest.predicate = self.filteredSessionsPredicate
+            self.fetchedResultsController.fetchRequest.predicate = self.completePredicate
 
             var error: NSError?
             self.fetchedResultsController.performFetch(&error)
@@ -51,6 +52,20 @@ class SessionTableViewController: UITableViewController {
 
             self.tableView.reloadData()
         }
+    }
+
+    private var completePredicate: NSPredicate? {
+        let filterPredicate = self.filteredSessionsPredicate
+        let bookmarkedPredicate: NSPredicate? = nil // needs to be rethought since the bookmarked status of a Session is not on the Session itself
+        var predicates = [NSPredicate]()
+        if let filterPredicate = self.filteredSessionsPredicate {
+            predicates.append(filterPredicate)
+        }
+        if let bookmarkedPredicate = bookmarkedPredicate {
+            predicates.append(bookmarkedPredicate)
+        }
+        let completePredicate = NSCompoundPredicate.andPredicateWithSubpredicates(predicates)
+        return completePredicate
     }
     private var filteredSessionsPredicate: NSPredicate? {
         switch self.filteredType {
@@ -89,6 +104,25 @@ class SessionTableViewController: UITableViewController {
     source methods.
     */
     private var dataSource: SessionTableViewDataSource!
+
+
+    // MARK: Editing
+
+    /// Done button for editing the table view.
+    /// Uses the same selector as `editButton`.
+    private var doneButton: UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("toggleEditing:"))
+    }
+
+    /// Edit button for editing the table view.
+    /// Uses the same selector as `doneButton`.
+    private var editButton: UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: Selector("toggleEditing:"))
+    }
+
+    private var unfavoriteButton: UIBarButtonItem {
+        return UIBarButtonItem(title: "Unfavorite", style: .Plain, target: self, action: Selector("removeFavorites"))
+    }
 
     // MARK: Selections
     private var selectedIndexPath: NSIndexPath?
@@ -169,9 +203,10 @@ class SessionTableViewController: UITableViewController {
     // MARK: Visual properties
 
     func filteredTitle(filteredSessionType: SelectedSessionType) -> String {
+        let unfilteredTitle = self.isBookmarks ? "Favorite Sessions" : "Sessions"
         switch self.filteredType {
         case .All:
-            return "Sessions"
+            return unfilteredTitle
         case let .Named(type):
             return type
         }
@@ -203,7 +238,41 @@ class SessionTableViewController: UITableViewController {
         self.dayScroller.scrollViewDidEndScrollingAnimation()
     }
 
+    // MARK: - Editing
+
+    @IBAction func toggleEditing(sender: AnyObject?) {
+        let isEditing = !self.tableView.editing
+        self.tableView.setEditing(isEditing, animated: true)
+
+        let navItem = self.navigationItem
+        if isEditing {
+            navItem.leftBarButtonItem = self.unfavoriteButton
+            navItem.rightBarButtonItem = self.doneButton
+        } else {
+            navItem.leftBarButtonItem = nil
+            navItem.rightBarButtonItem = self.editButton
+        }
+    }
+
+    @IBAction func removeFavorites() {
+        let selectedIndexPaths = self.tableView.indexPathsForSelectedRows()
+        let selectedObjects = selectedIndexPaths?.map { return $0 as NSIndexPath }.map(self.fetchedResultsController.objectAtIndexPath)
+
+        // TODO: remove bookmarked items
+    }
+
     // MARK: - Navigation
+
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        switch(identifier) {
+        case .Some(SessionTableViewController.detailSegueIdentifier):
+            // Block the detail segue while in editing mode
+            return !self.tableView.editing
+        default:
+            // Always allow other segues
+            return true
+        }
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch (segue.identifier) {
