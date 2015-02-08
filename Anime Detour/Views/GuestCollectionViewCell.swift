@@ -25,12 +25,6 @@ class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
         }
     }
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        self.viewModel = nil
-    }
-
     override var highlighted: Bool {
         didSet {
             var backgroundColor: UIColor
@@ -45,6 +39,12 @@ class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
                 self.contentView.backgroundColor = backgroundColor
             })
         }
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        self.viewModel = nil
     }
 
     // MARK: - Guest View Model Delegate

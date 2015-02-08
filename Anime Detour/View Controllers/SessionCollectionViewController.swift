@@ -1,21 +1,19 @@
 //
-//  SessionTableViewController.swift
+//  SessionCollectionViewController.swift
 //  Anime Detour
 //
-//  Created by Brendon Justin on 10/18/14.
-//  Copyright (c) 2014 Anime Twin Cities, Inc. All rights reserved.
+//  Created by Brendon Justin on 2/7/15.
+//  Copyright (c) 2015 Anime Detour. All rights reserved.
 //
 
-import CoreData
-import Foundation
 import UIKit
+import CoreData
 
 import AnimeDetourAPI
 
-class SessionTableViewController: UITableViewController {
+class SessionCollectionViewController: UICollectionViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy var userDataController = UserDataController.sharedInstance
-    @IBInspectable var isBookmarks: Bool = false
 
     // MARK: Core Data
 
@@ -50,7 +48,7 @@ class SessionTableViewController: UITableViewController {
                 println("Error performing Session fetch: %@", errorDesc)
             }
 
-            self.tableView.reloadData()
+            self.collectionView!.reloadData()
         }
     }
 
@@ -79,9 +77,9 @@ class SessionTableViewController: UITableViewController {
             return pred
         }
     }
-    lazy private var fetchedResultsControllerDelegate: TableViewFetchedResultsControllerDelegate = {
-        let delegate = TableViewFetchedResultsControllerDelegate()
-        delegate.tableView = self.tableView
+    lazy private var fetchedResultsControllerDelegate: CollectionViewFetchedResultsControllerDelegate = {
+        let delegate = CollectionViewFetchedResultsControllerDelegate()
+        delegate.collectionView = self.collectionView!
         return delegate
     }()
 
@@ -97,39 +95,16 @@ class SessionTableViewController: UITableViewController {
         }
     }
 
-    // MARK: Table view
+    // MARK: Collection view
 
     /**
-    Table view data source that we call through to from our data
+    Collection view data source that we call through to from our data
     source methods.
     */
-    private var dataSource: SessionDataSource!
-
-    // MARK: Editing
-
-    /// Done button for editing the table view.
-    /// Uses the same selector as `editButton`.
-    private var doneButton: UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("toggleEditing:"))
-    }
-
-    /// Edit button for editing the table view.
-    /// Uses the same selector as `doneButton`.
-    private var editButton: UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: Selector("toggleEditing:"))
-    }
-
-    private var unfavoriteButton: UIBarButtonItem {
-        return UIBarButtonItem(title: "Unfavorite", style: .Plain, target: self, action: Selector("removeFavorites"))
-    }
-
-    // MARK: Selections
-    private var selectedIndexPath: NSIndexPath?
-    private var selectedSession: Session?
-    private var selectedSectionDate: NSDate?
+    lazy private var dataSource: SessionDataSource = SessionDataSource(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController)
 
     // MARK: Day indicator
-    lazy private var dayScroller: SessionDayScroller = SessionDayScroller(fetchedResultsController: self.fetchedResultsController, targetView: .TableView(self.tableView), daySegmentedControl: self.daySegmentedControl)
+    lazy private var dayScroller: SessionDayScroller = SessionDayScroller(fetchedResultsController: self.fetchedResultsController, targetView: .CollectionView(self.collectionView!), daySegmentedControl: self.daySegmentedControl)
     private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
 
     /**
@@ -163,13 +138,17 @@ class SessionTableViewController: UITableViewController {
     // MARK: Controls
 
     @IBOutlet var daySegmentedControl: UISegmentedControl?
-
+    
     // MARK: Segue identifiers
+    
+    @IBInspectable var detailSegueIdentifier: String!
+    @IBInspectable var filterSegueIdentifier: String!
 
-    private class var detailSegueIdentifier: String { return "SessionDetail" }
-    private class var filterSegueIdentifier: String { return "FilterSessions" }
+    // MARK: Collection view sizing
 
-    // MARK: - View Controller
+    private var lastDisplayedTraitCollection: UITraitCollection!
+
+    // MARK: View controller
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -189,20 +168,62 @@ class SessionTableViewController: UITableViewController {
 
         let frc = self.fetchedResultsController
 
-        self.dataSource = SessionDataSource(fetchedResultsController: frc, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController)
-        self.dataSource.prepareTableView(self.tableView)
+        self.dataSource.prepareCollectionView(self.collectionView!)
 
         var fetchError: NSError?
         let success = frc.performFetch(&fetchError)
         if let error = fetchError {
             NSLog("Error fetching sessions: %@", error)
         }
+
+        self.setFlowLayoutCellSizes(self.collectionView!)
+        self.lastDisplayedTraitCollection = self.traitCollection
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if self.traitCollection != self.lastDisplayedTraitCollection {
+            self.setFlowLayoutCellSizes(self.collectionView!)
+            self.lastDisplayedTraitCollection = self.traitCollection
+        }
+    }
+
+    override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        // Update sizes in `willAnimateRotationToInterfaceOrientation...` so the collection view's
+        // frame is already updated.
+        self.setFlowLayoutCellSizes(self.collectionView!)
+        self.lastDisplayedTraitCollection = self.traitCollection
+    }
+
+    /// Update the sizes of our collection view cells based on the view's trait collection.
+    private func setFlowLayoutCellSizes(collectionView: UICollectionView) {
+        let layout = collectionView.collectionViewLayout as UICollectionViewFlowLayout
+        let horizontalSpacing = layout.minimumInteritemSpacing
+
+        let traitCollection = collectionView.traitCollection
+        let viewWidth = collectionView.frame.width
+
+        var itemSize = layout.itemSize
+
+        if traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Compact {
+            itemSize.width = viewWidth
+        } else {
+            // Assume .Regular
+            let minCellWidth: CGFloat = 300 + horizontalSpacing
+            let cellsPerRow = floor(viewWidth / minCellWidth)
+            // `floor` to ensure cell widths are integral
+            let widthPerCell = floor((viewWidth - (cellsPerRow - 1) * horizontalSpacing) / cellsPerRow)
+            itemSize.width = widthPerCell
+        }
+
+        layout.itemSize = itemSize
     }
 
     // MARK: Filtering
 
     func filteredTitle(filteredSessionType: SelectedSessionType) -> String {
-        let unfilteredTitle = self.isBookmarks ? "Favorite Sessions" : "Sessions"
+        let unfilteredTitle = "Sessions"
         switch self.filteredType {
         case .All:
             return unfilteredTitle
@@ -211,75 +232,15 @@ class SessionTableViewController: UITableViewController {
         }
     }
 
-    // MARK: - Table View Data Source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return self.dataSource.numberOfSectionsInTableView(tableView)
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.tableView(tableView, numberOfRowsInSection: section)
-    }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return self.dataSource.tableView(tableView, cellForRowAtIndexPath: indexPath)
-    }
-
-    // MARK: - Table View Delegate
-
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        self.dayScroller.willDisplayItemAtIndexPath(indexPath)
-    }
-
-    // MARK: - Scroll View Delegate
-
-    override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        self.dayScroller.scrollViewDidEndScrollingAnimation()
-    }
-
-    // MARK: - Editing
-
-    @IBAction func toggleEditing(sender: AnyObject?) {
-        let isEditing = !self.tableView.editing
-        self.tableView.setEditing(isEditing, animated: true)
-
-        let navItem = self.navigationItem
-        if isEditing {
-            navItem.leftBarButtonItem = self.unfavoriteButton
-            navItem.rightBarButtonItem = self.doneButton
-        } else {
-            navItem.leftBarButtonItem = nil
-            navItem.rightBarButtonItem = self.editButton
-        }
-    }
-
-    @IBAction func removeFavorites() {
-        let selectedIndexPaths = self.tableView.indexPathsForSelectedRows()
-        let selectedObjects = selectedIndexPaths?.map { return $0 as NSIndexPath }.map(self.fetchedResultsController.objectAtIndexPath)
-
-        // TODO: remove bookmarked items
-    }
-
     // MARK: - Navigation
 
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        switch(identifier) {
-        case .Some(SessionTableViewController.detailSegueIdentifier):
-            // Block the detail segue while in editing mode
-            return !self.tableView.editing
-        default:
-            // Always allow other segues
-            return true
-        }
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch (segue.identifier) {
-        case .Some(SessionTableViewController.detailSegueIdentifier):
+        case .Some(self.detailSegueIdentifier):
             let detailVC = segue.destinationViewController as SessionViewController
-            let selectedSession = self.tableView.indexPathForSelectedRow().map(self.dataSource.session)
+            let selectedSession = (self.collectionView?.indexPathsForSelectedItems().first as? NSIndexPath).map(self.dataSource.session)
             detailVC.session = selectedSession!
-        case .Some(SessionTableViewController.filterSegueIdentifier):
+        case .Some(self.filterSegueIdentifier):
             let navController = segue.destinationViewController as UINavigationController
             let filterVC = navController.topViewController as SessionFilterTableViewController
             filterVC.selectedType = self.filteredType
@@ -303,7 +264,7 @@ class SessionTableViewController: UITableViewController {
                 }
 
                 return []
-            }()
+                }()
         default:
             // Segues we don't know about are fine.
             break
@@ -316,6 +277,40 @@ class SessionTableViewController: UITableViewController {
 
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+
+    // MARK: UICollectionViewDataSource
+
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return self.dataSource.numberOfSectionsInCollectionView(collectionView)
+    }
+
+
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.dataSource.collectionView(collectionView, numberOfItemsInSection: section)
+    }
+
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = self.dataSource.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+        return cell
+    }
+
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        let view = self.dataSource.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+        return view
+    }
+
+    // MARK: UICollectionViewDelegate
+
+    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        self.dayScroller.willDisplayItemAtIndexPath(indexPath)
+    }
+
+    // MARK: - Scroll View Delegate
+
+    override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        self.dayScroller.scrollViewDidEndScrollingAnimation()
+    }
+
 }
 
 private class SessionDayScroller {
@@ -396,7 +391,7 @@ private class SessionDayScroller {
 }
 
 // MARK: - Day selection indicator logic
-extension SessionTableViewController {
+extension SessionCollectionViewController {
     @IBAction func goToDay(sender: UISegmentedControl) {
         let selectedIdx = sender.selectedSegmentIndex
         let day = self.days[selectedIdx]
@@ -426,7 +421,7 @@ extension SessionTableViewController {
         default:
             break
         }
-
+        
         return dateIdx
     }
 }

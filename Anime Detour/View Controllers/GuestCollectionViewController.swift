@@ -43,6 +43,12 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 
     private lazy var fetchedResultsControllerDelegate = CollectionViewFetchedResultsControllerDelegate()
 
+    // MARK: Collection view sizing
+
+    private var lastDisplayedTraitCollection: UITraitCollection!
+
+    // MARK: View controller
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,10 +64,23 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         }
 
         self.setFlowLayoutCellSizes(self.collectionView!)
+        self.lastDisplayedTraitCollection = self.traitCollection
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if self.traitCollection != self.lastDisplayedTraitCollection {
+            self.setFlowLayoutCellSizes(self.collectionView!)
+            self.lastDisplayedTraitCollection = self.traitCollection
+        }
     }
 
     override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        // Update sizes in `willAnimateRotationToInterfaceOrientation...` so the collection view's
+        // frame is already updated.
         self.setFlowLayoutCellSizes(self.collectionView!)
+        self.lastDisplayedTraitCollection = self.traitCollection
     }
 
     private func guest(indexPath: NSIndexPath) -> Guest {
@@ -72,14 +91,14 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     private func setFlowLayoutCellSizes(collectionView: UICollectionView) {
         let traitCollection = collectionView.traitCollection
         let viewWidth = collectionView.frame.width
-        let (minWidth, maxWidth): (CGFloat, CGFloat) = (280, 350)
         let layout = collectionView.collectionViewLayout as UICollectionViewFlowLayout
         var itemSize = layout.itemSize
 
         if traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Compact {
             itemSize.width = viewWidth
         } else {
-            // Assume regular
+            // Assume .Regular
+            let minWidth: CGFloat = 280
             let cellsPerRow = floor(viewWidth / minWidth)
             let widthPerCell = floor(viewWidth / cellsPerRow) // ensure cell widths are integral
             itemSize.width = widthPerCell
