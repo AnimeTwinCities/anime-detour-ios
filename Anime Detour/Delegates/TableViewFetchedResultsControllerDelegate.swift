@@ -47,7 +47,7 @@ class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsContr
             case .Insert:
                 tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
             case .Delete:
-                tableView.deleteRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             case .Move:
                 // Likely to break for inserted or deleted sections.
                 // Must fix later.

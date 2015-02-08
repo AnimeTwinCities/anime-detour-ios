@@ -574,7 +574,7 @@
         <!--Favorite Sessions-->
         <scene sceneID="u1H-9n-uJu">
             <objects>
-                <tableViewController title="Favorite Sessions" id="Wu9-mr-dnm" customClass="SessionTableViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Favorite Sessions" id="Wu9-mr-dnm" customClass="FavoriteSessionsTableViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="Uk9-ij-gwU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -632,7 +632,7 @@
                                     <outlet property="locationLabel" destination="IuU-Cm-ja1" id="vAO-Vv-R1N"/>
                                     <outlet property="nameLabel" destination="OJL-X1-EJm" id="k9B-ea-3cp"/>
                                     <outlet property="timeLabel" destination="rWK-K0-evI" id="yQA-Xa-5Up"/>
-                                    <segue destination="DNg-fJ-Dxt" kind="show" identifier="SessionDetail" id="daU-IO-r5E"/>
+                                    <segue destination="DNg-fJ-Dxt" kind="show" identifier="BookmarkedSessionDetail" id="daU-IO-r5E"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -642,7 +642,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="RQL-cG-YJa">
+                    <navigationItem key="navigationItem" title="Favorite Sessions" id="RQL-cG-YJa">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="feB-bj-3XR">
                             <connections>
                                 <action selector="toggleEditing:" destination="Wu9-mr-dnm" id="g9g-mj-HK3"/>
@@ -650,7 +650,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isBookmarks" value="YES"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="detailIdentifier" value="BookmarkedSessionDetail"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qar-C8-uio" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -785,6 +785,6 @@
         <image name="star" width="40" height="37"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zoD-Tj-VZw"/>
+        <segue reference="daU-IO-r5E"/>
     </inferredMetricsTieBreakers>
 </document>
