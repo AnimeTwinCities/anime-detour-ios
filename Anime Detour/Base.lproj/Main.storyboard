@@ -94,32 +94,32 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="dOL-D2-zNo">
-                                            <rect key="frame" x="8" y="8" width="464" height="42"/>
+                                            <rect key="frame" x="20" y="8" width="444" height="42"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day and Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFj-f6-b5p">
-                                            <rect key="frame" x="8" y="54" width="472" height="17"/>
+                                            <rect key="frame" x="20" y="54" width="452" height="17"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-HC-LC5">
-                                            <rect key="frame" x="8" y="75" width="472" height="17"/>
+                                            <rect key="frame" x="20" y="75" width="452" height="17"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disclosure_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="0FJ-U4-kiY">
-                                            <rect key="frame" x="516" y="18" width="8" height="14"/>
+                                            <rect key="frame" x="508" y="18" width="8" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="03W-XJ-g2T"/>
                                                 <constraint firstAttribute="width" constant="8" id="IAX-mi-yad"/>
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Enq-lO-6de" userLabel="Bookmark">
-                                            <rect key="frame" x="480" y="40" width="44" height="44"/>
+                                            <rect key="frame" x="472" y="40" width="44" height="44"/>
                                             <accessibility key="accessibilityConfiguration" label="Bookmark"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="DNY-ZY-ens"/>
@@ -137,19 +137,19 @@
                                 </view>
                                 <constraints>
                                     <constraint firstItem="0FJ-U4-kiY" firstAttribute="top" secondItem="vbt-Ku-aWS" secondAttribute="topMargin" constant="10" id="0bo-ja-GiE"/>
-                                    <constraint firstItem="bEh-HC-LC5" firstAttribute="leading" secondItem="vbt-Ku-aWS" secondAttribute="leadingMargin" id="8dl-nE-2dI"/>
                                     <constraint firstItem="dOL-D2-zNo" firstAttribute="top" secondItem="vbt-Ku-aWS" secondAttribute="topMargin" id="93z-Ma-pjV"/>
                                     <constraint firstItem="bEh-HC-LC5" firstAttribute="top" secondItem="XFj-f6-b5p" secondAttribute="bottom" constant="4" id="EbP-D6-TqY"/>
                                     <constraint firstItem="Enq-lO-6de" firstAttribute="top" secondItem="0FJ-U4-kiY" secondAttribute="bottom" constant="8" id="K5H-CP-Dlr"/>
                                     <constraint firstItem="XFj-f6-b5p" firstAttribute="top" secondItem="dOL-D2-zNo" secondAttribute="bottom" constant="4" id="Osd-4W-R2Q"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="bEh-HC-LC5" secondAttribute="bottom" id="Q3Z-Ry-o4O"/>
+                                    <constraint firstItem="Enq-lO-6de" firstAttribute="trailing" secondItem="0FJ-U4-kiY" secondAttribute="trailing" id="TCX-P0-Tts"/>
                                     <constraint firstItem="Enq-lO-6de" firstAttribute="leading" secondItem="XFj-f6-b5p" secondAttribute="trailing" id="VtN-pk-egz"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="0FJ-U4-kiY" secondAttribute="trailing" id="dHQ-Ia-w4b"/>
-                                    <constraint firstItem="dOL-D2-zNo" firstAttribute="leading" secondItem="vbt-Ku-aWS" secondAttribute="leadingMargin" id="lMh-Ee-XBK"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="0FJ-U4-kiY" secondAttribute="trailing" constant="8" id="dHQ-Ia-w4b"/>
+                                    <constraint firstItem="dOL-D2-zNo" firstAttribute="leading" secondItem="vbt-Ku-aWS" secondAttribute="leadingMargin" constant="12" id="lMh-Ee-XBK"/>
+                                    <constraint firstItem="XFj-f6-b5p" firstAttribute="leading" secondItem="vbt-Ku-aWS" secondAttribute="leadingMargin" constant="12" id="n2j-Oh-bAK"/>
+                                    <constraint firstItem="XFj-f6-b5p" firstAttribute="leading" secondItem="bEh-HC-LC5" secondAttribute="leading" id="pap-YC-fFz"/>
                                     <constraint firstItem="bEh-HC-LC5" firstAttribute="trailing" secondItem="XFj-f6-b5p" secondAttribute="trailing" id="tQp-RD-mBW"/>
                                     <constraint firstItem="Enq-lO-6de" firstAttribute="leading" secondItem="dOL-D2-zNo" secondAttribute="trailing" constant="8" id="teM-O4-Ttd"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Enq-lO-6de" secondAttribute="trailing" id="ujr-bw-kxs"/>
-                                    <constraint firstItem="XFj-f6-b5p" firstAttribute="leading" secondItem="vbt-Ku-aWS" secondAttribute="leadingMargin" id="yCy-MG-2cg"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="bookmarkButton" destination="Enq-lO-6de" id="z7N-gO-QuM"/>
@@ -785,6 +785,6 @@
         <image name="star" width="40" height="37"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="daU-IO-r5E"/>
+        <segue reference="zoD-Tj-VZw"/>
     </inferredMetricsTieBreakers>
 </document>
