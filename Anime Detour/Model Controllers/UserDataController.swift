@@ -52,15 +52,15 @@ class UserDataController: NSObject {
         return coordinator
     }()
 
-    /// Main managed object context, suitable for use on the main thread.
-    /// Must be first used on the main thread.
-    private lazy var managedObjectContext: NSManagedObjectContext? = {
+    /// Main managed object context, only suitable for use on the main thread
+    /// or using `performBlock:` and related methods.
+    lazy var managedObjectContext: NSManagedObjectContext? = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = self.persistentStoreCoordinator
         if coordinator == nil {
             return nil
         }
-        var managedObjectContext = NSManagedObjectContext()
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()
