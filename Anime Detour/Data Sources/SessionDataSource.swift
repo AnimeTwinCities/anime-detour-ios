@@ -11,13 +11,17 @@ import UIKit
 
 import AnimeDetourAPI
 
-class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+/**
+Convenience collection view and table view data source.
+`prepareCollectionView`/`prepareTableView` must be called before use.
+*/
+class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSource {
     let imagesURLSession: NSURLSession?
     let fetchedResultsController: NSFetchedResultsController
     let timeZone: NSTimeZone?
     let userDataController: UserDataController?
     var sessionCellIdentifier = "SessionCell"
-    var sectionHeaderIdentifier = "SessionSectionHeader"
+    var sectionHeaderIdentifier = "SessionHeader"
 
     private var shortDateFormat = "EEEE – hh:mm a" // like "Friday – 12:45 PM"
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
@@ -54,9 +58,14 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
 
     /// Prepare a collection view so the data source may supply it views.
     func prepareCollectionView(collectionView: UICollectionView) {
-        collectionView.registerClass(SessionCollectionViewHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: self.sectionHeaderIdentifier)
+        // empty
     }
-    
+
+    /// Prepare a table view so the data source may supply it views.
+    func prepareTableView(tableView: UITableView) {
+        tableView.registerClass(SessionTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: self.sectionHeaderIdentifier)
+    }
+
     func session(indexPath: NSIndexPath) -> Session {
         return self.fetchedResultsController.objectAtIndexPath(indexPath) as Session
     }
@@ -74,38 +83,8 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         let name = self.dateFormatter.stringFromDate(start)
         return name
     }
-    
-    func heightForWidth(cellWidth width: CGFloat, indexPath: NSIndexPath) -> CGFloat {
-        let session = self.session(indexPath)
-        let viewModel = SessionViewModel(session: session, imagesURLSession: nil, userDataController: nil, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
-        let name = viewModel.name as NSString
-        let description = viewModel.sessionDescription as NSString
-        let time = viewModel.dateAndTime as NSString
-        
-        let margins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        let interLabelPadding: CGFloat = 8
-        // TODO: remove `unsafeBitCast` once NSStringDrawingOptions supports bitwise-or in Swift
-        let drawingOptions: NSStringDrawingOptions = unsafeBitCast(NSStringDrawingOptions.UsesFontLeading.rawValue | NSStringDrawingOptions.UsesLineFragmentOrigin.rawValue, NSStringDrawingOptions.self)
-        
-        let maxNameHeight: CGFloat = 40
-        let widthMinusMargins = width - (margins.left + margins.right)
-        let nameHeightMaxSize = CGSize(width: widthMinusMargins, height: maxNameHeight)
-        let nameFont = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-        let nameSizingRect = name.boundingRectWithSize(nameHeightMaxSize, options: drawingOptions, attributes: [NSFontAttributeName : nameFont], context: nil)
-        
-        let maxDescriptionHeight: CGFloat = 80
-        let descHeightMaxSize = CGSize(width: widthMinusMargins, height: maxDescriptionHeight)
-        let descFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-        let descSizingRect = description.boundingRectWithSize(descHeightMaxSize, options: drawingOptions, attributes: [NSFontAttributeName : descFont], context: nil)
-        
-        let timeHeightMaxSize = CGSize(width: widthMinusMargins, height: CGFloat.max)
-        let timeFont = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-        let timeSizingRect = time.boundingRectWithSize(timeHeightMaxSize, options: drawingOptions, attributes: [NSFontAttributeName : timeFont], context: nil)
-        
-        let totalHeight = margins.top + ceil(nameSizingRect.height) + interLabelPadding + ceil(descSizingRect.height) + interLabelPadding + ceil(timeSizingRect.height) + margins.bottom
-        let integerHeight = ceil(totalHeight)
-        return integerHeight
-    }
+
+    // MARK: UICollectionViewDataSource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return self.fetchedResultsController.sections?.count ?? 0
@@ -131,11 +110,38 @@ class SessionCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionElementKindSectionHeader:
-            let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: self.sectionHeaderIdentifier, forIndexPath: indexPath) as SessionCollectionViewHeaderView
-            header.title = self.headerText(forSection: indexPath.section)
+            let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: self.sectionHeaderIdentifier, forIndexPath: indexPath) as TextHeaderCollectionReusableView
+            header.titleLabel.text = self.headerText(forSection: indexPath.section)
             return header
         default:
             assertionFailure("Unexpected supplementary view kind: \(kind)")
         }
+    }
+
+    // MARK: UITableViewDataSource
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return self.fetchedResultsController.sections?.count ?? 0
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let sections = self.fetchedResultsController.sections
+        let sectionInfo = sections![section] as NSFetchedResultsSectionInfo
+        let count = sectionInfo.numberOfObjects
+        return count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.sessionCellIdentifier, forIndexPath: indexPath) as SessionTableViewCell
+
+        let session = self.session(indexPath)
+        let viewModel = SessionViewModel(session: session, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+        cell.viewModel = viewModel
+
+        return cell
+    }
+
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.headerText(forSection: section)
     }
 }

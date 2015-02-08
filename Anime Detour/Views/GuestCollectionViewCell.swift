@@ -1,29 +1,43 @@
 //
-//  GuestTableViewCell.swift
+//  GuestCollectionViewCell.swift
 //  Anime Detour
 //
-//  Created by Brendon Justin on 1/29/15.
+//  Created by Brendon Justin on 2/7/15.
 //  Copyright (c) 2015 Anime Detour. All rights reserved.
 //
 
 import UIKit
 
-class GuestTableViewCell: UITableViewCell, GuestViewModelDelegate {
+class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
 
     @IBOutlet var photoImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var categoryLabel: UILabel!
 
     var viewModel: GuestViewModel? {
         didSet {
             if let viewModel = self.viewModel {
                 viewModel.delegate = self
                 self.nameLabel.text = viewModel.name
-                self.categoryLabel.text = viewModel.category
 
                 let photo = viewModel.photo(true)
                 self.photoImageView.image = photo
             }
+        }
+    }
+
+    override var highlighted: Bool {
+        didSet {
+            var backgroundColor: UIColor
+
+            if self.highlighted {
+                backgroundColor = UIColor(white: 0.8, alpha: 1)
+            } else {
+                backgroundColor = UIColor.clearColor()
+            }
+
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                self.contentView.backgroundColor = backgroundColor
+            })
         }
     }
 

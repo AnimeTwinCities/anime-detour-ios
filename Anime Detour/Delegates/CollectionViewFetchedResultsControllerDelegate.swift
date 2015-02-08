@@ -11,11 +11,14 @@ import CoreData
 
 class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsControllerDelegate {
     private enum FetchedResultsControllerChange {
-        case Object(anObject: AnyObject, indexPath: NSIndexPath?, type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
+        // Use the index paths with caution, as they may not always be set.
+        // Declared force-unwrapped for convenience.
+        case Object(anObject: AnyObject, indexPath: NSIndexPath!, type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath!)
         case Section(sectionInfo: NSFetchedResultsSectionInfo, sectionIndex: Int, type: NSFetchedResultsChangeType)
     }
 
     var collectionView: UICollectionView?
+    var customizer: CollectionViewFetchedResultsControllerCellCustomizer?
     private var sectionsChangedDuringUpdate: Bool = false
     private var cumulativeChanges: [FetchedResultsControllerChange] = []
 
@@ -33,20 +36,25 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
                     case let .Object(anObject, indexPath, type, newIndexPath):
                         switch type {
                         case .Insert:
-                            cv.insertItemsAtIndexPaths([newIndexPath!])
+                            cv.insertItemsAtIndexPaths([newIndexPath])
                         case .Delete:
-                            cv.deleteItemsAtIndexPaths([indexPath!])
+                            cv.deleteItemsAtIndexPaths([indexPath])
                         case .Move:
                             if self.sectionsChangedDuringUpdate {
-                                cv.deleteItemsAtIndexPaths([indexPath!])
-                                cv.insertItemsAtIndexPaths([newIndexPath!])
+                                cv.deleteItemsAtIndexPaths([indexPath])
+                                cv.insertItemsAtIndexPaths([newIndexPath])
 
                                 self.sectionsChangedDuringUpdate = false
                             } else {
-                                cv.moveItemAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
+                                cv.moveItemAtIndexPath(indexPath, toIndexPath: newIndexPath)
                             }
                         case .Update:
-                            cv.reloadItemsAtIndexPaths([indexPath!])
+                            switch (self.collectionView?.cellForItemAtIndexPath(indexPath), self.customizer) {
+                            case let (.Some(cell), .Some(customizer)):
+                                customizer.configure(cell, atIndexPath: indexPath)
+                            default:
+                                break
+                            }
                         }
                     case let .Section(sectionInfo, sectionIndex, type):
                         let indexSet = NSIndexSet(index: sectionIndex)
@@ -74,4 +82,9 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         self.cumulativeChanges.append(.Object(anObject: anObject, indexPath: indexPath, type: type, newIndexPath: newIndexPath))
     }
+}
+
+// Declared 'class' to allow weak references.
+protocol CollectionViewFetchedResultsControllerCellCustomizer: class {
+    func configure(cell: UICollectionViewCell, atIndexPath indexPath: NSIndexPath)
 }
