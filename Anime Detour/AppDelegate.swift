@@ -135,6 +135,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let attrs = [NSForegroundColorAttributeName : secondaryColor]
         navBarAppearanceProxy.titleTextAttributes = attrs
+
+        let textHeaderAppearanceProxy = TextHeaderCollectionReusableView.appearance()
+        textHeaderAppearanceProxy.backgroundColor = mainColor
+        textHeaderAppearanceProxy.tintColor = secondaryColor
     }
 }
 

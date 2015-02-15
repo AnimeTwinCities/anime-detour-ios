@@ -8,6 +8,11 @@
 
 import UIKit
 
+/**
+Simple header view with a full-width label.
+The label's text color is set to the view's tint color every time
+the tint color changes, so avoid setting the text color directly.
+*/
 class TextHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet var titleLabel: UILabel!
 
@@ -36,5 +41,9 @@ class TextHeaderCollectionReusableView: UICollectionReusableView {
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+
+    override func tintColorDidChange() {
+        self.titleLabel.textColor = self.tintColor
     }
 }
