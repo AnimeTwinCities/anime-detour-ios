@@ -33,14 +33,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.setColors(application)
 
-        let initialGuestFetchCompleteKey = "initialGuestFetchComplete"
-        let initialSessionsFetchCompleteKey = "initialSessionFetchComplete"
-        let defaultUserDefaults: [NSObject : AnyObject] = [initialGuestFetchCompleteKey : NSNumber(bool: false),
-            initialSessionsFetchCompleteKey : NSNumber(bool: false)]
+        let guestsFetchRequiredKey = "guestsFetchRequiredKey"
+        let sessionsFetchRequiredKey = "sessionsFetchRequiredKey"
+        let lastGuestsClearDateKey = "lastGuestsClearDateKey"
+        let lastSessionsClearDateKey = "lastSessionsClearDateKey"
+
+        // Default last-must-be-cleared dates, set way in the past.
+        let defaultGuestsClearDate = NSDate(timeIntervalSince1970: 0)
+        let defaultSessionsClearDate = NSDate(timeIntervalSince1970: 0)
+
+        let defaultUserDefaults: [NSObject : AnyObject] = [
+            guestsFetchRequiredKey : NSNumber(bool: true),
+            sessionsFetchRequiredKey : NSNumber(bool: true),
+            lastGuestsClearDateKey : defaultGuestsClearDate,
+            lastSessionsClearDateKey : defaultSessionsClearDate,
+        ]
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.registerDefaults(defaultUserDefaults)
 
-        if !userDefaults.boolForKey(initialSessionsFetchCompleteKey) {
+        // Latest must-be-cleared dates, e.g. if this version of the app points
+        // at a different data set and must discard and re-download data.
+        let calendar = NSCalendar.currentCalendar()
+        let timezone = NSTimeZone(name: "America/Chicago")!
+        calendar.timeZone = timezone
+        let components = NSDateComponents()
+        components.day = 15
+        components.month = 2
+        components.year = 2015
+        let guestsClearDate = calendar.dateFromComponents(components)!
+        let sessionsClearDate = calendar.dateFromComponents(components)!
+
+        let guestsNeedClearing = guestsClearDate.timeIntervalSinceDate(userDefaults.objectForKey(lastGuestsClearDateKey) as NSDate) > 0
+        let sessionsNeedClearing = sessionsClearDate.timeIntervalSinceDate(userDefaults.objectForKey(lastSessionsClearDateKey) as NSDate) > 0
+        if guestsNeedClearing || sessionsNeedClearing {
+            self.coreDataController.clearPersistentStore()
+
+            // Clearing the persistent store removes all sessions and guests, since they are both kept
+            // in the same store, so we need to fetch them again.
+            userDefaults.setBool(true, forKey: guestsFetchRequiredKey)
+            userDefaults.setBool(true, forKey: sessionsFetchRequiredKey)
+        }
+
+        if userDefaults.boolForKey(sessionsFetchRequiredKey) {
             self.apiClient.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
                 if result == nil {
                     if let error = error {
@@ -52,20 +86,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 if let jsonSessions = result as? [[String : String]] {
                     if let context = self?.backgroundContext {
-                        let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
-                        for json: [String : String] in jsonSessions {
-                            let session = Session(entity: sessionEntity, insertIntoManagedObjectContext: context)
-                            session.update(jsonObject: json, jsonDateFormatter: self!.apiClient.dateFormatter)
-                        }
+                        context.performBlock { () -> Void in
+                            let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
+                            for json: [String : String] in jsonSessions {
+                                let session = Session(entity: sessionEntity, insertIntoManagedObjectContext: context)
+                                session.update(jsonObject: json, jsonDateFormatter: self!.apiClient.dateFormatter)
+                            }
 
-                        var error: NSError?
-                        if context.save(&error) {
-                            userDefaults.setBool(true, forKey: initialSessionsFetchCompleteKey)
-                        } else {
-                            if let error = error {
-                                NSLog("Error saving sessions: \(error)")
+                            var error: NSError?
+                            if context.save(&error) {
+                                userDefaults.setBool(false, forKey: sessionsFetchRequiredKey)
+                                userDefaults.synchronize()
                             } else {
-                                NSLog("Unknown error saving sessions")
+                                NSLog("Error saving sessions: \(error!)")
                             }
                         }
                     }
@@ -73,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        if !userDefaults.boolForKey(initialGuestFetchCompleteKey) {
+        if userDefaults.boolForKey(guestsFetchRequiredKey) {
             self.apiClient.guestList { [weak self] (result, error) -> () in
                 if result == nil {
                     if let error = error {
@@ -85,27 +118,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 if let guestsJson = result as? [[String : AnyObject]] {
                     if let context = self?.backgroundContext {
-                        let guestEntity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: context)!
+                        context.performBlock { () -> Void in
+                            let guestEntity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: context)!
 
-                        for category in guestsJson {
-                            if let categoryName = category["categoryname"] as? String {
-                                if let guests = category["guests"] as? [[String : String]] {
-                                    for json: [String : String] in guests {
-                                        let guest = Guest(entity: guestEntity, insertIntoManagedObjectContext: context)
-                                        guest.update(categoryName: categoryName, jsonObject: json)
+                            for category in guestsJson {
+                                if let categoryName = category["categoryname"] as? String {
+                                    if let guests = category["guests"] as? [[String : String]] {
+                                        for json: [String : String] in guests {
+                                            let guest = Guest(entity: guestEntity, insertIntoManagedObjectContext: context)
+                                            guest.update(categoryName: categoryName, jsonObject: json)
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        var error: NSError?
-                        if context.save(&error) {
-                            userDefaults.setBool(true, forKey: initialGuestFetchCompleteKey)
-                        } else {
-                            if let error = error {
-                                NSLog("Error saving guests: \(error)")
+                            var error: NSError?
+                            if context.save(&error) {
+                                userDefaults.setBool(false, forKey: guestsFetchRequiredKey)
+                                userDefaults.synchronize()
                             } else {
-                                NSLog("Unknown error saving guests")
+                                NSLog("Error saving guests: \(error!)")
                             }
                         }
                     }
