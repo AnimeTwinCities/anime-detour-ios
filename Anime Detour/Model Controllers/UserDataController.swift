@@ -11,32 +11,53 @@ import UIKit
 
 import AnimeDetourAPI
 
-class UserDataController: NSObject {
-   let errorDomain = "com.com.animedetour.mobile"
+class UserDataController {
+    class var errorDomain: String {
+        return "com.animedetour.mobile"
+    }
+
+    /// Main managed object context, suitable only for use on the main thread.
+    let managedObjectContext: NSManagedObjectContext
+    private let persistentStoreCoordinator: NSPersistentStoreCoordinator
+
+    init() {
+        let mom = UserDataController.createManagedObjectModel()
+
+        let psc = UserDataController.createPersistentStoreCoordinator(mom, storeFilename: "UserData.sqlite")
+        self.persistentStoreCoordinator = psc
+
+        let moc = UserDataController.createManagedObjectContext(psc)
+        self.managedObjectContext = moc
+    }
 
     // MARK: - Core Data stack
 
-    private lazy var applicationDocumentsDirectory: NSURL = {
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "Naga-Softworks.Anime-Detour" in the application's documents Application Support directory.
+    private class var applicationDocumentsDirectory: NSURL {
+        // The directory the application uses to store the Core Data store file. This code uses the application's documents directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1] as NSURL
-    }()
+    }
 
-    private lazy var managedObjectModel: NSManagedObjectModel = {
-        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("UserData", withExtension: "momd")!
+    /**
+    The managed object model for the application.
+    It is a fatal error for the application not to be able to find and load its model.
+    */
+    class func createManagedObjectModel() -> NSManagedObjectModel {
+        let modelURL = NSBundle(forClass: UserDataController.self).URLForResource("UserData", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
-    }()
+    }
 
-    private lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
-        // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
+    /**
+    Create a persistent store coordinator for the application. This implementation creates and returns a coordinator,
+    having added the store for the application to it. Returns `nil` if the creation of the store fails.
+    */
+    private class func createPersistentStoreCoordinator(managedObjectModel: NSManagedObjectModel, storeFilename: String) -> NSPersistentStoreCoordinator {
         // Create the coordinator and store
-        var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("UserData.sqlite")
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent(storeFilename)
         var error: NSError? = nil
-        var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
-            coordinator = nil
+        let failureReason = "There was an error creating or loading the application's saved data."
+        if coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
             // Report any error we got.
             let dict = NSMutableDictionary()
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
@@ -50,32 +71,35 @@ class UserDataController: NSObject {
         }
 
         return coordinator
-    }()
+    }
 
-    /// Main managed object context, only suitable for use on the main thread
-    /// or using `performBlock:` and related methods.
-    lazy var managedObjectContext: NSManagedObjectContext? = {
-        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
+    /// Creates a managed object context that uses the persistent store coordinator.
+    private class func createManagedObjectContext(persistentStoreCoordinator: NSPersistentStoreCoordinator) -> NSManagedObjectContext {
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
+        return managedObjectContext
+    }
+
+    /// Create a new managed object context sharing the same store as our main context.
+    /// Will be created on the calling thread.
+    func createManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType) -> NSManagedObjectContext {
         let coordinator = self.persistentStoreCoordinator
-        if coordinator == nil {
-            return nil
-        }
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: concurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
-    }()
+    }
+
 
     // MARK: - Core Data Saving support
 
     private func saveContext () {
-        if let moc = self.managedObjectContext {
-            var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
-            }
+        let moc = self.managedObjectContext
+        var error: NSError? = nil
+        if moc.hasChanges && !moc.save(&error) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog("Unresolved error \(error), \(error!.userInfo)")
+            abort()
         }
     }
 
@@ -92,14 +116,14 @@ class UserDataController: NSObject {
     }
 
     func isBookmarked(session: Session) -> Bool {
-        let context = self.managedObjectContext!
+        let context = self.managedObjectContext
         let fetchRequest = self.bookmarkSessionFetchRequest(session)
         let bookmarked = context.countForFetchRequest(fetchRequest, error: nil) == 1
         return bookmarked
     }
 
     func bookmark(session: Session) {
-        let context = self.managedObjectContext!
+        let context = self.managedObjectContext
         let entityName = SessionBookmark.entityName
         let bookmarkEntity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)!
 
@@ -115,7 +139,7 @@ class UserDataController: NSObject {
     }
 
     func removeBookmark(session: Session) {
-        let context = self.managedObjectContext!
+        let context = self.managedObjectContext
         let entityName = SessionBookmark.entityName
         let bookmarkEntity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)!
 

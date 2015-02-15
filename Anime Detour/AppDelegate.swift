@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var apiClient = AnimeDetourAPIClient.sharedInstance
     lazy var coreDataController = CoreDataController.sharedInstance
     lazy var backgroundContext: NSManagedObjectContext = {
-        let context = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)!
+        let context = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
         NSNotificationCenter.defaultCenter().addObserverForName(NSManagedObjectContextDidSaveNotification, object: context, queue: NSOperationQueue.mainQueue(), usingBlock: { [weak self] (note: NSNotification!) -> Void in
             self?.updateMainContext(saveNotification: note)
             return
@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return context
     }()
     lazy var primaryContext: NSManagedObjectContext = {
-        return self.coreDataController.managedObjectContext!
+        return self.coreDataController.managedObjectContext
     }()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

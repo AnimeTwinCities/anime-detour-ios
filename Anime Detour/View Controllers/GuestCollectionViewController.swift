@@ -39,7 +39,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         return frc
     }()
 
-    private lazy var managedObjectContext = CoreDataController.sharedInstance.managedObjectContext!
+    private lazy var managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
 
     private lazy var fetchedResultsControllerDelegate = CollectionViewFetchedResultsControllerDelegate()
 

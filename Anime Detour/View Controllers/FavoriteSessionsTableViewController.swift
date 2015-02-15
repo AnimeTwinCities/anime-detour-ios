@@ -19,8 +19,8 @@ class FavoriteSessionsTableViewController: UITableViewController {
 
     // MARK: Core Data
 
-    private var sessionsManagedObjectContext: NSManagedObjectContext { return self.coreDataController.managedObjectContext! }
-    private var bookmarksManagedObjectContext: NSManagedObjectContext { return self.userDataController.managedObjectContext! }
+    private var sessionsManagedObjectContext: NSManagedObjectContext { return self.coreDataController.managedObjectContext }
+    private var bookmarksManagedObjectContext: NSManagedObjectContext { return self.userDataController.managedObjectContext }
 
     /// Fetched results controller over `SessionBookmark`s.
     lazy private var fetchedResultsController: NSFetchedResultsController = {
@@ -131,7 +131,7 @@ class FavoriteSessionsTableViewController: UITableViewController {
         let selectedIndexPaths = self.tableView.indexPathsForSelectedRows()
         let selectedObjects = selectedIndexPaths?.map { return $0 as NSIndexPath }.map(self.fetchedResultsController.objectAtIndexPath)
         if let selectedBookmarks =  selectedObjects as? [SessionBookmark] {
-            let moc = self.userDataController.managedObjectContext!
+            let moc = self.userDataController.managedObjectContext
             for bookmark in selectedBookmarks {
                 moc.deleteObject(bookmark)
             }

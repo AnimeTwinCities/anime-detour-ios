@@ -30,7 +30,7 @@ class GuestTableViewController: UITableViewController, TableViewFetchedResultsCo
         return frc
     }()
 
-    private lazy var managedObjectContext = CoreDataController.sharedInstance.managedObjectContext!
+    private lazy var managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
 
     private lazy var fetchedResultsControllerDelegate = TableViewFetchedResultsControllerDelegate()
 

@@ -17,8 +17,8 @@ class SessionCollectionViewController: UICollectionViewController {
 
     // MARK: Core Data
 
-    lazy private var managedObjectContext: NSManagedObjectContext = CoreDataController.sharedInstance.managedObjectContext!
-
+    lazy private var managedObjectContext: NSManagedObjectContext = CoreDataController.sharedInstance.managedObjectContext
+    
     /// Fetched results controller over `Session`s.
     lazy private var fetchedResultsController: NSFetchedResultsController = {
         let sessionsFetchRequest = self.sessionsFetchRequest
