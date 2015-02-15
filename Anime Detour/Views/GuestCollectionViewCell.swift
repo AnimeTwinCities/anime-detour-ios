@@ -41,6 +41,16 @@ class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
         }
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        // Without setting an `autoresizingMask`, the content view has a
+        // mysterious 50pt width constraint that we don't want.
+        // So just set it to autoresize.
+        self.contentView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        self.contentView.setTranslatesAutoresizingMaskIntoConstraints(true)
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
 
