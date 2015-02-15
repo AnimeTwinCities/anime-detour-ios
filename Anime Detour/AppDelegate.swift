@@ -148,10 +148,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    /// Merge changes from a save notification into the main, main thread-only MOC.
-    /// Must be called on the main thread.
+    /// Merge changes from a save notification into the primary, main thread-only MOC.
     private func updateMainContext(saveNotification notification: NSNotification) {
-        self.primaryContext.mergeChangesFromContextDidSaveNotification(notification)
+        self.primaryContext.performBlock {
+            self.primaryContext.mergeChangesFromContextDidSaveNotification(notification)
+        }
     }
 
     private func setColors(application: UIApplication) {
