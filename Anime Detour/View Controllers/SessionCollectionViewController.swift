@@ -36,7 +36,7 @@ class SessionCollectionViewController: UICollectionViewController {
                 return
             }
 
-            self.title = self.filteredTitle(self.filteredType)
+            self.navigationItem.title = self.filteredTitle(self.filteredType)
 
             self.fetchedResultsController.fetchRequest.predicate = self.completePredicate
 
@@ -153,7 +153,7 @@ class SessionCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = self.filteredTitle(self.filteredType)
+        self.title = "Sessions"
 
         // Set the names of the days on the day chooser segmented control
         if let daysControl = self.daySegmentedControl {
@@ -166,10 +166,9 @@ class SessionCollectionViewController: UICollectionViewController {
             }
         }
 
-        let frc = self.fetchedResultsController
-
         self.dataSource.prepareCollectionView(self.collectionView!)
 
+        let frc = self.fetchedResultsController
         var fetchError: NSError?
         let success = frc.performFetch(&fetchError)
         if let error = fetchError {
