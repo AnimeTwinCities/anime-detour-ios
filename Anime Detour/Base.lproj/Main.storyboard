@@ -339,7 +339,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Maps" image="second" id="ExJ-7G-PTb"/>
-                    <navigationItem key="navigationItem" id="ez4-dV-MOB"/>
+                    <navigationItem key="navigationItem" title="Maps" id="ez4-dV-MOB"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SSI-xb-WTq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

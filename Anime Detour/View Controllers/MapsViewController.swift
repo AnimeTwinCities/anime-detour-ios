@@ -17,9 +17,9 @@ class MapsViewController: UIViewController {
         super.viewDidLoad()
         
         let mainBundle = NSBundle.mainBundle()
-        let mapFileNames = ["Dijkstra on numbering EWD831"]
+        let mapFileNames = ["DoubleTree_Floor1_2015", "DoubleTree_Floor2_2015", "DoubleTree_Floor22_2015"]
         let mapPaths = mapFileNames.map { (filename: String) -> String in
-            return mainBundle.pathForResource(filename, ofType: "pdf")!
+            return mainBundle.pathForResource(filename, ofType: "jpg")!
         }
         
         let dataSource = MapsDataSource(mapFilePaths: mapPaths)
