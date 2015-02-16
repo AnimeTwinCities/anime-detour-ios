@@ -96,6 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             var error: NSError?
                             if context.save(&error) {
                                 userDefaults.setBool(false, forKey: sessionsFetchRequiredKey)
+                                userDefaults.setObject(sessionsClearDate, forKey: lastSessionsClearDateKey)
                                 userDefaults.synchronize()
                             } else {
                                 NSLog("Error saving sessions: \(error!)")
@@ -135,6 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             var error: NSError?
                             if context.save(&error) {
                                 userDefaults.setBool(false, forKey: guestsFetchRequiredKey)
+                                userDefaults.setObject(guestsClearDate, forKey: lastGuestsClearDateKey)
                                 userDefaults.synchronize()
                             } else {
                                 NSLog("Error saving guests: \(error!)")
