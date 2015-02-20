@@ -57,20 +57,29 @@ class UserDataController {
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent(storeFilename)
         var error: NSError? = nil
         let failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        if let error = self.addPersistentStore(url, coordinator: coordinator) {
             // Report any error we got.
             let dict = NSMutableDictionary()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the store for the application's saved user data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: self.errorDomain, code: 9999, userInfo: dict)
+            let wrappedError = NSError(domain: self.errorDomain, code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(error), \(error!.userInfo)")
+            NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
             abort()
         }
 
         return coordinator
+    }
+
+    private class func addPersistentStore(url: NSURL, coordinator: NSPersistentStoreCoordinator) -> NSError? {
+        var error: NSError? = nil
+        if coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+            return error
+        }
+
+        return nil
     }
 
     /// Creates a managed object context that uses the persistent store coordinator.
@@ -89,6 +98,21 @@ class UserDataController {
         return managedObjectContext
     }
 
+    /// Destroys and re-creates the persistent store. Not safe to use
+    /// if any additional contexts have been created aside from our primary `managedObjectContext`.
+    func clearPersistentStore() {
+        if let store = self.persistentStoreCoordinator.persistentStores.first as? NSPersistentStore {
+            let url = store.URL!
+
+            var err: NSError?
+            self.persistentStoreCoordinator.removePersistentStore(store, error: &err)
+            NSFileManager.defaultManager().removeItemAtURL(url, error: &err)
+
+            if let error = UserDataController.addPersistentStore(url, coordinator: self.persistentStoreCoordinator) {
+                NSLog("Error re-adding store to PSC: %@", error)
+            }
+        }
+    }
 
     // MARK: - Core Data Saving support
 

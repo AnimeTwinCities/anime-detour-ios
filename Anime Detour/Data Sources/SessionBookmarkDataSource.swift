@@ -74,7 +74,8 @@ class SessionBookmarkDataSource: NSObject {
         let bookmark = self.sessionBookmark(indexPath)
         let sessionFetchRequest = NSFetchRequest(entityName: Session.entityName)
         sessionFetchRequest.predicate = NSPredicate(format: "sessionID == %@", bookmark.sessionID)
-        let fetchResults = self.coreDataController.managedObjectContext.executeFetchRequest(sessionFetchRequest, error: nil)
+        let moc = self.coreDataController.managedObjectContext
+        let fetchResults = moc.executeFetchRequest(sessionFetchRequest, error: nil)
         let session = fetchResults?.first as Session
         return session
     }
