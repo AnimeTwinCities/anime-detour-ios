@@ -488,7 +488,7 @@
                         <segue destination="yR4-12-7LC" kind="relationship" relationship="viewControllers" id="S3x-Wh-mrl"/>
                         <segue destination="RAn-QC-37A" kind="relationship" relationship="viewControllers" id="wnq-Ar-ZKT"/>
                         <segue destination="Yl9-Dc-0A2" kind="relationship" relationship="viewControllers" id="TH5-iN-1Rs"/>
-                        <segue destination="DMX-YY-Hjn" kind="relationship" relationship="viewControllers" id="5jW-7q-NpF"/>
+                        <segue destination="Eb5-YW-TUk" kind="relationship" relationship="viewControllers" id="wzk-Qb-hVQ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -512,64 +512,153 @@
             </objects>
             <point key="canvasLocation" x="882" y="1075"/>
         </scene>
-        <!--Information-->
-        <scene sceneID="YKU-Xd-mvv">
+        <!--Anime Detour 2015-->
+        <scene sceneID="2JE-w2-d4d">
             <objects>
-                <viewController title="Information" id="DMX-YY-Hjn" customClass="InformationViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="YyI-Me-0R3"/>
-                        <viewControllerLayoutGuide type="bottom" id="WHH-7f-o0p"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="72P-mE-hxU">
+                <tableViewController id="LKD-2f-hmH" customClass="InformationViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="N7V-qC-XJv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kLy-N3-5eV">
-                                <rect key="frame" x="0.0" y="20" width="600" height="400"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="kLy-N3-5eV" secondAttribute="height" multiplier="3:2" id="BMN-7x-d2G"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="April 1-22, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QpG-ER-8nH">
-                                <rect key="frame" x="239" y="461" width="123" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9u-rX-fZK">
-                                <rect key="frame" x="164" y="490" width="272" height="30"/>
-                                <state key="normal" title="DoubleTree by Hilton, Bloomington, MN">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="showVenueOnMap:" destination="DMX-YY-Hjn" eventType="touchUpInside" id="5Sn-q2-eDA"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Year's Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1XV-Ht-z6J">
-                                <rect key="frame" x="242" y="428" width="117" height="20"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="T9u-rX-fZK" firstAttribute="top" secondItem="QpG-ER-8nH" secondAttribute="bottom" constant="8" id="013-LX-dqN"/>
-                            <constraint firstItem="kLy-N3-5eV" firstAttribute="top" secondItem="YyI-Me-0R3" secondAttribute="bottom" id="DzW-G3-Riu"/>
-                            <constraint firstItem="QpG-ER-8nH" firstAttribute="top" secondItem="1XV-Ht-z6J" secondAttribute="bottom" constant="13" id="HjL-BD-wvz"/>
-                            <constraint firstAttribute="centerX" secondItem="1XV-Ht-z6J" secondAttribute="centerX" id="JNS-Pw-ydi"/>
-                            <constraint firstItem="1XV-Ht-z6J" firstAttribute="top" secondItem="kLy-N3-5eV" secondAttribute="bottom" constant="8" id="LXK-r5-WSF"/>
-                            <constraint firstAttribute="centerX" secondItem="QpG-ER-8nH" secondAttribute="centerX" id="eNI-gC-dkO"/>
-                            <constraint firstAttribute="centerX" secondItem="T9u-rX-fZK" secondAttribute="centerX" id="rGu-0f-fBG"/>
-                            <constraint firstAttribute="trailing" secondItem="kLy-N3-5eV" secondAttribute="trailing" id="sKY-7l-nP3"/>
-                            <constraint firstItem="kLy-N3-5eV" firstAttribute="leading" secondItem="72P-mE-hxU" secondAttribute="leading" id="ycD-Pq-7p3"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Info" image="first" id="94e-iW-iMF"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eVN-7O-PYu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <sections>
+                            <tableViewSection id="DQE-ND-m01">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LogoReuseIdentifier" rowHeight="200" id="4pN-ob-Tuu">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4pN-ob-Tuu" id="e18-jA-eJj">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AD-Header-Logo-375" translatesAutoresizingMaskIntoConstraints="NO" id="fHP-Hg-aFE">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                                    <accessibility key="accessibilityConfiguration" label="Anime Detour">
+                                                        <bool key="isElement" value="YES"/>
+                                                    </accessibility>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="fHP-Hg-aFE" secondAttribute="centerY" id="84y-mg-A2O"/>
+                                                <constraint firstItem="fHP-Hg-aFE" firstAttribute="leading" secondItem="e18-jA-eJj" secondAttribute="leading" id="H0w-pH-XYb"/>
+                                                <constraint firstAttribute="bottom" secondItem="fHP-Hg-aFE" secondAttribute="bottom" id="Swh-2u-rgg"/>
+                                                <constraint firstAttribute="trailing" secondItem="fHP-Hg-aFE" secondAttribute="trailing" id="ftz-ZA-fOi"/>
+                                                <constraint firstItem="fHP-Hg-aFE" firstAttribute="top" secondItem="e18-jA-eJj" secondAttribute="top" id="yFN-9r-DzE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TitleReuseIdentifier" id="Alo-Ic-uM4">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Alo-Ic-uM4" id="0WA-bS-mx7">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 27th-29th, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BA-Hq-Tuh">
+                                                    <rect key="frame" x="212" y="11" width="176" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="4BA-Hq-Tuh" secondAttribute="bottom" constant="12" id="SOr-Li-lsO"/>
+                                                <constraint firstAttribute="centerX" secondItem="4BA-Hq-Tuh" secondAttribute="centerX" id="d0v-aS-7xF"/>
+                                                <constraint firstItem="4BA-Hq-Tuh" firstAttribute="top" secondItem="0WA-bS-mx7" secondAttribute="top" constant="11" id="ewl-8Y-lQA"/>
+                                                <constraint firstAttribute="centerY" secondItem="4BA-Hq-Tuh" secondAttribute="centerY" id="r4G-MP-pfg"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="SOr-Li-lsO"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DateReuseIdentifier" id="KJC-gi-SQ2">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KJC-gi-SQ2" id="xaT-U9-w9j">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anM-ug-uru">
+                                                    <rect key="frame" x="164" y="7" width="272" height="30"/>
+                                                    <state key="normal" title="DoubleTree by Hilton, Bloomington, MN">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="showVenueOnMap:" destination="LKD-2f-hmH" eventType="touchUpInside" id="xXW-ox-R7f"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="anM-ug-uru" firstAttribute="top" secondItem="xaT-U9-w9j" secondAttribute="top" constant="7" id="5MQ-nn-xhE"/>
+                                                <constraint firstAttribute="centerX" secondItem="anM-ug-uru" secondAttribute="centerX" id="HBI-Gw-VIY"/>
+                                                <constraint firstAttribute="bottom" secondItem="anM-ug-uru" secondAttribute="bottom" constant="7" id="wJJ-lI-VMf"/>
+                                                <constraint firstAttribute="centerY" secondItem="anM-ug-uru" secondAttribute="centerY" id="wnm-Z3-tOm"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="wJJ-lI-VMf"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Information and Policies" id="4zK-NC-UdK">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WeaponsPolicyReuseIdentifier" textLabel="PjS-XJ-bcc" style="IBUITableViewCellStyleDefault" id="pcd-up-qFz">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pcd-up-qFz" id="fzM-pr-4Hl">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Weapons Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PjS-XJ-bcc">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LogoReuseIdentifier" rowHeight="200" id="ErU-0G-3Ch">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ErU-0G-3Ch" id="bZo-ad-i19">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="LKD-2f-hmH" id="L4J-Mi-eff"/>
+                            <outlet property="delegate" destination="LKD-2f-hmH" id="at2-93-z34"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Anime Detour 2015" id="nMS-Wl-yAg"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="logoIdentifier" value="LogoReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="titleIdentifier" value="TitleReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dateIdentifier" value="DateReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="mapLinkIdentifier" value="MapLinkReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="weaponsPolicyIdentifier" value="WeaponsPolicyReuseIdentifier"/>
+                    </userDefinedRuntimeAttributes>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bYr-VJ-Mld" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="882" y="1801"/>
+            <point key="canvasLocation" x="1702" y="1766"/>
+        </scene>
+        <!--Info-->
+        <scene sceneID="WDH-vh-9NN">
+            <objects>
+                <navigationController id="Eb5-YW-TUk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Info" id="LG7-Yu-lTK"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KUG-sk-BNm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="LKD-2f-hmH" kind="relationship" relationship="rootViewController" id="TwQ-eX-I2k"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YFe-YM-Yn8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="882" y="1766"/>
         </scene>
         <!--Favorite Sessions-->
         <scene sceneID="u1H-9n-uJu">
@@ -779,6 +868,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AD-Header-Logo-375" width="375" height="197"/>
         <image name="disclosure_indicator" width="8" height="14"/>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>

@@ -8,10 +8,46 @@
 
 import UIKit
 
-class InformationViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
+class InformationViewController: UITableViewController {
 
+    @IBInspectable var logoIdentifier: String!
+    @IBInspectable var titleIdentifier: String!
+    @IBInspectable var dateIdentifier: String!
+    @IBInspectable var mapLinkIdentifier: String!
+    @IBInspectable var weaponsPolicyIdentifier: String!
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+
+        switch cell.reuseIdentifier {
+        case .Some(self.logoIdentifier):
+            let horizontalSizeClass = self.traitCollection.horizontalSizeClass
+            if let imageView = cell.contentView.subviews.filter({
+                return $0.isKindOfClass(UIImageView.self)
+            }).first as? UIImageView {
+                if horizontalSizeClass == .Regular {
+                    imageView.image = UIImage(named: "ADHeader1152")
+                } else {
+                    imageView.image = UIImage(named: "AD-Header-Logo-375")
+                }
+            }
+            break
+        case .Some(self.titleIdentifier):
+            break
+        case .Some(self.dateIdentifier):
+            break
+        case .Some(self.mapLinkIdentifier):
+            break
+        case .Some(self.weaponsPolicyIdentifier):
+            break
+        case let .Some(identifier):
+            fatalError("Unknown reuse identifier encountered: \(identifier)")
+        case .None:
+            // Cells without a reuse identifier are fine
+            break
+        }
+
+        return cell
     }
 
     @IBAction func showVenueOnMap(sender: AnyObject?) {
