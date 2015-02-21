@@ -615,6 +615,45 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="7r7-uI-IW2" kind="show" identifier="WeaponsSegueIdentifier" id="S72-2p-Jpg"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="HarassmentPolicyReuseIdentifier" textLabel="GKO-Z5-EJa" style="IBUITableViewCellStyleDefault" id="zOw-Xi-Ycu">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zOw-Xi-Ycu" id="6Ye-rP-HKh">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Harassment Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GKO-Z5-EJa">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="7r7-uI-IW2" kind="show" identifier="HarassmentSegueIdentifier" id="rwO-NC-HKO"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LetterParentsReuseIdentifier" textLabel="F56-Ri-VIR" style="IBUITableViewCellStyleDefault" id="3B2-DI-vWE">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3B2-DI-vWE" id="LE8-2W-xQa">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Letter to Parents" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F56-Ri-VIR">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="7r7-uI-IW2" kind="show" identifier="LetterParentsSegueIdentifier" id="5iT-Wm-Jtu"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LogoReuseIdentifier" rowHeight="200" id="ErU-0G-3Ch">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -637,11 +676,34 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="dateIdentifier" value="DateReuseIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="mapLinkIdentifier" value="MapLinkReuseIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="weaponsPolicyIdentifier" value="WeaponsPolicyReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="letterParentsIdentifier" value="LetterParentsReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="harassmentPolicyIdentifier" value="HarassmentPolicyReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="weaponsPolicySegue" value="WeaponsSegueIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="letterParentsSegue" value="LetterParentsSegueIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="harassmentSegue" value="HarassmentSegueIdentifier"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYr-VJ-Mld" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1585" y="1766"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="1UJ-tO-jH2">
+            <objects>
+                <viewController id="7r7-uI-IW2" customClass="WebViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="52v-XF-H9d"/>
+                        <viewControllerLayoutGuide type="bottom" id="fpe-tl-J6N"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PNw-Cu-V7W">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yB9-I7-avT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2266" y="1766"/>
         </scene>
         <!--Info-->
         <scene sceneID="WDH-vh-9NN">
@@ -875,6 +937,7 @@
         <image name="star" width="40" height="37"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="S72-2p-Jpg"/>
         <segue reference="zoD-Tj-VZw"/>
     </inferredMetricsTieBreakers>
 </document>

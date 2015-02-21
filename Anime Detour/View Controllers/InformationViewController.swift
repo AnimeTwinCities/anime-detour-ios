@@ -10,11 +10,23 @@ import UIKit
 
 class InformationViewController: UITableViewController {
 
+    // MARK: - Cell reuse identifiers
+
     @IBInspectable var logoIdentifier: String!
     @IBInspectable var titleIdentifier: String!
     @IBInspectable var dateIdentifier: String!
     @IBInspectable var mapLinkIdentifier: String!
+    @IBInspectable var harassmentPolicyIdentifier: String!
+    @IBInspectable var letterParentsIdentifier: String!
     @IBInspectable var weaponsPolicyIdentifier: String!
+
+    // MARK: - Segue identifiers
+
+    @IBInspectable var harassmentSegue: String!
+    @IBInspectable var letterParentsSegue: String!
+    @IBInspectable var weaponsPolicySegue: String!
+
+    // MARK: - Table View Data Source
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
@@ -38,6 +50,10 @@ class InformationViewController: UITableViewController {
             break
         case .Some(self.mapLinkIdentifier):
             break
+        case .Some(self.harassmentPolicyIdentifier):
+            break
+        case .Some(self.letterParentsIdentifier):
+            break
         case .Some(self.weaponsPolicyIdentifier):
             break
         case let .Some(identifier):
@@ -49,6 +65,26 @@ class InformationViewController: UITableViewController {
 
         return cell
     }
+
+    // MARK: - Navigation
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch (segue.identifier) {
+        case .Some(self.harassmentSegue):
+            let webVC = segue.destinationViewController as WebViewController
+            webVC.urlString = "http://www.animedetour.com/policyharrassment"
+        case .Some(self.letterParentsSegue):
+            let webVC = segue.destinationViewController as WebViewController
+            webVC.urlString = "http://www.animedetour.com/faqparents"
+        case .Some(self.weaponsPolicySegue):
+            let webVC = segue.destinationViewController as WebViewController
+            webVC.urlString = "http://www.animedetour.com/policyweapons"
+        default:
+            fatalError("Unrecognized segue with identifier: \(segue.identifier)")
+        }
+    }
+
+    // MARK: - Received actions
 
     @IBAction func showVenueOnMap(sender: AnyObject?) {
         let query = ("DoubleTree by Hilton, Bloomington, MN" as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
