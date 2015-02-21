@@ -38,12 +38,7 @@ class MapsViewController: UIViewController {
         self.view.addConstraints(previewConstraints)
         
         self.addChildViewController(previewController)
-    }
-    
-    override func addChildViewController(childController: UIViewController) {
-        super.addChildViewController(childController)
-        
-        if let previewController = childController as? QLPreviewController {
-        }
+
+        previewController.currentPreviewItemIndex = 0
     }
 }
