@@ -30,7 +30,6 @@
 		5C54452719F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5C54452619F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf */; };
 		5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452819F42E45003CC1C3 /* InformationViewController.swift */; };
 		5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37419EA143A00545FDA /* AppDelegate.swift */; };
-		5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37819EA143A00545FDA /* SecondViewController.swift */; };
 		5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37A19EA143A00545FDA /* Main.storyboard */; };
 		5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37D19EA143A00545FDA /* Images.xcassets */; };
 		5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37F19EA143A00545FDA /* LaunchScreen.xib */; };
@@ -130,7 +129,6 @@
 		5C65B36F19EA143A00545FDA /* Anime Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Detour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C65B37319EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B37419EA143A00545FDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5C65B37819EA143A00545FDA /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		5C65B37B19EA143A00545FDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C65B37D19EA143A00545FDA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5C65B38019EA143A00545FDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 				5C16772B19EB6B8E0097B1D3 /* Views */,
 				5C54452519F420AB003CC1C3 /* Resources */,
 				5C65B37419EA143A00545FDA /* AppDelegate.swift */,
-				5C65B37819EA143A00545FDA /* SecondViewController.swift */,
 				5C65B37A19EA143A00545FDA /* Main.storyboard */,
 				5C65B37D19EA143A00545FDA /* Images.xcassets */,
 				5C65B37F19EA143A00545FDA /* LaunchScreen.xib */,
@@ -454,7 +451,6 @@
 				5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */,
 				5C8834041A7EB87700573DAD /* SelectedSessionType.swift in Sources */,
 				5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */,
-				5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */,
 				5C204F9E1A7B33210050B793 /* GuestTableViewCell.swift in Sources */,
 				5C16948D1A6CB6880082F197 /* SessionDataSource.swift in Sources */,
 				5C54450C19F2D3A3003CC1C3 /* SessionView.swift in Sources */,
