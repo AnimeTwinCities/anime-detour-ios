@@ -15,17 +15,15 @@ import AnimeDetourAPI
 class FavoriteSessionsTableViewController: UITableViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy var coreDataController = CoreDataController.sharedInstance
-    lazy var userDataController = UserDataController.sharedInstance
 
     // MARK: Core Data
 
-    private var sessionsManagedObjectContext: NSManagedObjectContext { return self.coreDataController.managedObjectContext }
-    private var bookmarksManagedObjectContext: NSManagedObjectContext { return self.userDataController.managedObjectContext }
+    private var managedObjectContext: NSManagedObjectContext { return self.coreDataController.managedObjectContext }
 
     /// Fetched results controller over `SessionBookmark`s.
     lazy private var fetchedResultsController: NSFetchedResultsController = {
         let sessionsFetchRequest = self.bookmarksFetchRequest
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: self.bookmarksManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
         fetchedResultsController.delegate = self.fetchedResultsControllerDelegate
         return fetchedResultsController
     }()
@@ -41,8 +39,10 @@ class FavoriteSessionsTableViewController: UITableViewController {
     */
     private var bookmarksFetchRequest: NSFetchRequest {
         get {
-            let sortDescriptors = [NSSortDescriptor(key: "sessionID", ascending: true)]
-            let sessionsFetchRequest = NSFetchRequest(entityName: SessionBookmark.entityName)
+            let predicate = NSPredicate(format: "bookmarked == true")
+            let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
+            let sessionsFetchRequest = NSFetchRequest(entityName: Session.entityName)
+            sessionsFetchRequest.predicate = predicate
             sessionsFetchRequest.sortDescriptors = sortDescriptors
             return sessionsFetchRequest
         }
@@ -54,7 +54,7 @@ class FavoriteSessionsTableViewController: UITableViewController {
     Table view data source that we call through to from our data
     source methods.
     */
-    private var dataSource: SessionBookmarkDataSource!
+    lazy private var dataSource: SessionDataSource! = SessionDataSource(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
 
     private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
 
@@ -87,7 +87,6 @@ class FavoriteSessionsTableViewController: UITableViewController {
 
         let frc = self.fetchedResultsController
 
-        self.dataSource = SessionBookmarkDataSource(fetchedResultsController: frc, timeZone: self.timeZone, coreDataController: self.coreDataController, userDataController: self.userDataController)
         self.dataSource.prepareTableView(self.tableView)
 
         var fetchError: NSError?
@@ -130,10 +129,10 @@ class FavoriteSessionsTableViewController: UITableViewController {
     @IBAction func removeFavorites() {
         let selectedIndexPaths = self.tableView.indexPathsForSelectedRows()
         let selectedObjects = selectedIndexPaths?.map { return $0 as NSIndexPath }.map(self.fetchedResultsController.objectAtIndexPath)
-        if let selectedBookmarks =  selectedObjects as? [SessionBookmark] {
-            let moc = self.userDataController.managedObjectContext
-            for bookmark in selectedBookmarks {
-                moc.deleteObject(bookmark)
+        if let selectedSessions =  selectedObjects as? [Session] {
+            let moc = self.managedObjectContext
+            for session in selectedSessions {
+                session.bookmarked = false
             }
 
             moc.save(nil)

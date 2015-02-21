@@ -15,7 +15,6 @@
 		5C204F9E1A7B33210050B793 /* GuestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C204F9D1A7B33210050B793 /* GuestTableViewCell.swift */; };
 		5C204FA51A7D6BC90050B793 /* SessionFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C204FA41A7D6BC90050B793 /* SessionFilterTableViewController.swift */; };
 		5C204FAC1A7DB7F50050B793 /* GuestDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C204FAB1A7DB7F50050B793 /* GuestDetailTableViewController.swift */; };
-		5C2CD4DF1A87E4DD0076BB48 /* SessionBookmarkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2CD4DE1A87E4DD0076BB48 /* SessionBookmarkDataSource.swift */; };
 		5C3025811A746A7500ACE278 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3025801A746A7500ACE278 /* UIColor.swift */; };
 		5C3025891A74939F00ACE278 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1694891A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C317A991A916F6600E668F5 /* DoubleTree_Floor1_2015.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C317A961A916F6600E668F5 /* DoubleTree_Floor1_2015.jpg */; };
@@ -29,10 +28,6 @@
 		5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */; };
 		5C54452719F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5C54452619F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf */; };
 		5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452819F42E45003CC1C3 /* InformationViewController.swift */; };
-		5C631A1A1A06ABD5002F193A /* UserData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A181A06ABD5002F193A /* UserData.xcdatamodeld */; };
-		5C631A1E1A06AC5E002F193A /* UserDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A1D1A06AC5E002F193A /* UserDataController.swift */; };
-		5C631A211A06AD31002F193A /* UserDataController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A201A06AD31002F193A /* UserDataController_Singleton.swift */; };
-		5C631A251A06AF62002F193A /* SessionBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C631A241A06AF62002F193A /* SessionBookmark.swift */; };
 		5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37419EA143A00545FDA /* AppDelegate.swift */; };
 		5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37819EA143A00545FDA /* SecondViewController.swift */; };
 		5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37A19EA143A00545FDA /* Main.storyboard */; };
@@ -117,7 +112,6 @@
 		5C204F9D1A7B33210050B793 /* GuestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestTableViewCell.swift; sourceTree = "<group>"; };
 		5C204FA41A7D6BC90050B793 /* SessionFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionFilterTableViewController.swift; sourceTree = "<group>"; };
 		5C204FAB1A7DB7F50050B793 /* GuestDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestDetailTableViewController.swift; sourceTree = "<group>"; };
-		5C2CD4DE1A87E4DD0076BB48 /* SessionBookmarkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionBookmarkDataSource.swift; sourceTree = "<group>"; };
 		5C3025801A746A7500ACE278 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Anime Detour API.xcodeproj"; path = "Anime Detour API/Anime Detour API.xcodeproj"; sourceTree = "<group>"; };
 		5C317A961A916F6600E668F5 /* DoubleTree_Floor1_2015.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DoubleTree_Floor1_2015.jpg; sourceTree = "<group>"; };
@@ -131,10 +125,6 @@
 		5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsDataSource.swift; sourceTree = "<group>"; };
 		5C54452619F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Dijkstra on numbering EWD831.pdf"; sourceTree = "<group>"; };
 		5C54452819F42E45003CC1C3 /* InformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
-		5C631A191A06ABD5002F193A /* UserData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserData.xcdatamodel; sourceTree = "<group>"; };
-		5C631A1D1A06AC5E002F193A /* UserDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataController.swift; sourceTree = "<group>"; };
-		5C631A201A06AD31002F193A /* UserDataController_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataController_Singleton.swift; sourceTree = "<group>"; };
-		5C631A241A06AF62002F193A /* SessionBookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionBookmark.swift; sourceTree = "<group>"; };
 		5C65B36F19EA143A00545FDA /* Anime Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Detour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C65B37319EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C65B37419EA143A00545FDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -173,8 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */,
-				5C631A1D1A06AC5E002F193A /* UserDataController.swift */,
-				5C631A201A06AD31002F193A /* UserDataController_Singleton.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -207,7 +195,6 @@
 			children = (
 				5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */,
 				5C16948C1A6CB6880082F197 /* SessionDataSource.swift */,
-				5C2CD4DE1A87E4DD0076BB48 /* SessionBookmarkDataSource.swift */,
 			);
 			path = "Data Sources";
 			sourceTree = "<group>";
@@ -275,7 +262,6 @@
 		5C631A231A06AF22002F193A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5C631A241A06AF62002F193A /* SessionBookmark.swift */,
 				5CE11EAC1A34E299005903A4 /* SessionType.swift */,
 				5C8834031A7EB87700573DAD /* SelectedSessionType.swift */,
 			);
@@ -319,7 +305,6 @@
 				5C65B37D19EA143A00545FDA /* Images.xcassets */,
 				5C65B37F19EA143A00545FDA /* LaunchScreen.xib */,
 				5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */,
-				5C631A181A06ABD5002F193A /* UserData.xcdatamodeld */,
 				5C65B37219EA143A00545FDA /* Supporting Files */,
 			);
 			path = "Anime Detour";
@@ -464,7 +449,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */,
-				5C631A211A06AD31002F193A /* UserDataController_Singleton.swift in Sources */,
 				5C8834041A7EB87700573DAD /* SelectedSessionType.swift in Sources */,
 				5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */,
 				5C65B37919EA143A00545FDA /* SecondViewController.swift in Sources */,
@@ -487,17 +471,13 @@
 				5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
 				5C6C31A41A75ADBD008FC08F /* GuestTableViewController.swift in Sources */,
-				5C631A1E1A06AC5E002F193A /* UserDataController.swift in Sources */,
 				5CCA903E1A86F90800C14EE0 /* TextHeaderCollectionReusableView.swift in Sources */,
-				5C631A251A06AF62002F193A /* SessionBookmark.swift in Sources */,
 				5C54451119F2D79B003CC1C3 /* FavoriteSessionsTableViewController.swift in Sources */,
 				5C1694801A6AF76C0082F197 /* SessionTableViewCell.swift in Sources */,
 				5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */,
 				5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */,
 				5CCA903C1A86AA5700C14EE0 /* GuestCollectionViewCell.swift in Sources */,
 				5C204FAC1A7DB7F50050B793 /* GuestDetailTableViewController.swift in Sources */,
-				5C631A1A1A06ABD5002F193A /* UserData.xcdatamodeld in Sources */,
-				5C2CD4DF1A87E4DD0076BB48 /* SessionBookmarkDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,19 +650,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		5C631A181A06ABD5002F193A /* UserData.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				5C631A191A06ABD5002F193A /* UserData.xcdatamodel */,
-			);
-			currentVersion = 5C631A191A06ABD5002F193A /* UserData.xcdatamodel */;
-			path = UserData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 5C65B36719EA143A00545FDA /* Project object */;
 }

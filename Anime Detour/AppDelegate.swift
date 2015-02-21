@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var apiClient = AnimeDetourAPIClient.sharedInstance
     lazy var coreDataController = CoreDataController.sharedInstance
-    lazy var userDataController = UserDataController.sharedInstance
     lazy var backgroundContext: NSManagedObjectContext = {
         let context = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
         NSNotificationCenter.defaultCenter().addObserverForName(NSManagedObjectContextDidSaveNotification, object: context, queue: NSOperationQueue.mainQueue(), usingBlock: { [weak self] (note: NSNotification!) -> Void in
@@ -68,7 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sessionsNeedClearing = sessionsClearDate.timeIntervalSinceDate(userDefaults.objectForKey(lastSessionsClearDateKey) as NSDate) > 0
         if guestsNeedClearing || sessionsNeedClearing {
             self.coreDataController.clearPersistentStore()
-            self.userDataController.clearPersistentStore()
 
             // Clearing the persistent store removes all sessions and guests, since they are both kept
             // in the same store, so we need to fetch them again.

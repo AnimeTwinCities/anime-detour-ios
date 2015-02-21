@@ -14,12 +14,11 @@ import AnimeDetourAPI
 class SessionViewController: UIViewController, SessionViewModelDelegate {
     @IBOutlet var sessionView: SessionView!
     let imagesURLSession = NSURLSession.sharedSession()
-    let userDataController = UserDataController.sharedInstance
     
     var session: Session! {
         didSet {
             if let sessionView = self.sessionView {
-                let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+                let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
                 sessionView.viewModel = viewModel
             }
         }
@@ -40,7 +39,7 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+        let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
         viewModel.delegate = self
         self.sessionView.viewModel = viewModel
     }

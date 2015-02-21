@@ -13,6 +13,7 @@ import CoreData
 public class Session: NSManagedObject {
     @NSManaged public var key: String
     @NSManaged public var active: Bool
+    @NSManaged public var bookmarked: Bool
     @NSManaged public var name: String
     @NSManaged public var start: NSDate
     @NSManaged public var end: NSDate

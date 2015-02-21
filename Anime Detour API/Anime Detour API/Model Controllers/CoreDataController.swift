@@ -77,8 +77,10 @@ public class CoreDataController {
     }
 
     private class func addPersistentStore(url: NSURL, coordinator: NSPersistentStoreCoordinator) -> NSError? {
+        let options = [ NSMigratePersistentStoresAutomaticallyOption : NSNumber(bool: true),
+            NSInferMappingModelAutomaticallyOption : NSNumber(bool: true)]
         var error: NSError? = nil
-        if coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        if coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options, error: &error) == nil {
             return error
         }
 

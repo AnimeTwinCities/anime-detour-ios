@@ -14,6 +14,7 @@
     <entity name="Session" representedClassName="AnimeDetourAPI.Session" syncable="YES">
         <attribute name="active" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="address" attributeType="String" syncable="YES"/>
+        <attribute name="bookmarked" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="end" attributeType="Date" defaultDateTimeInterval="-978303600" syncable="YES"/>
         <attribute name="goers" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="inviteOnly" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -30,6 +31,6 @@
     </entity>
     <elements>
         <element name="Guest" positionX="-54" positionY="108" width="128" height="180"/>
-        <element name="Session" positionX="-63" positionY="-18" width="128" height="268"/>
+        <element name="Session" positionX="-63" positionY="-18" width="128" height="285"/>
     </elements>
 </model>

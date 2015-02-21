@@ -13,7 +13,6 @@ import AnimeDetourAPI
 
 class SessionCollectionViewController: UICollectionViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
-    lazy var userDataController = UserDataController.sharedInstance
 
     // MARK: Core Data
 
@@ -101,7 +100,7 @@ class SessionCollectionViewController: UICollectionViewController {
     Collection view data source that we call through to from our data
     source methods.
     */
-    lazy private var dataSource: SessionDataSource = SessionDataSource(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession, userDataController: self.userDataController)
+    lazy private var dataSource: SessionDataSource = SessionDataSource(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
 
     // MARK: Day indicator
     lazy private var dayScroller: SessionDayScroller = SessionDayScroller(fetchedResultsController: self.fetchedResultsController, targetView: .CollectionView(self.collectionView!), daySegmentedControl: self.daySegmentedControl)
@@ -167,6 +166,7 @@ class SessionCollectionViewController: UICollectionViewController {
         }
 
         self.dataSource.prepareCollectionView(self.collectionView!)
+        self.fetchedResultsControllerDelegate.customizer = self.dataSource
 
         let frc = self.fetchedResultsController
         var fetchError: NSError?
