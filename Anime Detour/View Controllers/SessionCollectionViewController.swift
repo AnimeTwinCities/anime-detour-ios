@@ -374,12 +374,8 @@ private class SessionDayScroller {
             return
         }
 
-        if let session = self.fetchedResultsController.objectAtIndexPath(indexPath) as? Session {
-            let startDate = session.start
-            if let startDateIdx = self.indexPathOfSection(startDate)?.section {
-                self.daySegmentedControl?.selectedSegmentIndex = startDateIdx
-            }
-        }
+        // TODO: Update the date indicator is unimplemented
+        return
     }
 
     // MARK: - Scroll View Delegate
