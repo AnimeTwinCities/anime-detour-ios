@@ -33,8 +33,16 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
 
         let hCenter = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0)
         let vCenter = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0)
-        let width = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 250)
 
-        self.addConstraints([hCenter, vCenter, width])
+        let width = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 350)
+        width.priority = 250 // UILayoutPriorityDefaultLow
+
+        // Greater priority than the width constraint, so it always has at least this margin.
+        let leftSide = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: self, attribute: NSLayoutAttribute.Left, multiplier: 1.0, constant: 10)
+        leftSide.priority = 1000 // UILayoutPriorityRequired
+
+        // NOTE: UILayoutPriority constants cause linker errors, so don't use them
+
+        self.addConstraints([hCenter, vCenter, width, leftSide])
     }
 }
