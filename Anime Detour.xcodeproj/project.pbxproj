@@ -21,6 +21,7 @@
 		5C317A9A1A916F6600E668F5 /* DoubleTree_Floor2_2015.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C317A971A916F6600E668F5 /* DoubleTree_Floor2_2015.jpg */; };
 		5C317A9B1A916F6600E668F5 /* DoubleTree_Floor22_2015.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C317A981A916F6600E668F5 /* DoubleTree_Floor22_2015.jpg */; };
 		5C337F021A990C51006CAA20 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C337F011A990C51006CAA20 /* WebViewController.swift */; };
+		5C3A4D561A9A48BF00562470 /* UICollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3A4D551A9A48BF00562470 /* UICollectionViewFlowLayout.swift */; };
 		5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B436D19F0A19F009342C8 /* SessionViewController.swift */; };
 		5C54450C19F2D3A3003CC1C3 /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54450B19F2D3A3003CC1C3 /* SessionView.swift */; };
 		5C54451119F2D79B003CC1C3 /* FavoriteSessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451019F2D79B003CC1C3 /* FavoriteSessionsTableViewController.swift */; };
@@ -38,6 +39,8 @@
 		5C6C31A41A75ADBD008FC08F /* GuestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C31A31A75ADBD008FC08F /* GuestTableViewController.swift */; };
 		5C6C31AE1A75E158008FC08F /* GuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C31AD1A75E158008FC08F /* GuestViewModel.swift */; };
 		5C8834041A7EB87700573DAD /* SelectedSessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8834031A7EB87700573DAD /* SelectedSessionType.swift */; };
+		5C9F66CF1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F66CE1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift */; };
+		5CBA4D441A996110003D1F60 /* StickyHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBA4D431A996110003D1F60 /* StickyHeaderFlowLayout.swift */; };
 		5CCA90391A86A86800C14EE0 /* GuestCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA90381A86A86800C14EE0 /* GuestCollectionViewController.swift */; };
 		5CCA903C1A86AA5700C14EE0 /* GuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA903B1A86AA5700C14EE0 /* GuestCollectionViewCell.swift */; };
 		5CCA903E1A86F90800C14EE0 /* TextHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA903D1A86F90800C14EE0 /* TextHeaderCollectionReusableView.swift */; };
@@ -118,6 +121,7 @@
 		5C317A971A916F6600E668F5 /* DoubleTree_Floor2_2015.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DoubleTree_Floor2_2015.jpg; sourceTree = "<group>"; };
 		5C317A981A916F6600E668F5 /* DoubleTree_Floor22_2015.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DoubleTree_Floor22_2015.jpg; sourceTree = "<group>"; };
 		5C337F011A990C51006CAA20 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		5C3A4D551A9A48BF00562470 /* UICollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		5C4B436D19F0A19F009342C8 /* SessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
 		5C54450B19F2D3A3003CC1C3 /* SessionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
 		5C54451019F2D79B003CC1C3 /* FavoriteSessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteSessionsTableViewController.swift; sourceTree = "<group>"; };
@@ -135,7 +139,9 @@
 		5C6C31A31A75ADBD008FC08F /* GuestTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestTableViewController.swift; sourceTree = "<group>"; };
 		5C6C31AD1A75E158008FC08F /* GuestViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestViewModel.swift; sourceTree = "<group>"; };
 		5C8834031A7EB87700573DAD /* SelectedSessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSessionType.swift; sourceTree = "<group>"; };
+		5C9F66CE1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlCollectionReusableView.swift; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
+		5CBA4D431A996110003D1F60 /* StickyHeaderFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickyHeaderFlowLayout.swift; sourceTree = "<group>"; };
 		5CCA90381A86A86800C14EE0 /* GuestCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestCollectionViewController.swift; sourceTree = "<group>"; };
 		5CCA903B1A86AA5700C14EE0 /* GuestCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CCA903D1A86F90800C14EE0 /* TextHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 			children = (
 				5CCA903B1A86AA5700C14EE0 /* GuestCollectionViewCell.swift */,
 				5C204F9D1A7B33210050B793 /* GuestTableViewCell.swift */,
+				5C9F66CE1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift */,
 				5CCA90411A870A8000C14EE0 /* SessionCollectionViewCell.swift */,
 				5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */,
 				5C16947F1A6AF76C0082F197 /* SessionTableViewCell.swift */,
@@ -291,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				5C54451719F316EF003CC1C3 /* API Client */,
+				5CBA4D411A9960E6003D1F60 /* Collection View Support */,
 				5C16772E19EB6BE10097B1D3 /* Data Sources */,
 				5CDD6E941A630CA200BB2AA3 /* Delegates */,
 				5CE8FE481A6309C000D1F516 /* Extensions */,
@@ -318,6 +326,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5CBA4D411A9960E6003D1F60 /* Collection View Support */ = {
+			isa = PBXGroup;
+			children = (
+				5CBA4D431A996110003D1F60 /* StickyHeaderFlowLayout.swift */,
+			);
+			path = "Collection View Support";
+			sourceTree = "<group>";
+		};
 		5CDD6E941A630CA200BB2AA3 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +348,7 @@
 			children = (
 				5CE8FE4B1A6309F400D1F516 /* FlatMap.swift */,
 				5C3025801A746A7500ACE278 /* UIColor.swift */,
+				5C3A4D551A9A48BF00562470 /* UICollectionViewFlowLayout.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -457,6 +474,7 @@
 				5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
 				5C3025811A746A7500ACE278 /* UIColor.swift in Sources */,
 				5C54451E19F41D8A003CC1C3 /* MapsViewController.swift in Sources */,
+				5C3A4D561A9A48BF00562470 /* UICollectionViewFlowLayout.swift in Sources */,
 				5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */,
 				5CCA90401A87031500C14EE0 /* SessionCollectionViewController.swift in Sources */,
 				5C1694821A6AF83C0082F197 /* TableViewFetchedResultsControllerDelegate.swift in Sources */,
@@ -477,6 +495,8 @@
 				5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */,
 				5C337F021A990C51006CAA20 /* WebViewController.swift in Sources */,
 				5CCA903C1A86AA5700C14EE0 /* GuestCollectionViewCell.swift in Sources */,
+				5CBA4D441A996110003D1F60 /* StickyHeaderFlowLayout.swift in Sources */,
+				5C9F66CF1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift in Sources */,
 				5C204FAC1A7DB7F50050B793 /* GuestDetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
