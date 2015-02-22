@@ -28,7 +28,6 @@
 		5C54451919F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451819F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift */; };
 		5C54451E19F41D8A003CC1C3 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */; };
 		5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */; };
-		5C54452719F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5C54452619F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf */; };
 		5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452819F42E45003CC1C3 /* InformationViewController.swift */; };
 		5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37419EA143A00545FDA /* AppDelegate.swift */; };
 		5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37A19EA143A00545FDA /* Main.storyboard */; };
@@ -128,7 +127,6 @@
 		5C54451819F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetourAPIClient_Singleton.swift; sourceTree = "<group>"; };
 		5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsDataSource.swift; sourceTree = "<group>"; };
-		5C54452619F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Dijkstra on numbering EWD831.pdf"; sourceTree = "<group>"; };
 		5C54452819F42E45003CC1C3 /* InformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		5C65B36F19EA143A00545FDA /* Anime Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Detour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C65B37319EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				5C317A951A916F4E00E668F5 /* Maps */,
-				5C54452619F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -451,7 +448,6 @@
 				5C317A991A916F6600E668F5 /* DoubleTree_Floor1_2015.jpg in Resources */,
 				5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */,
 				5C65B38119EA143A00545FDA /* LaunchScreen.xib in Resources */,
-				5C54452719F420CA003CC1C3 /* Dijkstra on numbering EWD831.pdf in Resources */,
 				5C317A9B1A916F6600E668F5 /* DoubleTree_Floor22_2015.jpg in Resources */,
 				5C317A9A1A916F6600E668F5 /* DoubleTree_Floor2_2015.jpg in Resources */,
 				5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */,
