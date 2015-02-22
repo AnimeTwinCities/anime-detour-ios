@@ -174,6 +174,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let textHeaderAppearanceProxy = TextHeaderCollectionReusableView.appearance()
         textHeaderAppearanceProxy.backgroundColor = mainColor
         textHeaderAppearanceProxy.tintColor = secondaryColor
+
+        let segmentedControlHeaderAppearanceProxy = SegmentedControlCollectionReusableView.appearance()
+        segmentedControlHeaderAppearanceProxy.backgroundColor = mainColor
+        segmentedControlHeaderAppearanceProxy.tintColor = secondaryColor
     }
 }
 

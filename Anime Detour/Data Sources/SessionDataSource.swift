@@ -104,7 +104,7 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionElementKindSectionHeader:
-            let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: self.sectionHeaderIdentifier, forIndexPath: indexPath) as TextHeaderCollectionReusableView
+            let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: self.sectionHeaderIdentifier, forIndexPath: indexPath) as TextHeaderCollectionReusableView
             header.titleLabel.text = self.headerText(forSection: indexPath.section)
             return header
         default:

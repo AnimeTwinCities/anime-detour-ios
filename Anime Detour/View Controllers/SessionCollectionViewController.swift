@@ -103,12 +103,20 @@ class SessionCollectionViewController: UICollectionViewController {
     lazy private var dataSource: SessionDataSource = SessionDataSource(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
 
     // MARK: Day indicator
-    lazy private var dayScroller: SessionDayScroller = SessionDayScroller(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, targetView: .CollectionView(self.collectionView!), daySegmentedControl: self.daySegmentedControl)
+    lazy private var dayScroller: SessionDayScroller = SessionDayScroller(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, targetView: .CollectionView(self.collectionView!))
     private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
 
     // MARK: Controls
 
-    @IBOutlet var daySegmentedControl: UISegmentedControl?
+    @IBOutlet var daySegmentedControl: UISegmentedControl? {
+        didSet {
+            self.dayScroller.daySegmentedControl = self.daySegmentedControl
+        }
+    }
+
+    // MARK: Reuse identifiers
+
+    private var dayControlHeaderReuseIdentifier: String = "dayControlHeaderReuseIdentifier"
     
     // MARK: Segue identifiers
     
@@ -119,12 +127,16 @@ class SessionCollectionViewController: UICollectionViewController {
 
     private var lastDisplayedTraitCollection: UITraitCollection!
 
-    // MARK: View controller
+    // MARK: - View controller
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Sessions"
+
+        self.collectionView?.registerClass(SegmentedControlCollectionReusableView.self, forSupplementaryViewOfKind: StickyHeaderFlowLayout.StickyHeaderElementKind, withReuseIdentifier: self.dayControlHeaderReuseIdentifier)
+
+        self.updateStickyHeaderLayoutTopOffset()
 
         self.dataSource.prepareCollectionView(self.collectionView!)
         self.fetchedResultsControllerDelegate.customizer = self.dataSource
@@ -136,7 +148,8 @@ class SessionCollectionViewController: UICollectionViewController {
             NSLog("Error fetching sessions: %@", error)
         }
 
-        self.setFlowLayoutCellSizes(self.collectionView!)
+        let collectionView = self.collectionView!
+        self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
         self.lastDisplayedTraitCollection = self.traitCollection
     }
 
@@ -144,25 +157,35 @@ class SessionCollectionViewController: UICollectionViewController {
         super.viewWillAppear(animated)
 
         if self.traitCollection != self.lastDisplayedTraitCollection {
-            self.setFlowLayoutCellSizes(self.collectionView!)
+            let collectionView = self.collectionView!
+            self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
             self.lastDisplayedTraitCollection = self.traitCollection
         }
     }
 
-    override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        // Update sizes in `willAnimateRotationToInterfaceOrientation...` so the collection view's
-        // frame is already updated.
-        self.setFlowLayoutCellSizes(self.collectionView!)
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        let collectionView = self.collectionView!
+        self.setFlowLayoutCellSizes(collectionView, forLayoutSize: size)
+
         self.lastDisplayedTraitCollection = self.traitCollection
     }
 
-    /// Update the sizes of our collection view cells based on the view's trait collection.
-    private func setFlowLayoutCellSizes(collectionView: UICollectionView) {
+    // MARK: - Collection view layout support
+
+    /// Update the top offset for our layout, if it is a `StickyHeaderFlowLayout`.
+    private func updateStickyHeaderLayoutTopOffset() {
+        if let stickyHeaderLayout = self.collectionViewLayout as? StickyHeaderFlowLayout {
+            stickyHeaderLayout.headerTopOffset = self.topLayoutGuide.length
+        }
+    }
+
+    /// Update the sizes of our collection view items based on the view's trait collection.
+    private func setFlowLayoutCellSizes(collectionView: UICollectionView, forLayoutSize layoutSize: CGSize) {
         let layout = collectionView.collectionViewLayout as UICollectionViewFlowLayout
         let horizontalSpacing = layout.minimumInteritemSpacing
 
         let traitCollection = collectionView.traitCollection
-        let viewWidth = collectionView.frame.width
+        let viewWidth = layoutSize.width
 
         var itemSize = layout.itemSize
 
@@ -180,7 +203,7 @@ class SessionCollectionViewController: UICollectionViewController {
         layout.itemSize = itemSize
     }
 
-    // MARK: Filtering
+    // MARK: - Filtering
 
     func filteredTitle(filteredSessionType: SelectedSessionType) -> String {
         let unfilteredTitle = "Sessions"
@@ -238,7 +261,7 @@ class SessionCollectionViewController: UICollectionViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return self.dataSource.numberOfSectionsInCollectionView(collectionView)
@@ -255,11 +278,19 @@ class SessionCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let view = self.dataSource.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
-        return view
+        if kind == StickyHeaderFlowLayout.StickyHeaderElementKind {
+            // handle the sticky header ourselves
+            let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: self.dayControlHeaderReuseIdentifier, forIndexPath: indexPath) as SegmentedControlCollectionReusableView
+            self.daySegmentedControl = view.segmentedControl
+
+            return view
+        } else {
+            let view = self.dataSource.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+            return view
+        }
     }
 
-    // MARK: UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
 
     override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         self.dayScroller.willDisplayItemAtIndexPath(indexPath)
@@ -275,6 +306,8 @@ class SessionCollectionViewController: UICollectionViewController {
 
 /**
 Manages scrolling to days, and indicating the day of a displayed item, using a `UISegmentedControl`.
+The `UIScrollViewDelegate` method `scrollViewDidEndScrollingAnimation` for `targetView` MUST be
+forwarded to this class for the day indicator to update correctly.
 */
 private class SessionDayScroller {
     private enum TargetView {
@@ -285,7 +318,25 @@ private class SessionDayScroller {
     private let fetchedResultsController: NSFetchedResultsController
     private let timeZone: NSTimeZone
     private let targetView: TargetView
-    private let daySegmentedControl: UISegmentedControl?
+    weak private var daySegmentedControl: UISegmentedControl? {
+        didSet {
+            // Set the names of the days on the day chooser segmented control
+            if let daysControl = self.daySegmentedControl {
+                let formatter = NSDateFormatter()
+                // The full name of the day of the week, e.g. Monday
+                formatter.dateFormat = "EEEE"
+
+                daysControl.removeAllSegments()
+                for (idx, date) in enumerate(self.days) {
+                    let title = formatter.stringFromDate(date)
+                    daysControl.insertSegmentWithTitle(title, atIndex: idx, animated: false)
+                }
+
+                daysControl.selectedSegmentIndex = 0
+                daysControl.addTarget(self, action: Selector("goToDay:"), forControlEvents: UIControlEvents.ValueChanged)
+            }
+        }
+    }
 
     /**
     Create an array of dates, set to midnight, of each day of the con.
@@ -335,24 +386,10 @@ private class SessionDayScroller {
     :param: fetchedResultsController The FRC using which the scroller will look up `Session`s and their starting times. Must return `Session`s and be sectioned on the key path `start`.
     :param: daySegmentedControl The control using which the day of the latest displayed `Session` will be indicated.
     */
-    init(fetchedResultsController: NSFetchedResultsController, timeZone: NSTimeZone, targetView: TargetView, daySegmentedControl: UISegmentedControl?) {
+    init(fetchedResultsController: NSFetchedResultsController, timeZone: NSTimeZone, targetView: TargetView) {
         self.fetchedResultsController = fetchedResultsController
         self.timeZone = timeZone
         self.targetView = targetView
-        self.daySegmentedControl = daySegmentedControl
-
-        // Set the names of the days on the day chooser segmented control
-        if let daysControl = self.daySegmentedControl {
-            daysControl.addTarget(self, action: Selector("goToDay"), forControlEvents: UIControlEvents.ValueChanged)
-
-            let formatter = NSDateFormatter()
-            // The full name of the day of the week, e.g. Monday
-            formatter.dateFormat = "EEEE"
-
-            for (idx, date) in enumerate(self.days) {
-                daysControl.setTitle(formatter.stringFromDate(date), forSegmentAtIndex: idx)
-            }
-        }
     }
 
     /**
@@ -383,12 +420,14 @@ private class SessionDayScroller {
     }
 
     /**
-    Find the index path of the first Session with a start time of `date` (or later).
+    Find the index path of the first Session with a start time of `date` (or later),
+    sorted using the sort descriptors from out `fetchedResultsController`'s fetch request.
     */
     private func indexPathOfSection(date: NSDate) -> NSIndexPath? {
+        let frc = self.fetchedResultsController
         let predicate = NSPredicate(format: "start >= %@", argumentArray: [date])
         let moc = self.fetchedResultsController.managedObjectContext
-        let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true)]
+        let sortDescriptors = frc.fetchRequest.sortDescriptors
         let fetchRequest = NSFetchRequest()
         fetchRequest.entity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: moc)
         fetchRequest.predicate = predicate
@@ -425,7 +464,16 @@ private class SessionDayScroller {
             self.scrollingToDay = true
             switch self.targetView {
             case let .CollectionView(cv):
-                fatalError("Collection view support not yet implemented")
+                if let flowLayout = cv.collectionViewLayout as? UICollectionViewFlowLayout {
+                    // Not animated, so we're not 'scrolling'
+                    self.scrollingToDay = false
+                    let yCoordOfFirstView = flowLayout.yCoordinateForFirstItemInSection(indexPath.section)
+                    var offset = cv.contentOffset
+                    offset.y = yCoordOfFirstView
+                    cv.contentOffset = offset
+                } else {
+                    cv.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+                }
             case let .TableView(tv):
                 tv.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
             }
