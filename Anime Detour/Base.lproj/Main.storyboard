@@ -10,7 +10,7 @@
         <scene sceneID="BuY-0b-6dE">
             <objects>
                 <navigationController id="1u1-vH-8X9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Sessions" image="first" id="Ekl-6e-FaS"/>
+                    <tabBarItem key="tabBarItem" title="Sessions" image="tab_bar_list" id="Ekl-6e-FaS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b5l-Fa-2yX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -209,11 +209,11 @@
             </objects>
             <point key="canvasLocation" x="1589" y="-1023"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Favorites-->
         <scene sceneID="7I6-Gr-0bI">
             <objects>
                 <navigationController id="yR4-12-7LC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="YMU-Ac-gvU"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="tab_bar_favorite" id="YMU-Ac-gvU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="How-05-mZK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -318,7 +318,7 @@
         <scene sceneID="qxZ-oI-Dx3">
             <objects>
                 <navigationController id="RAn-QC-37A" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Guests" id="Yhh-r7-8JD"/>
+                    <tabBarItem key="tabBarItem" title="Guests" image="tab_bar_guests" id="Yhh-r7-8JD"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qBk-4u-wRe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -505,7 +505,7 @@
         <scene sceneID="35N-ZD-eol">
             <objects>
                 <navigationController id="Yl9-Dc-0A2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Maps" image="second" id="IAf-6C-gkZ"/>
+                    <tabBarItem key="tabBarItem" title="Maps" image="tab_bar_map" id="IAf-6C-gkZ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vNW-DR-L4M">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -715,7 +715,7 @@
         <scene sceneID="WDH-vh-9NN">
             <objects>
                 <navigationController id="Eb5-YW-TUk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Info" id="LG7-Yu-lTK"/>
+                    <tabBarItem key="tabBarItem" title="Info" image="tab_bar_info" id="LG7-Yu-lTK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KUG-sk-BNm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -938,9 +938,13 @@
     <resources>
         <image name="AD-Header-Logo-375" width="375" height="197"/>
         <image name="disclosure_indicator" width="8" height="14"/>
-        <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
         <image name="star" width="40" height="37"/>
+        <image name="tab_bar_favorite" width="24" height="24"/>
+        <image name="tab_bar_guests" width="24" height="24"/>
+        <image name="tab_bar_info" width="24" height="24"/>
+        <image name="tab_bar_list" width="24" height="24"/>
+        <image name="tab_bar_map" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="S72-2p-Jpg"/>
