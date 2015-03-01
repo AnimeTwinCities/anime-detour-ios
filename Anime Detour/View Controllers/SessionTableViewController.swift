@@ -12,21 +12,60 @@ import UIKit
 
 import AnimeDetourAPI
 
-class FavoriteSessionsTableViewController: UITableViewController {
+class SessionTableViewController: UITableViewController, UISearchResultsUpdating {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy var coreDataController = CoreDataController.sharedInstance
+
+    @IBInspectable var bookmarkedOnly: Bool = false {
+        didSet {
+            if !self.bookmarkedOnly {
+                self.title = "Search"
+            }
+        }
+    }
+
+    @IBOutlet var defaultRightBarButtonItem: UIBarButtonItem?
+
+    // MARK: Fetch Predicate
+
+    var searchPredicate: NSPredicate? {
+        didSet {
+            if let frc = self.fetchedResultsController {
+                let request = frc.fetchRequest
+                request.predicate = self.completePredicate
+
+                var error: NSError?
+                frc.performFetch(&error)
+
+                self.tableView.reloadData()
+            }
+        }
+    }
+
+    var completePredicate: NSPredicate? {
+        var predicates: [NSPredicate] = []
+        if let bookmarkPredicate = self.bookmarkedOnly ? NSPredicate(format: "bookmarked == YES") : nil {
+            predicates.append(bookmarkPredicate)
+        }
+
+        if let searchPredicate = self.searchPredicate {
+            predicates.append(searchPredicate)
+        }
+
+        if predicates.count == 0 {
+            return nil
+        } else {
+            let compound = NSCompoundPredicate.andPredicateWithSubpredicates(predicates)
+            return compound
+        }
+    }
 
     // MARK: Core Data
 
     private var managedObjectContext: NSManagedObjectContext { return self.coreDataController.managedObjectContext }
 
-    /// Fetched results controller over `SessionBookmark`s.
-    lazy private var fetchedResultsController: NSFetchedResultsController = {
-        let sessionsFetchRequest = self.bookmarksFetchRequest
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
-        fetchedResultsController.delegate = self.fetchedResultsControllerDelegate
-        return fetchedResultsController
-    }()
+    /// Fetched results controller over `Session`s.
+    private var fetchedResultsController: NSFetchedResultsController?
 
     lazy private var fetchedResultsControllerDelegate: TableViewFetchedResultsControllerDelegate = {
         let delegate = TableViewFetchedResultsControllerDelegate()
@@ -37,9 +76,9 @@ class FavoriteSessionsTableViewController: UITableViewController {
     /**
     Fetch request for all SessionBookmarks, sorted by the `Session`'s ID. Creates a new fetch request on every access.
     */
-    private var bookmarksFetchRequest: NSFetchRequest {
+    private var sessionsFetchRequest: NSFetchRequest {
         get {
-            let predicate = NSPredicate(format: "bookmarked == true")
+            let predicate = self.completePredicate
             let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
             let sessionsFetchRequest = NSFetchRequest(entityName: Session.entityName)
             sessionsFetchRequest.predicate = predicate
@@ -48,15 +87,30 @@ class FavoriteSessionsTableViewController: UITableViewController {
         }
     }
 
+    // MARK: Search
+
+    lazy var searchController: UISearchController = {
+        let controller = UISearchController(searchResultsController: nil)
+        controller.dimsBackgroundDuringPresentation = false
+        controller.hidesNavigationBarDuringPresentation = false
+        controller.searchResultsUpdater = self
+
+        return controller
+    }()
+
+    private var lastSearchText: String?
+
     // MARK: Table view
 
     /**
     Table view data source that we call through to from our data
     source methods.
     */
-    lazy private var dataSource: SessionDataSource! = SessionDataSource(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
+    lazy private var dataSource: SessionDataSource! = SessionDataSource(fetchedResultsController: self.fetchedResultsController!, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
 
     private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
+
+    private var selectedCellIndex: NSIndexPath?
 
     // MARK: Editing
 
@@ -85,7 +139,10 @@ class FavoriteSessionsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let frc = self.fetchedResultsController
+        let sessionsFetchRequest = self.sessionsFetchRequest
+        let frc = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
+        frc.delegate = self.fetchedResultsControllerDelegate
+        self.fetchedResultsController = frc
 
         self.dataSource.prepareTableView(self.tableView)
 
@@ -94,6 +151,18 @@ class FavoriteSessionsTableViewController: UITableViewController {
         if let error = fetchError {
             NSLog("Error fetching sessions: %@", error)
         }
+
+        self.navigationItem.rightBarButtonItem = self.defaultRightBarButtonItem
+
+        let searchBar = self.searchController.searchBar
+        searchBar.sizeToFit()
+        self.tableView.tableHeaderView = searchBar
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.searchController.searchBar.text = self.lastSearchText
     }
 
     // MARK: - Table View Data Source
@@ -110,33 +179,22 @@ class FavoriteSessionsTableViewController: UITableViewController {
         return self.dataSource.tableView(tableView, cellForRowAtIndexPath: indexPath)
     }
 
-    // MARK: - Editing
+    // MARK: - Search Results Updating
 
-    @IBAction func toggleEditing(sender: AnyObject?) {
-        let isEditing = !self.tableView.editing
-        self.tableView.setEditing(isEditing, animated: true)
-
-        let navItem = self.navigationItem
-        if isEditing {
-            navItem.leftBarButtonItem = self.unfavoriteButton
-            navItem.rightBarButtonItem = self.doneButton
-        } else {
-            navItem.leftBarButtonItem = nil
-            navItem.rightBarButtonItem = self.editButton
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        if searchController.active == false {
+            return
         }
-    }
+        
+        let searchText = searchController.searchBar.text
+        self.lastSearchText = searchText
 
-    @IBAction func removeFavorites() {
-        let selectedIndexPaths = self.tableView.indexPathsForSelectedRows()
-        let selectedObjects = selectedIndexPaths?.map { return $0 as NSIndexPath }.map(self.fetchedResultsController.objectAtIndexPath)
-        if let selectedSessions =  selectedObjects as? [Session] {
-            let moc = self.managedObjectContext
-            for session in selectedSessions {
-                session.bookmarked = false
-            }
-
-            moc.save(nil)
+        var searchPredicate: NSPredicate?
+        if countElements(searchText) != 0 {
+            // Case- and diacritic-insensitive searching
+            searchPredicate = NSPredicate(format: "name CONTAINS[cd] %@", searchText)
         }
+        self.searchPredicate = searchPredicate
     }
 
     // MARK: - Navigation
@@ -144,6 +202,11 @@ class FavoriteSessionsTableViewController: UITableViewController {
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         switch(identifier) {
         case .Some(self.detailIdentifier):
+            // Get the selected index path
+            if let cell = sender as? UITableViewCell {
+                self.selectedCellIndex = self.tableView.indexPathForCell(cell)
+            }
+
             // Block the detail segue while in editing mode
             return !self.tableView.editing
         default:
@@ -153,11 +216,14 @@ class FavoriteSessionsTableViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        self.searchController.active = false
+
         switch (segue.identifier) {
         case .Some(self.detailIdentifier):
             let detailVC = segue.destinationViewController as SessionViewController
-            let selectedSession = self.tableView.indexPathForSelectedRow().map(self.dataSource.session)
-            detailVC.session = selectedSession!
+            let selectedIndexPath = self.selectedCellIndex!
+            let selectedSession = self.dataSource.session(selectedIndexPath)
+            detailVC.session = selectedSession
         default:
             // Segues we don't know about are fine.
             break

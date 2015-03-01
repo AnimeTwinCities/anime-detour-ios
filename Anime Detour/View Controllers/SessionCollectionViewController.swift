@@ -122,6 +122,7 @@ class SessionCollectionViewController: UICollectionViewController {
     
     @IBInspectable var detailSegueIdentifier: String!
     @IBInspectable var filterSegueIdentifier: String!
+    @IBInspectable var searchSegueIdentifier: String!
 
     // MARK: Collection view sizing
 
@@ -248,6 +249,13 @@ class SessionCollectionViewController: UICollectionViewController {
 
                 return []
                 }()
+        case .Some(self.searchSegueIdentifier):
+            let navController = segue.destinationViewController as UINavigationController
+            let searchVC = navController.topViewController as SessionTableViewController
+            searchVC.bookmarkedOnly = false
+
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("dismissSearchView"))
+            searchVC.defaultRightBarButtonItem = doneButton
         default:
             // Segues we don't know about are fine.
             break
@@ -258,6 +266,10 @@ class SessionCollectionViewController: UICollectionViewController {
         let filterVC = segue.sourceViewController as SessionFilterTableViewController
         self.filteredType = filterVC.selectedType
 
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    @objc private func dismissSearchView() {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 

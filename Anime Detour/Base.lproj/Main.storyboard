@@ -192,17 +192,23 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="mci-dT-eIf">
-                        <barButtonItem key="rightBarButtonItem" title="Filter" id="OPw-vQ-Nhh">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="OPw-vQ-Nhh">
                             <connections>
                                 <segue destination="API-Hz-EWN" kind="popoverPresentation" identifier="FilterSessions" popoverAnchorBarButtonItem="OPw-vQ-Nhh" id="zgA-tJ-jJP">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="sCT-ca-y18">
+                            <connections>
+                                <segue destination="yR4-12-7LC" kind="presentation" identifier="SearchSessions" id="FFF-d5-6gs"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="detailSegueIdentifier" value="SessionDetail"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="filterSegueIdentifier" value="FilterSessions"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="searchSegueIdentifier" value="SearchSessions"/>
                     </userDefinedRuntimeAttributes>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zve-7b-l3Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -731,7 +737,7 @@
         <!--Favorite Sessions-->
         <scene sceneID="u1H-9n-uJu">
             <objects>
-                <tableViewController title="Favorite Sessions" id="Wu9-mr-dnm" customClass="FavoriteSessionsTableViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Favorite Sessions" id="Wu9-mr-dnm" customClass="SessionTableViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="Uk9-ij-gwU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -799,20 +805,15 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Favorite Sessions" id="RQL-cG-YJa">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="feB-bj-3XR">
-                            <connections>
-                                <action selector="toggleEditing:" destination="Wu9-mr-dnm" id="g9g-mj-HK3"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Favorite Sessions" id="RQL-cG-YJa"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="detailIdentifier" value="BookmarkedSessionDetail"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="bookmarkedOnly" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qar-C8-uio" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1585" y="-328"/>
+            <point key="canvasLocation" x="1589" y="-327"/>
         </scene>
         <!--Guests-->
         <scene sceneID="Kd0-tp-l4i">
@@ -948,6 +949,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="S72-2p-Jpg"/>
-        <segue reference="zoD-Tj-VZw"/>
+        <segue reference="FFF-d5-6gs"/>
+        <segue reference="daU-IO-r5E"/>
     </inferredMetricsTieBreakers>
 </document>
