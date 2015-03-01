@@ -176,7 +176,12 @@ class SessionCollectionViewController: UICollectionViewController {
     /// Update the top offset for our layout, if it is a `StickyHeaderFlowLayout`.
     private func updateStickyHeaderLayoutTopOffset() {
         if let stickyHeaderLayout = self.collectionViewLayout as? StickyHeaderFlowLayout {
-            stickyHeaderLayout.headerTopOffset = self.topLayoutGuide.length
+            // topLayoutGuide doesn't work for our purposes with a translucent navigation bar
+            if self.navigationController?.navigationBar.translucent ?? false {
+                stickyHeaderLayout.headerTopOffset = self.navigationController!.navigationBar.frame.maxY
+            } else {
+                stickyHeaderLayout.headerTopOffset = self.topLayoutGuide.length
+            }
         }
     }
 

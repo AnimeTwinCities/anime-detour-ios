@@ -27,7 +27,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
                 return
             }
 
-            let invalidationContext = UICollectionViewLayoutInvalidationContext()
+            let invalidationContext = self.invalidationContextForBoundsChange(self.collectionView?.bounds ?? CGRect.zeroRect)
             self.setStickyHeaderInvalid(invalidationContext)
             self.invalidateLayoutWithContext(invalidationContext)
         }
