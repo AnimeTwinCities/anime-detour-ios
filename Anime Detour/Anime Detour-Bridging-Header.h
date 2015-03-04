@@ -4,3 +4,5 @@
 
 // Google Analytics
 #import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"

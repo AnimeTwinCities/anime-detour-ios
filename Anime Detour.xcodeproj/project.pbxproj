@@ -44,6 +44,7 @@
 		5C89A4581AA69DCC0051FF52 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C89A4571AA69DCC0051FF52 /* libz.dylib */; };
 		5C89A45B1AA69E010051FF52 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C89A45A1AA69E010051FF52 /* CoreData.framework */; };
 		5C89A45D1AA69E060051FF52 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C89A45C1AA69E060051FF52 /* libsqlite3.dylib */; };
+		5C89A4631AA6A77E0051FF52 /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C89A4621AA6A77E0051FF52 /* AnalyticsConstants.swift */; };
 		5C9F66CF1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F66CE1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift */; };
 		5CBA4D441A996110003D1F60 /* StickyHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBA4D431A996110003D1F60 /* StickyHeaderFlowLayout.swift */; };
 		5CCA90391A86A86800C14EE0 /* GuestCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA90381A86A86800C14EE0 /* GuestCollectionViewController.swift */; };
@@ -161,6 +162,7 @@
 		5C89A4571AA69DCC0051FF52 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5C89A45A1AA69E010051FF52 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5C89A45C1AA69E060051FF52 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		5C89A4621AA6A77E0051FF52 /* AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
 		5C9F66CE1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlCollectionReusableView.swift; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CBA4D431A996110003D1F60 /* StickyHeaderFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickyHeaderFlowLayout.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				5C16772B19EB6B8E0097B1D3 /* Views */,
 				5C54452519F420AB003CC1C3 /* Resources */,
 				5C65B37419EA143A00545FDA /* AppDelegate.swift */,
+				5C89A4621AA6A77E0051FF52 /* AnalyticsConstants.swift */,
 				5C65B37A19EA143A00545FDA /* Main.storyboard */,
 				5C65B37D19EA143A00545FDA /* Images.xcassets */,
 				5C65B37F19EA143A00545FDA /* LaunchScreen.xib */,
@@ -549,6 +552,7 @@
 				5C54450C19F2D3A3003CC1C3 /* SessionView.swift in Sources */,
 				5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
 				5C3025811A746A7500ACE278 /* UIColor.swift in Sources */,
+				5C89A4631AA6A77E0051FF52 /* AnalyticsConstants.swift in Sources */,
 				5C54451E19F41D8A003CC1C3 /* MapsViewController.swift in Sources */,
 				5C3A4D561A9A48BF00562470 /* UICollectionViewFlowLayout.swift in Sources */,
 				5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */,
@@ -705,6 +709,7 @@
 					"$(PROJECT_DIR)/Anime\\ Detour",
 					"$(PROJECT_DIR)/Anime\\ Detour/Vendor",
 				);
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime Detour-Bridging-Header.h";
