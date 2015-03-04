@@ -176,6 +176,8 @@ class SessionViewModel {
         let bookmarked = self.bookmarked
         self.session.bookmarked = !bookmarked
 
+        self.session.managedObjectContext?.save(nil)
+
         self.delegate?.bookmarkImageChanged(self.bookmarkImage, accessibilityLabel: self.bookmarkAccessibilityLabel)
     }
 }
