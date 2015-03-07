@@ -174,9 +174,20 @@ class SessionViewModel {
 
     func toggleBookmarked() {
         let bookmarked = self.bookmarked
-        self.session.bookmarked = !bookmarked
 
-        self.session.managedObjectContext?.save(nil)
+        let session = self.session
+        session.bookmarked = !bookmarked
+        session.managedObjectContext?.save(nil)
+
+        if let analytics = GAI.sharedInstance().defaultTracker? {
+            var dict: [NSObject:AnyObject]
+            if bookmarked {
+                dict = GAIDictionaryBuilder.createEventWithCategory("Event", action: "Favorite", label: session.name, value: nil).build()
+            } else {
+                dict = GAIDictionaryBuilder.createEventWithCategory("Event", action: "Unfavorite", label: session.name, value: nil).build()
+            }
+            analytics.send(dict)
+        }
 
         self.delegate?.bookmarkImageChanged(self.bookmarkImage, accessibilityLabel: self.bookmarkAccessibilityLabel)
     }

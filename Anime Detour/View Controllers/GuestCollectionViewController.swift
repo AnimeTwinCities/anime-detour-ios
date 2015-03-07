@@ -70,6 +70,12 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        if let analytics = GAI.sharedInstance().defaultTracker? {
+            analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Guests)
+            let dict = GAIDictionaryBuilder.createScreenView().build()
+            analytics.send(dict)
+        }
+
         if self.traitCollection != self.lastDisplayedTraitCollection {
             self.setFlowLayoutCellSizes(self.collectionView!)
             self.lastDisplayedTraitCollection = self.traitCollection
@@ -146,12 +152,17 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let analytics = GAI.sharedInstance().defaultTracker?
+
         switch (segue.identifier) {
         case .Some(self.detailIdentifier):
             let cell = sender as GuestCollectionViewCell
-            let guestViewModel = cell.viewModel
+            let guestViewModel = cell.viewModel!
             let guestVC = segue.destinationViewController as GuestDetailTableViewController
             guestVC.guestViewModel = guestViewModel
+
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Screen.Guests, action: AnalyticsConstants.Actions.ViewDetails, label: guestViewModel.name, value: nil).build()
+            analytics?.send(dict)
         default:
             fatalError("Unexpected segue encountered.")
         }

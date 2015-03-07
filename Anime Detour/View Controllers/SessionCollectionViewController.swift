@@ -157,6 +157,12 @@ class SessionCollectionViewController: UICollectionViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        if let analytics = GAI.sharedInstance().defaultTracker? {
+            analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Schedule)
+            let dict = GAIDictionaryBuilder.createScreenView().build()
+            analytics.send(dict)
+        }
+        
         if self.traitCollection != self.lastDisplayedTraitCollection {
             let collectionView = self.collectionView!
             self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
@@ -224,11 +230,16 @@ class SessionCollectionViewController: UICollectionViewController {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let analytics = GAI.sharedInstance().defaultTracker?
+
         switch (segue.identifier) {
         case .Some(self.detailSegueIdentifier):
             let detailVC = segue.destinationViewController as SessionViewController
-            let selectedSession = (self.collectionView?.indexPathsForSelectedItems().first as? NSIndexPath).map(self.dataSource.session)
-            detailVC.session = selectedSession!
+            let selectedSession = (self.collectionView?.indexPathsForSelectedItems().first as? NSIndexPath).map(self.dataSource.session)!
+            detailVC.session = selectedSession
+
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Screen.Schedule, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build()
+            analytics?.send(dict)
         case .Some(self.filterSegueIdentifier):
             let navController = segue.destinationViewController as UINavigationController
             let filterVC = navController.topViewController as SessionFilterTableViewController

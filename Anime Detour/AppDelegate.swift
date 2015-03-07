@@ -33,6 +33,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.setColors(application)
 
+        #if DEBUG
+            // no analytics
+        #else
+            let analytics = GAI.sharedInstance()
+            analytics.dispatchInterval = 30 // seconds
+            if let file = NSBundle.mainBundle().pathForResource("GoogleAnalyticsConfiguration", ofType: "plist") {
+                if let analyticsDictionary = NSDictionary(contentsOfFile: file) {
+                    if let analyticsID = analyticsDictionary["analyticsID"] as? String {
+                        analytics.trackerWithTrackingId(analyticsID)
+                    }
+                }
+            }
+        #endif
+
         let guestsFetchRequiredKey = "guestsFetchRequiredKey"
         let sessionsFetchRequiredKey = "sessionsFetchRequiredKey"
         let lastGuestsClearDateKey = "lastGuestsClearDateKey"

@@ -41,4 +41,14 @@ class MapsViewController: UIViewController {
 
         previewController.currentPreviewItemIndex = 0
     }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let analytics = GAI.sharedInstance().defaultTracker? {
+            analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Map)
+            let dict = GAIDictionaryBuilder.createScreenView().build()
+            analytics.send(dict)
+        }
+    }
 }

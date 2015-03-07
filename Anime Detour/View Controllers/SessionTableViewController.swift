@@ -162,6 +162,16 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        if let analytics = GAI.sharedInstance().defaultTracker? {
+            if self.bookmarkedOnly {
+                analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Favorites)
+            } else {
+                analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.ScheduleSearch)
+            }
+            let dict = GAIDictionaryBuilder.createScreenView().build()
+            analytics.send(dict)
+        }
+
         self.searchController.searchBar.text = self.lastSearchText
     }
 
@@ -217,6 +227,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         self.searchController.active = false
+        let analytics = GAI.sharedInstance().defaultTracker?
 
         switch (segue.identifier) {
         case .Some(self.detailIdentifier):
@@ -224,6 +235,9 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
             let selectedIndexPath = self.selectedCellIndex!
             let selectedSession = self.dataSource.session(selectedIndexPath)
             detailVC.session = selectedSession
+
+            let dict = GAIDictionaryBuilder.createEventWithCategory("Event", action: "View Details", label: selectedSession.name, value: nil).build()
+            analytics?.send(dict)
         default:
             // Segues we don't know about are fine.
             break
