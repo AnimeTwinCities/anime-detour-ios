@@ -8,7 +8,7 @@ The app is written in Swift 1.1. Xcode 6.1.1 or Xcode 6.2 is required to compile
 
 ## Analytics
 
-The app uses Google Analytics. To get started, copy `GoogleAnalyticsConfiguration.plist.dist`, rename it to `GoogleAnalyticsConfiguration.plist`, and set your Google Analytics tracking ID.
+The app uses Google Analytics. To get started, copy `GoogleAnalyticsConfiguration.plist.dist`, rename it to `GoogleAnalyticsConfiguration.plist`, and set your Google Analytics tracking ID. To run the app without analytics, remove the `GoogleAnalyticsConfiguration.plist` item from the project in Xcode. Analytics are not tracked in the Debug configuration.
 
 ## License
 
