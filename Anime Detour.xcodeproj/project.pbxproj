@@ -16,7 +16,6 @@
 		5C204FA51A7D6BC90050B793 /* SessionFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C204FA41A7D6BC90050B793 /* SessionFilterTableViewController.swift */; };
 		5C204FAC1A7DB7F50050B793 /* GuestDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C204FAB1A7DB7F50050B793 /* GuestDetailTableViewController.swift */; };
 		5C3025811A746A7500ACE278 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3025801A746A7500ACE278 /* UIColor.swift */; };
-		5C3025891A74939F00ACE278 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1694891A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C317A991A916F6600E668F5 /* DoubleTree_Floor1_2015.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C317A961A916F6600E668F5 /* DoubleTree_Floor1_2015.jpg */; };
 		5C317A9A1A916F6600E668F5 /* DoubleTree_Floor2_2015.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C317A971A916F6600E668F5 /* DoubleTree_Floor2_2015.jpg */; };
 		5C317A9B1A916F6600E668F5 /* DoubleTree_Floor22_2015.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C317A981A916F6600E668F5 /* DoubleTree_Floor22_2015.jpg */; };
@@ -58,27 +57,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5C1694881A6CA8780082F197 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5C1694831A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5C9058E319FDCF3200E23961;
-			remoteInfo = FLCLFilmstripsCollectionLayout;
-		};
-		5C16948A1A6CA8780082F197 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5C1694831A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5C9058EE19FDCF3200E23961;
-			remoteInfo = FLCLFilmstripsCollectionLayoutTests;
-		};
-		5C3025841A74939700ACE278 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5C1694831A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 5C9058E219FDCF3200E23961;
-			remoteInfo = FLCLFilmstripsCollectionLayout;
-		};
 		5C3025B51A759EB000ACE278 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */;
@@ -102,7 +80,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5C3025891A74939F00ACE278 /* FLCLFilmstripsCollectionLayout.framework in Copy Frameworks */,
 				5C6C31981A75A312008FC08F /* AnimeDetourAPI.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -115,7 +92,6 @@
 		5C16772819EB6B720097B1D3 /* SessionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		5C16947F1A6AF76C0082F197 /* SessionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewCell.swift; sourceTree = "<group>"; };
 		5C1694811A6AF83C0082F197 /* TableViewFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
-		5C1694831A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FLCLFilmstripsCollectionLayout.xcodeproj; path = FilmstripsCollectionLayout/FLCLFilmstripsCollectionLayout.xcodeproj; sourceTree = "<group>"; };
 		5C16948C1A6CB6880082F197 /* SessionDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDataSource.swift; sourceTree = "<group>"; };
 		5C204F9D1A7B33210050B793 /* GuestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestTableViewCell.swift; sourceTree = "<group>"; };
 		5C204FA41A7D6BC90050B793 /* SessionFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionFilterTableViewController.swift; sourceTree = "<group>"; };
@@ -232,15 +208,6 @@
 			path = "Data Sources";
 			sourceTree = "<group>";
 		};
-		5C1694841A6CA8780082F197 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5C1694891A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.framework */,
-				5C16948B1A6CA8780082F197 /* FLCLFilmstripsCollectionLayoutTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		5C3025B11A759EAF00ACE278 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,7 +275,6 @@
 				5C89A4591AA69DF10051FF52 /* Libraries */,
 				5C65B37019EA143A00545FDA /* Products */,
 				5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */,
-				5C1694831A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -444,7 +410,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5C3025851A74939700ACE278 /* PBXTargetDependency */,
 				5C6C319A1A75A312008FC08F /* PBXTargetDependency */,
 			);
 			name = "Anime Detour";
@@ -483,10 +448,6 @@
 					ProductGroup = 5C3025B11A759EAF00ACE278 /* Products */;
 					ProjectRef = 5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */;
 				},
-				{
-					ProductGroup = 5C1694841A6CA8780082F197 /* Products */;
-					ProjectRef = 5C1694831A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -496,20 +457,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		5C1694891A6CA8780082F197 /* FLCLFilmstripsCollectionLayout.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = FLCLFilmstripsCollectionLayout.framework;
-			remoteRef = 5C1694881A6CA8780082F197 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5C16948B1A6CA8780082F197 /* FLCLFilmstripsCollectionLayoutTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = FLCLFilmstripsCollectionLayoutTests.xctest;
-			remoteRef = 5C16948A1A6CA8780082F197 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		5C3025B61A759EB000ACE278 /* AnimeDetourAPI.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -580,11 +527,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5C3025851A74939700ACE278 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FLCLFilmstripsCollectionLayout;
-			targetProxy = 5C3025841A74939700ACE278 /* PBXContainerItemProxy */;
-		};
 		5C6C319A1A75A312008FC08F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AnimeDetourAPI;
