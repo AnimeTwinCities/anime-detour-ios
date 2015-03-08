@@ -27,7 +27,6 @@
 		5C54451119F2D79B003CC1C3 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451019F2D79B003CC1C3 /* SessionTableViewController.swift */; };
 		5C54451919F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451819F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift */; };
 		5C54451E19F41D8A003CC1C3 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */; };
-		5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */; };
 		5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54452819F42E45003CC1C3 /* InformationViewController.swift */; };
 		5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37419EA143A00545FDA /* AppDelegate.swift */; };
 		5C65B37C19EA143A00545FDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C65B37A19EA143A00545FDA /* Main.storyboard */; };
@@ -133,7 +132,6 @@
 		5C54451019F2D79B003CC1C3 /* SessionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
 		5C54451819F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetourAPIClient_Singleton.swift; sourceTree = "<group>"; };
 		5C54451D19F41D8A003CC1C3 /* MapsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
-		5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsDataSource.swift; sourceTree = "<group>"; };
 		5C54452819F42E45003CC1C3 /* InformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		5C65B36F19EA143A00545FDA /* Anime Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Detour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C65B37319EA143A00545FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 		5C16772E19EB6BE10097B1D3 /* Data Sources */ = {
 			isa = PBXGroup;
 			children = (
-				5C54452019F41E6D003CC1C3 /* MapsDataSource.swift */,
 				5C16948C1A6CB6880082F197 /* SessionDataSource.swift */,
 			);
 			path = "Data Sources";
@@ -565,7 +562,6 @@
 				5C6C31AE1A75E158008FC08F /* GuestViewModel.swift in Sources */,
 				5CCA90421A870A8000C14EE0 /* SessionCollectionViewCell.swift in Sources */,
 				5C0EF2DD19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */,
-				5C54452119F41E6D003CC1C3 /* MapsDataSource.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
 				5C6C31A41A75ADBD008FC08F /* GuestTableViewController.swift in Sources */,
 				5CCA903E1A86F90800C14EE0 /* TextHeaderCollectionReusableView.swift in Sources */,

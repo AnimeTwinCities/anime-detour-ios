@@ -337,25 +337,6 @@
             </objects>
             <point key="canvasLocation" x="882" y="353"/>
         </scene>
-        <!--Maps-->
-        <scene sceneID="Rpf-B4-LlJ">
-            <objects>
-                <viewController title="Maps" id="f6K-9H-ULo" customClass="MapsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Udh-lH-IFq"/>
-                        <viewControllerLayoutGuide type="bottom" id="bsv-w8-e94"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ljn-f5-zBq">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Maps" id="ez4-dV-MOB"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SSI-xb-WTq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1585" y="1075"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="lzR-xN-uF8">
             <objects>
@@ -498,7 +479,7 @@
                         <segue destination="1u1-vH-8X9" kind="relationship" relationship="viewControllers" id="ANm-pE-8R2"/>
                         <segue destination="yR4-12-7LC" kind="relationship" relationship="viewControllers" id="S3x-Wh-mrl"/>
                         <segue destination="RAn-QC-37A" kind="relationship" relationship="viewControllers" id="wnq-Ar-ZKT"/>
-                        <segue destination="Yl9-Dc-0A2" kind="relationship" relationship="viewControllers" id="TH5-iN-1Rs"/>
+                        <segue destination="Yl9-Dc-0A2" kind="relationship" relationship="viewControllers" id="XVE-go-FIR"/>
                         <segue destination="Eb5-YW-TUk" kind="relationship" relationship="viewControllers" id="wzk-Qb-hVQ"/>
                     </connections>
                 </tabBarController>
@@ -516,7 +497,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="f6K-9H-ULo" kind="relationship" relationship="rootViewController" id="9Ee-Yf-Lt2"/>
+                        <segue destination="osW-S2-p1y" kind="relationship" relationship="rootViewController" id="GWz-qf-KdE"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eq9-TY-mx7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -934,6 +915,39 @@
             </objects>
             <point key="canvasLocation" x="1589" y="353"/>
         </scene>
+        <!--Maps View Controller-->
+        <scene sceneID="jcI-lR-PIH">
+            <objects>
+                <viewController id="osW-S2-p1y" customClass="MapsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7zN-hb-Nhd"/>
+                        <viewControllerLayoutGuide type="bottom" id="JRJ-Xn-6Q3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="N77-12-Wk0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="C9h-yo-Q6T">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="bom-mm-JfS">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="1st Floor"/>
+                                <segment title="2nd Floor"/>
+                                <segment title="22nd Floor"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentedControlValueChanged:" destination="osW-S2-p1y" eventType="valueChanged" id="lgX-gu-0fS"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h46-nb-pcZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1589" y="1075"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AD-Header-Logo-375" width="375" height="197"/>
@@ -946,8 +960,8 @@
         <image name="tab_bar_map" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="S3x-Wh-mrl"/>
         <segue reference="S72-2p-Jpg"/>
-        <segue reference="FFF-d5-6gs"/>
         <segue reference="daU-IO-r5E"/>
     </inferredMetricsTieBreakers>
 </document>
