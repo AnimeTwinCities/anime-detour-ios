@@ -12,7 +12,6 @@ import QuickLook
 
 class MapsViewController: UIViewController, QLPreviewControllerDataSource {
     private var previewController: QLPreviewController!
-    private var dataSource: QLPreviewControllerDataSource!
     private let mapFileNames = ["DoubleTree_Floor1_2015", "DoubleTree_Floor2_2015", "DoubleTree_Floor22_2015"]
     lazy private var mapPaths: [String] = {
         let mainBundle = NSBundle.mainBundle()
@@ -32,9 +31,6 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let dataSource = MapsDataSource(mapFilePaths: mapPaths)
-        self.dataSource = dataSource
 
         let previewController = QLPreviewController()
         previewController.dataSource = self
