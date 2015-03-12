@@ -49,6 +49,10 @@ class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
         // So just set it to autoresize.
         self.contentView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
         self.contentView.setTranslatesAutoresizingMaskIntoConstraints(true)
+
+        let imageLayer = self.photoImageView.layer
+        imageLayer.cornerRadius = self.photoImageView.frame.width / 2
+        imageLayer.masksToBounds = true
     }
 
     override func prepareForReuse() {
