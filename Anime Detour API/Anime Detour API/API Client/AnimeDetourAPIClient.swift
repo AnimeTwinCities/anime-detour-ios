@@ -140,6 +140,24 @@ public extension Guest {
     }
 }
 
+public struct SessionJSONKeys {
+    public static let key = "event_key"
+    public static let active = "active"
+    public static let name = "name"
+    public static let start = "event_start"
+    public static let end = "event_end"
+    public static let type = "event_type"
+    public static let sessionDescription = "description"
+    public static let mediaURL = "media_url"
+    public static let seats = "seats"
+    public static let goers = "goers"
+    public static let inviteOnly = "invite_only"
+    public static let venue = "venue"
+    public static let address = "address"
+    public static let sessionID = "id"
+    public static let venueID = "venue_id"
+}
+
 public extension Session {
     /// Update the session's stored properties with information from an API response.
     /// Does not save the object afterward.
@@ -204,7 +222,7 @@ public extension Session {
             self.address = address
         }
         
-        if let sessionID: String = json["id"] {
+        if let sessionID: String = json[SessionJSONKeys.sessionID] {
             self.sessionID = sessionID
         }
         

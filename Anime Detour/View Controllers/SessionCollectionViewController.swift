@@ -13,10 +13,32 @@ import AnimeDetourAPI
 
 class SessionCollectionViewController: UICollectionViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
+    lazy private var refreshingTableViewController: UITableViewController = UITableViewController()
+    lazy private var apiClient = AnimeDetourAPIClient.sharedInstance
+    private var refreshing: Bool = false {
+        didSet {
+            if self.refreshing {
+                self.refreshControl.beginRefreshing()
+            } else {
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
+
+    /// Refresh control added to a dummy table view controller for the table view's management functionality
+    lazy private var refreshControl: UIRefreshControl = { () -> UIRefreshControl in
+        let control = UIRefreshControl()
+        self.refreshingTableViewController.refreshControl = control
+
+        control.addTarget(self, action: Selector("refreshSessions:"), forControlEvents: UIControlEvents.ValueChanged)
+
+        return control
+    }()
 
     // MARK: Core Data
 
-    lazy private var managedObjectContext: NSManagedObjectContext = CoreDataController.sharedInstance.managedObjectContext
+    lazy private var coreDataController: CoreDataController = CoreDataController.sharedInstance
+    lazy private var managedObjectContext: NSManagedObjectContext = self.coreDataController.managedObjectContext
     
     /// Fetched results controller over `Session`s.
     lazy private var fetchedResultsController: NSFetchedResultsController = {
@@ -135,7 +157,11 @@ class SessionCollectionViewController: UICollectionViewController {
 
         self.title = "Sessions"
 
-        self.collectionView?.registerClass(SegmentedControlCollectionReusableView.self, forSupplementaryViewOfKind: StickyHeaderFlowLayout.StickyHeaderElementKind, withReuseIdentifier: self.dayControlHeaderReuseIdentifier)
+        let collectionView = self.collectionView!
+
+        self.addRefreshControl()
+
+        collectionView.registerClass(SegmentedControlCollectionReusableView.self, forSupplementaryViewOfKind: StickyHeaderFlowLayout.StickyHeaderElementKind, withReuseIdentifier: self.dayControlHeaderReuseIdentifier)
 
         self.updateStickyHeaderLayoutTopOffset()
 
@@ -149,7 +175,6 @@ class SessionCollectionViewController: UICollectionViewController {
             NSLog("Error fetching sessions: %@", error)
         }
 
-        let collectionView = self.collectionView!
         self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
         self.lastDisplayedTraitCollection = self.traitCollection
     }
@@ -224,6 +249,36 @@ class SessionCollectionViewController: UICollectionViewController {
             return unfilteredTitle
         case let .Named(type):
             return type
+        }
+    }
+
+    // MARK: - Refreshing
+
+    /// Add the refresh control to the collection view
+    private func addRefreshControl() {
+        let collectionView = self.collectionView!
+        collectionView.addSubview(self.refreshControl)
+
+        // Cheat and move the refresh control's bounds down, below the day selector header
+        var refreshBounds = self.refreshControl.bounds
+        refreshBounds.offset(dx: 0, dy: -50)
+        self.refreshControl.bounds = refreshBounds
+    }
+
+    @objc private func refreshSessions(sender: AnyObject?) {
+        if self.refreshing {
+            return
+        }
+
+        self.refreshing = true
+        let moc = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
+        let dateFormatter = self.apiClient.dateFormatter
+
+        self.apiClient.refreshSessions(moc, dateFormatter: dateFormatter) {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.refreshing = false
+                return
+            })
         }
     }
 
