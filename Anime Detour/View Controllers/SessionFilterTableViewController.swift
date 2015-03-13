@@ -115,4 +115,15 @@ class SessionFilterTableViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return nil
+        case 1:
+            return "Categories"
+        default:
+            fatalError("Unexpected section number: \(section)")
+        }
+    }
+
 }
