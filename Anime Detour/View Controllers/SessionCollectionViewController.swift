@@ -155,7 +155,8 @@ class SessionCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Sessions"
+        self.title = "Schedule"
+        self.navigationItem.title = self.filteredTitle(self.filteredType)
 
         let collectionView = self.collectionView!
 

@@ -6,11 +6,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Sessions-->
+        <!--Schedule-->
         <scene sceneID="BuY-0b-6dE">
             <objects>
                 <navigationController id="1u1-vH-8X9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Sessions" image="tab_bar_list" id="Ekl-6e-FaS"/>
+                    <tabBarItem key="tabBarItem" title="Schedule" image="tab_bar_list" id="Ekl-6e-FaS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b5l-Fa-2yX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
