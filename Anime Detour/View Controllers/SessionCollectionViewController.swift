@@ -309,7 +309,12 @@ class SessionCollectionViewController: UICollectionViewController {
 
                 if let results = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [[String:String]] {
                     // This is probably very slow...
-                    var types = results.map { dict -> String in return dict[typeKey]! }.flatMap { types in types.componentsSeparatedByString(",") }
+                    let allTypeProperties = results.map { dict -> String in return dict[typeKey]! }
+                    let types = allTypeProperties.flatMap { (types: String) -> [String] in
+                        let separatedTypes = types.componentsSeparatedByString(", ")
+                        return separatedTypes
+                    }
+
                     var uniqueing = [String:Void]()
                     for type in types {
                         uniqueing[type] = ()
