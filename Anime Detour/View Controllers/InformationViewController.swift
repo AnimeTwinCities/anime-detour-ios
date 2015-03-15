@@ -19,12 +19,14 @@ class InformationViewController: UITableViewController {
     @IBInspectable var harassmentPolicyIdentifier: String!
     @IBInspectable var letterParentsIdentifier: String!
     @IBInspectable var weaponsPolicyIdentifier: String!
+    @IBInspectable var websiteIdentifier: String!
 
     // MARK: - Segue identifiers
 
     @IBInspectable var harassmentSegue: String!
     @IBInspectable var letterParentsSegue: String!
     @IBInspectable var weaponsPolicySegue: String!
+    @IBInspectable var websiteSegue: String!
 
     // MARK: - Table View Data Source
 
@@ -56,6 +58,8 @@ class InformationViewController: UITableViewController {
             break
         case .Some(self.weaponsPolicyIdentifier):
             break
+        case .Some(self.websiteIdentifier):
+            break
         case let .Some(identifier):
             fatalError("Unknown reuse identifier encountered: \(identifier)")
         case .None:
@@ -79,6 +83,9 @@ class InformationViewController: UITableViewController {
         case .Some(self.weaponsPolicySegue):
             let webVC = segue.destinationViewController as WebViewController
             webVC.urlString = "http://www.animedetour.com/policyweapons"
+        case .Some(self.websiteSegue):
+            let webVC = segue.destinationViewController as WebViewController
+            webVC.urlString = "http://www.animedetour.com/"
         default:
             fatalError("Unrecognized segue with identifier: \(segue.identifier)")
         }

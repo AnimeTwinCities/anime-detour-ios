@@ -645,13 +645,31 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Information and Policies" id="4zK-NC-UdK">
                                 <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WebsiteReuseIdentifier" textLabel="Kdi-fg-QwK" style="IBUITableViewCellStyleDefault" id="2H4-O0-o7v">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2H4-O0-o7v" id="7de-50-aim">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Anime Detour Website" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Kdi-fg-QwK">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="7r7-uI-IW2" kind="show" identifier="WebsiteSegueIdentifier" id="3WO-FO-OOP"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WeaponsPolicyReuseIdentifier" textLabel="PjS-XJ-bcc" style="IBUITableViewCellStyleDefault" id="pcd-up-qFz">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pcd-up-qFz" id="fzM-pr-4Hl">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Weapons Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PjS-XJ-bcc">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Costume &amp; Weapons Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PjS-XJ-bcc">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -725,6 +743,8 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="weaponsPolicySegue" value="WeaponsSegueIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="letterParentsSegue" value="LetterParentsSegueIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="harassmentSegue" value="HarassmentSegueIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="websiteIdentifier" value="WebsiteReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="websiteSegue" value="WebsiteSegueIdentifier"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYr-VJ-Mld" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1027,7 +1047,7 @@
         <image name="tab_bar_map" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="S72-2p-Jpg"/>
+        <segue reference="3WO-FO-OOP"/>
         <segue reference="FFF-d5-6gs"/>
         <segue reference="zoD-Tj-VZw"/>
     </inferredMetricsTieBreakers>
