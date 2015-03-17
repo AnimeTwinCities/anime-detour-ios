@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Z92-HD-rIT">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Inf-p4-iFh">
+            <objects>
+                <navigationController id="jxY-8H-9nu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="ope-oL-1C1"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mvt-QH-tkh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <color key="barTintColor" red="0.99607843139999996" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Afh-Yw-hdr" kind="relationship" relationship="rootViewController" id="0rH-Fi-FFk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zu3-PX-pa7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="50" y="277"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="xiV-iO-8Lc">
+            <objects>
+                <tabBarController id="Z92-HD-rIT" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="AkY-Fe-0Se">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="jxY-8H-9nu" kind="relationship" relationship="viewControllers" id="81M-ft-7wu"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JaF-UB-MF8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-618" y="277"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ZSR-Qr-zpi">
+            <objects>
+                <viewController id="Afh-Yw-hdr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="onk-fm-Ifp"/>
+                        <viewControllerLayoutGuide type="bottom" id="Feq-Ib-R3C"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Im-Pb-aGX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="81p-lL-vex"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ENG-QC-lqF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="727" y="277"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.99607843139999996" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</document>
