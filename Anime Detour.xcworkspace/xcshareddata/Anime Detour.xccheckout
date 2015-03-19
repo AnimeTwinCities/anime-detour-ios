@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>21238FDE-2AAF-43AB-B83E-92B0BC2CF241</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Anime Detour</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BDEBCFE392CF43BF512C83A1D3F3EB0BDB628839</key>
+		<string>github.com:AnimeTwinCities/anime-detour-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Anime Detour.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BDEBCFE392CF43BF512C83A1D3F3EB0BDB628839</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:AnimeTwinCities/anime-detour-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BDEBCFE392CF43BF512C83A1D3F3EB0BDB628839</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BDEBCFE392CF43BF512C83A1D3F3EB0BDB628839</string>
+			<key>IDESourceControlWCCName</key>
+			<string>anime-detour-ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>

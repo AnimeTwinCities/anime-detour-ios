@@ -8,6 +8,8 @@
 
 import UIKit
 
+import FXForms
+
 class InformationViewController: UITableViewController {
 
     // MARK: - Cell reuse identifiers
@@ -20,6 +22,8 @@ class InformationViewController: UITableViewController {
     @IBInspectable var letterParentsIdentifier: String!
     @IBInspectable var weaponsPolicyIdentifier: String!
     @IBInspectable var websiteIdentifier: String!
+    
+    @IBInspectable var settingsIdentifier: String!
 
     // MARK: - Segue identifiers
 
@@ -27,6 +31,7 @@ class InformationViewController: UITableViewController {
     @IBInspectable var letterParentsSegue: String!
     @IBInspectable var weaponsPolicySegue: String!
     @IBInspectable var websiteSegue: String!
+    @IBInspectable var settingsSegue: String!
 
     // MARK: - Table View Data Source
 
@@ -60,6 +65,8 @@ class InformationViewController: UITableViewController {
             break
         case .Some(self.websiteIdentifier):
             break
+        case .Some(self.settingsIdentifier):
+            break
         case let .Some(identifier):
             fatalError("Unknown reuse identifier encountered: \(identifier)")
         case .None:
@@ -86,6 +93,11 @@ class InformationViewController: UITableViewController {
         case .Some(self.websiteSegue):
             let webVC = segue.destinationViewController as WebViewController
             webVC.urlString = "http://www.animedetour.com/"
+        case .Some(self.settingsSegue):
+            let userVisibleSettings = UserVisibleSettings()
+            let formVC = segue.destinationViewController as FXFormViewController
+            formVC.formController.form = userVisibleSettings
+            break
         default:
             fatalError("Unrecognized segue with identifier: \(segue.identifier)")
         }
