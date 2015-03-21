@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+Settings which should not be user-visible.
+*/
 final class InternalSettings {
     struct InternalSettingsUserDefaultsKeys {
         static let AskedNotificationsKey = "AskedNotificationsKey"

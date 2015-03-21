@@ -14,7 +14,7 @@ import AnimeDetourAPI
 /**
 Schedules local notifications for favorite Sessions.
 */
-class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate, UserVisibleSettingsDelegate {
+class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate, SessionSettingsDelegate {
     let managedObjectContext: NSManagedObjectContext
     let fetchedResultsController: NSFetchedResultsController
     

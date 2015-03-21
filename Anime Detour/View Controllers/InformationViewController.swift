@@ -94,9 +94,11 @@ class InformationViewController: UITableViewController {
             let webVC = segue.destinationViewController as WebViewController
             webVC.urlString = "http://www.animedetour.com/"
         case .Some(self.settingsSegue):
-            let userVisibleSettings = UserVisibleSettings()
+            let acknowledgements = Acknowledgements()
+            let sessionSettingsForm = SessionSettings()
+            let settings = Settings(acknowledgements: acknowledgements, sessionSettingsForm: sessionSettingsForm)
             let formVC = segue.destinationViewController as FXFormViewController
-            formVC.formController.form = userVisibleSettings
+            formVC.formController.form = settings
             break
         default:
             fatalError("Unrecognized segue with identifier: \(segue.identifier)")

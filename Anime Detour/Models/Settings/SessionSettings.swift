@@ -12,19 +12,21 @@ import FXForms
 
 /**
 Settings which should be presented to the user.
+
+Specify the runtime class name for the benefit of FXForms.
 */
-final class UserVisibleSettings: NSObject, FXForm {
-    struct UserVisibleSettingsUserDefaultsKeys {
+@objc(SessionSettings) final class SessionSettings: NSObject, FXForm {
+    struct SessionSettingsUserDefaultsKeys {
         static let FavoriteSessionAlertsKey = "SettingsFavoriteSessionAlertsKey"
     }
     
     private let userDefaults: NSUserDefaults
     
-    weak var delegate: UserVisibleSettingsDelegate?
+    weak var delegate: SessionSettingsDelegate?
     
     var favoriteSessionAlerts: Bool = false {
         didSet {
-            let key = UserVisibleSettingsUserDefaultsKeys.FavoriteSessionAlertsKey
+            let key = SessionSettingsUserDefaultsKeys.FavoriteSessionAlertsKey
             let newValue = self.favoriteSessionAlerts
             if self.userDefaults.boolForKey(key) != newValue {
                 self.userDefaults.setBool(newValue, forKey: key)
@@ -51,14 +53,14 @@ final class UserVisibleSettings: NSObject, FXForm {
     
     private func registerDefaults(userDefaults: NSUserDefaults) {
         let defaults = [
-            UserVisibleSettingsUserDefaultsKeys.FavoriteSessionAlertsKey : NSNumber(bool: false),
+            SessionSettingsUserDefaultsKeys.FavoriteSessionAlertsKey : NSNumber(bool: false),
         ]
         
         userDefaults.registerDefaults(defaults)
     }
     
     private func updateSessionNotificationsEnabled() {
-        let notificationsEnabled = self.userDefaults.boolForKey(UserVisibleSettingsUserDefaultsKeys.FavoriteSessionAlertsKey)
+        let notificationsEnabled = self.userDefaults.boolForKey(SessionSettingsUserDefaultsKeys.FavoriteSessionAlertsKey)
         self.favoriteSessionAlerts = notificationsEnabled
     }
     
@@ -67,6 +69,6 @@ final class UserVisibleSettings: NSObject, FXForm {
     }
 }
 
-protocol UserVisibleSettingsDelegate: class {
+protocol SessionSettingsDelegate: class {
     func didChangeSessionNotificationsSetting(enabled: Bool)
 }

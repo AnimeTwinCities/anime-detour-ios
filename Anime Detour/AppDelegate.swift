@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if localNotificationsAllowed {
                 if self.enableSessionNotificationsOnNotificationsEnabled {
-                    self.userVisibleSettings.favoriteSessionAlerts = true
+                    self.userVisibleSessionSettings.favoriteSessionAlerts = true
                 }
                 
                 self.enableSessionNotificationsOnNotificationsEnabled = false
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Settings
     
     private let internalSettings: InternalSettings = InternalSettings()
-    private let userVisibleSettings: UserVisibleSettings = UserVisibleSettings()
+    private let userVisibleSessionSettings: SessionSettings = SessionSettings()
     private var enableSessionNotificationsOnNotificationsEnabled = false
     
     // MARK: - Application Delegate
@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         #endif
         
-        self.userVisibleSettings.delegate = self
+        self.userVisibleSessionSettings.delegate = self
         
         let guestsFetchRequiredKey = "guestsFetchRequiredKey"
         let sessionsFetchRequiredKey = "sessionsFetchRequiredKey"
@@ -233,7 +233,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         let cancel = UIAlertAction(title: "Not Now", style: UIAlertActionStyle.Cancel)  { (action: UIAlertAction!) -> Void in
             self.internalSettings.askedToEnableNotifications = true
-            self.userVisibleSettings.favoriteSessionAlerts = false
+            self.userVisibleSessionSettings.favoriteSessionAlerts = false
             return
         }
         
@@ -248,7 +248,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     based on our user visible settings' setting.
     */
     private func updateSessionNotificationsEnabled(localNotificationsAllowed: Bool) {
-        let enabledInUserPref = self.userVisibleSettings.favoriteSessionAlerts
+        let enabledInUserPref = self.userVisibleSessionSettings.favoriteSessionAlerts
         self.sessionNotificationScheduler.notificationsEnabled = self.localNotificationsAllowed && enabledInUserPref
     }
 
@@ -280,6 +280,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.primaryContext.performBlock {
             self.primaryContext.mergeChangesFromContextDidSaveNotification(notification)
         }
+    }
+    
+    // MARK: - Settings
+    
+    @objc private func showSettings() {
+        let application = UIApplication.sharedApplication()
+        application.openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
     }
     
     // MARK: - Theming
@@ -314,15 +321,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: - SessionFavoriteNotificationDelegate
 extension AppDelegate: SessionFavoriteNotificationDelegate {
     func didChangeFavoriteSessions(count: Int) {
-        if !self.internalSettings.askedToEnableNotifications && !self.userVisibleSettings.favoriteSessionAlerts {
+        if !self.internalSettings.askedToEnableNotifications && !self.userVisibleSessionSettings.favoriteSessionAlerts {
             self.enableSessionNotificationsOnNotificationsEnabled = true
             self.askEnableSessionNotifications()
         }
     }
 }
 
-// MARK: - UserVisibleSettingsDelegate
-extension AppDelegate: UserVisibleSettingsDelegate {
+// MARK: - SessionSettingsDelegate
+extension AppDelegate: SessionSettingsDelegate {
     func didChangeSessionNotificationsSetting(enabled: Bool) {
         if !enabled {
             return
@@ -334,13 +341,13 @@ extension AppDelegate: UserVisibleSettingsDelegate {
             self.requestNotificationPermissions()
         } else if !self.localNotificationsAllowed {
             // Disable the notification setting if notifications are not allowed
-            self.userVisibleSettings.favoriteSessionAlerts = false
+            self.userVisibleSessionSettings.favoriteSessionAlerts = false
             
-            let alertController = UIAlertController(title: "Enable Notifications", message: "Enable notifications in the Settings app to receive alerts for upcoming favorite sessions.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: "Enable Notifications", message: "Enable notifications in the Settings app before enabling session alerts.", preferredStyle: UIAlertControllerStyle.Alert)
             
             let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-            let settings = UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
-                UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+            let settings = UIAlertAction(title: "Open Settings", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                self.showSettings()
                 return
             })
             

@@ -719,7 +719,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Settings" id="BOM-9b-4k2">
+                            <tableViewSection headerTitle="App" id="BOM-9b-4k2">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsReuseIdentifier" textLabel="7pM-bX-Fek" style="IBUITableViewCellStyleDefault" id="lXP-9J-V3y">
                                         <autoresizingMask key="autoresizingMask"/>
