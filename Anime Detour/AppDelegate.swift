@@ -29,7 +29,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var primaryContext: NSManagedObjectContext = {
         return self.coreDataController.managedObjectContext
     }()
-
+    
+    /**
+    Indicates whether the user has given permission to send local notifications.
+    Must be set early in `application:didFinishLaunchingWithOptions:`.
+    */
+    private var localNotificationsAllowed: Bool = false {
+        didSet {
+            let localNotificationsAllowed = self.localNotificationsAllowed
+            self.updateSessionNotificationsEnabled(localNotificationsAllowed)
+            
+            if localNotificationsAllowed {
+                if self.enableSessionNotificationsOnNotificationsEnabled {
+                    self.userVisibleSessionSettings.favoriteSessionAlerts = true
+                }
+                
+                self.enableSessionNotificationsOnNotificationsEnabled = false
+            }
+        }
+    }
+    private lazy var sessionNotificationScheduler: SessionNotificationScheduler = {
+        let context = self.primaryContext
+        let scheduler = SessionNotificationScheduler(managedObjectContext: context)
+        scheduler.delegate = self
+        return scheduler
+    }()
+    
+    // MARK: - Settings
+    
+    private let internalSettings: InternalSettings = InternalSettings()
+    private let userVisibleSessionSettings: SessionSettings = SessionSettings()
+    private var enableSessionNotificationsOnNotificationsEnabled = false
+    
+    // MARK: - Application Delegate
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.setColors(application)
 
@@ -46,7 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         #endif
-
+        
+        self.userVisibleSessionSettings.delegate = self
+        
         let guestsFetchRequiredKey = "guestsFetchRequiredKey"
         let sessionsFetchRequiredKey = "sessionsFetchRequiredKey"
         let lastGuestsClearDateKey = "lastGuestsClearDateKey"
@@ -163,14 +198,102 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        if notificationSettings.types == .None {
+            self.localNotificationsAllowed = false
+        } else {
+            self.localNotificationsAllowed = true
+        }
+    }
+    
+    func applicationDidBecomeActive(application: UIApplication) {
+        self.localNotificationsAllowed = self.notificationPermissionsEnabled()
+        self.updateSessionNotificationsEnabled(self.localNotificationsAllowed)
+    }
+    
+    // MARK: - Presenting Alerts
+    
+    private func show(alertController: UIAlertController) {
+        self.window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    // MARK: - Session Notifications
+    
+    /**
+    Ask the user if they'd like to enable notifications for upcoming favorited Sessions.
+    Only requests push notification permissions if they agree.
+    */
+    private func askEnableSessionNotifications() {
+        let alertController = UIAlertController(title: "Session Notifications", message: "Enable alerts for favorite sessions? You'll have to allow notifications from the app.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let accept = UIAlertAction(title: "Enable", style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+            self.internalSettings.askedToEnableNotifications = true
+            self.requestNotificationPermissions()
+        }
+        let cancel = UIAlertAction(title: "Not Now", style: UIAlertActionStyle.Cancel)  { (action: UIAlertAction!) -> Void in
+            self.internalSettings.askedToEnableNotifications = true
+            self.userVisibleSessionSettings.favoriteSessionAlerts = false
+            return
+        }
+        
+        alertController.addAction(cancel)
+        alertController.addAction(accept)
+        
+        self.show(alertController)
+    }
+    
+    /**
+    Update the Session notification scheduler's notifications enabled setting
+    based on our user visible settings' setting.
+    */
+    private func updateSessionNotificationsEnabled(localNotificationsAllowed: Bool) {
+        let enabledInUserPref = self.userVisibleSessionSettings.favoriteSessionAlerts
+        self.sessionNotificationScheduler.notificationsEnabled = self.localNotificationsAllowed && enabledInUserPref
+    }
 
-    /// Merge changes from a save notification into the primary, main thread-only MOC.
+    /**
+    Request permission to display the types of notifications we want to display.
+    */
+    private func requestNotificationPermissions() {
+        self.internalSettings.askedSystemToEnableNotifications = true
+        
+        let application = UIApplication.sharedApplication()
+        
+        // Request all permissions
+        let noteTypes = UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge
+        let noteSettings = UIUserNotificationSettings(forTypes: noteTypes, categories: nil)
+        application.registerUserNotificationSettings(noteSettings)
+    }
+    
+    private func notificationPermissionsEnabled() -> Bool {
+        let settings = UIApplication.sharedApplication().currentUserNotificationSettings()
+        return settings.types != .None
+    }
+    
+    // MARK: - Core Data
+    
+    /**
+    Merge changes from a save notification into the primary, main thread-only MOC.
+    */
     private func updateMainContext(saveNotification notification: NSNotification) {
         self.primaryContext.performBlock {
             self.primaryContext.mergeChangesFromContextDidSaveNotification(notification)
         }
     }
+    
+    // MARK: - Settings
+    
+    @objc private func showSettings() {
+        let application = UIApplication.sharedApplication()
+        application.openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+    }
+    
+    // MARK: - Theming
 
+    /**
+    Set basic color theme for the app.
+    */
     private func setColors(application: UIApplication) {
         let mainColor = UIColor.adr_orange
         let secondaryColor = UIColor.whiteColor()
@@ -195,3 +318,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+// MARK: - SessionFavoriteNotificationDelegate
+extension AppDelegate: SessionFavoriteNotificationDelegate {
+    func didChangeFavoriteSessions(count: Int) {
+        if !self.internalSettings.askedToEnableNotifications && !self.userVisibleSessionSettings.favoriteSessionAlerts {
+            self.enableSessionNotificationsOnNotificationsEnabled = true
+            self.askEnableSessionNotifications()
+        }
+    }
+}
+
+// MARK: - SessionSettingsDelegate
+extension AppDelegate: SessionSettingsDelegate {
+    func didChangeSessionNotificationsSetting(enabled: Bool) {
+        if !enabled {
+            return
+        }
+        
+        if !self.internalSettings.askedToEnableNotifications {
+            self.askEnableSessionNotifications()
+        } else if !self.internalSettings.askedSystemToEnableNotifications {
+            self.requestNotificationPermissions()
+        } else if !self.localNotificationsAllowed {
+            // Disable the notification setting if notifications are not allowed
+            self.userVisibleSessionSettings.favoriteSessionAlerts = false
+            
+            let alertController = UIAlertController(title: "Enable Notifications", message: "Enable notifications in the Settings app before enabling session alerts.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+            let settings = UIAlertAction(title: "Open Settings", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                self.showSettings()
+                return
+            })
+            
+            alertController.addAction(cancel)
+            alertController.addAction(settings)
+            
+            self.show(alertController)
+        } else {
+            assert(enabled == true, "Expected session notifications to be enabled")
+            self.sessionNotificationScheduler.didChangeSessionNotificationsSetting(enabled)
+        }
+    }
+}
