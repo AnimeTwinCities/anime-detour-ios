@@ -789,7 +789,7 @@
         <!--Settings-->
         <scene sceneID="akU-Xh-T0h">
             <objects>
-                <viewController title="Settings" id="GrH-1I-zI5" customClass="FXFormViewController" sceneMemberID="viewController">
+                <viewController title="Settings" id="GrH-1I-zI5" customClass="SettingsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4bJ-bs-Ryf"/>
                         <viewControllerLayoutGuide type="bottom" id="QjG-RA-DC2"/>

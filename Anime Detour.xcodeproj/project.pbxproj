@@ -53,6 +53,7 @@
 		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
 		5CE8FE4C1A6309F400D1F516 /* FlatMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8FE4B1A6309F400D1F516 /* FlatMap.swift */; };
+		DA9557111ABE026A000D2720 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9557101ABE026A000D2720 /* SettingsViewController.swift */; };
 		DAA716C91AB7C1D700A5EB07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAA716C81AB7C1D700A5EB07 /* LaunchScreen.storyboard */; };
 		DAA8CC4E1ABDCBBD00FF3872 /* InternalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8CC4B1ABDCBBC00FF3872 /* InternalSettings.swift */; };
 		DAA8CC4F1ABDCBBD00FF3872 /* SessionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8CC4C1ABDCBBD00FF3872 /* SessionSettings.swift */; };
@@ -155,6 +156,7 @@
 		5CE11EAC1A34E299005903A4 /* SessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
 		5CE8FE4B1A6309F400D1F516 /* FlatMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMap.swift; sourceTree = "<group>"; };
 		5EF5767D68136EAEF35EF0D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		DA9557101ABE026A000D2720 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DAA716C81AB7C1D700A5EB07 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DAA8CC4B1ABDCBBC00FF3872 /* InternalSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalSettings.swift; sourceTree = "<group>"; };
 		DAA8CC4C1ABDCBBD00FF3872 /* SessionSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionSettings.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				5CCA903F1A87031500C14EE0 /* SessionCollectionViewController.swift */,
 				5C54451019F2D79B003CC1C3 /* SessionTableViewController.swift */,
 				5C4B436D19F0A19F009342C8 /* SessionViewController.swift */,
+				DA9557101ABE026A000D2720 /* SettingsViewController.swift */,
 				5C337F011A990C51006CAA20 /* WebViewController.swift */,
 			);
 			path = "View Controllers";
@@ -592,6 +595,7 @@
 				DAA8CC501ABDCBBD00FF3872 /* Settings.swift in Sources */,
 				5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */,
 				5C16948D1A6CB6880082F197 /* SessionDataSource.swift in Sources */,
+				DA9557111ABE026A000D2720 /* SettingsViewController.swift in Sources */,
 				5C54450C19F2D3A3003CC1C3 /* SessionView.swift in Sources */,
 				DAA8CC4E1ABDCBBD00FF3872 /* InternalSettings.swift in Sources */,
 				5C16772919EB6B720097B1D3 /* SessionViewModel.swift in Sources */,
