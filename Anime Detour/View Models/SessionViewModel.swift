@@ -173,15 +173,16 @@ class SessionViewModel {
     }
 
     func toggleBookmarked() {
-        let bookmarked = self.bookmarked
+        let wasBookmarked = self.bookmarked
+        let isBookmarked = !wasBookmarked
 
         let session = self.session
-        session.bookmarked = !bookmarked
+        session.bookmarked = isBookmarked
         session.managedObjectContext?.save(nil)
 
         if let analytics = GAI.sharedInstance().defaultTracker? {
             var dict: [NSObject:AnyObject]
-            if bookmarked {
+            if isBookmarked {
                 dict = GAIDictionaryBuilder.createEventWithCategory("Event", action: "Favorite", label: session.name, value: nil).build()
             } else {
                 dict = GAIDictionaryBuilder.createEventWithCategory("Event", action: "Unfavorite", label: session.name, value: nil).build()
