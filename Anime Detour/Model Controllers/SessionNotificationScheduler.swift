@@ -169,6 +169,12 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
     
     func didChangeSessionNotificationsSetting(enabled: Bool) {
         self.notificationsEnabled = enabled
+        
+        // Track notifications getting enabled/disabled
+        if let analytics = GAI.sharedInstance().defaultTracker? {
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Settings, action: AnalyticsConstants.Actions.Notifications, label: nil, value: NSNumber(integer: enabled ? 1 : 0)).build()
+            analytics.send(dict)
+        }
     }
 }
 
