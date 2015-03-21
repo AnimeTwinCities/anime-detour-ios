@@ -183,9 +183,9 @@ class SessionViewModel {
         if let analytics = GAI.sharedInstance().defaultTracker? {
             var dict: [NSObject:AnyObject]
             if isBookmarked {
-                dict = GAIDictionaryBuilder.createEventWithCategory("Event", action: "Favorite", label: session.name, value: nil).build()
+                dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.Favorite, label: session.name, value: nil).build()
             } else {
-                dict = GAIDictionaryBuilder.createEventWithCategory("Event", action: "Unfavorite", label: session.name, value: nil).build()
+                dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.Unfavorite, label: session.name, value: nil).build()
             }
             analytics.send(dict)
         }

@@ -11,6 +11,7 @@ import Foundation
 struct AnalyticsConstants {
     struct Actions {
         static let Favorite = "Favorite"
+        static let Unfavorite = "Unfavorite"
         static let Notifications = "Notifications"
         static let ViewDetails = "View Details"
     }
