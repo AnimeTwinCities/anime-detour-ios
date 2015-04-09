@@ -3,10 +3,21 @@ Change Log
 
 This file summarizes the changes between releases of the application.
 
-v2.0.0 - (Unreleased)
+v2.1
 ---------------------
- * Rebuilt application functionality for native iOS app.
+ * Added local notifications for upcoming events.
+ * Fix mislabeled Google Analytics events.
+
+v2.0
+---------------------
+ * New application to replace the webview-based original, with features:
+  * Schedule/session list
+  * Session detail
+  * Session filtering
+  * Guest list
+  * Guest detail
+  * Hotel map
  * Added Session starring / favorites.
- * (Planned) Added Google Analytics Tracking.
- * (Planned) Added Notifications for upcoming events.
- * (Planned) New info view with convention information.
+ * Added Session search.
+ * Added Google Analytics Tracking.
+ * Added info view with convention information and links.
