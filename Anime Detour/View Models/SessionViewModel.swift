@@ -63,7 +63,7 @@ class SessionViewModel {
             var midnightMorningOfStartDate: NSDate?
             var duration: NSTimeInterval = 0
             let calendar = NSCalendar.currentCalendar()
-            calendar.rangeOfUnit(.DayCalendarUnit, startDate: &midnightMorningOfStartDate, interval: &duration, forDate: self.session.start)
+            calendar.rangeOfUnit(.CalendarUnitDay, startDate: &midnightMorningOfStartDate, interval: &duration, forDate: self.session.start)
 
             let components = NSDateComponents()
             components.day = 1
@@ -146,7 +146,7 @@ class SessionViewModel {
         }
 
         switch self.imageURL {
-        case let .Some(imageURL) where (imageURL.absoluteString.map(countElements) ?? 0) > 0:
+        case let .Some(imageURL) where (imageURL.absoluteString.map(count) ?? 0) > 0:
             let imageTask = self.imageURLSession?.dataTaskWithURL(imageURL, completionHandler: { [weak self] (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
                 if let data = data {
                     let image = UIImage(data: data)
@@ -180,14 +180,14 @@ class SessionViewModel {
         session.bookmarked = isBookmarked
         session.managedObjectContext?.save(nil)
 
-        if let analytics = GAI.sharedInstance().defaultTracker? {
-            var dict: [NSObject:AnyObject]
+        if let analytics = GAI.sharedInstance().defaultTracker {
+            let dict: NSDictionary
             if isBookmarked {
                 dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.Favorite, label: session.name, value: nil).build()
             } else {
                 dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.Unfavorite, label: session.name, value: nil).build()
             }
-            analytics.send(dict)
+            analytics.send(dict as [NSObject : AnyObject])
         }
 
         self.delegate?.bookmarkImageChanged(self.bookmarkImage, accessibilityLabel: self.bookmarkAccessibilityLabel)

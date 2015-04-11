@@ -17,7 +17,7 @@ class SessionTableViewHeaderView: UITableViewHeaderFooterView {
         }
     }
 
-    convenience override init() {
+    convenience init() {
         self.init(frame: CGRectZero)
     }
 
@@ -33,8 +33,8 @@ class SessionTableViewHeaderView: UITableViewHeaderFooterView {
         self.addSubview(nameLabel)
 
         let bindings: NSDictionary = ["nameLabel" : nameLabel]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[nameLabel]-|", options: .allZeros, metrics: nil, views: bindings)
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[nameLabel]-|", options: .allZeros, metrics: nil, views: bindings)
+        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[nameLabel]-|", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
+        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[nameLabel]-|", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
 
         let allConstraints = hConstraints + vConstraints
         self.addConstraints(allConstraints)

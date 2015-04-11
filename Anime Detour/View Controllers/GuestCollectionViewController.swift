@@ -70,9 +70,9 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let analytics = GAI.sharedInstance().defaultTracker? {
+        if let analytics = GAI.sharedInstance().defaultTracker {
             analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Guests)
-            let dict = GAIDictionaryBuilder.createScreenView().build()
+            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
             analytics.send(dict)
         }
 
@@ -90,14 +90,14 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     }
 
     private func guest(indexPath: NSIndexPath) -> Guest {
-        return self.fetchedResultsController.objectAtIndexPath(indexPath) as Guest
+        return self.fetchedResultsController.objectAtIndexPath(indexPath) as! Guest
     }
 
     /// Update the sizes of our collection view cells based on the view's trait collection.
     private func setFlowLayoutCellSizes(collectionView: UICollectionView) {
         let traitCollection = collectionView.traitCollection
         let viewWidth = collectionView.frame.width
-        let layout = collectionView.collectionViewLayout as UICollectionViewFlowLayout
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         var itemSize = layout.itemSize
 
         if traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Compact {
@@ -124,16 +124,16 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
         self.configure(cell, atIndexPath: indexPath)
         return cell
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: self.headerIdentifier, forIndexPath: indexPath) as TextHeaderCollectionReusableView
+        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: self.headerIdentifier, forIndexPath: indexPath) as! TextHeaderCollectionReusableView
 
         // Assume that `indexPath` is for item 0 in whatever section to which the header belongs
-        let anyGuest = self.fetchedResultsController.objectAtIndexPath(indexPath) as Guest
+        let anyGuest = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Guest
         header.titleLabel.text = anyGuest.category
 
         return header
@@ -142,7 +142,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     // MARK: - Collection view cell customizer
 
     func configure(cell: UICollectionViewCell, atIndexPath indexPath: NSIndexPath) {
-        let cell = cell as GuestCollectionViewCell
+        let cell = cell as! GuestCollectionViewCell
 
         let guest = self.guest(indexPath)
         let viewModel = GuestViewModel(guest: guest, imageSession: self.imageSession)
@@ -152,16 +152,16 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let analytics = GAI.sharedInstance().defaultTracker?
+        let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
 
         switch (segue.identifier) {
         case .Some(self.detailIdentifier):
-            let cell = sender as GuestCollectionViewCell
+            let cell = sender as! GuestCollectionViewCell
             let guestViewModel = cell.viewModel!
-            let guestVC = segue.destinationViewController as GuestDetailTableViewController
+            let guestVC = segue.destinationViewController as! GuestDetailTableViewController
             guestVC.guestViewModel = guestViewModel
 
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Screen.Guests, action: AnalyticsConstants.Actions.ViewDetails, label: guestViewModel.name, value: nil).build()
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Screen.Guests, action: AnalyticsConstants.Actions.ViewDetails, label: guestViewModel.name, value: nil).build() as [NSObject : AnyObject]
             analytics?.send(dict)
         default:
             fatalError("Unexpected segue encountered.")

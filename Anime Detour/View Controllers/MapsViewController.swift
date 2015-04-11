@@ -45,8 +45,8 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
             "top" : self.topLayoutGuide,
             "bottom" : self.bottomLayoutGuide
         ]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|[preview]|", options: .allZeros, metrics: nil, views: bindings)
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[top][preview][bottom]", options: .allZeros, metrics: nil, views: bindings)
+        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|[preview]|", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
+        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[top][preview][bottom]", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
         let previewConstraints = hConstraints + vConstraints
         self.view.addConstraints(previewConstraints)
         
@@ -58,9 +58,9 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let analytics = GAI.sharedInstance().defaultTracker? {
+        if let analytics = GAI.sharedInstance().defaultTracker {
             analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Map)
-            let dict = GAIDictionaryBuilder.createScreenView().build()
+            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
             analytics.send(dict)
         }
     }

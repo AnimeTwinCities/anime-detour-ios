@@ -29,9 +29,9 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let analytics = GAI.sharedInstance().defaultTracker? {
+        if let analytics = GAI.sharedInstance().defaultTracker {
             analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.GuestDetail)
-            let dict = GAIDictionaryBuilder.createScreenView().build()
+            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
             analytics.send(dict)
         }
     }
@@ -39,12 +39,12 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         switch cell.reuseIdentifier {
         case .Some(self.photoIdentifier):
-            let imageView = cell.contentView.subviews.filter { return $0 is UIImageView }.first as UIImageView
+            let imageView = cell.contentView.subviews.filter { return $0 is UIImageView }.first as! UIImageView
             imageView.image = self.guestViewModel.hiResPhoto(true, lowResPhotoPlaceholder: true)
         case .Some(self.nameIdentifier):
             cell.textLabel?.text = self.guestViewModel.name
         case .Some(self.bioIdentifier):
-            let webView = cell.contentView.subviews.filter { return $0 is UIWebView }.first as UIWebView
+            let webView = cell.contentView.subviews.filter { return $0 is UIWebView }.first as! UIWebView
             webView.delegate = self
             webView.scrollView.scrollEnabled = false
             if !self.bioWebviewLoadInitiated {
@@ -98,7 +98,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         if request.URL == NSURL(string: "about:blank") {
             return true
         } else {
-            UIApplication.sharedApplication().openURL(request.URL)
+            UIApplication.sharedApplication().openURL(request.URL!)
             return false
         }
     }

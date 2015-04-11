@@ -91,9 +91,9 @@ class SessionCollectionViewController: UICollectionViewController {
         case .All:
             return nil
         case let .Named(type):
-            let begins = NSPredicate(format: "type BEGINSWITH %@", type)!
-            let contains = NSPredicate(format: "type CONTAINS %@", ", " + type + ",")!
-            let ends = NSPredicate(format: "type ENDSWITH %@", ", " + type)!
+            let begins = NSPredicate(format: "type BEGINSWITH %@", type)
+            let contains = NSPredicate(format: "type CONTAINS %@", ", " + type + ",")
+            let ends = NSPredicate(format: "type ENDSWITH %@", ", " + type)
             let pred = NSCompoundPredicate.orPredicateWithSubpredicates([begins, contains, ends])
             return pred
         }
@@ -183,9 +183,9 @@ class SessionCollectionViewController: UICollectionViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let analytics = GAI.sharedInstance().defaultTracker? {
+        if let analytics = GAI.sharedInstance().defaultTracker {
             analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Schedule)
-            let dict = GAIDictionaryBuilder.createScreenView().build()
+            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
             analytics.send(dict)
         }
         
@@ -219,7 +219,7 @@ class SessionCollectionViewController: UICollectionViewController {
 
     /// Update the sizes of our collection view items based on the view's trait collection.
     private func setFlowLayoutCellSizes(collectionView: UICollectionView, forLayoutSize layoutSize: CGSize) {
-        let layout = collectionView.collectionViewLayout as UICollectionViewFlowLayout
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let horizontalSpacing = layout.minimumInteritemSpacing
 
         let traitCollection = collectionView.traitCollection
@@ -286,19 +286,19 @@ class SessionCollectionViewController: UICollectionViewController {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let analytics = GAI.sharedInstance().defaultTracker?
+        let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
 
         switch (segue.identifier) {
         case .Some(self.detailSegueIdentifier):
-            let detailVC = segue.destinationViewController as SessionViewController
+            let detailVC = segue.destinationViewController as! SessionViewController
             let selectedSession = (self.collectionView?.indexPathsForSelectedItems().first as? NSIndexPath).map(self.dataSource.session)!
             detailVC.session = selectedSession
 
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Screen.Schedule, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build()
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Screen.Schedule, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build() as [NSObject : AnyObject]
             analytics?.send(dict)
         case .Some(self.filterSegueIdentifier):
-            let navController = segue.destinationViewController as UINavigationController
-            let filterVC = navController.topViewController as SessionFilterTableViewController
+            let navController = segue.destinationViewController as! UINavigationController
+            let filterVC = navController.topViewController as! SessionFilterTableViewController
             filterVC.selectedType = self.filteredType
             filterVC.sessionTypes = { () -> [String] in
                 let typeKey = "type"
@@ -327,8 +327,8 @@ class SessionCollectionViewController: UICollectionViewController {
                 return []
                 }()
         case .Some(self.searchSegueIdentifier):
-            let navController = segue.destinationViewController as UINavigationController
-            let searchVC = navController.topViewController as SessionTableViewController
+            let navController = segue.destinationViewController as! UINavigationController
+            let searchVC = navController.topViewController as! SessionTableViewController
             searchVC.bookmarkedOnly = false
 
             let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("dismissSearchView"))
@@ -340,7 +340,7 @@ class SessionCollectionViewController: UICollectionViewController {
     }
 
     @IBAction func unwindAfterFiltering(segue: UIStoryboardSegue) {
-        let filterVC = segue.sourceViewController as SessionFilterTableViewController
+        let filterVC = segue.sourceViewController as! SessionFilterTableViewController
         self.filteredType = filterVC.selectedType
 
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -369,7 +369,7 @@ class SessionCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == StickyHeaderFlowLayout.StickyHeaderElementKind {
             // handle the sticky header ourselves
-            let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: self.dayControlHeaderReuseIdentifier, forIndexPath: indexPath) as SegmentedControlCollectionReusableView
+            let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: self.dayControlHeaderReuseIdentifier, forIndexPath: indexPath) as! SegmentedControlCollectionReusableView
             self.daySegmentedControl = view.segmentedControl
 
             return view
@@ -543,7 +543,7 @@ private class SessionDayScroller {
             indexPath = NSIndexPath(forRow: 0, inSection: section)
         }
 
-        let session = self.fetchedResultsController.objectAtIndexPath(indexPath) as Session
+        let session = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Session
         return session.start
     }
 

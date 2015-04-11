@@ -69,10 +69,10 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
         
         let timeToStart = "10 minutes"
         
-        for section in sessionFetchedResultsController.sections as [NSFetchedResultsSectionInfo] {
+        for section in sessionFetchedResultsController.sections as! [NSFetchedResultsSectionInfo] {
             let numberSessionsAtTime = section.numberOfObjects
             
-            let sessions = section.objects as [Session]
+            let sessions = section.objects as! [Session]
             let firstSession = sessions.first! // Assume each section has at least one Session
             
             // Avoid scheduling notifications for events in the past
@@ -89,7 +89,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
                 let sessionName = firstSession.name
                 var displayName = sessionName
                 let maxNameLength = 20
-                if countElements(sessionName) > maxNameLength {
+                if count(sessionName) > maxNameLength {
                     displayName = sessionName.substringToIndex(advance(displayName.startIndex, maxNameLength)) + "..."
                 }
                 
@@ -125,7 +125,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
     private func unscheduleNotifications() {
         let application = UIApplication.sharedApplication()
         
-        let allLocalNotifications = application.scheduledLocalNotifications as [UILocalNotification]
+        let allLocalNotifications = application.scheduledLocalNotifications as! [UILocalNotification]
         let sessionNotifications = allLocalNotifications.filter { note in
             if let userInfo = note.userInfo {
                 if let sessionNoteInfo = SessionNotificationInfo(userInfo: userInfo) {
@@ -154,7 +154,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         let count = controller.fetchedObjects!.reduce(0, combine: { (var count, object) in
-            if (object as Session).bookmarked {
+            if (object as! Session).bookmarked {
                 return count + 1
             } else {
                 return count
@@ -171,8 +171,8 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
         self.notificationsEnabled = enabled
         
         // Track notifications getting enabled/disabled
-        if let analytics = GAI.sharedInstance().defaultTracker? {
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Settings, action: AnalyticsConstants.Actions.Notifications, label: nil, value: NSNumber(integer: enabled ? 1 : 0)).build()
+        if let analytics = GAI.sharedInstance().defaultTracker {
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Settings, action: AnalyticsConstants.Actions.Notifications, label: nil, value: NSNumber(integer: enabled ? 1 : 0)).build() as [NSObject : AnyObject]
             analytics.send(dict)
         }
     }

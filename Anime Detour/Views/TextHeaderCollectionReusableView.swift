@@ -16,7 +16,7 @@ the tint color changes, so avoid setting the text color directly.
 class TextHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet var titleLabel: UILabel!
 
-    convenience override init() {
+    convenience init() {
         self.init(frame: CGRectZero)
     }
 
@@ -32,8 +32,8 @@ class TextHeaderCollectionReusableView: UICollectionReusableView {
         self.addSubview(titleLabel)
 
         let bindings: NSDictionary = ["titleLabel" : titleLabel]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[titleLabel]-|", options: .allZeros, metrics: nil, views: bindings)
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[titleLabel]-|", options: .allZeros, metrics: nil, views: bindings)
+        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[titleLabel]-|", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
+        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[titleLabel]-|", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
 
         let allConstraints = hConstraints + vConstraints
         self.addConstraints(allConstraints)

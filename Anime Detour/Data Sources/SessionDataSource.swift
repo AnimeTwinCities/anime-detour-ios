@@ -64,7 +64,7 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     }
 
     func session(indexPath: NSIndexPath) -> Session {
-        return self.fetchedResultsController.objectAtIndexPath(indexPath) as Session
+        return self.fetchedResultsController.objectAtIndexPath(indexPath) as! Session
     }
 
     /**
@@ -73,10 +73,10 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     :param: forSection Section number. Must be a section number known to the fetched results controller.
     */
     func headerText(forSection sectionNumber: Int) -> String {
-        let sectionInfo = self.fetchedResultsController.sections![sectionNumber] as NSFetchedResultsSectionInfo
+        let sectionInfo = self.fetchedResultsController.sections![sectionNumber] as! NSFetchedResultsSectionInfo
         // If the fetched results controller has a section, it must have at least one item in it.
         // Force unwrapping it is safe.
-        let start = (sectionInfo.objects as [Session]).first!.start
+        let start = (sectionInfo.objects.first as! Session).start
         let name = self.dateFormatter.stringFromDate(start)
         return name
     }
@@ -89,13 +89,13 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let sections = self.fetchedResultsController.sections
-        let sectionInfo = sections![section] as NSFetchedResultsSectionInfo
+        let sectionInfo = sections![section] as! NSFetchedResultsSectionInfo
         let count = sectionInfo.numberOfObjects
         return count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.sessionCellIdentifier, forIndexPath: indexPath) as SessionCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.sessionCellIdentifier, forIndexPath: indexPath) as! SessionCollectionViewCell
         self.configure(cell, atIndexPath: indexPath)
         
         return cell
@@ -104,11 +104,11 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionElementKindSectionHeader:
-            let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: self.sectionHeaderIdentifier, forIndexPath: indexPath) as TextHeaderCollectionReusableView
+            let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: self.sectionHeaderIdentifier, forIndexPath: indexPath) as! TextHeaderCollectionReusableView
             header.titleLabel.text = self.headerText(forSection: indexPath.section)
             return header
         default:
-            assertionFailure("Unexpected supplementary view kind: \(kind)")
+            fatalError("Unexpected supplementary view kind: \(kind)")
         }
     }
 
@@ -120,13 +120,13 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sections = self.fetchedResultsController.sections
-        let sectionInfo = sections![section] as NSFetchedResultsSectionInfo
+        let sectionInfo = sections![section] as! NSFetchedResultsSectionInfo
         let count = sectionInfo.numberOfObjects
         return count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.sessionCellIdentifier, forIndexPath: indexPath) as SessionTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.sessionCellIdentifier, forIndexPath: indexPath) as! SessionTableViewCell
 
         let session = self.session(indexPath)
         let viewModel = SessionViewModel(session: session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
@@ -142,7 +142,7 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
 
 extension SessionDataSource: CollectionViewFetchedResultsControllerCellCustomizer {
     func configure(cell: UICollectionViewCell, atIndexPath indexPath: NSIndexPath) {
-        let sessionCell = cell as SessionCollectionViewCell
+        let sessionCell = cell as! SessionCollectionViewCell
         let session = self.session(indexPath)
         let viewModel = SessionViewModel(session: session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
         sessionCell.viewModel = viewModel

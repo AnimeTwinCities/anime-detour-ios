@@ -39,7 +39,7 @@ public class CoreDataController {
     private class var applicationDocumentsDirectory: NSURL {
         // The directory the application uses to store the Core Data store file. This code uses the application's documents directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as NSURL
+        return urls[urls.count-1] as! NSURL
     }
 
     /**
@@ -66,7 +66,7 @@ public class CoreDataController {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the store for the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            let wrappedError = NSError(domain: self.errorDomain, code: 9999, userInfo: dict)
+            let wrappedError = NSError(domain: self.errorDomain, code: 9999, userInfo: dict as [NSObject : AnyObject])
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")

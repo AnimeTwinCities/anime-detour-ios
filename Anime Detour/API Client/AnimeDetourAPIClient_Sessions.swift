@@ -67,11 +67,11 @@ extension AnimeDetourAPIClient {
                         sessionsInResponse.addObject(session.objectID)
                     }
 
-                    let notInResponsePredicate = NSPredicate(format: "NOT (self in %@)", sessionsInResponse)!
+                    let notInResponsePredicate = NSPredicate(format: "NOT (self in %@)", sessionsInResponse)
                     let notInResponseFetchRequest = NSFetchRequest(entityName: Session.entityName)
                     notInResponseFetchRequest.predicate = notInResponsePredicate
                     if let notInResponseSessions = context.executeFetchRequest(notInResponseFetchRequest, error: nil) {
-                        for session in notInResponseSessions as [Session] {
+                        for session in notInResponseSessions as! [Session] {
                             context.deleteObject(session)
                         }
                     }

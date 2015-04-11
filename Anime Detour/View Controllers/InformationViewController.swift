@@ -82,22 +82,22 @@ class InformationViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch (segue.identifier) {
         case .Some(self.harassmentSegue):
-            let webVC = segue.destinationViewController as WebViewController
+            let webVC = segue.destinationViewController as! WebViewController
             webVC.urlString = "http://www.animedetour.com/policyharrassment"
         case .Some(self.letterParentsSegue):
-            let webVC = segue.destinationViewController as WebViewController
+            let webVC = segue.destinationViewController as! WebViewController
             webVC.urlString = "http://www.animedetour.com/faqparents"
         case .Some(self.weaponsPolicySegue):
-            let webVC = segue.destinationViewController as WebViewController
+            let webVC = segue.destinationViewController as! WebViewController
             webVC.urlString = "http://www.animedetour.com/policyweapons"
         case .Some(self.websiteSegue):
-            let webVC = segue.destinationViewController as WebViewController
+            let webVC = segue.destinationViewController as! WebViewController
             webVC.urlString = "http://www.animedetour.com/"
         case .Some(self.settingsSegue):
             let acknowledgements = Acknowledgements()
             let sessionSettingsForm = SessionSettings()
             let settings = Settings(acknowledgements: acknowledgements, sessionSettingsForm: sessionSettingsForm)
-            let formVC = segue.destinationViewController as FXFormViewController
+            let formVC = segue.destinationViewController as! FXFormViewController
             formVC.formController.form = settings
             break
         default:

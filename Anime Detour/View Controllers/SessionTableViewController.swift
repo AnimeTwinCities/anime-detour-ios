@@ -162,13 +162,13 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let analytics = GAI.sharedInstance().defaultTracker? {
+        if let analytics = GAI.sharedInstance().defaultTracker {
             if self.bookmarkedOnly {
                 analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Favorites)
             } else {
                 analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.ScheduleSearch)
             }
-            let dict = GAIDictionaryBuilder.createScreenView().build()
+            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
             analytics.send(dict)
         }
 
@@ -200,7 +200,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
         self.lastSearchText = searchText
 
         var searchPredicate: NSPredicate?
-        if countElements(searchText) != 0 {
+        if count(searchText) != 0 {
             // Case- and diacritic-insensitive searching
             searchPredicate = NSPredicate(format: "name CONTAINS[cd] %@", searchText)
         }
@@ -227,16 +227,16 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         self.searchController.active = false
-        let analytics = GAI.sharedInstance().defaultTracker?
+        let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
 
         switch (segue.identifier) {
         case .Some(self.detailIdentifier):
-            let detailVC = segue.destinationViewController as SessionViewController
+            let detailVC = segue.destinationViewController as! SessionViewController
             let selectedIndexPath = self.selectedCellIndex!
             let selectedSession = self.dataSource.session(selectedIndexPath)
             detailVC.session = selectedSession
 
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build()
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build() as [NSObject : AnyObject]
             analytics?.send(dict)
         default:
             // Segues we don't know about are fine.

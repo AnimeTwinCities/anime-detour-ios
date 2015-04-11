@@ -11,7 +11,7 @@ import UIKit
 class SegmentedControlCollectionReusableView: UICollectionReusableView {
     @IBOutlet private(set) var segmentedControl: UISegmentedControl!
 
-    override convenience init() {
+    convenience init() {
         self.init(frame: CGRect.zeroRect)
     }
 

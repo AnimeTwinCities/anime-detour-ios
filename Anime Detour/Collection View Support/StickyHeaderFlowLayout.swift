@@ -39,7 +39,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
         // No sticky header if there are no sections
         if self.headerEnabled && (self.collectionView?.numberOfSections() ?? 0) != 0 {
             // Offset all non-sticky-header views by the sticky header's height
-            for itemAttributes in attributes as [UICollectionViewLayoutAttributes] {
+            for itemAttributes in attributes as! [UICollectionViewLayoutAttributes] {
                 self.offsetForStickyHeader(itemAttributes)
             }
 

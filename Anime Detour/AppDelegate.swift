@@ -112,8 +112,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let guestsClearDate = calendar.dateFromComponents(components)!
         let sessionsClearDate = calendar.dateFromComponents(components)!
 
-        let guestsNeedClearing = guestsClearDate.timeIntervalSinceDate(userDefaults.objectForKey(lastGuestsClearDateKey) as NSDate) > 0
-        let sessionsNeedClearing = sessionsClearDate.timeIntervalSinceDate(userDefaults.objectForKey(lastSessionsClearDateKey) as NSDate) > 0
+        let guestsNeedClearing = guestsClearDate.timeIntervalSinceDate(userDefaults.objectForKey(lastGuestsClearDateKey) as! NSDate) > 0
+        let sessionsNeedClearing = sessionsClearDate.timeIntervalSinceDate(userDefaults.objectForKey(lastSessionsClearDateKey) as! NSDate) > 0
         if guestsNeedClearing || sessionsNeedClearing {
             self.coreDataController.clearPersistentStore()
 
