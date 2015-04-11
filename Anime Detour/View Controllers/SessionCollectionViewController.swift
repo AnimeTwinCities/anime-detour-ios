@@ -188,13 +188,14 @@ class SessionCollectionViewController: UICollectionViewController {
             let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
             analytics.send(dict)
         }
-        
-        self.updateLayoutIfNecessary()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.updateLayoutIfNecessary()
+        
+        // Possibly update cell sizes. Belongs in `viewDidAppear:`, as case the
+        // trait collection is sometimes not up to date in `viewWillAppear:`.
+        self.updateCellSizesIfNecessary()
     }
 
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -206,7 +207,7 @@ class SessionCollectionViewController: UICollectionViewController {
 
     // MARK: - Collection view layout support
     
-    private func updateLayoutIfNecessary() {
+    private func updateCellSizesIfNecessary() {
         if self.traitCollection != self.lastDisplayedTraitCollection {
             let collectionView = self.collectionView!
             self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
