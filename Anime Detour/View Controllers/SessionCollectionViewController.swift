@@ -189,11 +189,12 @@ class SessionCollectionViewController: UICollectionViewController {
             analytics.send(dict)
         }
         
-        if self.traitCollection != self.lastDisplayedTraitCollection {
-            let collectionView = self.collectionView!
-            self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
-            self.lastDisplayedTraitCollection = self.traitCollection
-        }
+        self.updateLayoutIfNecessary()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.updateLayoutIfNecessary()
     }
 
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -204,6 +205,14 @@ class SessionCollectionViewController: UICollectionViewController {
     }
 
     // MARK: - Collection view layout support
+    
+    private func updateLayoutIfNecessary() {
+        if self.traitCollection != self.lastDisplayedTraitCollection {
+            let collectionView = self.collectionView!
+            self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
+            self.lastDisplayedTraitCollection = self.traitCollection
+        }
+    }
 
     /// Update the top offset for our layout, if it is a `StickyHeaderFlowLayout`.
     private func updateStickyHeaderLayoutTopOffset() {
