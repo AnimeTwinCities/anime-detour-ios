@@ -27,7 +27,7 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
 
     private func addSegmentedControl() {
         let segmentedControl = UISegmentedControl()
-        segmentedControl.setTranslatesAutoresizingMaskIntoConstraints(false)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(segmentedControl)
         self.segmentedControl = segmentedControl
 

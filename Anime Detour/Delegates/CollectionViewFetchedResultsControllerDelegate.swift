@@ -33,7 +33,7 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
             cv.performBatchUpdates({ () -> Void in
                 for change in self.cumulativeChanges {
                     switch change {
-                    case let .Object(anObject, indexPath, type, newIndexPath):
+                    case let .Object(_, indexPath, type, newIndexPath):
                         switch type {
                         case .Insert:
                             cv.insertItemsAtIndexPaths([newIndexPath])
@@ -56,7 +56,7 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
                                 break
                             }
                         }
-                    case let .Section(sectionInfo, sectionIndex, type):
+                    case let .Section(_, sectionIndex, type):
                         let indexSet = NSIndexSet(index: sectionIndex)
                         switch type {
                         case .Insert:
@@ -79,7 +79,7 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
 
     }
 
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         self.cumulativeChanges.append(.Object(anObject: anObject, indexPath: indexPath, type: type, newIndexPath: newIndexPath))
     }
 }

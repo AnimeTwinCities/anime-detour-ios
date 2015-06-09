@@ -30,7 +30,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
     /**
     Designated initializer.
     
-    :param: managedObjectContext A context. Note that saves on other contexts must be merged
+    - parameter managedObjectContext: A context. Note that saves on other contexts must be merged
     into this context, or changes to Session favorite status may not be picked up.
     */
     init(managedObjectContext: NSManagedObjectContext) {
@@ -51,13 +51,11 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
         
         frc.delegate = self
         
-        var fetchError: NSError?
-        if !frc.performFetch(&fetchError) {
-            if let error = fetchError {
-                assertionFailure("Failed to fetch sessions: \(error)")
-            } else {
-                assertionFailure("Failed to fetch sessions with an unknown error")
-            }
+        do {
+            try frc.performFetch()
+        } catch {
+            let error = error as NSError
+            assertionFailure("Failed to fetch sessions: \(error)")
         }
         
         self.updateScheduledNotifications()
@@ -69,17 +67,42 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
         
         let timeToStart = "10 minutes"
         
-        for section in sessionFetchedResultsController.sections as! [NSFetchedResultsSectionInfo] {
-            let numberSessionsAtTime = section.numberOfObjects
+        guard self.notificationsEnabled else {
+            self.unscheduleNotifications()
+            return
+        }
+        
+        guard let sections = sessionFetchedResultsController.sections else {
+            return
+        }
+        
+        let nonEmptyfutureSections = sections.filter { section in
+            guard let sessions = section.objects as? [Session] else {
+                assertionFailure("Unexpected object type found in section: \(section)")
+                return false
+            }
             
-            let sessions = section.objects as! [Session]
-            let firstSession = sessions.first! // Assume each section has at least one Session
+            guard let firstSession = sessions.first else {
+                assertionFailure("Unexpected empty section found: \(section)")
+                return false
+            }
             
             // Avoid scheduling notifications for events in the past
             let now = NSDate()
-            if firstSession.start.timeIntervalSinceDate(now) < 0 {
-                continue
+            if firstSession.start.timeIntervalSinceDate(now) >= 0 {
+                return true
+            } else {
+                return false
             }
+        }
+        
+        let notifications = nonEmptyfutureSections.map { section -> UILocalNotification in
+            let numberSessionsAtTime = section.numberOfObjects
+            
+            // We know that all sections that made it past `filter`
+            // have [Session]s with at least one object.
+            let sessions = section.objects as! [Session]
+            let firstSession = sessions.first!
             
             let notification = self.notification(firstSession)
             var alertBody: String
@@ -89,7 +112,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
                 let sessionName = firstSession.name
                 var displayName = sessionName
                 let maxNameLength = 20
-                if count(sessionName) > maxNameLength {
+                if sessionName.characters.count > maxNameLength {
                     displayName = sessionName.substringToIndex(advance(displayName.startIndex, maxNameLength)) + "..."
                 }
                 
@@ -101,11 +124,11 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
             
             let noteInfo = SessionNotificationInfo(sessions: sessions)
             notification.userInfo = noteInfo.toUserInfo()
-            application.scheduleLocalNotification(notification)
+            return notification
         }
         
-        if !self.notificationsEnabled {
-            self.unscheduleNotifications()
+        for note in notifications {
+            application.scheduleLocalNotification(note)
         }
     }
     
@@ -125,14 +148,18 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
     private func unscheduleNotifications() {
         let application = UIApplication.sharedApplication()
         
-        let allLocalNotifications = application.scheduledLocalNotifications as! [UILocalNotification]
+        guard let allLocalNotifications = application.scheduledLocalNotifications else {
+            return
+        }
+        
         let sessionNotifications = allLocalNotifications.filter { note in
-            if let userInfo = note.userInfo {
-                if let sessionNoteInfo = SessionNotificationInfo(userInfo: userInfo) {
-                    return true
-                }
+            guard let userInfo = note.userInfo else { return false }
+            
+            if let _ = SessionNotificationInfo(userInfo: userInfo) {
+                return true
+            } else {
+                return false
             }
-            return false
         }
         
         for note in sessionNotifications {
@@ -153,7 +180,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
     // MARK: - Fetched Results Controller Delegate
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        let count = controller.fetchedObjects!.reduce(0, combine: { (var count, object) in
+        let count = controller.fetchedObjects!.reduce(0, combine: { (count, object) in
             if (object as! Session).bookmarked {
                 return count + 1
             } else {
@@ -172,7 +199,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
         
         // Track notifications getting enabled/disabled
         if let analytics = GAI.sharedInstance().defaultTracker {
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Settings, action: AnalyticsConstants.Actions.Notifications, label: nil, value: NSNumber(integer: enabled ? 1 : 0)).build() as [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Settings, action: AnalyticsConstants.Actions.Notifications, label: nil, value: NSNumber(integer: enabled ? 1 : 0)).build() as NSDictionary as! [NSObject : AnyObject]
             analytics.send(dict)
         }
     }

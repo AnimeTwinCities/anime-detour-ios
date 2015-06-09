@@ -61,12 +61,12 @@ class SessionCollectionViewController: UICollectionViewController {
 
             self.fetchedResultsController.fetchRequest.predicate = self.completePredicate
 
-            var error: NSError?
-            self.fetchedResultsController.performFetch(&error)
-
-            if let error = error {
-                let errorDesc = error.userInfo?[NSLocalizedDescriptionKey] as? String ?? "Unknown error"
-                println("Error performing Session fetch: %@", errorDesc)
+            do {
+                try self.fetchedResultsController.performFetch()
+            } catch {
+                let error = error as NSError
+                let errorDesc = error.userInfo[NSLocalizedDescriptionKey] as? String ?? "Unknown error"
+                print("Error performing Session fetch: %@", errorDesc)
             }
 
             self.collectionView!.reloadData()
@@ -74,7 +74,6 @@ class SessionCollectionViewController: UICollectionViewController {
     }
 
     private var completePredicate: NSPredicate? {
-        let filterPredicate = self.filteredSessionsPredicate
         let bookmarkedPredicate: NSPredicate? = nil // needs to be rethought since the bookmarked status of a Session is not on the Session itself
         var predicates = [NSPredicate]()
         if let filterPredicate = self.filteredSessionsPredicate {
@@ -169,10 +168,10 @@ class SessionCollectionViewController: UICollectionViewController {
         self.dataSource.prepareCollectionView(self.collectionView!)
         self.fetchedResultsControllerDelegate.customizer = self.dataSource
 
-        let frc = self.fetchedResultsController
-        var fetchError: NSError?
-        let success = frc.performFetch(&fetchError)
-        if let error = fetchError {
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
+            let error = error as NSError
             NSLog("Error fetching sessions: %@", error)
         }
 
@@ -185,7 +184,7 @@ class SessionCollectionViewController: UICollectionViewController {
 
         if let analytics = GAI.sharedInstance().defaultTracker {
             analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Schedule)
-            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createScreenView().build() as NSDictionary as! [NSObject : AnyObject]
             analytics.send(dict)
         }
     }
@@ -301,10 +300,10 @@ class SessionCollectionViewController: UICollectionViewController {
         switch (segue.identifier) {
         case .Some(self.detailSegueIdentifier):
             let detailVC = segue.destinationViewController as! SessionViewController
-            let selectedSession = (self.collectionView?.indexPathsForSelectedItems().first as? NSIndexPath).map(self.dataSource.session)!
+            let selectedSession = (self.collectionView?.indexPathsForSelectedItems()?.first).map(self.dataSource.session)!
             detailVC.session = selectedSession
 
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Screen.Schedule, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build() as [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Screen.Schedule, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build() as NSDictionary as! [NSObject : AnyObject]
             analytics?.send(dict)
         case .Some(self.filterSegueIdentifier):
             let navController = segue.destinationViewController as! UINavigationController
@@ -317,21 +316,29 @@ class SessionCollectionViewController: UICollectionViewController {
                 request.resultType = NSFetchRequestResultType.DictionaryResultType
                 request.returnsDistinctResults = true
 
-                if let results = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [[String:String]] {
+                do {
+                    let results = try self.managedObjectContext.executeFetchRequest(request)
+                    guard let stringly = results as? [[String:String]] else {
+                        return []
+                    }
+                    
                     // This is probably very slow...
-                    let allTypeProperties = results.map { dict -> String in return dict[typeKey]! }
+                    let allTypeProperties = stringly.map { dict -> String in return dict[typeKey]! }
                     let types = allTypeProperties.flatMap { (types: String) -> [String] in
                         let separatedTypes = types.componentsSeparatedByString(", ")
                         return separatedTypes
                     }
-
+                    
                     var uniqueing = [String:Void]()
                     for type in types {
                         uniqueing[type] = ()
                     }
-
+                    
                     let uniqueTypes = uniqueing.keys.array
-                    return sorted(uniqueTypes)
+                    return uniqueTypes.sort()
+                } catch {
+                    let error = error as NSError
+                    NSLog("Error fetching session information: \(error)")
                 }
 
                 return []
@@ -426,7 +433,7 @@ private class SessionDayScroller {
                 formatter.dateFormat = "EEEE"
 
                 daysControl.removeAllSegments()
-                for (idx, date) in enumerate(self.days) {
+                for (idx, date) in self.days.enumerate() {
                     let title = formatter.stringFromDate(date)
                     daysControl.insertSegmentWithTitle(title, atIndex: idx, animated: false)
                 }
@@ -482,8 +489,8 @@ private class SessionDayScroller {
     }
 
     /**
-    :param: fetchedResultsController The FRC using which the scroller will look up `Session`s and their starting times. Must return `Session`s and be sectioned on the key path `start`.
-    :param: daySegmentedControl The control using which the day of the latest displayed `Session` will be indicated.
+    - parameter fetchedResultsController: The FRC using which the scroller will look up `Session`s and their starting times. Must return `Session`s and be sectioned on the key path `start`.
+    - parameter daySegmentedControl: The control using which the day of the latest displayed `Session` will be indicated.
     */
     init(fetchedResultsController: NSFetchedResultsController, timeZone: NSTimeZone, targetView: TargetView) {
         self.fetchedResultsController = fetchedResultsController
@@ -494,7 +501,7 @@ private class SessionDayScroller {
     /**
     Finds the index of the date in `self.days` which is the same day as `date`.
 
-    :returns: An index, or `nil` if no matching date was found.
+    - returns: An index, or `nil` if no matching date was found.
     */
     private func dayIndex(date: NSDate) -> Int? {
         let days = self.days
@@ -532,10 +539,13 @@ private class SessionDayScroller {
         fetchRequest.predicate = predicate
         fetchRequest.sortDescriptors = sortDescriptors
 
-        if let results = moc.executeFetchRequest(fetchRequest, error: nil) as? [Session] {
-            if let first = results.first {
-                return self.fetchedResultsController.indexPathForObject(first)
-            }
+        do {
+            guard let results = try moc.executeFetchRequest(fetchRequest) as? [Session] else { return nil }
+            guard let first = results.first else { return nil }
+            return self.fetchedResultsController.indexPathForObject(first)
+        } catch {
+            let error = error as NSError
+            NSLog("Error fetching first object with date %@: %@", date, error)
         }
 
         return nil

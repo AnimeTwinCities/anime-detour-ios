@@ -23,17 +23,17 @@ class TextHeaderCollectionReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel = titleLabel
 
         super.init(frame: frame)
 
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(titleLabel)
 
-        let bindings: NSDictionary = ["titleLabel" : titleLabel]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[titleLabel]-|", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[titleLabel]-|", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
+        let bindings = ["titleLabel" : titleLabel]
+        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[titleLabel]-|", options: [], metrics: nil, views: bindings)
+        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[titleLabel]-|", options: [], metrics: nil, views: bindings)
 
         let allConstraints = hConstraints + vConstraints
         self.addConstraints(allConstraints)

@@ -52,47 +52,71 @@ public class AnimeDetourAPIClient {
     
     // MARK: - Endpoint Methods
 
-    public func guestList(completionHandler: APICompletionHandler) -> NSURLSessionDataTask {
+    public func guestList(completionHandler: APICompletionHandler) -> NSURLSessionDataTask? {
         let url = self.url(fromEndpoint: .GuestList)
         let request = NSURLRequest(URL: url)
-        let dataTask = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        let dataTask = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error getting guest list: \(error)")
                 completionHandler(result: nil, error: error)
                 return
             }
-
-            var jsonError: NSError?
-            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
+            
+            guard let data = data else {
+                completionHandler(result: nil, error: nil)
+                return
+            }
+            
+            let json: AnyObject?
+            let jsonError: NSError?
+            do {
+                json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                jsonError = nil
+            } catch {
+                json = nil
+                jsonError = error as NSError
+            }
             completionHandler(result: json, error: jsonError)
         })
 
-        dataTask.resume()
+        dataTask?.resume()
         return dataTask
     }
     
-    public func sessionList(completionHandler: APICompletionHandler) -> NSURLSessionDataTask {
+    public func sessionList(completionHandler: APICompletionHandler) -> NSURLSessionDataTask? {
         let url = self.url(fromEndpoint: .SessionList)
         let request = NSURLRequest(URL: url)
-        let dataTask = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        let dataTask = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error getting session list: \(error)")
                 completionHandler(result: nil, error: error)
                 return
             }
             
-            var jsonError: NSError?
-            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
+            guard let data = data else {
+                completionHandler(result: nil, error: nil)
+                return
+            }
+            
+            let json: AnyObject?
+            let jsonError: NSError?
+            do {
+                json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                jsonError = nil
+            } catch {
+                json = nil
+                jsonError = error as NSError
+            }
             completionHandler(result: json, error: jsonError)
         })
         
-        dataTask.resume()
+        dataTask?.resume()
         return dataTask
     }
     
     // MARK: - Request Building Methods
     
-    private func url(fromEndpoint endpoint: APIEndpoint, var queryParameters: [String : String] = [:]) -> NSURL {
+    private func url(fromEndpoint endpoint: APIEndpoint, queryParameters: [String : String] = [:]) -> NSURL {
         var relativeURL = endpoint.relativeURL
         relativeURL.extend(self.queryString(fromDictionary: queryParameters))
         return NSURL(string: "\(self.baseURL)\(relativeURL)")!
@@ -199,13 +223,13 @@ public extension Session {
         }
         
         if let seatsString = json["seats"] {
-            if let seats = seatsString.toInt().map({ UInt32($0) }) {
+            if let seats = Int(seatsString).map({ UInt32($0) }) {
                 self.seats = seats
             }
         }
         
         if let goersString = json["goers"] {
-            if let goers = goersString.toInt().map({ UInt32($0) }) {
+            if let goers = Int(goersString).map({ UInt32($0) }) {
                 self.goers = goers
             }
         }

@@ -137,6 +137,7 @@
 		5C30258B1A759EAF00ACE278 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Anime Detour";
 				TargetAttributes = {

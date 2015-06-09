@@ -44,7 +44,7 @@ enum SessionType {
     /**
     Find a SessionType by name.
     
-    :param: name The name of the session type. Case-insensitive.
+    - parameter name: The name of the session type. Case-insensitive.
     */
     static func from(name: String) -> SessionType? {
         switch name.lowercaseString {

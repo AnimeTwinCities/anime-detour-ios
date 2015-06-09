@@ -34,8 +34,12 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
                 let request = frc.fetchRequest
                 request.predicate = self.completePredicate
 
-                var error: NSError?
-                frc.performFetch(&error)
+                do {
+                    try frc.performFetch()
+                } catch {
+                    let error = error as NSError
+                    assertionFailure("Error performing search fetch in session table: \(error)")
+                }
 
                 self.tableView.reloadData()
             }
@@ -44,20 +48,21 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
 
     var completePredicate: NSPredicate? {
         var predicates: [NSPredicate] = []
-        if let bookmarkPredicate = self.bookmarkedOnly ? NSPredicate(format: "bookmarked == YES") : nil {
+        if self.bookmarkedOnly {
+            let bookmarkPredicate = NSPredicate(format: "bookmarked == YES")
             predicates.append(bookmarkPredicate)
         }
 
         if let searchPredicate = self.searchPredicate {
             predicates.append(searchPredicate)
         }
-
-        if predicates.count == 0 {
+        
+        guard predicates.count > 0 else {
             return nil
-        } else {
-            let compound = NSCompoundPredicate.andPredicateWithSubpredicates(predicates)
-            return compound
         }
+
+        let compound = NSCompoundPredicate.andPredicateWithSubpredicates(predicates)
+        return compound
     }
 
     // MARK: Core Data
@@ -146,10 +151,11 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
 
         self.dataSource.prepareTableView(self.tableView)
 
-        var fetchError: NSError?
-        let success = frc.performFetch(&fetchError)
-        if let error = fetchError {
-            NSLog("Error fetching sessions: %@", error)
+        do {
+            try frc.performFetch()
+        } catch {
+            let error = error as NSError
+            NSLog("Error fetching sessions in session table: %@", error)
         }
 
         self.navigationItem.rightBarButtonItem = self.defaultRightBarButtonItem
@@ -168,7 +174,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
             } else {
                 analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.ScheduleSearch)
             }
-            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createScreenView().build() as NSDictionary as! [NSObject : AnyObject]
             analytics.send(dict)
         }
 
@@ -192,7 +198,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     // MARK: - Search Results Updating
 
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        if searchController.active == false {
+        guard searchController.active else {
             return
         }
         
@@ -200,7 +206,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
         self.lastSearchText = searchText
 
         var searchPredicate: NSPredicate?
-        if count(searchText) != 0 {
+        if case let searchText? = searchText where searchText.characters.count > 0 {
             // Case- and diacritic-insensitive searching
             searchPredicate = NSPredicate(format: "name CONTAINS[cd] %@", searchText)
         }
@@ -209,9 +215,9 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
 
     // MARK: - Navigation
 
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         switch(identifier) {
-        case .Some(self.detailIdentifier):
+        case self.detailIdentifier:
             // Get the selected index path
             if let cell = sender as? UITableViewCell {
                 self.selectedCellIndex = self.tableView.indexPathForCell(cell)
@@ -236,7 +242,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
             let selectedSession = self.dataSource.session(selectedIndexPath)
             detailVC.session = selectedSession
 
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build() as [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build() as NSDictionary as! [NSObject : AnyObject]
             analytics?.send(dict)
         default:
             // Segues we don't know about are fine.

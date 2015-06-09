@@ -47,8 +47,8 @@ class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
         // Without setting an `autoresizingMask`, the content view has a
         // mysterious 50pt width constraint that we don't want.
         // So just set it to autoresize.
-        self.contentView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        self.contentView.setTranslatesAutoresizingMaskIntoConstraints(true)
+        self.contentView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.contentView.translatesAutoresizingMaskIntoConstraints = true
 
         let imageLayer = self.photoImageView.layer
         imageLayer.cornerRadius = self.photoImageView.frame.width / 2

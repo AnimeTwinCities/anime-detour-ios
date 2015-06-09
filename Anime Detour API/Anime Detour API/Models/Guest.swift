@@ -27,7 +27,7 @@ public class Guest: NSManagedObject {
             return self.hiResPhotoData.map { UIImage(data: $0) } ?? nil
         }
         set {
-            self.hiResPhotoData = newValue.map { UIImageJPEGRepresentation($0, 0.8) }
+            self.hiResPhotoData = newValue.flatMap { UIImageJPEGRepresentation($0, 0.8) }
         }
     }
 
@@ -36,7 +36,7 @@ public class Guest: NSManagedObject {
             return self.photoData.map { UIImage(data: $0) } ?? nil
         }
         set {
-            self.photoData = newValue.map { UIImageJPEGRepresentation($0, 0.8) }
+            self.photoData = newValue.flatMap { UIImageJPEGRepresentation($0, 0.8) }
         }
     }
 

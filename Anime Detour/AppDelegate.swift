@@ -91,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaultGuestsClearDate = NSDate(timeIntervalSince1970: 0)
         let defaultSessionsClearDate = NSDate(timeIntervalSince1970: 0)
 
-        let defaultUserDefaults: [NSObject : AnyObject] = [
+        let defaultUserDefaults = [
             guestsFetchRequiredKey : NSNumber(bool: true),
             sessionsFetchRequiredKey : NSNumber(bool: true),
             lastGuestsClearDateKey : defaultGuestsClearDate,
@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.apiClient.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
                 if result == nil {
                     if let error = error {
-                        NSLog("Error fetching session list")
+                        NSLog("Error fetching session list from server: \(error)")
                     }
 
                     return
@@ -142,13 +142,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 session.update(jsonObject: json, jsonDateFormatter: self!.apiClient.dateFormatter)
                             }
 
-                            var error: NSError?
-                            if context.save(&error) {
+                            do {
+                                try context.save()
                                 userDefaults.setBool(false, forKey: sessionsFetchRequiredKey)
                                 userDefaults.setObject(sessionsClearDate, forKey: lastSessionsClearDateKey)
                                 userDefaults.synchronize()
-                            } else {
-                                NSLog("Error saving sessions: \(error!)")
+                            } catch {
+                                let error = error
+                                NSLog("Error saving sessions: \(error)")
                             }
                         }
                     }
@@ -160,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.apiClient.guestList { [weak self] (result, error) -> () in
                 if result == nil {
                     if let error = error {
-                        NSLog("Error fetching guest list")
+                        NSLog("Error fetching guest list from server: \(error)")
                     }
 
                     return
@@ -172,23 +173,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             let guestEntity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: context)!
 
                             for category in guestsJson {
-                                if let categoryName = category["categoryname"] as? String {
-                                    if let guests = category["guests"] as? [[String : String]] {
-                                        for json: [String : String] in guests {
-                                            let guest = Guest(entity: guestEntity, insertIntoManagedObjectContext: context)
-                                            guest.update(categoryName: categoryName, jsonObject: json)
-                                        }
-                                    }
+                                guard let categoryName = category["categoryname"] as? String else {
+                                    continue
+                                }
+                                
+                                guard let guests = category["guests"] as? [[String : String]] else {
+                                    continue
+                                }
+                                
+                                for json: [String : String] in guests {
+                                    let guest = Guest(entity: guestEntity, insertIntoManagedObjectContext: context)
+                                    guest.update(categoryName: categoryName, jsonObject: json)
                                 }
                             }
 
-                            var error: NSError?
-                            if context.save(&error) {
+                            do {
+                                try context.save()
                                 userDefaults.setBool(false, forKey: guestsFetchRequiredKey)
                                 userDefaults.setObject(guestsClearDate, forKey: lastGuestsClearDateKey)
                                 userDefaults.synchronize()
-                            } else {
-                                NSLog("Error saving guests: \(error!)")
+                            } catch {
+                                let error = error
+                                NSLog("Error saving guests: \(error)")
                             }
                         }
                     }
@@ -261,14 +267,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let application = UIApplication.sharedApplication()
         
         // Request all permissions
-        let noteTypes = UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge
+        let noteTypes: UIUserNotificationType = [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge]
         let noteSettings = UIUserNotificationSettings(forTypes: noteTypes, categories: nil)
         application.registerUserNotificationSettings(noteSettings)
     }
     
     private func notificationPermissionsEnabled() -> Bool {
         let settings = UIApplication.sharedApplication().currentUserNotificationSettings()
-        return settings.types != .None
+        return (settings?.types ?? .None) != .None
     }
     
     // MARK: - Core Data

@@ -43,8 +43,8 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     /**
     Create a data source.
     
-    :param: imagesURLSession The NSURLSession to use for downloading images. If `nil`, images will not be downloaded.
-    :param: fetchedResultsController An FRC fetching Sessions to display in a collection view.
+    - parameter imagesURLSession: The NSURLSession to use for downloading images. If `nil`, images will not be downloaded.
+    - parameter fetchedResultsController: An FRC fetching Sessions to display in a collection view.
     */
     init(fetchedResultsController: NSFetchedResultsController, timeZone: NSTimeZone?, imagesURLSession: NSURLSession?) {
         self.imagesURLSession = imagesURLSession
@@ -70,13 +70,13 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     /**
     The text to display in a section header.
 
-    :param: forSection Section number. Must be a section number known to the fetched results controller.
+    - parameter forSection: Section number. Must be a section number known to the fetched results controller.
     */
     func headerText(forSection sectionNumber: Int) -> String {
-        let sectionInfo = self.fetchedResultsController.sections![sectionNumber] as! NSFetchedResultsSectionInfo
+        let sectionInfo = self.fetchedResultsController.sections![sectionNumber] as NSFetchedResultsSectionInfo
         // If the fetched results controller has a section, it must have at least one item in it.
         // Force unwrapping it is safe.
-        let start = (sectionInfo.objects.first as! Session).start
+        let start = (sectionInfo.objects!.first as! Session).start
         let name = self.dateFormatter.stringFromDate(start)
         return name
     }
@@ -89,7 +89,7 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let sections = self.fetchedResultsController.sections
-        let sectionInfo = sections![section] as! NSFetchedResultsSectionInfo
+        let sectionInfo = sections![section] as NSFetchedResultsSectionInfo
         let count = sectionInfo.numberOfObjects
         return count
     }
@@ -120,7 +120,7 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sections = self.fetchedResultsController.sections
-        let sectionInfo = sections![section] as! NSFetchedResultsSectionInfo
+        let sectionInfo = sections![section] as NSFetchedResultsSectionInfo
         let count = sectionInfo.numberOfObjects
         return count
     }

@@ -30,7 +30,7 @@ class SessionView: UIView, SessionViewModelDelegate {
             self.imageView.image = self.image
             
             switch image {
-            case let .Some(image):
+            case .Some(_):
                 self.imageViewHeightConstraint.constant = self.imageHeight
             default:
                 self.imageViewHeightConstraint.constant = 0

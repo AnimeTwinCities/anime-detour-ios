@@ -58,9 +58,11 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         let frc = self.fetchedResultsController
         frc.delegate = self.fetchedResultsControllerDelegate
 
-        var error: NSError?
-        if !frc.performFetch(&error) {
-            NSLog("Error fetching guests: \(error!)")
+        do {
+            try frc.performFetch()
+        } catch {
+            let error = error as NSError
+            NSLog("Error fetching guests: \(error)")
         }
 
         self.setFlowLayoutCellSizes(self.collectionView!)
@@ -72,7 +74,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 
         if let analytics = GAI.sharedInstance().defaultTracker {
             analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Guests)
-            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createScreenView().build() as NSDictionary as! [NSObject : AnyObject]
             analytics.send(dict)
         }
 
@@ -120,11 +122,11 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.fetchedResultsController.sections?[section] as? NSFetchedResultsSectionInfo)?.numberOfObjects ?? 0
+        return self.fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
         self.configure(cell, atIndexPath: indexPath)
         return cell
     }
@@ -161,7 +163,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
             let guestVC = segue.destinationViewController as! GuestDetailTableViewController
             guestVC.guestViewModel = guestViewModel
 
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Guest, action: AnalyticsConstants.Actions.ViewDetails, label: guestViewModel.name, value: nil).build() as [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Guest, action: AnalyticsConstants.Actions.ViewDetails, label: guestViewModel.name, value: nil).build() as NSDictionary as! [NSObject : AnyObject]
             analytics?.send(dict)
         default:
             fatalError("Unexpected segue encountered.")

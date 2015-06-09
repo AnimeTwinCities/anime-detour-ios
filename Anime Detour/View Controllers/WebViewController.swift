@@ -33,13 +33,13 @@ class WebViewController: UIViewController {
     private func addWebView() {
         // Create and add a web view to our view
         let webView = WKWebView()
-        webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        webView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(webView)
         self.webView = webView
 
         let bindings = ["webView" : webView]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|[webView]|", options: .allZeros, metrics: nil, views: bindings)
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: .allZeros, metrics: nil, views: bindings)
+        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|[webView]|", options: [], metrics: nil, views: bindings)
+        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: [], metrics: nil, views: bindings)
 
         self.view.addConstraints(hConstraints + vConstraints)
     }

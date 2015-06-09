@@ -38,15 +38,15 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
         self.previewController = previewController
         
         previewController.view.backgroundColor = UIColor.clearColor()
-        previewController.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        previewController.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(previewController.view)
-        let bindings = [
+        let bindings: [String : AnyObject] = [
             "preview" : previewController.view,
             "top" : self.topLayoutGuide,
             "bottom" : self.bottomLayoutGuide
         ]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|[preview]|", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[top][preview][bottom]", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
+        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|[preview]|", options: [], metrics: nil, views: bindings)
+        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[top][preview][bottom]", options: [], metrics: nil, views: bindings)
         let previewConstraints = hConstraints + vConstraints
         self.view.addConstraints(previewConstraints)
         
@@ -73,14 +73,14 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
 
     // MARK: - Preview Controller Data Source
 
-    func numberOfPreviewItemsInPreviewController(controller: QLPreviewController!) -> Int {
+    func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
         return 1
     }
 
-    func previewController(controller: QLPreviewController!, previewItemAtIndex index: Int) -> QLPreviewItem! {
+    func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
         // Assume that we only ever want to show one item, at `activeMapIndex`.
         // Change `activeMapIndex` to change the active item.
-        let item = NSURL(fileURLWithPath: self.mapPaths[self.activeMapIndex])!
+        let item = NSURL(fileURLWithPath: self.mapPaths[self.activeMapIndex], isDirectory: false)
         return item
     }
 }

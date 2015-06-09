@@ -42,7 +42,7 @@ class SessionFilterTableViewController: UITableViewController {
         case .All:
             indexPath = NSIndexPath(forRow: 0, inSection: 0)
         case let .Named(name):
-            if let index = find(self.sessionTypes, name) {
+            if let index = self.sessionTypes.indexOf(name) {
                 indexPath = NSIndexPath(forRow: index, inSection: 1)
             } else {
                 indexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -79,8 +79,6 @@ class SessionFilterTableViewController: UITableViewController {
             selectedType = .All
         case let (_, row):
             selectedType = .Named(self.sessionTypes[row])
-        default:
-            fatalError("Unexpected combination of index path and row of selected cell")
         }
 
         self.selectedType = selectedType
@@ -109,7 +107,7 @@ class SessionFilterTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.reuseIdentifier, forIndexPath: indexPath) as UITableViewCell
         self.configure(cell, atIndexPath: indexPath)
 
         return cell

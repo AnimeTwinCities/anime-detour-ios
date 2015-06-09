@@ -21,20 +21,20 @@ class SessionTableViewHeaderView: UITableViewHeaderFooterView {
         self.init(frame: CGRectZero)
     }
 
-    override init(frame: CGRect) {
+    init(frame: CGRect) {
         let nameLabel = UILabel()
         nameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-        nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         self.nameLabel = nameLabel
 
-        super.init(frame: frame)
+        super.init(reuseIdentifier: nil)
 
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(nameLabel)
 
-        let bindings: NSDictionary = ["nameLabel" : nameLabel]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[nameLabel]-|", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[nameLabel]-|", options: .allZeros, metrics: nil, views: bindings as [NSObject : AnyObject])
+        let bindings = ["nameLabel" : nameLabel]
+        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[nameLabel]-|", options: [], metrics: nil, views: bindings)
+        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[nameLabel]-|", options: [], metrics: nil, views: bindings)
 
         let allConstraints = hConstraints + vConstraints
         self.addConstraints(allConstraints)

@@ -19,7 +19,7 @@ extension AnimeDetourAPIClient {
         self.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
             if result == nil {
                 if let error = error {
-                    NSLog("Error fetching session list")
+                    NSLog("Error fetching session list: \(error)")
                 }
 
                 return
@@ -48,14 +48,14 @@ extension AnimeDetourAPIClient {
                             fetchRequest.predicate = existingPredicate
                             fetchRequest.fetchLimit = 1
 
-                            var existingError: NSError?
-                            if let results = context.executeFetchRequest(fetchRequest, error: &existingError) {
+                            do {
+                                let results = try context.executeFetchRequest(fetchRequest)
                                 if let first = results.first as? Session {
                                     session = first
                                 } else {
                                     session = createAndReturn()
                                 }
-                            } else {
+                            } catch {
                                 session = createAndReturn()
                             }
                         } else {
@@ -70,17 +70,21 @@ extension AnimeDetourAPIClient {
                     let notInResponsePredicate = NSPredicate(format: "NOT (self in %@)", sessionsInResponse)
                     let notInResponseFetchRequest = NSFetchRequest(entityName: Session.entityName)
                     notInResponseFetchRequest.predicate = notInResponsePredicate
-                    if let notInResponseSessions = context.executeFetchRequest(notInResponseFetchRequest, error: nil) {
+                    do {
+                        let notInResponseSessions = try context.executeFetchRequest(notInResponseFetchRequest)
                         for session in notInResponseSessions as! [Session] {
                             context.deleteObject(session)
                         }
+                    } catch {
+                        let error = error as NSError
+                        NSLog("Error fetching sessions not in latest response: \(error)")
                     }
 
-                    var error: NSError?
-                    if context.save(&error) {
-                        // OK!
-                    } else {
-                        NSLog("Error saving sessions: \(error!)")
+                    do {
+                        try context.save()
+                    } catch {
+                        let error = error as NSError
+                        NSLog("Error saving sessions: \(error)")
                     }
 
                     completion?()
