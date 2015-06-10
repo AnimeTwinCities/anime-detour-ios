@@ -79,7 +79,9 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
 
             let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, withIndexPath: indexPath)
             headerAttributes.frame = stickyFrame
-            headerAttributes.zIndex = 1
+            // The default `zIndex` for `UICollectionElementKindSectionHeader` attributes on iOS 9
+            // is `10`. Set the sticky header's `zIndex` much higher.
+            headerAttributes.zIndex = 100
             attributes = headerAttributes
         default:
             attributes = super.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath).map(self.copy)
