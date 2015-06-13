@@ -52,7 +52,6 @@
 		5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */; };
 		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
-		5CE8FE4C1A6309F400D1F516 /* FlatMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8FE4B1A6309F400D1F516 /* FlatMap.swift */; };
 		DA9557111ABE026A000D2720 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9557101ABE026A000D2720 /* SettingsViewController.swift */; };
 		DAA716C91AB7C1D700A5EB07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAA716C81AB7C1D700A5EB07 /* LaunchScreen.storyboard */; };
 		DAA8CC4E1ABDCBBD00FF3872 /* InternalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8CC4B1ABDCBBC00FF3872 /* InternalSettings.swift */; };
@@ -154,7 +153,6 @@
 		5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewHeaderView.swift; sourceTree = "<group>"; };
 		5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		5CE11EAC1A34E299005903A4 /* SessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
-		5CE8FE4B1A6309F400D1F516 /* FlatMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMap.swift; sourceTree = "<group>"; };
 		5EF5767D68136EAEF35EF0D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DA9557101ABE026A000D2720 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DAA716C81AB7C1D700A5EB07 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -410,7 +408,6 @@
 		5CE8FE481A6309C000D1F516 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5CE8FE4B1A6309F400D1F516 /* FlatMap.swift */,
 				5C3025801A746A7500ACE278 /* UIColor.swift */,
 				5C3A4D551A9A48BF00562470 /* UICollectionViewFlowLayout.swift */,
 			);
@@ -607,7 +604,6 @@
 				5C65B37519EA143A00545FDA /* AppDelegate.swift in Sources */,
 				5CCA90401A87031500C14EE0 /* SessionCollectionViewController.swift in Sources */,
 				5C1694821A6AF83C0082F197 /* TableViewFetchedResultsControllerDelegate.swift in Sources */,
-				5CE8FE4C1A6309F400D1F516 /* FlatMap.swift in Sources */,
 				5CCA90391A86A86800C14EE0 /* GuestCollectionViewController.swift in Sources */,
 				5C54451919F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift in Sources */,
 				5C204FA51A7D6BC90050B793 /* SessionFilterTableViewController.swift in Sources */,
