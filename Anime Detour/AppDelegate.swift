@@ -125,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if userDefaults.boolForKey(sessionsFetchRequiredKey) {
             self.apiClient.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
-                if result == nil {
+                guard result != nil else {
                     if let error = error {
                         NSLog("Error fetching session list from server: \(error)")
                     }
@@ -133,25 +133,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
 
-                if let jsonSessions = result as? [[String : String]] {
-                    if let context = self?.backgroundContext {
-                        context.performBlock { () -> Void in
-                            let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
-                            for json: [String : String] in jsonSessions {
-                                let session = Session(entity: sessionEntity, insertIntoManagedObjectContext: context)
-                                session.update(jsonObject: json, jsonDateFormatter: self!.apiClient.dateFormatter)
-                            }
-
-                            do {
-                                try context.save()
-                                userDefaults.setBool(false, forKey: sessionsFetchRequiredKey)
-                                userDefaults.setObject(sessionsClearDate, forKey: lastSessionsClearDateKey)
-                                userDefaults.synchronize()
-                            } catch {
-                                let error = error
-                                NSLog("Error saving sessions: \(error)")
-                            }
-                        }
+                guard let jsonSessions = result as? [[String : String]] else { return }
+                guard let context = self?.backgroundContext else { return }
+                context.performBlock { () -> Void in
+                    let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
+                    for json: [String : String] in jsonSessions {
+                        let session = Session(entity: sessionEntity, insertIntoManagedObjectContext: context)
+                        session.update(jsonObject: json, jsonDateFormatter: self!.apiClient.dateFormatter)
+                    }
+                    
+                    do {
+                        try context.save()
+                        userDefaults.setBool(false, forKey: sessionsFetchRequiredKey)
+                        userDefaults.setObject(sessionsClearDate, forKey: lastSessionsClearDateKey)
+                        userDefaults.synchronize()
+                    } catch {
+                        let error = error
+                        NSLog("Error saving sessions: \(error)")
                     }
                 }
             }
@@ -159,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if userDefaults.boolForKey(guestsFetchRequiredKey) {
             self.apiClient.guestList { [weak self] (result, error) -> () in
-                if result == nil {
+                guard result != nil else {
                     if let error = error {
                         NSLog("Error fetching guest list from server: \(error)")
                     }
@@ -167,36 +165,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
 
-                if let guestsJson = result as? [[String : AnyObject]] {
-                    if let context = self?.backgroundContext {
-                        context.performBlock { () -> Void in
-                            let guestEntity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: context)!
-
-                            for category in guestsJson {
-                                guard let categoryName = category["categoryname"] as? String else {
-                                    continue
-                                }
-                                
-                                guard let guests = category["guests"] as? [[String : String]] else {
-                                    continue
-                                }
-                                
-                                for json: [String : String] in guests {
-                                    let guest = Guest(entity: guestEntity, insertIntoManagedObjectContext: context)
-                                    guest.update(categoryName: categoryName, jsonObject: json)
-                                }
-                            }
-
-                            do {
-                                try context.save()
-                                userDefaults.setBool(false, forKey: guestsFetchRequiredKey)
-                                userDefaults.setObject(guestsClearDate, forKey: lastGuestsClearDateKey)
-                                userDefaults.synchronize()
-                            } catch {
-                                let error = error
-                                NSLog("Error saving guests: \(error)")
-                            }
+                guard let guestsJson = result as? [[String : AnyObject]] else { return }
+                guard let context = self?.backgroundContext else { return }
+                context.performBlock { () -> Void in
+                    let guestEntity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: context)!
+                    
+                    for category in guestsJson {
+                        guard let categoryName = category["categoryname"] as? String else {
+                            continue
                         }
+                        
+                        guard let guests = category["guests"] as? [[String : String]] else {
+                            continue
+                        }
+                        
+                        for json: [String : String] in guests {
+                            let guest = Guest(entity: guestEntity, insertIntoManagedObjectContext: context)
+                            guest.update(categoryName: categoryName, jsonObject: json)
+                        }
+                    }
+                    
+                    do {
+                        try context.save()
+                        userDefaults.setBool(false, forKey: guestsFetchRequiredKey)
+                        userDefaults.setObject(guestsClearDate, forKey: lastGuestsClearDateKey)
+                        userDefaults.synchronize()
+                    } catch {
+                        let error = error
+                        NSLog("Error saving guests: \(error)")
                     }
                 }
             }
@@ -337,15 +333,21 @@ extension AppDelegate: SessionFavoriteNotificationDelegate {
 // MARK: - SessionSettingsDelegate
 extension AppDelegate: SessionSettingsDelegate {
     func didChangeSessionNotificationsSetting(enabled: Bool) {
-        if !enabled {
+        guard enabled else {
             return
         }
         
-        if !self.internalSettings.askedToEnableNotifications {
+        guard self.internalSettings.askedToEnableNotifications else {
             self.askEnableSessionNotifications()
-        } else if !self.internalSettings.askedSystemToEnableNotifications {
+            return
+        }
+        
+        guard self.internalSettings.askedSystemToEnableNotifications else {
             self.requestNotificationPermissions()
-        } else if !self.localNotificationsAllowed {
+            return
+        }
+        
+        guard self.localNotificationsAllowed else {
             // Disable the notification setting if notifications are not allowed
             self.userVisibleSessionSettings.favoriteSessionAlerts = false
             
@@ -361,9 +363,9 @@ extension AppDelegate: SessionSettingsDelegate {
             alertController.addAction(settings)
             
             self.show(alertController)
-        } else {
-            assert(enabled == true, "Expected session notifications to be enabled")
-            self.sessionNotificationScheduler.didChangeSessionNotificationsSetting(enabled)
+            return
         }
+        
+        self.sessionNotificationScheduler.didChangeSessionNotificationsSetting(enabled)
     }
 }
