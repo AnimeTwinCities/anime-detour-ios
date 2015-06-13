@@ -53,7 +53,7 @@ class SessionCollectionViewController: UICollectionViewController {
     /// Must not be changed before `fetchedResultsController` is created.
     private var filteredType: SelectedSessionType = .All {
         didSet {
-            if self.filteredType == oldValue {
+            guard self.filteredType != oldValue else {
                 return
             }
 
@@ -216,22 +216,26 @@ class SessionCollectionViewController: UICollectionViewController {
     // MARK: - Collection view layout support
     
     private func updateCellSizesIfNecessary() {
-        if self.traitCollection != self.lastDisplayedTraitCollection {
-            let collectionView = self.collectionView!
-            self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
-            self.lastDisplayedTraitCollection = self.traitCollection
+        guard self.traitCollection != self.lastDisplayedTraitCollection else {
+            return
         }
+
+        let collectionView = self.collectionView!
+        self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
+        self.lastDisplayedTraitCollection = self.traitCollection
     }
 
     /// Update the top offset for our layout, if it is a `StickyHeaderFlowLayout`.
     private func updateStickyHeaderLayoutTopOffset() {
-        if let stickyHeaderLayout = self.collectionViewLayout as? StickyHeaderFlowLayout {
-            // topLayoutGuide doesn't work for our purposes with a translucent navigation bar
-            if self.navigationController?.navigationBar.translucent ?? false {
-                stickyHeaderLayout.headerTopOffset = self.navigationController!.navigationBar.frame.maxY
-            } else {
-                stickyHeaderLayout.headerTopOffset = self.topLayoutGuide.length
-            }
+        guard let stickyHeaderLayout = self.collectionViewLayout as? StickyHeaderFlowLayout else {
+            return
+        }
+        
+        // topLayoutGuide doesn't work for our purposes with a translucent navigation bar
+        if let navBar = self.navigationController?.navigationBar where navBar.translucent {
+            stickyHeaderLayout.headerTopOffset = navBar.frame.maxY
+        } else {
+            stickyHeaderLayout.headerTopOffset = self.topLayoutGuide.length
         }
     }
 
@@ -285,7 +289,7 @@ class SessionCollectionViewController: UICollectionViewController {
     }
 
     @objc private func refreshSessions(sender: AnyObject?) {
-        if self.refreshing {
+        guard !self.refreshing else {
             return
         }
 
@@ -328,6 +332,7 @@ class SessionCollectionViewController: UICollectionViewController {
                 do {
                     let results = try self.managedObjectContext.executeFetchRequest(request)
                     guard let stringly = results as? [[String:String]] else {
+                        assertionFailure("Expected [[String:String]] result from fetch request.")
                         return []
                     }
                     
@@ -338,13 +343,8 @@ class SessionCollectionViewController: UICollectionViewController {
                         return separatedTypes
                     }
                     
-                    var uniqueing = [String:Void]()
-                    for type in types {
-                        uniqueing[type] = ()
-                    }
-                    
-                    let uniqueTypes = uniqueing.keys.array
-                    return uniqueTypes.sort()
+                    let unique = Set<String>(types)
+                    return unique.sort()
                 } catch {
                     let error = error as NSError
                     NSLog("Error fetching session information: \(error)")
@@ -436,20 +436,22 @@ private class SessionDayScroller {
     weak private var daySegmentedControl: UISegmentedControl? {
         didSet {
             // Set the names of the days on the day chooser segmented control
-            if let daysControl = self.daySegmentedControl {
-                let formatter = NSDateFormatter()
-                // The full name of the day of the week, e.g. Monday
-                formatter.dateFormat = "EEEE"
-
-                daysControl.removeAllSegments()
-                for (idx, date) in self.days.enumerate() {
-                    let title = formatter.stringFromDate(date)
-                    daysControl.insertSegmentWithTitle(title, atIndex: idx, animated: false)
-                }
-
-                daysControl.selectedSegmentIndex = 0
-                daysControl.addTarget(self, action: Selector("goToDay:"), forControlEvents: UIControlEvents.ValueChanged)
+            guard let daysControl = self.daySegmentedControl else {
+                return
             }
+            
+            let formatter = NSDateFormatter()
+            // The full name of the day of the week, e.g. Monday
+            formatter.dateFormat = "EEEE"
+            
+            daysControl.removeAllSegments()
+            for (idx, date) in self.days.enumerate() {
+                let title = formatter.stringFromDate(date)
+                daysControl.insertSegmentWithTitle(title, atIndex: idx, animated: false)
+            }
+            
+            daysControl.selectedSegmentIndex = 0
+            daysControl.addTarget(self, action: Selector("goToDay:"), forControlEvents: UIControlEvents.ValueChanged)
         }
     }
 
@@ -484,15 +486,17 @@ private class SessionDayScroller {
 
     private var sectionOfLatestDisplayedItem: Int = 0 {
         didSet {
-            if self.sectionOfLatestDisplayedItem == oldValue {
+            guard self.sectionOfLatestDisplayedItem != oldValue else {
                 return
             }
-
-            if let segmentedControl = self.daySegmentedControl {
-                let date = self.date(self.sectionOfLatestDisplayedItem)
-                if let idx = self.dayIndex(date) {
-                    segmentedControl.selectedSegmentIndex = idx
-                }
+            
+            guard let segmentedControl = self.daySegmentedControl else {
+                return
+            }
+            
+            let date = self.date(self.sectionOfLatestDisplayedItem)
+            if let idx = self.dayIndex(date) {
+                segmentedControl.selectedSegmentIndex = idx
             }
         }
     }
@@ -578,28 +582,30 @@ private class SessionDayScroller {
 
     /// Scroll to the first session for the day
     func scroll(date: NSDate) {
-        if let indexPath = self.indexPathOfSection(date) {
-            self.scrollingToDay = true
-            switch self.targetView {
-            case let .CollectionView(cv):
-                if let flowLayout = cv.collectionViewLayout as? UICollectionViewFlowLayout {
-                    // Not animated, so we're not 'scrolling'
-                    self.scrollingToDay = false
-                    let yCoordOfFirstView = flowLayout.yCoordinateForFirstItemInSection(indexPath.section)
-                    var offset = cv.contentOffset
-                    offset.y = yCoordOfFirstView
-                    cv.contentOffset = offset
-                } else {
-                    cv.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
-                }
-            case let .TableView(tv):
-                tv.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+        guard let indexPath = self.indexPathOfSection(date) else {
+            return
+        }
+
+        self.scrollingToDay = true
+        switch self.targetView {
+        case let .CollectionView(cv):
+            if let flowLayout = cv.collectionViewLayout as? UICollectionViewFlowLayout {
+                // Not animated, so we're not 'scrolling'
+                self.scrollingToDay = false
+                let yCoordOfFirstView = flowLayout.yCoordinateForFirstItemInSection(indexPath.section)
+                var offset = cv.contentOffset
+                offset.y = yCoordOfFirstView
+                cv.contentOffset = offset
+            } else {
+                cv.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
             }
+        case let .TableView(tv):
+            tv.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
         }
     }
 
     func willDisplayItemAtIndexPath(indexPath: NSIndexPath) {
-        if self.scrollingToDay {
+        guard !self.scrollingToDay else {
             return
         }
 
@@ -621,4 +627,3 @@ private class SessionDayScroller {
         self.scroll(day)
     }
 }
-
