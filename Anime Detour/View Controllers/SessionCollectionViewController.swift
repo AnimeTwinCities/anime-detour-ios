@@ -124,6 +124,7 @@ class SessionCollectionViewController: UICollectionViewController {
     lazy private var dataSource: SessionDataSource = SessionDataSource(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
 
     // MARK: Day indicator
+    
     lazy private var dayScroller: SessionDayScroller = SessionDayScroller(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, targetView: .CollectionView(self.collectionView!))
     private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
 
@@ -147,6 +148,7 @@ class SessionCollectionViewController: UICollectionViewController {
 
     // MARK: Collection view sizing
 
+    private var traitCollectionAfterCurrentTransition: UITraitCollection?
     private var lastDisplayedTraitCollection: UITraitCollection!
 
     // MARK: - View controller
@@ -201,7 +203,14 @@ class SessionCollectionViewController: UICollectionViewController {
         let collectionView = self.collectionView!
         self.setFlowLayoutCellSizes(collectionView, forLayoutSize: size)
 
+        self.traitCollectionAfterCurrentTransition = nil
         self.lastDisplayedTraitCollection = self.traitCollection
+    }
+    
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+        
+        self.traitCollectionAfterCurrentTransition = newCollection
     }
 
     // MARK: - Collection view layout support
@@ -231,7 +240,7 @@ class SessionCollectionViewController: UICollectionViewController {
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let horizontalSpacing = layout.minimumInteritemSpacing
 
-        let traitCollection = collectionView.traitCollection
+        let traitCollection = self.traitCollectionAfterCurrentTransition ?? collectionView.traitCollection
         let viewWidth = layoutSize.width
 
         var itemSize = layout.itemSize
