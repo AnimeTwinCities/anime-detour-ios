@@ -132,9 +132,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                     return
                 }
+                
+                guard let strongSelf = self else {
+                    return
+                }
 
                 guard let jsonSessions = result as? [[String : String]] else { return }
-                guard let context = self?.backgroundContext else { return }
+                let context = strongSelf.backgroundContext
                 context.performBlock { () -> Void in
                     let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
                     for json: [String : String] in jsonSessions {
@@ -164,9 +168,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                     return
                 }
+                
+                guard let strongSelf = self else {
+                    return
+                }
 
                 guard let guestsJson = result as? [[String : AnyObject]] else { return }
-                guard let context = self?.backgroundContext else { return }
+                let context = strongSelf.backgroundContext
                 context.performBlock { () -> Void in
                     let guestEntity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: context)!
                     
