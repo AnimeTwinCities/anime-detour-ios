@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Settings
     
+    private let dataStatusDefaultsController: DataStatusDefaultsController = DataStatusDefaultsController()
     private let internalSettings: InternalSettings = InternalSettings()
     private let userVisibleSessionSettings: SessionSettings = SessionSettings()
     private var enableSessionNotificationsOnNotificationsEnabled = false
@@ -81,24 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         self.userVisibleSessionSettings.delegate = self
-        
-        let guestsFetchRequiredKey = "guestsFetchRequiredKey"
-        let sessionsFetchRequiredKey = "sessionsFetchRequiredKey"
-        let lastGuestsClearDateKey = "lastGuestsClearDateKey"
-        let lastSessionsClearDateKey = "lastSessionsClearDateKey"
-
-        // Default last-must-be-cleared dates, set way in the past.
-        let defaultGuestsClearDate = NSDate(timeIntervalSince1970: 0)
-        let defaultSessionsClearDate = NSDate(timeIntervalSince1970: 0)
-
-        let defaultUserDefaults = [
-            guestsFetchRequiredKey : NSNumber(bool: true),
-            sessionsFetchRequiredKey : NSNumber(bool: true),
-            lastGuestsClearDateKey : defaultGuestsClearDate,
-            lastSessionsClearDateKey : defaultSessionsClearDate,
-        ]
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.registerDefaults(defaultUserDefaults)
 
         // Latest must-be-cleared dates, e.g. if this version of the app points
         // at a different data set and must discard and re-download data.
@@ -111,19 +94,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         components.year = 2015
         let guestsClearDate = calendar.dateFromComponents(components)!
         let sessionsClearDate = calendar.dateFromComponents(components)!
+        
+        let dataStatusDefaultsController = self.dataStatusDefaultsController
 
-        let guestsNeedClearing = guestsClearDate.timeIntervalSinceDate(userDefaults.objectForKey(lastGuestsClearDateKey) as! NSDate) > 0
-        let sessionsNeedClearing = sessionsClearDate.timeIntervalSinceDate(userDefaults.objectForKey(lastSessionsClearDateKey) as! NSDate) > 0
+        let guestsNeedClearing = guestsClearDate.timeIntervalSinceDate(dataStatusDefaultsController.lastGuestsClearDate) > 0
+        let sessionsNeedClearing = sessionsClearDate.timeIntervalSinceDate(dataStatusDefaultsController.lastSessionsClearDate) > 0
         if guestsNeedClearing || sessionsNeedClearing {
             self.coreDataController.clearPersistentStore()
 
             // Clearing the persistent store removes all sessions and guests, since they are both kept
             // in the same store, so we need to fetch them again.
-            userDefaults.setBool(true, forKey: guestsFetchRequiredKey)
-            userDefaults.setBool(true, forKey: sessionsFetchRequiredKey)
+            dataStatusDefaultsController.guestsFetchRequired = true
+            dataStatusDefaultsController.sessionsFetchRequired = true
         }
 
-        if userDefaults.boolForKey(sessionsFetchRequiredKey) {
+        if dataStatusDefaultsController.sessionsFetchRequired {
             self.apiClient.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
                 guard result != nil else {
                     if let error = error {
@@ -148,9 +133,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     do {
                         try context.save()
-                        userDefaults.setBool(false, forKey: sessionsFetchRequiredKey)
-                        userDefaults.setObject(sessionsClearDate, forKey: lastSessionsClearDateKey)
-                        userDefaults.synchronize()
+                        dataStatusDefaultsController.sessionsFetchRequired = false
+                        dataStatusDefaultsController.lastSessionsClearDate = NSDate()
+
+                        dataStatusDefaultsController.synchronizeDefaults()
                     } catch {
                         let error = error
                         NSLog("Error saving sessions: \(error)")
@@ -159,7 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        if userDefaults.boolForKey(guestsFetchRequiredKey) {
+        if dataStatusDefaultsController.guestsFetchRequired {
             self.apiClient.guestList { [weak self] (result, error) -> () in
                 guard result != nil else {
                     if let error = error {
@@ -195,9 +181,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     do {
                         try context.save()
-                        userDefaults.setBool(false, forKey: guestsFetchRequiredKey)
-                        userDefaults.setObject(guestsClearDate, forKey: lastGuestsClearDateKey)
-                        userDefaults.synchronize()
+                        dataStatusDefaultsController.guestsFetchRequired = false
+                        dataStatusDefaultsController.lastGuestsClearDate = NSDate()
+
+                        dataStatusDefaultsController.synchronizeDefaults()
                     } catch {
                         let error = error
                         NSLog("Error saving guests: \(error)")
