@@ -1,10 +1,10 @@
 PODS:
-  - FXForms (1.2.12)
+  - FXForms (1.2.13)
 
 DEPENDENCIES:
   - FXForms (~> 1.2.0)
 
 SPEC CHECKSUMS:
-  FXForms: b6a78bac9f6b597ce704e34ac7c1ce9ff628b1d5
+  FXForms: 22d5ceafd8ca44d2f2be4827afcf00aaf80184a5
 
 COCOAPODS: 0.37.2
