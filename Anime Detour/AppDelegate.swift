@@ -224,11 +224,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func askEnableSessionNotifications() {
         let alertController = UIAlertController(title: "Session Notifications", message: "Enable alerts for favorite sessions? You'll have to allow notifications from the app.", preferredStyle: UIAlertControllerStyle.Alert)
         
-        let accept = UIAlertAction(title: "Enable", style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+        let accept = UIAlertAction(title: "Enable", style: UIAlertActionStyle.Default) { (action: UIAlertAction) -> Void in
             self.internalSettings.askedToEnableNotifications = true
             self.requestNotificationPermissions()
         }
-        let cancel = UIAlertAction(title: "Not Now", style: UIAlertActionStyle.Cancel)  { (action: UIAlertAction!) -> Void in
+        let cancel = UIAlertAction(title: "Not Now", style: UIAlertActionStyle.Cancel)  { (action: UIAlertAction) -> Void in
             self.internalSettings.askedToEnableNotifications = true
             self.userVisibleSessionSettings.favoriteSessionAlerts = false
             return
@@ -349,7 +349,7 @@ extension AppDelegate: SessionSettingsDelegate {
             let alertController = UIAlertController(title: "Enable Notifications", message: "Enable notifications in the Settings app before enabling session alerts.", preferredStyle: UIAlertControllerStyle.Alert)
             
             let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-            let settings = UIAlertAction(title: "Open Settings", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+            let settings = UIAlertAction(title: "Open Settings", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction) -> Void in
                 self.showSettings()
                 return
             })

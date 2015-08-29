@@ -101,7 +101,7 @@ class SessionViewModel {
 
     /// A comma-separated string of all of the Session's types.
     var types: String {
-        return ", ".join(session.types)
+        return session.types.joinWithSeparator(", ")
     }
 
     /**

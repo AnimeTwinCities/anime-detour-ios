@@ -113,7 +113,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
                 var displayName = sessionName
                 let maxNameLength = 20
                 if sessionName.characters.count > maxNameLength {
-                    displayName = sessionName.substringToIndex(advance(displayName.startIndex, maxNameLength)) + "..."
+                    displayName = sessionName.substringToIndex(displayName.startIndex.advancedBy(maxNameLength)) + "..."
                 }
                 
                 let location = firstSession.venue

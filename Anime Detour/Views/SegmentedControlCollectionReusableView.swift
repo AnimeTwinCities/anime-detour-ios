@@ -12,7 +12,7 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
     @IBOutlet private(set) var segmentedControl: UISegmentedControl!
 
     convenience init() {
-        self.init(frame: CGRect.zeroRect)
+        self.init(frame: CGRect.zero)
     }
 
     override init(frame: CGRect) {

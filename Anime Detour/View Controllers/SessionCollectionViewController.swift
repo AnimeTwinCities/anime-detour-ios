@@ -82,7 +82,7 @@ class SessionCollectionViewController: UICollectionViewController {
         if let bookmarkedPredicate = bookmarkedPredicate {
             predicates.append(bookmarkedPredicate)
         }
-        let completePredicate = NSCompoundPredicate.andPredicateWithSubpredicates(predicates)
+        let completePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         return completePredicate
     }
     private var filteredSessionsPredicate: NSPredicate? {
@@ -93,7 +93,7 @@ class SessionCollectionViewController: UICollectionViewController {
             let begins = NSPredicate(format: "type BEGINSWITH %@", type)
             let contains = NSPredicate(format: "type CONTAINS %@", ", " + type + ",")
             let ends = NSPredicate(format: "type ENDSWITH %@", ", " + type)
-            let pred = NSCompoundPredicate.orPredicateWithSubpredicates([begins, contains, ends])
+            let pred = NSCompoundPredicate(orPredicateWithSubpredicates: [begins, contains, ends])
             return pred
         }
     }
@@ -284,7 +284,7 @@ class SessionCollectionViewController: UICollectionViewController {
 
         // Cheat and move the refresh control's bounds down, below the day selector header
         var refreshBounds = self.refreshControl.bounds
-        refreshBounds.offset(dx: 0, dy: -50)
+        refreshBounds.offsetInPlace(dx: 0, dy: -50)
         self.refreshControl.bounds = refreshBounds
     }
 

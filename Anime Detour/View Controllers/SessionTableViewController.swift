@@ -61,7 +61,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
             return nil
         }
 
-        let compound = NSCompoundPredicate.andPredicateWithSubpredicates(predicates)
+        let compound = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         return compound
     }
 

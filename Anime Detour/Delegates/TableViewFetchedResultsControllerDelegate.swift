@@ -39,7 +39,7 @@ class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsContr
         }
     }
 
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         // Use with caution
         let (indexPath, newIndexPath): (NSIndexPath!, NSIndexPath!) = (indexPath, newIndexPath)
         if let tableView = self.tableView {

@@ -79,7 +79,7 @@ public class AnimeDetourAPIClient {
             completionHandler(result: json, error: jsonError)
         })
 
-        dataTask?.resume()
+        dataTask.resume()
         return dataTask
     }
     
@@ -110,7 +110,7 @@ public class AnimeDetourAPIClient {
             completionHandler(result: json, error: jsonError)
         })
         
-        dataTask?.resume()
+        dataTask.resume()
         return dataTask
     }
     
@@ -118,7 +118,7 @@ public class AnimeDetourAPIClient {
     
     private func url(fromEndpoint endpoint: APIEndpoint, queryParameters: [String : String] = [:]) -> NSURL {
         var relativeURL = endpoint.relativeURL
-        relativeURL.extend(self.queryString(fromDictionary: queryParameters))
+        relativeURL.appendContentsOf(self.queryString(fromDictionary: queryParameters))
         return NSURL(string: "\(self.baseURL)\(relativeURL)")!
     }
     
@@ -128,7 +128,7 @@ public class AnimeDetourAPIClient {
             v = v.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
             urlVars += ["\(k)=\(v)"]
         }
-        return urlVars.isEmpty ? "" : ("?" + "&".join(urlVars))
+        return urlVars.isEmpty ? "" : ("?" + urlVars.joinWithSeparator("&"))
     }
 }
 

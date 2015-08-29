@@ -27,7 +27,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
                 return
             }
 
-            let invalidationContext = self.invalidationContextForBoundsChange(self.collectionView?.bounds ?? CGRect.zeroRect)
+            let invalidationContext = self.invalidationContextForBoundsChange(self.collectionView?.bounds ?? CGRect.zero)
             self.setStickyHeaderInvalid(invalidationContext)
             self.invalidateLayoutWithContext(invalidationContext)
         }
@@ -69,8 +69,8 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
 
         switch elementKind {
         case StickyHeaderFlowLayout.StickyHeaderElementKind:
-            let cvOffset = self.collectionView?.contentOffset ?? CGPoint.zeroPoint
-            let cvFrame = self.collectionView?.frame ?? CGRect.zeroRect
+            let cvOffset = self.collectionView?.contentOffset ?? CGPoint.zero
+            let cvFrame = self.collectionView?.frame ?? CGRect.zero
             var stickySize = cvFrame.size
             stickySize.height = self.headerHeight
 
@@ -118,7 +118,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
     private func offsetForStickyHeader(attributes: UICollectionViewLayoutAttributes) {
         if self.headerEnabled {
             let frame = attributes.frame
-            let offsetFrame = frame.rectByOffsetting(dx: 0, dy: self.headerHeight)
+            let offsetFrame = frame.offsetBy(dx: 0, dy: self.headerHeight)
             attributes.frame = offsetFrame
         }
     }

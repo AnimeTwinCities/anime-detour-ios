@@ -127,7 +127,7 @@ class GuestViewModel: Equatable {
             strongSelf.delegate?.didDownloadPhoto(strongSelf, photo: image, hiRes: false)
         })
         self.photoDataTask = photoTask
-        photoTask?.resume()
+        photoTask.resume()
 
         return nil
     }
@@ -180,7 +180,7 @@ class GuestViewModel: Equatable {
             strongSelf.delegate?.didDownloadPhoto(strongSelf, photo: image, hiRes: true)
             })
         self.hiResPhotoDataTask = hiResPhotoTask
-        hiResPhotoTask?.resume()
+        hiResPhotoTask.resume()
         
         return nil
     }
