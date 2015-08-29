@@ -700,47 +700,41 @@
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="92.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="OJL-X1-EJm">
-                                            <rect key="frame" x="20" y="8" width="539" height="34"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day and Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWK-K0-evI">
-                                            <rect key="frame" x="20" y="46" width="539" height="17"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IuU-Cm-ja1">
-                                            <rect key="frame" x="20" y="67" width="539" height="17"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="krP-4I-GNZ" userLabel="Top Stack View">
+                                            <rect key="frame" x="20" y="8" width="539" height="76"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="OJL-X1-EJm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="539" height="38"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="KD2-C4-flg" userLabel="Details Stack View">
+                                                    <rect key="frame" x="0.0" y="38" width="539" height="38"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day and Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWK-K0-evI">
+                                                            <rect key="frame" x="0.0" y="0.0" width="539" height="17"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IuU-Cm-ja1">
+                                                            <rect key="frame" x="0.0" y="21" width="539" height="17"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="IuU-Cm-ja1" firstAttribute="top" secondItem="rWK-K0-evI" secondAttribute="bottom" constant="4" id="1Do-Cb-WZ3"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="rWK-K0-evI" secondAttribute="trailing" id="9f5-LB-w9x"/>
-                                        <constraint firstItem="OJL-X1-EJm" firstAttribute="top" secondItem="6bu-Wf-Jvz" secondAttribute="topMargin" id="Bg0-Sg-fn9"/>
-                                        <constraint firstItem="IuU-Cm-ja1" firstAttribute="leading" secondItem="6bu-Wf-Jvz" secondAttribute="leadingMargin" id="DF2-Pg-M6J"/>
-                                        <constraint firstItem="IuU-Cm-ja1" firstAttribute="leading" secondItem="6bu-Wf-Jvz" secondAttribute="leading" constant="20" id="G9e-Sy-lX3"/>
-                                        <constraint firstItem="IuU-Cm-ja1" firstAttribute="bottom" secondItem="6bu-Wf-Jvz" secondAttribute="bottomMargin" id="R90-Ot-k0S"/>
-                                        <constraint firstItem="rWK-K0-evI" firstAttribute="top" secondItem="OJL-X1-EJm" secondAttribute="bottom" constant="4" id="UL2-ig-T1K"/>
-                                        <constraint firstItem="OJL-X1-EJm" firstAttribute="leading" secondItem="6bu-Wf-Jvz" secondAttribute="leadingMargin" id="bSz-ws-fnZ"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="OJL-X1-EJm" secondAttribute="trailing" id="bVf-EV-Ggi"/>
-                                        <constraint firstItem="rWK-K0-evI" firstAttribute="leading" secondItem="6bu-Wf-Jvz" secondAttribute="leading" constant="20" id="gFz-Pl-HE8"/>
-                                        <constraint firstItem="rWK-K0-evI" firstAttribute="trailing" secondItem="IuU-Cm-ja1" secondAttribute="trailing" id="hXa-kY-n50"/>
-                                        <constraint firstItem="OJL-X1-EJm" firstAttribute="leading" secondItem="6bu-Wf-Jvz" secondAttribute="leading" constant="20" id="nOn-Em-xgW"/>
-                                        <constraint firstItem="rWK-K0-evI" firstAttribute="leading" secondItem="6bu-Wf-Jvz" secondAttribute="leadingMargin" id="uKB-2c-BDa"/>
+                                        <constraint firstItem="krP-4I-GNZ" firstAttribute="leading" secondItem="6bu-Wf-Jvz" secondAttribute="leadingMargin" constant="12" id="0Eu-zg-cqa"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="krP-4I-GNZ" secondAttribute="bottom" id="2vo-2G-ZV1"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="krP-4I-GNZ" secondAttribute="trailing" id="a5A-T3-qfX"/>
+                                        <constraint firstItem="krP-4I-GNZ" firstAttribute="top" secondItem="6bu-Wf-Jvz" secondAttribute="topMargin" id="qWq-VF-0So"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="bSz-ws-fnZ"/>
-                                            <exclude reference="uKB-2c-BDa"/>
-                                            <exclude reference="DF2-Pg-M6J"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
