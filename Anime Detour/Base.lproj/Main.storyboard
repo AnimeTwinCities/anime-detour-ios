@@ -471,7 +471,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anM-ug-uru">
-                                                    <rect key="frame" x="164.5" y="7" width="271" height="30"/>
+                                                    <rect key="frame" x="165" y="7" width="270" height="30"/>
                                                     <state key="normal" title="DoubleTree by Hilton, Bloomington, MN">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
