@@ -108,7 +108,7 @@ class InformationViewController: UITableViewController {
     // MARK: - Received actions
 
     @IBAction func showVenueOnMap(sender: AnyObject?) {
-        let query = ("DoubleTree by Hilton, Bloomington, MN" as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        let query = "DoubleTree by Hilton, Bloomington, MN".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet())!
         let googleMapsInstalled = UIApplication.sharedApplication().canOpenURL(NSURL(string:"comgooglemaps://")!)
 
         if googleMapsInstalled {
