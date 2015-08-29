@@ -21,6 +21,7 @@ extension AnimeDetourAPIClient {
                 if let error = error {
                     NSLog("Error fetching session list: \(error)")
                 }
+                completion?()
 
                 return
             }
