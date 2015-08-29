@@ -166,6 +166,7 @@ class SessionCollectionViewController: UICollectionViewController {
         collectionView.registerClass(SegmentedControlCollectionReusableView.self, forSupplementaryViewOfKind: StickyHeaderFlowLayout.StickyHeaderElementKind, withReuseIdentifier: self.dayControlHeaderReuseIdentifier)
 
         self.updateStickyHeaderLayoutTopOffset()
+        self.updateScrollViewScrollerTopInsetForStickyHeader()
 
         self.dataSource.prepareCollectionView(self.collectionView!)
         self.fetchedResultsControllerDelegate.customizer = self.dataSource
@@ -238,6 +239,20 @@ class SessionCollectionViewController: UICollectionViewController {
             stickyHeaderLayout.headerTopOffset = self.topLayoutGuide.length
         }
     }
+    
+    /// Update the scroll view scroller to be below the sticky header
+    private func updateScrollViewScrollerTopInsetForStickyHeader() {
+        let collectionView = self.collectionView!
+        let insets = collectionView.scrollIndicatorInsets
+        var newInsets = insets
+        if let stickyHeaderLayout = self.collectionViewLayout as? StickyHeaderFlowLayout {
+            newInsets.top = stickyHeaderLayout.headerHeight
+        } else {
+            newInsets.top = 0
+        }
+        
+        collectionView.scrollIndicatorInsets = newInsets
+    }
 
     /// Update the sizes of our collection view items based on the view's trait collection.
     private func setFlowLayoutCellSizes(collectionView: UICollectionView, forLayoutSize layoutSize: CGSize) {
@@ -283,9 +298,16 @@ class SessionCollectionViewController: UICollectionViewController {
         collectionView.addSubview(self.refreshControl)
 
         // Cheat and move the refresh control's bounds down, below the day selector header
+        var headerHeight: CGFloat
+        if let stickyHeaderLayout = self.collectionViewLayout as? StickyHeaderFlowLayout {
+            headerHeight = stickyHeaderLayout.headerHeight
+        } else {
+            headerHeight = 50
+        }
         var refreshBounds = self.refreshControl.bounds
-        refreshBounds.offsetInPlace(dx: 0, dy: -50)
+        refreshBounds.offsetInPlace(dx: 0, dy: -headerHeight)
         self.refreshControl.bounds = refreshBounds
+        
     }
 
     @objc private func refreshSessions(sender: AnyObject?) {
