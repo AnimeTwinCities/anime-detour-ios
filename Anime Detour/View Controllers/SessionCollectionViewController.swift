@@ -441,6 +441,8 @@ class SessionCollectionViewController: UICollectionViewController {
 
 }
 
+// MARK: - Session Day Scroller
+
 /**
 Manages scrolling to days, and indicating the day of a displayed item, using a `UISegmentedControl`.
 The `UIScrollViewDelegate` method `scrollViewDidEndScrollingAnimation` for `targetView` MUST be
