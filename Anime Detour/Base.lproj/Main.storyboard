@@ -693,15 +693,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SessionCell" rowHeight="93" id="Nbn-dL-XBQ" customClass="SessionTableViewCell" customModule="Anime_Detour" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="66" width="600" height="93"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SessionCell" id="Nbn-dL-XBQ" customClass="SessionTableViewCell" customModule="Anime_Detour" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="66" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nbn-dL-XBQ" id="6bu-Wf-Jvz">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="92.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="krP-4I-GNZ" userLabel="Top Stack View">
-                                            <rect key="frame" x="20" y="8" width="539" height="76"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="krP-4I-GNZ" userLabel="Top Stack View">
+                                            <rect key="frame" x="20" y="8" width="539" height="84"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="OJL-X1-EJm">
                                                     <rect key="frame" x="0.0" y="0.0" width="539" height="38"/>
@@ -710,7 +710,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="KD2-C4-flg" userLabel="Details Stack View">
-                                                    <rect key="frame" x="0.0" y="38" width="539" height="38"/>
+                                                    <rect key="frame" x="0.0" y="46" width="539" height="38"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day and Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWK-K0-evI">
                                                             <rect key="frame" x="0.0" y="0.0" width="539" height="17"/>

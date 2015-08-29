@@ -149,6 +149,8 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
         frc.delegate = self.fetchedResultsControllerDelegate
         self.fetchedResultsController = frc
 
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 100
         self.dataSource.prepareTableView(self.tableView)
 
         do {
