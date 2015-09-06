@@ -568,13 +568,27 @@ private class SessionDayScroller {
     */
     private func indexPathOfSection(date: NSDate) -> NSIndexPath? {
         let frc = self.fetchedResultsController
-        let predicate = NSPredicate(format: "start >= %@", argumentArray: [date])
-        let moc = self.fetchedResultsController.managedObjectContext
-        let sortDescriptors = frc.fetchRequest.sortDescriptors
-        let fetchRequest = NSFetchRequest()
-        fetchRequest.entity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: moc)
-        fetchRequest.predicate = predicate
-        fetchRequest.sortDescriptors = sortDescriptors
+        
+        let predicate: NSPredicate
+        do {
+            let frcPredicate = frc.fetchRequest.predicate
+            let datePredicate = NSPredicate(format: "start >= %@", argumentArray: [date])
+            var predicates = [datePredicate]
+            if let frcPredicate = frcPredicate {
+                predicates.append(frcPredicate)
+            }
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        }
+        
+        let moc = frc.managedObjectContext
+        let fetchRequest: NSFetchRequest
+        do {
+            let sortDescriptors = frc.fetchRequest.sortDescriptors
+            fetchRequest = NSFetchRequest()
+            fetchRequest.entity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: moc)
+            fetchRequest.predicate = predicate
+            fetchRequest.sortDescriptors = sortDescriptors
+        }
 
         do {
             guard let results = try moc.executeFetchRequest(fetchRequest) as? [Session] else { return nil }
