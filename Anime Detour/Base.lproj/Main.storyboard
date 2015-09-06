@@ -513,9 +513,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="7r7-uI-IW2" kind="show" identifier="WebsiteSegueIdentifier" id="3WO-FO-OOP"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WeaponsPolicyReuseIdentifier" textLabel="PjS-XJ-bcc" style="IBUITableViewCellStyleDefault" id="pcd-up-qFz">
                                         <rect key="frame" x="0.0" y="418" width="600" height="44"/>
@@ -533,9 +530,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="7r7-uI-IW2" kind="show" identifier="WeaponsSegueIdentifier" id="S72-2p-Jpg"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="HarassmentPolicyReuseIdentifier" textLabel="GKO-Z5-EJa" style="IBUITableViewCellStyleDefault" id="zOw-Xi-Ycu">
                                         <rect key="frame" x="0.0" y="462" width="600" height="44"/>
@@ -553,9 +547,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="7r7-uI-IW2" kind="show" identifier="HarassmentSegueIdentifier" id="rwO-NC-HKO"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LetterParentsReuseIdentifier" textLabel="F56-Ri-VIR" style="IBUITableViewCellStyleDefault" id="3B2-DI-vWE">
                                         <rect key="frame" x="0.0" y="506" width="600" height="44"/>
@@ -573,9 +564,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="7r7-uI-IW2" kind="show" identifier="LetterParentsSegueIdentifier" id="5iT-Wm-Jtu"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -630,24 +618,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYr-VJ-Mld" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1585" y="1766"/>
-        </scene>
-        <!--Web View Controller-->
-        <scene sceneID="1UJ-tO-jH2">
-            <objects>
-                <viewController id="7r7-uI-IW2" customClass="WebViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="52v-XF-H9d"/>
-                        <viewControllerLayoutGuide type="bottom" id="fpe-tl-J6N"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PNw-Cu-V7W">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yB9-I7-avT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2266" y="1766"/>
         </scene>
         <!--Settings-->
         <scene sceneID="akU-Xh-T0h">
@@ -1108,6 +1078,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="FFF-d5-6gs"/>
         <segue reference="JH2-B1-h50"/>
-        <segue reference="5iT-Wm-Jtu"/>
     </inferredMetricsTieBreakers>
 </document>

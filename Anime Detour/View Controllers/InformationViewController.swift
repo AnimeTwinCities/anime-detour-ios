@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 import FXForms
 
@@ -76,23 +77,36 @@ class InformationViewController: UITableViewController {
 
         return cell
     }
+    
+    // MARK: - Table View Delegate
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let cell = tableView.cellForRowAtIndexPath(indexPath) else {
+            return
+        }
+        
+        let url: NSURL
+        switch (cell.reuseIdentifier) {
+        case .Some(self.harassmentPolicyIdentifier):
+            url = NSURL(string: "http://www.animedetour.com/policyharrassment")!
+        case .Some(self.letterParentsIdentifier):
+            url = NSURL(string: "http://www.animedetour.com/faqparents")!
+        case .Some(self.weaponsPolicyIdentifier):
+            url = NSURL(string: "http://www.animedetour.com/policyweapons")!
+        case .Some(self.websiteIdentifier):
+            url = NSURL(string: "http://www.animedetour.com/")!
+        default:
+            return
+        }
+        
+        let safari = SFSafariViewController(URL: url)
+        self.presentViewController(safari, animated: true, completion: nil)
+    }
 
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch (segue.identifier) {
-        case .Some(self.harassmentSegue):
-            let webVC = segue.destinationViewController as! WebViewController
-            webVC.urlString = "http://www.animedetour.com/policyharrassment"
-        case .Some(self.letterParentsSegue):
-            let webVC = segue.destinationViewController as! WebViewController
-            webVC.urlString = "http://www.animedetour.com/faqparents"
-        case .Some(self.weaponsPolicySegue):
-            let webVC = segue.destinationViewController as! WebViewController
-            webVC.urlString = "http://www.animedetour.com/policyweapons"
-        case .Some(self.websiteSegue):
-            let webVC = segue.destinationViewController as! WebViewController
-            webVC.urlString = "http://www.animedetour.com/"
         case .Some(self.settingsSegue):
             let acknowledgements = Acknowledgements()
             let sessionSettingsForm = SessionSettings()
