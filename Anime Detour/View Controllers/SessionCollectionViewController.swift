@@ -506,7 +506,7 @@ private class SessionDayScroller {
 
     /// `true` indicates that the view is currently scrolling to the first item on
     /// a particular day.
-    private(set) var scrollingToDay = false
+    private var scrollingToDay = false
 
     private var sectionOfLatestDisplayedItem: Int = 0 {
         didSet {
