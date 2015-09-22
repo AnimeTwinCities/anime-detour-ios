@@ -193,8 +193,9 @@
 			isa = PBXGroup;
 			children = (
 				5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */,
-				DAAA90A61ABB979B0088F180 /* SessionNotificationScheduler.swift */,
 				DA766C831B2DEC96002BA2C9 /* DataStatusDefaultsController.swift */,
+				DA2C9DAC1BB0E47E00FEEB23 /* NotificationPermissionRequester.swift */,
+				DAAA90A61ABB979B0088F180 /* SessionNotificationScheduler.swift */,
 				DA766C851B2DF282002BA2C9 /* UserDefaultsUpdater.swift */,
 			);
 			path = "Model Controllers";
@@ -626,6 +627,7 @@
 				DAAA90A71ABB979B0088F180 /* SessionNotificationScheduler.swift in Sources */,
 				DAA8CC521ABDCC6900FF3872 /* Acknowledgements.swift in Sources */,
 				5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */,
+				DA2C9DAD1BB0E47E00FEEB23 /* NotificationPermissionRequester.swift in Sources */,
 				DA766C841B2DEC96002BA2C9 /* DataStatusDefaultsController.swift in Sources */,
 				DAA8CC4F1ABDCBBD00FF3872 /* SessionSettings.swift in Sources */,
 				5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */,
