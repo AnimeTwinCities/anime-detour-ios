@@ -52,6 +52,34 @@
 		5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */; };
 		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
+		DA2C9D691BB0DC5700FEEB23 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2C9D681BB0DC5700FEEB23 /* FirstViewController.swift */; };
+		DA2C9D6B1BB0DC5700FEEB23 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2C9D6A1BB0DC5700FEEB23 /* SecondViewController.swift */; };
+		DA2C9D6E1BB0DC5700FEEB23 /* tvOS.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA2C9D6C1BB0DC5700FEEB23 /* tvOS.storyboard */; };
+		DA2C9D701BB0DC5700FEEB23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA2C9D6F1BB0DC5700FEEB23 /* Assets.xcassets */; };
+		DA2C9D751BB0DCD200FEEB23 /* GuestCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA90381A86A86800C14EE0 /* GuestCollectionViewController.swift */; };
+		DA2C9D771BB0DF0700FEEB23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65B37419EA143A00545FDA /* AppDelegate.swift */; };
+		DA2C9D921BB0E0BD00FEEB23 /* AnimeDetourAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA2C9D911BB0E0B500FEEB23 /* AnimeDetourAPI.framework */; };
+		DA2C9D931BB0E0BD00FEEB23 /* AnimeDetourAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA2C9D911BB0E0B500FEEB23 /* AnimeDetourAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA2C9D971BB0E12B00FEEB23 /* GuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA903B1A86AA5700C14EE0 /* GuestCollectionViewCell.swift */; };
+		DA2C9D981BB0E13400FEEB23 /* GuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C31AD1A75E158008FC08F /* GuestViewModel.swift */; };
+		DA2C9D991BB0E15C00FEEB23 /* TextHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA903D1A86F90800C14EE0 /* TextHeaderCollectionReusableView.swift */; };
+		DA2C9D9A1BB0E18100FEEB23 /* AnimeDetourAPIClient_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54451819F31713003CC1C3 /* AnimeDetourAPIClient_Singleton.swift */; };
+		DA2C9D9C1BB0E18B00FEEB23 /* StickyHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBA4D431A996110003D1F60 /* StickyHeaderFlowLayout.swift */; };
+		DA2C9D9D1BB0E1A900FEEB23 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
+		DA2C9D9E1BB0E1B100FEEB23 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3025801A746A7500ACE278 /* UIColor.swift */; };
+		DA2C9DA01BB0E1CD00FEEB23 /* CoreDataController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */; };
+		DA2C9DA21BB0E1D600FEEB23 /* DataStatusDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA766C831B2DEC96002BA2C9 /* DataStatusDefaultsController.swift */; };
+		DA2C9DA31BB0E1D900FEEB23 /* UserDefaultsUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA766C851B2DF282002BA2C9 /* UserDefaultsUpdater.swift */; };
+		DA2C9DA51BB0E21D00FEEB23 /* InternalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8CC4B1ABDCBBC00FF3872 /* InternalSettings.swift */; };
+		DA2C9DA61BB0E22000FEEB23 /* SessionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8CC4C1ABDCBBD00FF3872 /* SessionSettings.swift */; };
+		DA2C9DA81BB0E28900FEEB23 /* SessionSettings_Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2C9DA71BB0E28900FEEB23 /* SessionSettings_Form.swift */; };
+		DA2C9DA91BB0E2F500FEEB23 /* SegmentedControlCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9F66CE1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift */; };
+		DA2C9DAD1BB0E47E00FEEB23 /* NotificationPermissionRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2C9DAC1BB0E47E00FEEB23 /* NotificationPermissionRequester.swift */; };
+		DA5252841BB0FA5A0037A853 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C89A3F61AA697900051FF52 /* libGoogleAnalyticsServices.a */; };
+		DA52528A1BB0FDE20037A853 /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C89A4621AA6A77E0051FF52 /* AnalyticsConstants.swift */; };
+		DA52528C1BB0FE430037A853 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA52528B1BB0FE430037A853 /* libsqlite3.tbd */; };
+		DA52528E1BB0FE4A0037A853 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DA52528D1BB0FE4A0037A853 /* libz.tbd */; };
+		DA5252901BB0FE4F0037A853 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA52528F1BB0FE4F0037A853 /* SystemConfiguration.framework */; };
 		DA766C841B2DEC96002BA2C9 /* DataStatusDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA766C831B2DEC96002BA2C9 /* DataStatusDefaultsController.swift */; };
 		DA766C861B2DF282002BA2C9 /* UserDefaultsUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA766C851B2DF282002BA2C9 /* UserDefaultsUpdater.swift */; };
 		DA9557111ABE026A000D2720 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9557101ABE026A000D2720 /* SettingsViewController.swift */; };
@@ -80,6 +108,20 @@
 			remoteGlobalIDString = 5C3025931A759EAF00ACE278;
 			remoteInfo = AnimeDetourAPI;
 		};
+		DA2C9D901BB0E0B500FEEB23 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA2C9D8D1BB0E09500FEEB23;
+			remoteInfo = "AnimeDetourAPI (tvOS) copy";
+		};
+		DA2C9D941BB0E0BD00FEEB23 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DA2C9D7F1BB0E09500FEEB23;
+			remoteInfo = "AnimeDetourAPI (tvOS) copy";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -93,6 +135,17 @@
 				5C6C31981A75A312008FC08F /* AnimeDetourAPI.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA2C9D961BB0E0BD00FEEB23 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DA2C9D931BB0E0BD00FEEB23 /* AnimeDetourAPI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -158,6 +211,18 @@
 		5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		5CE11EAC1A34E299005903A4 /* SessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
 		5EF5767D68136EAEF35EF0D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		DA2C9D641BB0DC5700FEEB23 /* Anime Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Detour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA2C9D681BB0DC5700FEEB23 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		DA2C9D6A1BB0DC5700FEEB23 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		DA2C9D6D1BB0DC5700FEEB23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/tvOS.storyboard; sourceTree = "<group>"; };
+		DA2C9D6F1BB0DC5700FEEB23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA2C9D711BB0DC5700FEEB23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA2C9DA71BB0E28900FEEB23 /* SessionSettings_Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionSettings_Form.swift; sourceTree = "<group>"; };
+		DA2C9DAC1BB0E47E00FEEB23 /* NotificationPermissionRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPermissionRequester.swift; sourceTree = "<group>"; };
+		DA5252861BB0FDC50037A853 /* Anime Detour (tvOS)-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour (tvOS)-Bridging-Header.h"; sourceTree = "<group>"; };
+		DA52528B1BB0FE430037A853 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		DA52528D1BB0FE4A0037A853 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		DA52528F1BB0FE4F0037A853 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		DA766C831B2DEC96002BA2C9 /* DataStatusDefaultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStatusDefaultsController.swift; sourceTree = "<group>"; };
 		DA766C851B2DF282002BA2C9 /* UserDefaultsUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsUpdater.swift; sourceTree = "<group>"; };
 		DA9557101ABE026A000D2720 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -183,6 +248,18 @@
 				5C89A4561AA69D8C0051FF52 /* SystemConfiguration.framework in Frameworks */,
 				5C89A3F71AA697900051FF52 /* libGoogleAnalyticsServices.a in Frameworks */,
 				0E50016B89AA1F69541D5126 /* Pods.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA2C9D611BB0DC5700FEEB23 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA5252901BB0FE4F0037A853 /* SystemConfiguration.framework in Frameworks */,
+				DA52528E1BB0FE4A0037A853 /* libz.tbd in Frameworks */,
+				DA52528C1BB0FE430037A853 /* libsqlite3.tbd in Frameworks */,
+				DA2C9D921BB0E0BD00FEEB23 /* AnimeDetourAPI.framework in Frameworks */,
+				DA5252841BB0FA5A0037A853 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				5C3025B61A759EB000ACE278 /* AnimeDetourAPI.framework */,
+				DA2C9D911BB0E0B500FEEB23 /* AnimeDetourAPI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -300,6 +378,7 @@
 			children = (
 				5C65B37119EA143A00545FDA /* Anime Detour */,
 				5C89A4591AA69DF10051FF52 /* Libraries */,
+				DA2C9D651BB0DC5700FEEB23 /* tvOS */,
 				5C65B37019EA143A00545FDA /* Products */,
 				5C3025B01A759EAF00ACE278 /* Anime Detour API.xcodeproj */,
 				FBAEE2907A0485BE15CAFB81 /* Pods */,
@@ -311,6 +390,7 @@
 			isa = PBXGroup;
 			children = (
 				5C65B36F19EA143A00545FDA /* Anime Detour.app */,
+				DA2C9D641BB0DC5700FEEB23 /* Anime Detour.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -426,9 +506,25 @@
 		9FCC043A1E84834060D97EE6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA52528F1BB0FE4F0037A853 /* SystemConfiguration.framework */,
+				DA52528D1BB0FE4A0037A853 /* libz.tbd */,
+				DA52528B1BB0FE430037A853 /* libsqlite3.tbd */,
 				F77720ADE8BAD8023AEC2D54 /* Pods.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA2C9D651BB0DC5700FEEB23 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				DA2C9D681BB0DC5700FEEB23 /* FirstViewController.swift */,
+				DA2C9D6A1BB0DC5700FEEB23 /* SecondViewController.swift */,
+				DA2C9D6C1BB0DC5700FEEB23 /* tvOS.storyboard */,
+				DA2C9D6F1BB0DC5700FEEB23 /* Assets.xcassets */,
+				DA2C9D711BB0DC5700FEEB23 /* Info.plist */,
+				DA5252861BB0FDC50037A853 /* Anime Detour (tvOS)-Bridging-Header.h */,
+			);
+			path = tvOS;
 			sourceTree = "<group>";
 		};
 		DAA8CC4A1ABDCB4400FF3872 /* Settings */ = {
@@ -437,6 +533,7 @@
 				DAA8CC511ABDCC6900FF3872 /* Acknowledgements.swift */,
 				DAA8CC4B1ABDCBBC00FF3872 /* InternalSettings.swift */,
 				DAA8CC4C1ABDCBBD00FF3872 /* SessionSettings.swift */,
+				DA2C9DA71BB0E28900FEEB23 /* SessionSettings_Form.swift */,
 				DAA8CC4D1ABDCBBD00FF3872 /* Settings.swift */,
 			);
 			path = Settings;
@@ -454,9 +551,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5C65B36E19EA143A00545FDA /* Anime Detour */ = {
+		5C65B36E19EA143A00545FDA /* Anime Detour (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5C65B39019EA143A00545FDA /* Build configuration list for PBXNativeTarget "Anime Detour" */;
+			buildConfigurationList = 5C65B39019EA143A00545FDA /* Build configuration list for PBXNativeTarget "Anime Detour (iOS)" */;
 			buildPhases = (
 				1A9F9D0F6F02F849F098431D /* Check Pods Manifest.lock */,
 				5C65B36B19EA143A00545FDA /* Sources */,
@@ -471,9 +568,28 @@
 			dependencies = (
 				5C6C319A1A75A312008FC08F /* PBXTargetDependency */,
 			);
-			name = "Anime Detour";
+			name = "Anime Detour (iOS)";
 			productName = "Anime Detour";
 			productReference = 5C65B36F19EA143A00545FDA /* Anime Detour.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA2C9D631BB0DC5700FEEB23 /* Anime Detour (tvOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA2C9D721BB0DC5700FEEB23 /* Build configuration list for PBXNativeTarget "Anime Detour (tvOS)" */;
+			buildPhases = (
+				DA2C9D601BB0DC5700FEEB23 /* Sources */,
+				DA2C9D611BB0DC5700FEEB23 /* Frameworks */,
+				DA2C9D621BB0DC5700FEEB23 /* Resources */,
+				DA2C9D961BB0E0BD00FEEB23 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA2C9D951BB0E0BD00FEEB23 /* PBXTargetDependency */,
+			);
+			name = "Anime Detour (tvOS)";
+			productName = tvOS;
+			productReference = DA2C9D641BB0DC5700FEEB23 /* Anime Detour.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -482,13 +598,16 @@
 		5C65B36719EA143A00545FDA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Anime Detour";
 				TargetAttributes = {
 					5C65B36E19EA143A00545FDA = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = CSE7H7E6BP;
+					};
+					DA2C9D631BB0DC5700FEEB23 = {
+						CreatedOnToolsVersion = 7.1;
 					};
 				};
 			};
@@ -511,7 +630,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				5C65B36E19EA143A00545FDA /* Anime Detour */,
+				5C65B36E19EA143A00545FDA /* Anime Detour (iOS) */,
+				DA2C9D631BB0DC5700FEEB23 /* Anime Detour (tvOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -522,6 +642,13 @@
 			fileType = wrapper.framework;
 			path = AnimeDetourAPI.framework;
 			remoteRef = 5C3025B51A759EB000ACE278 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DA2C9D911BB0E0B500FEEB23 /* AnimeDetourAPI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AnimeDetourAPI.framework;
+			remoteRef = DA2C9D901BB0E0B500FEEB23 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -539,6 +666,15 @@
 				5C317A9B1A916F6600E668F5 /* DoubleTree_Floor22_2015.jpg in Resources */,
 				5C317A9A1A916F6600E668F5 /* DoubleTree_Floor2_2015.jpg in Resources */,
 				5C65B37E19EA143A00545FDA /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA2C9D621BB0DC5700FEEB23 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA2C9D701BB0DC5700FEEB23 /* Assets.xcassets in Resources */,
+				DA2C9D6E1BB0DC5700FEEB23 /* tvOS.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,6 +754,7 @@
 				5C204FA51A7D6BC90050B793 /* SessionFilterTableViewController.swift in Sources */,
 				DA766C861B2DF282002BA2C9 /* UserDefaultsUpdater.swift in Sources */,
 				5C6C31AE1A75E158008FC08F /* GuestViewModel.swift in Sources */,
+				DA2C9DA81BB0E28900FEEB23 /* SessionSettings_Form.swift in Sources */,
 				5CCA90421A870A8000C14EE0 /* SessionCollectionViewCell.swift in Sources */,
 				5C0EF2DD19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
@@ -640,6 +777,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA2C9D601BB0DC5700FEEB23 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA2C9DA61BB0E22000FEEB23 /* SessionSettings.swift in Sources */,
+				DA2C9D6B1BB0DC5700FEEB23 /* SecondViewController.swift in Sources */,
+				DA2C9D751BB0DCD200FEEB23 /* GuestCollectionViewController.swift in Sources */,
+				DA2C9D9D1BB0E1A900FEEB23 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */,
+				DA2C9D971BB0E12B00FEEB23 /* GuestCollectionViewCell.swift in Sources */,
+				DA2C9D771BB0DF0700FEEB23 /* AppDelegate.swift in Sources */,
+				DA2C9D691BB0DC5700FEEB23 /* FirstViewController.swift in Sources */,
+				DA52528A1BB0FDE20037A853 /* AnalyticsConstants.swift in Sources */,
+				DA2C9DA01BB0E1CD00FEEB23 /* CoreDataController_Singleton.swift in Sources */,
+				DA2C9D991BB0E15C00FEEB23 /* TextHeaderCollectionReusableView.swift in Sources */,
+				DA2C9DA31BB0E1D900FEEB23 /* UserDefaultsUpdater.swift in Sources */,
+				DA2C9D9E1BB0E1B100FEEB23 /* UIColor.swift in Sources */,
+				DA2C9DA91BB0E2F500FEEB23 /* SegmentedControlCollectionReusableView.swift in Sources */,
+				DA2C9D981BB0E13400FEEB23 /* GuestViewModel.swift in Sources */,
+				DA2C9DA21BB0E1D600FEEB23 /* DataStatusDefaultsController.swift in Sources */,
+				DA2C9D9A1BB0E18100FEEB23 /* AnimeDetourAPIClient_Singleton.swift in Sources */,
+				DA2C9D9C1BB0E18B00FEEB23 /* StickyHeaderFlowLayout.swift in Sources */,
+				DA2C9DA51BB0E21D00FEEB23 /* InternalSettings.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -647,6 +809,11 @@
 			isa = PBXTargetDependency;
 			name = AnimeDetourAPI;
 			targetProxy = 5C6C31991A75A312008FC08F /* PBXContainerItemProxy */;
+		};
+		DA2C9D951BB0E0BD00FEEB23 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "AnimeDetourAPI (tvOS) copy";
+			targetProxy = DA2C9D941BB0E0BD00FEEB23 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -657,6 +824,14 @@
 				5C65B37B19EA143A00545FDA /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DA2C9D6C1BB0DC5700FEEB23 /* tvOS.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA2C9D6D1BB0DC5700FEEB23 /* Base */,
+			);
+			name = tvOS.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -759,7 +934,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.animedetour.mobile;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Anime Detour";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime Detour-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -785,11 +960,63 @@
 					"$(PROJECT_DIR)/Anime\\ Detour/Vendor",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.animedetour.mobile;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Anime Detour";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime Detour-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DA2C9D731BB0DC5700FEEB23 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = tvOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Anime\\ Detour",
+					"$(PROJECT_DIR)/Anime\\ Detour/Vendor",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.animedetour.mobile;
+				PRODUCT_NAME = "Anime Detour";
+				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "tvOS/Anime Detour (tvOS)-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		DA2C9D741BB0DC5700FEEB23 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = tvOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Anime\\ Detour",
+					"$(PROJECT_DIR)/Anime\\ Detour/Vendor",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.animedetour.mobile;
+				PRODUCT_NAME = "Anime Detour";
+				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "tvOS/Anime Detour (tvOS)-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
@@ -805,11 +1032,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5C65B39019EA143A00545FDA /* Build configuration list for PBXNativeTarget "Anime Detour" */ = {
+		5C65B39019EA143A00545FDA /* Build configuration list for PBXNativeTarget "Anime Detour (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C65B39119EA143A00545FDA /* Debug */,
 				5C65B39219EA143A00545FDA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA2C9D721BB0DC5700FEEB23 /* Build configuration list for PBXNativeTarget "Anime Detour (tvOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA2C9D731BB0DC5700FEEB23 /* Debug */,
+				DA2C9D741BB0DC5700FEEB23 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

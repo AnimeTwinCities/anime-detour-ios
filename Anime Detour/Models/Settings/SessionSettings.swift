@@ -8,14 +8,12 @@
 
 import UIKit
 
-import FXForms
-
 /**
 Settings which should be presented to the user.
 
 Specify the runtime class name for the benefit of FXForms.
 */
-@objc(SessionSettings) final class SessionSettings: NSObject, FXForm {
+@objc(SessionSettings) final class SessionSettings: NSObject {
     struct SessionSettingsUserDefaultsKeys {
         static let FavoriteSessionAlertsKey = "SettingsFavoriteSessionAlertsKey"
     }

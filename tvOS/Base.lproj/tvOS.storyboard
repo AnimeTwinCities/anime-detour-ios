@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="9046" systemVersion="15A282a" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9035"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="yl2-sM-qoP">
+            <objects>
+                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="120"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Xr5-Qt-dbr" kind="relationship" relationship="viewControllers" id="vKu-dU-TOx"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--Guests-->
+        <scene sceneID="L2n-Hy-tr5">
+            <objects>
+                <collectionViewController id="Xr5-Qt-dbr" customClass="GuestCollectionViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="rwZ-Yz-jnD">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Yxd-Tf-ldU">
+                            <size key="itemSize" width="300" height="100"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GuestCellIdentifier" id="ccg-hb-biD" customClass="GuestCollectionViewCell" customModule="Anime_Detour" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="190" width="300" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mFY-9F-cTP">
+                                            <rect key="frame" x="30" y="20" width="60" height="60"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="mFY-9F-cTP" secondAttribute="height" multiplier="1:1" id="Bom-BR-ILV"/>
+                                                <constraint firstAttribute="width" constant="60" id="I6U-hb-hHM"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2P7-fe-52i">
+                                            <rect key="frame" x="105" y="39.5" width="187" height="20.5"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstItem="2P7-fe-52i" firstAttribute="leading" secondItem="mFY-9F-cTP" secondAttribute="trailing" constant="15" id="GyD-uL-0ll"/>
+                                    <constraint firstItem="mFY-9F-cTP" firstAttribute="centerY" secondItem="ccg-hb-biD" secondAttribute="centerY" id="Jxi-2H-keQ"/>
+                                    <constraint firstItem="2P7-fe-52i" firstAttribute="centerY" secondItem="mFY-9F-cTP" secondAttribute="centerY" id="e8O-TT-dPW"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="2P7-fe-52i" secondAttribute="trailing" id="qBh-Lo-xdQ"/>
+                                    <constraint firstItem="mFY-9F-cTP" firstAttribute="leading" secondItem="ccg-hb-biD" secondAttribute="leading" constant="30" id="tlK-0z-ci3"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="nameLabel" destination="2P7-fe-52i" id="IpL-QO-rlJ"/>
+                                    <outlet property="photoImageView" destination="mFY-9F-cTP" id="Kmz-yd-EN2"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GuestHeaderIdentifier" id="Jdb-lW-9KU" customClass="TextHeaderCollectionReusableView" customModule="Anime_Detour" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="140" width="1920" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8J-lJ-OCL">
+                                    <rect key="frame" x="8" y="14.5" width="1904" height="20.5"/>
+                                    <animations/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <animations/>
+                            <constraints>
+                                <constraint firstItem="u8J-lJ-OCL" firstAttribute="centerY" secondItem="Jdb-lW-9KU" secondAttribute="centerY" id="Jn8-ym-uiC"/>
+                                <constraint firstItem="u8J-lJ-OCL" firstAttribute="leading" secondItem="Jdb-lW-9KU" secondAttribute="leadingMargin" id="oK1-4C-5HX"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="u8J-lJ-OCL" secondAttribute="trailing" id="uh9-iX-FmR"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="titleLabel" destination="u8J-lJ-OCL" id="Rr4-ey-OyO"/>
+                            </connections>
+                        </collectionReusableView>
+                        <connections>
+                            <outlet property="dataSource" destination="Xr5-Qt-dbr" id="afN-rC-cIv"/>
+                            <outlet property="delegate" destination="Xr5-Qt-dbr" id="529-mg-mse"/>
+                        </connections>
+                    </collectionView>
+                    <tabBarItem key="tabBarItem" title="Guests" id="y1x-qp-4HO"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="reuseIdentifier" value="GuestCellIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="headerIdentifier" value="GuestHeaderIdentifier"/>
+                    </userDefinedRuntimeAttributes>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vOx-gm-M48" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2364" y="-9"/>
+        </scene>
+    </scenes>
+</document>

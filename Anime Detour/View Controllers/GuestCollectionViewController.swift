@@ -84,12 +84,14 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         }
     }
 
+    #if os(iOS)
     override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         // Update sizes in `willAnimateRotationToInterfaceOrientation...` so the collection view's
         // frame is already updated.
         self.setFlowLayoutCellSizes(self.collectionView!)
         self.lastDisplayedTraitCollection = self.traitCollection
     }
+    #endif
 
     private func guest(indexPath: NSIndexPath) -> Guest {
         return self.fetchedResultsController.objectAtIndexPath(indexPath) as! Guest
@@ -160,9 +162,11 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         case .Some(self.detailIdentifier):
             let cell = sender as! GuestCollectionViewCell
             let guestViewModel = cell.viewModel!
+            #if os(iOS)
             let guestVC = segue.destinationViewController as! GuestDetailTableViewController
             guestVC.guestViewModel = guestViewModel
-
+            #endif
+            
             let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Guest, action: AnalyticsConstants.Actions.ViewDetails, label: guestViewModel.name, value: nil).build() as NSDictionary as! [NSObject : AnyObject]
             analytics?.send(dict)
         default:

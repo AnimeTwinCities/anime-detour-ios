@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0710"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,51 +14,27 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C65B36E19EA143A00545FDA"
+               BlueprintIdentifier = "DA2C9D631BB0DC5700FEEB23"
                BuildableName = "Anime Detour.app"
-               BlueprintName = "Anime Detour"
-               ReferencedContainer = "container:Anime Detour.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C65B38519EA143A00545FDA"
-               BuildableName = "Anime DetourTests.xctest"
-               BlueprintName = "Anime DetourTests"
+               BlueprintName = "Anime Detour (tvOS)"
                ReferencedContainer = "container:Anime Detour.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C65B38519EA143A00545FDA"
-               BuildableName = "Anime DetourTests.xctest"
-               BlueprintName = "Anime DetourTests"
-               ReferencedContainer = "container:Anime Detour.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5C65B36E19EA143A00545FDA"
+            BlueprintIdentifier = "DA2C9D631BB0DC5700FEEB23"
             BuildableName = "Anime Detour.app"
-            BlueprintName = "Anime Detour"
+            BlueprintName = "Anime Detour (tvOS)"
             ReferencedContainer = "container:Anime Detour.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -66,11 +42,11 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -79,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5C65B36E19EA143A00545FDA"
+            BlueprintIdentifier = "DA2C9D631BB0DC5700FEEB23"
             BuildableName = "Anime Detour.app"
-            BlueprintName = "Anime Detour"
+            BlueprintName = "Anime Detour (tvOS)"
             ReferencedContainer = "container:Anime Detour.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -89,18 +65,18 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5C65B36E19EA143A00545FDA"
+            BlueprintIdentifier = "DA2C9D631BB0DC5700FEEB23"
             BuildableName = "Anime Detour.app"
-            BlueprintName = "Anime Detour"
+            BlueprintName = "Anime Detour (tvOS)"
             ReferencedContainer = "container:Anime Detour.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C3025931A759EAF00ACE278"
+               BlueprintIdentifier = "DA2C9D7F1BB0E09500FEEB23"
                BuildableName = "AnimeDetourAPI.framework"
-               BlueprintName = "AnimeDetourAPI"
+               BlueprintName = "AnimeDetourAPI (tvOS)"
                ReferencedContainer = "container:Anime Detour API.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5C3025931A759EAF00ACE278"
+            BlueprintIdentifier = "DA2C9D7F1BB0E09500FEEB23"
             BuildableName = "AnimeDetourAPI.framework"
-            BlueprintName = "AnimeDetourAPI"
+            BlueprintName = "AnimeDetourAPI (tvOS)"
             ReferencedContainer = "container:Anime Detour API.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5C3025931A759EAF00ACE278"
+            BlueprintIdentifier = "DA2C9D7F1BB0E09500FEEB23"
             BuildableName = "AnimeDetourAPI.framework"
-            BlueprintName = "AnimeDetourAPI"
+            BlueprintName = "AnimeDetourAPI (tvOS)"
             ReferencedContainer = "container:Anime Detour API.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
