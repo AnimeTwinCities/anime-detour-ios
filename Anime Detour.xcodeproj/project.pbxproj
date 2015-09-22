@@ -52,6 +52,7 @@
 		5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */; };
 		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
+		DA639C631BEE9350004BCA5D /* NotificationPermissionRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA639C621BEE9350004BCA5D /* NotificationPermissionRequester.swift */; };
 		DA766C841B2DEC96002BA2C9 /* DataStatusDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA766C831B2DEC96002BA2C9 /* DataStatusDefaultsController.swift */; };
 		DA766C861B2DF282002BA2C9 /* UserDefaultsUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA766C851B2DF282002BA2C9 /* UserDefaultsUpdater.swift */; };
 		DA9557111ABE026A000D2720 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9557101ABE026A000D2720 /* SettingsViewController.swift */; };
@@ -158,6 +159,7 @@
 		5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		5CE11EAC1A34E299005903A4 /* SessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
 		5EF5767D68136EAEF35EF0D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		DA639C621BEE9350004BCA5D /* NotificationPermissionRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPermissionRequester.swift; sourceTree = "<group>"; };
 		DA766C831B2DEC96002BA2C9 /* DataStatusDefaultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStatusDefaultsController.swift; sourceTree = "<group>"; };
 		DA766C851B2DF282002BA2C9 /* UserDefaultsUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsUpdater.swift; sourceTree = "<group>"; };
 		DA9557101ABE026A000D2720 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -193,8 +195,9 @@
 			isa = PBXGroup;
 			children = (
 				5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */,
-				DAAA90A61ABB979B0088F180 /* SessionNotificationScheduler.swift */,
 				DA766C831B2DEC96002BA2C9 /* DataStatusDefaultsController.swift */,
+				DA639C621BEE9350004BCA5D /* NotificationPermissionRequester.swift */,
+				DAAA90A61ABB979B0088F180 /* SessionNotificationScheduler.swift */,
 				DA766C851B2DF282002BA2C9 /* UserDefaultsUpdater.swift */,
 			);
 			path = "Model Controllers";
@@ -596,6 +599,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA639C631BEE9350004BCA5D /* NotificationPermissionRequester.swift in Sources */,
 				5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */,
 				5C8834041A7EB87700573DAD /* SelectedSessionType.swift in Sources */,
 				DAA8CC501ABDCBBD00FF3872 /* Settings.swift in Sources */,
