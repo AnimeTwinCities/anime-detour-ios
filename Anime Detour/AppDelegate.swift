@@ -329,6 +329,7 @@ extension AppDelegate: SessionFavoriteNotificationDelegate {
 extension AppDelegate: SessionSettingsDelegate {
     func didChangeSessionNotificationsSetting(enabled: Bool) {
         guard enabled else {
+            self.sessionNotificationScheduler.didChangeSessionNotificationsSetting(enabled)
             return
         }
         
