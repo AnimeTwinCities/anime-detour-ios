@@ -23,20 +23,22 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
                 break
             }
 
-            if let viewModel = viewModel {
-                viewModel.delegate = self
-                self.nameLabel.text = viewModel.name
-                self.locationLabel.text = viewModel.location
-                self.timeLabel.text = viewModel.dateAndTime
-
-                self.bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
+            guard let viewModel = viewModel else {
+                return
             }
+            
+            viewModel.delegate = self
+            self.nameLabel.text = viewModel.name
+            self.locationLabel.text = viewModel.location
+            self.timeLabel.text = viewModel.dateAndTime
+            
+            self.bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
         }
     }
 
     override var highlighted: Bool {
         didSet {
-            var backgroundColor: UIColor
+            let backgroundColor: UIColor
 
             if self.highlighted {
                 backgroundColor = UIColor(white: 0.8, alpha: 1)

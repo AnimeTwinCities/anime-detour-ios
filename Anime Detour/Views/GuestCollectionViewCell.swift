@@ -15,19 +15,21 @@ class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
 
     var viewModel: GuestViewModel? {
         didSet {
-            if let viewModel = self.viewModel {
-                viewModel.delegate = self
-                self.nameLabel.text = viewModel.name
-
-                let photo = viewModel.photo(true)
-                self.photoImageView.image = photo
+            guard let viewModel = self.viewModel else {
+                return
             }
+
+            viewModel.delegate = self
+            self.nameLabel.text = viewModel.name
+            
+            let photo = viewModel.photo(true)
+            self.photoImageView.image = photo
         }
     }
 
     override var highlighted: Bool {
         didSet {
-            var backgroundColor: UIColor
+            let backgroundColor: UIColor
 
             if self.highlighted {
                 backgroundColor = UIColor(white: 0.8, alpha: 1)

@@ -73,8 +73,8 @@ class SessionViewModel {
 
         let startDateString = self.startDateFormatter.stringFromDate(session.start)
 
-        // Show long end date format if the end time is the next day and more than
-        // 12 hours (43200 seconds) after the start date
+        // Show long date format for end date if the end time is the next day and 12 hours (43200 seconds)
+        // or more after the start date
         let longEndDate = session.end.timeIntervalSinceDate(midnightMorningAfterStartDate) > 0 && session.end.timeIntervalSinceDate(session.start) > 43199
         let endDateFormatter = longEndDate ? self.startDateFormatter : self.shortEndDateFormatter
         let endDateString = endDateFormatter.stringFromDate(session.end)
@@ -181,7 +181,8 @@ class SessionViewModel {
         session.bookmarked = isBookmarked
         do {
             try session.managedObjectContext?.save()
-        } catch _ {
+        } catch {
+            NSLog("Couldn't save after toggling session bookmarked status: \((error as NSError).localizedDescription)")
         }
 
         if let analytics = GAI.sharedInstance().defaultTracker {
@@ -191,7 +192,7 @@ class SessionViewModel {
             } else {
                 dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.Unfavorite, label: session.name, value: nil).build()
             }
-            analytics.send(dict as [NSObject : AnyObject])
+            analytics.send(dict as! [NSObject : AnyObject])
         }
 
         self.delegate?.bookmarkImageChanged(self.bookmarkImage, accessibilityLabel: self.bookmarkAccessibilityLabel)

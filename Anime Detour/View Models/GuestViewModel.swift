@@ -32,7 +32,7 @@ class GuestViewModel: Equatable {
     private let photoPath: String
     private let hiResPhotoPath: String
     private(set) lazy var htmlBio: NSAttributedString = {
-        let data = self.bio.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+        let data = self.bio.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!
         let string: NSAttributedString?
         do {
             string = try NSAttributedString(data: data,
@@ -73,18 +73,19 @@ class GuestViewModel: Equatable {
     }
 
     /**
-    Returns the `Guest`'s low-resolution photo, if present, and if not,
-    may download the photo.
-    
-    - parameter downloadIfNecessary: If `true`, and `self.photo` is `nil`, this method will start a download of the  update the `Guest` passed into the constructor with the photo,
-    save the
-    */
+     Returns the `Guest`'s low-resolution photo, if present, and if not,
+     may download the photo.
+     
+     - parameter downloadIfNecessary: If `true`, and `self.photo` is `nil`, this method will start a download of the
+     guest's high resolution photo, update the `Guest` object passed into the constructor with the photo,
+     then save guest object.
+     */
     func photo(downloadIfNecessary: Bool) -> UIImage? {
         if let photo = self.photo {
             return photo
         }
 
-        if !downloadIfNecessary {
+        guard downloadIfNecessary else {
             return nil
         }
 
@@ -99,11 +100,7 @@ class GuestViewModel: Equatable {
                 return
             }
             
-            guard let data = data else {
-                return
-            }
-            
-            guard let image = UIImage(data: data) else {
+            guard let image = data.flatMap(UIImage.init) else {
                 return
             }
             
@@ -112,6 +109,7 @@ class GuestViewModel: Equatable {
             let moc = strongSelf.managedObjectContext
             moc.performBlockAndWait {
                 guard let guest = moc.objectWithID(strongSelf.guestObjectID) as? Guest else {
+                    NSLog("Couldn't find our guest object after downloading their photo. Maybe it was deleted?")
                     return
                 }
                 
@@ -132,19 +130,31 @@ class GuestViewModel: Equatable {
         return nil
     }
 
+    /**
+     Returns the `Guest`'s high-resolution photo, if present, and if not,
+     may download the photo.
+     
+     - parameter downloadIfNecessary: If `true`, and `self.photo` is `nil`, this method will start a download of the
+     guest's high resolution photo, update the `Guest` object passed into the constructor with the photo,
+     then save guest object.
+     - parameter lowResPhotoPlaceholder: If `true` and we have a low res image for the guest,
+     that low res photo will be returned and the high res photo will not be downloaded.
+     */
     func hiResPhoto(downloadIfNecessary: Bool, lowResPhotoPlaceholder: Bool) -> UIImage? {
         if let photo = self.hiResPhoto {
             return photo
         }
 
-        if lowResPhotoPlaceholder {
-            if let photo = self.photo {
+        let returnLowResPlaceholderOrNil = { () -> UIImage? in
+            if lowResPhotoPlaceholder, let photo = self.photo {
                 return photo
+            } else {
+                return nil
             }
         }
 
-        if !downloadIfNecessary {
-            return nil
+        guard downloadIfNecessary else {
+            return returnLowResPlaceholderOrNil()
         }
         
         let url = NSURL(string: self.hiResPhotoPath)!
@@ -182,9 +192,9 @@ class GuestViewModel: Equatable {
         self.hiResPhotoDataTask = hiResPhotoTask
         hiResPhotoTask.resume()
         
-        return nil
+        return returnLowResPlaceholderOrNil()
     }
-
+    
     deinit {
         self.photoDataTask?.cancel()
         self.hiResPhotoDataTask?.cancel()

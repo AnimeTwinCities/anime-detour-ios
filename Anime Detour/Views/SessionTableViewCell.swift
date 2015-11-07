@@ -23,14 +23,16 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
                 break
             }
 
-            if let viewModel = viewModel {
-                viewModel.delegate = self
-                self.nameLabel.text = viewModel.name
-                self.locationLabel.text = viewModel.location
-                self.timeLabel.text = viewModel.dateAndTime
-
-                self.bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
+            guard let viewModel = viewModel else {
+                return
             }
+            
+            viewModel.delegate = self
+            self.nameLabel.text = viewModel.name
+            self.locationLabel.text = viewModel.location
+            self.timeLabel.text = viewModel.dateAndTime
+            
+            self.bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
         }
     }
 
