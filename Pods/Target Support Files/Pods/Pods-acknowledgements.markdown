@@ -5,7 +5,7 @@ This application makes use of the following third party libraries:
 
 FXForms
 
-Version 1.2.13, June 16th, 2015
+Version 1.2.14, November 2nd, 2015
 
 Copyright (C) 2014 Charcoal Design
 
