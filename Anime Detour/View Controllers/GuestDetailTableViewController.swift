@@ -68,15 +68,17 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     // MARK: - Table view delegate
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0:
+        guard let row = GuestDetailTableViewCellRow(row: indexPath.row) else {
+            fatalError("Unexpected row number: \(indexPath.row) in guest detail view.")
+        }
+        
+        switch row {
+        case .Photo:
             return tableView.frame.width / self.photoAspect
-        case 1:
+        case .Name:
             return 44
-        case 2:
+        case .Bio:
             return self.bioWebViewHeight ?? tableView.frame.height - 344
-        default:
-            fatalError("Unexpected row number: \(indexPath.row). Expected only 0 or 1.")
         }
     }
 
@@ -116,4 +118,26 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         // empty
     }
 
+}
+
+/**
+ Cases correspond to data expected to be displayed for a given row.
+ */
+private enum GuestDetailTableViewCellRow {
+    case Photo
+    case Name
+    case Bio
+    
+    init?(row: Int) {
+        switch row {
+        case 0:
+            self = .Photo
+        case 1:
+            self = .Name
+        case 2:
+            self = .Bio
+        default:
+            return nil
+        }
+    }
 }
