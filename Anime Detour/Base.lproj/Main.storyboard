@@ -807,36 +807,36 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="VVu-y6-NdN">
-                            <size key="itemSize" width="370" height="92"/>
+                            <size key="itemSize" width="370" height="80"/>
                             <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GuestCellIdentifier" id="5H0-2x-ui5" customClass="GuestCollectionViewCell" customModule="Anime_Detour" customModuleProvider="target">
-                                <rect key="frame" x="115" y="114" width="370" height="92"/>
+                                <rect key="frame" x="115" y="114" width="370" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="370" height="92"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="370" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="slP-xx-v8D">
-                                            <rect key="frame" x="8" y="16" width="60" height="60"/>
+                                            <rect key="frame" x="12" y="16" width="48" height="48"/>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="ecZ-pd-rTw"/>
+                                                <constraint firstAttribute="width" constant="48" id="ecZ-pd-rTw"/>
                                                 <constraint firstAttribute="width" secondItem="slP-xx-v8D" secondAttribute="height" multiplier="1:1" id="pGK-tj-LKY"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVc-XG-YKx">
-                                            <rect key="frame" x="76" y="36" width="266" height="21"/>
+                                            <rect key="frame" x="72" y="30.5" width="270" height="20.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TzR-ro-NVo" userLabel="Bottom line">
-                                            <rect key="frame" x="0.0" y="91" width="370" height="1"/>
+                                            <rect key="frame" x="0.0" y="79" width="370" height="1"/>
                                             <animations/>
                                             <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
@@ -844,7 +844,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHF-JP-M4g" userLabel="Right line">
-                                            <rect key="frame" x="369" y="0.0" width="1" height="91"/>
+                                            <rect key="frame" x="369" y="0.0" width="1" height="79"/>
                                             <animations/>
                                             <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
@@ -852,7 +852,7 @@
                                             </constraints>
                                         </view>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disclosure_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="agJ-CX-DfD">
-                                            <rect key="frame" x="350" y="39" width="8" height="14"/>
+                                            <rect key="frame" x="350" y="33" width="8" height="14"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="MLM-gz-obQ"/>
@@ -874,13 +874,13 @@
                                     <constraint firstAttribute="trailing" secondItem="TzR-ro-NVo" secondAttribute="trailing" id="L6S-eu-2Qa"/>
                                     <constraint firstItem="slP-xx-v8D" firstAttribute="width" secondItem="slP-xx-v8D" secondAttribute="height" multiplier="1:1" id="MPc-1X-yH4"/>
                                     <constraint firstAttribute="centerY" secondItem="agJ-CX-DfD" secondAttribute="centerY" id="dRx-8u-sFu"/>
-                                    <constraint firstItem="slP-xx-v8D" firstAttribute="leading" secondItem="5H0-2x-ui5" secondAttribute="leadingMargin" id="dz2-u0-TB1"/>
+                                    <constraint firstItem="slP-xx-v8D" firstAttribute="leading" secondItem="5H0-2x-ui5" secondAttribute="leadingMargin" constant="4" id="dz2-u0-TB1"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="agJ-CX-DfD" secondAttribute="trailing" constant="4" id="i50-at-m97"/>
                                     <constraint firstItem="slP-xx-v8D" firstAttribute="top" secondItem="5H0-2x-ui5" secondAttribute="topMargin" constant="8" id="iLU-xU-t51"/>
                                     <constraint firstItem="DHF-JP-M4g" firstAttribute="top" secondItem="5H0-2x-ui5" secondAttribute="top" id="k70-8T-4dz"/>
                                     <constraint firstAttribute="centerY" secondItem="slP-xx-v8D" secondAttribute="centerY" id="mfv-vb-91v"/>
                                     <constraint firstAttribute="bottom" secondItem="TzR-ro-NVo" secondAttribute="bottom" id="qWz-s5-LyC"/>
-                                    <constraint firstItem="oVc-XG-YKx" firstAttribute="leading" secondItem="slP-xx-v8D" secondAttribute="trailing" constant="8" id="vXS-UH-4Xs"/>
+                                    <constraint firstItem="oVc-XG-YKx" firstAttribute="leading" secondItem="slP-xx-v8D" secondAttribute="trailing" constant="12" id="vXS-UH-4Xs"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
