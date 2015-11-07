@@ -25,12 +25,12 @@ public class CoreDataController {
     private let persistentStoreCoordinator: NSPersistentStoreCoordinator
 
     public init() {
-        let mom = CoreDataController.createManagedObjectModel()
+        let mom = self.dynamicType.createManagedObjectModel()
 
-        let psc = CoreDataController.createPersistentStoreCoordinator(mom, storeFilename: CoreDataController.storeFilename)
+        let psc = self.dynamicType.createPersistentStoreCoordinator(mom, storeFilename: CoreDataController.storeFilename)
         self.persistentStoreCoordinator = psc
 
-        let moc = CoreDataController.createManagedObjectContext(psc)
+        let moc = self.dynamicType.createManagedObjectContext(psc)
         self.managedObjectContext = moc
     }
 
@@ -121,7 +121,7 @@ public class CoreDataController {
             }
             
             do {
-                try CoreDataController.addPersistentStore(url, coordinator: self.persistentStoreCoordinator)
+                try self.dynamicType.addPersistentStore(url, coordinator: self.persistentStoreCoordinator)
             } catch {
                 let error = error as NSError
                 assertionFailure("Error re-adding store to PSC: \(error)")
