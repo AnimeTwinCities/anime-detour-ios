@@ -51,6 +51,7 @@ class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
         self.contentView.translatesAutoresizingMaskIntoConstraints = true
 
         let imageLayer = self.photoImageView.layer
+        imageLayer.borderColor = UIColor.lightGrayColor().CGColor
         imageLayer.cornerRadius = self.photoImageView.frame.width / 2
         imageLayer.masksToBounds = true
     }
@@ -59,6 +60,11 @@ class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
         super.prepareForReuse()
 
         self.viewModel = nil
+    }
+    
+    override func didMoveToWindow() {
+        let imageLayer = self.photoImageView.layer
+        imageLayer.borderWidth = 1 / (self.window?.screen.scale ?? 1)
     }
 
     // MARK: - Guest View Model Delegate
