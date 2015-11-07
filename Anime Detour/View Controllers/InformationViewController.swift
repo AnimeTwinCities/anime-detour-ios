@@ -28,10 +28,6 @@ class InformationViewController: UITableViewController {
 
     // MARK: - Segue identifiers
 
-    @IBInspectable var harassmentSegue: String!
-    @IBInspectable var letterParentsSegue: String!
-    @IBInspectable var weaponsPolicySegue: String!
-    @IBInspectable var websiteSegue: String!
     @IBInspectable var settingsSegue: String!
 
     // MARK: - Table View Data Source

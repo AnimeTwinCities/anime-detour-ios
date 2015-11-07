@@ -662,11 +662,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="weaponsPolicyIdentifier" value="WeaponsPolicyReuseIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="letterParentsIdentifier" value="LetterParentsReuseIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="harassmentPolicyIdentifier" value="HarassmentPolicyReuseIdentifier"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="weaponsPolicySegue" value="WeaponsSegueIdentifier"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="letterParentsSegue" value="LetterParentsSegueIdentifier"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="harassmentSegue" value="HarassmentSegueIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="websiteIdentifier" value="WebsiteReuseIdentifier"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="websiteSegue" value="WebsiteSegueIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="settingsSegue" value="SettingsSegueIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="settingsIdentifier" value="SettingsReuseIdentifier"/>
                     </userDefinedRuntimeAttributes>
