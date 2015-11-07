@@ -239,25 +239,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     */
     private func setColors(application: UIApplication) {
         let mainColor = UIColor.adr_orange
-        let secondaryColor = UIColor.whiteColor()
 
         self.window?.tintColor = mainColor
-
-        let navBarAppearanceProxy = UINavigationBar.appearance()
-        navBarAppearanceProxy.tintColor = secondaryColor
-        navBarAppearanceProxy.barTintColor = mainColor
-        navBarAppearanceProxy.translucent = false
-
-        let attrs = [NSForegroundColorAttributeName : secondaryColor]
-        navBarAppearanceProxy.titleTextAttributes = attrs
-
-        let textHeaderAppearanceProxy = TextHeaderCollectionReusableView.appearance()
-        textHeaderAppearanceProxy.backgroundColor = mainColor
-        textHeaderAppearanceProxy.tintColor = secondaryColor
-
-        let segmentedControlHeaderAppearanceProxy = SegmentedControlCollectionReusableView.appearance()
-        segmentedControlHeaderAppearanceProxy.backgroundColor = mainColor
-        segmentedControlHeaderAppearanceProxy.tintColor = secondaryColor
     }
 }
 

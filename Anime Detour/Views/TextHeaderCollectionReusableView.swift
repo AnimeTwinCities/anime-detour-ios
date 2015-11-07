@@ -42,8 +42,4 @@ class TextHeaderCollectionReusableView: UICollectionReusableView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
-    override func tintColorDidChange() {
-        self.titleLabel.textColor = self.tintColor
-    }
 }
