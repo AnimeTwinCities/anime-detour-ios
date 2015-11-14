@@ -52,7 +52,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
                 self.bioWebviewLoadInitiated = true
             }
         default:
-            fatalError("Unexpected row number: \(indexPath.row). Expected only 0-2.")
+            fatalError("Unexpected reuse identifier: \(cell.reuseIdentifier). Expected a match against one of our xIdentifier properties.")
         }
     }
 
