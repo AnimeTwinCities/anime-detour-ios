@@ -181,16 +181,6 @@ class SessionCollectionViewController: UICollectionViewController {
         self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
         self.lastDisplayedTraitCollection = self.traitCollection
     }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if let analytics = GAI.sharedInstance().defaultTracker {
-            analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Schedule)
-            let dict = GAIDictionaryBuilder.createScreenView().build() as NSDictionary as! [NSObject : AnyObject]
-            analytics.send(dict)
-        }
-    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -338,7 +328,7 @@ class SessionCollectionViewController: UICollectionViewController {
             let selectedSession = (self.collectionView?.indexPathsForSelectedItems()?.first).map(self.dataSource.session)!
             detailVC.session = selectedSession
 
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Screen.Schedule, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build() as NSDictionary as! [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createEventWithCategory(self.screenName, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build() as NSDictionary as! [NSObject : AnyObject]
             analytics?.send(dict)
         case .Some(self.filterSegueIdentifier):
             let navController = segue.destinationViewController as! UINavigationController

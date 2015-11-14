@@ -169,17 +169,6 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
-        if let analytics = GAI.sharedInstance().defaultTracker {
-            if self.bookmarkedOnly {
-                analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Favorites)
-            } else {
-                analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.ScheduleSearch)
-            }
-            let dict = GAIDictionaryBuilder.createScreenView().build() as NSDictionary as! [NSObject : AnyObject]
-            analytics.send(dict)
-        }
-
         self.searchController.searchBar.text = self.lastSearchText
     }
 

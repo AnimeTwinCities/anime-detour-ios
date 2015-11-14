@@ -22,16 +22,4 @@ struct AnalyticsConstants {
         static let Session = "Event"
         static let Settings = "Settings"
     }
-
-    struct Screen {
-        static let Favorites = "Favorites"
-        static let Guests = "Guests"
-        static let GuestDetail = "Guest Detail"
-        static let Map = "Map"
-        static let Schedule = "Schedule"
-        static let ScheduleFilter = "Schedule Filter"
-        static let ScheduleSearch = "Schedule Search"
-        static let Session = "Event"
-        static let Settings = "Settings"
-    }
 }

@@ -44,16 +44,6 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         self.sessionView.viewModel = viewModel
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if let analytics = GAI.sharedInstance().defaultTracker {
-            analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Session)
-            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
-            analytics.send(dict)
-        }
-    }
-
     // MARK: - Session View Model Delegate
 
     func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {

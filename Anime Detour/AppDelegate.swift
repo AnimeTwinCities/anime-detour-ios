@@ -10,6 +10,7 @@ import CoreData
 import UIKit
 
 import AnimeDetourAPI
+import Aspects
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -71,8 +72,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
             }
+            
+            let block: @convention(block) (info: AspectInfo, animated: Bool) -> Void = {
+                (info: AspectInfo, animated: Bool) in
+                guard let tracker = analytics.defaultTracker else {
+                    return
+                }
+                
+                guard let analyticsScreen = info.instance() as? AnalyticsScreen else {
+                    return
+                }
+                
+                tracker.set(kGAIScreenName, value: analyticsScreen.screenName)
+                let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
+                tracker.send(dict)
+            }
+            // lol type-safety
+            let objBlock = unsafeBitCast(block, AnyObject.self)
+            
+            do {
+                try UIViewController.aspect_hookSelector(Selector("viewDidAppear:"), withOptions:AspectOptions.PositionAfter, usingBlock: objBlock)
+            } catch {
+                let error = error as! NSError
+                NSLog("Error hooking viewDidAppear: for analytics %@", error)
+            }
         #endif
-        
+    
         #if os(iOS)
         self.userVisibleSessionSettings.delegate = self
         #endif

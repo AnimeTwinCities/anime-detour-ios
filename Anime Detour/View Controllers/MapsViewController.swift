@@ -55,16 +55,6 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
         previewController.currentPreviewItemIndex = 0
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if let analytics = GAI.sharedInstance().defaultTracker {
-            analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Map)
-            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
-            analytics.send(dict)
-        }
-    }
-
     // MARK: - Segmented Control
 
     @IBAction func segmentedControlValueChanged(sender: UISegmentedControl?) {

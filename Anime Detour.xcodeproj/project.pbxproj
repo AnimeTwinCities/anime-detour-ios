@@ -35,7 +35,6 @@
 		5C6C31981A75A312008FC08F /* AnimeDetourAPI.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5C3025B61A759EB000ACE278 /* AnimeDetourAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C6C31AE1A75E158008FC08F /* GuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C31AD1A75E158008FC08F /* GuestViewModel.swift */; };
 		5C8834041A7EB87700573DAD /* SelectedSessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8834031A7EB87700573DAD /* SelectedSessionType.swift */; };
-		5C89A3F71AA697900051FF52 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C89A3F61AA697900051FF52 /* libGoogleAnalyticsServices.a */; };
 		5C89A4541AA69AA00051FF52 /* GoogleAnalyticsConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C89A4531AA69AA00051FF52 /* GoogleAnalyticsConfiguration.plist */; };
 		5C89A4561AA69D8C0051FF52 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C89A4551AA69D8C0051FF52 /* SystemConfiguration.framework */; };
 		5C89A4581AA69DCC0051FF52 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C89A4571AA69DCC0051FF52 /* libz.dylib */; };
@@ -53,6 +52,8 @@
 		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
 		DA639C631BEE9350004BCA5D /* NotificationPermissionRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA639C621BEE9350004BCA5D /* NotificationPermissionRequester.swift */; };
+		DA6C55081BF7BE3B00976858 /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C55071BF7BE3B00976858 /* AnalyticsScreen.swift */; };
+		DA6C550A1BF7BE7200976858 /* AnalyticsViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C55091BF7BE7200976858 /* AnalyticsViewControllers.swift */; };
 		DA766C841B2DEC96002BA2C9 /* DataStatusDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA766C831B2DEC96002BA2C9 /* DataStatusDefaultsController.swift */; };
 		DA766C861B2DF282002BA2C9 /* UserDefaultsUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA766C851B2DF282002BA2C9 /* UserDefaultsUpdater.swift */; };
 		DA9557111ABE026A000D2720 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9557101ABE026A000D2720 /* SettingsViewController.swift */; };
@@ -129,25 +130,12 @@
 		5C65B37D19EA143A00545FDA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5C6C31AD1A75E158008FC08F /* GuestViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestViewModel.swift; sourceTree = "<group>"; };
 		5C8834031A7EB87700573DAD /* SelectedSessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSessionType.swift; sourceTree = "<group>"; };
-		5C89A3F61AA697900051FF52 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
-		5C89A3F91AA697970051FF52 /* Changelog.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changelog.txt; sourceTree = "<group>"; };
-		5C89A4251AA697970051FF52 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
-		5C89A4261AA697970051FF52 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
-		5C89A4271AA697970051FF52 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
-		5C89A4281AA697970051FF52 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
-		5C89A4291AA697970051FF52 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
-		5C89A42A1AA697970051FF52 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
-		5C89A42B1AA697970051FF52 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
-		5C89A42C1AA697970051FF52 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
-		5C89A42D1AA697970051FF52 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
-		5C89A42E1AA697970051FF52 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
-		5C89A42F1AA697970051FF52 /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
 		5C89A4531AA69AA00051FF52 /* GoogleAnalyticsConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GoogleAnalyticsConfiguration.plist; sourceTree = "<group>"; };
 		5C89A4551AA69D8C0051FF52 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5C89A4571AA69DCC0051FF52 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5C89A45A1AA69E010051FF52 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5C89A45C1AA69E060051FF52 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		5C89A4621AA6A77E0051FF52 /* AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
+		5C89A4621AA6A77E0051FF52 /* AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalyticsConstants.swift; path = "Anime Detour/Analytics/AnalyticsConstants.swift"; sourceTree = SOURCE_ROOT; };
 		5C9F66CE1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlCollectionReusableView.swift; sourceTree = "<group>"; };
 		5CB80EA019ECD07A008DBC8F /* Anime Detour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CBA4D431A996110003D1F60 /* StickyHeaderFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickyHeaderFlowLayout.swift; sourceTree = "<group>"; };
@@ -161,6 +149,8 @@
 		5CE11EAC1A34E299005903A4 /* SessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
 		5EF5767D68136EAEF35EF0D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DA639C621BEE9350004BCA5D /* NotificationPermissionRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPermissionRequester.swift; sourceTree = "<group>"; };
+		DA6C55071BF7BE3B00976858 /* AnalyticsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
+		DA6C55091BF7BE7200976858 /* AnalyticsViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsViewControllers.swift; sourceTree = "<group>"; };
 		DA766C831B2DEC96002BA2C9 /* DataStatusDefaultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStatusDefaultsController.swift; sourceTree = "<group>"; };
 		DA766C851B2DF282002BA2C9 /* UserDefaultsUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsUpdater.swift; sourceTree = "<group>"; };
 		DA9557101ABE026A000D2720 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -185,7 +175,6 @@
 				5C89A4581AA69DCC0051FF52 /* libz.dylib in Frameworks */,
 				5C89A45B1AA69E010051FF52 /* CoreData.framework in Frameworks */,
 				5C89A4561AA69D8C0051FF52 /* SystemConfiguration.framework in Frameworks */,
-				5C89A3F71AA697900051FF52 /* libGoogleAnalyticsServices.a in Frameworks */,
 				0E50016B89AA1F69541D5126 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,7 +312,7 @@
 		5C65B37119EA143A00545FDA /* Anime Detour */ = {
 			isa = PBXGroup;
 			children = (
-				5C89A3F51AA697630051FF52 /* Vendor */,
+				DA6C55061BF7BD6800976858 /* Analytics */,
 				5C54451719F316EF003CC1C3 /* API Client */,
 				5CBA4D411A9960E6003D1F60 /* Collection View Support */,
 				5C16772E19EB6BE10097B1D3 /* Data Sources */,
@@ -336,7 +325,6 @@
 				5C16772B19EB6B8E0097B1D3 /* Views */,
 				5C54452519F420AB003CC1C3 /* Resources */,
 				5C65B37419EA143A00545FDA /* AppDelegate.swift */,
-				5C89A4621AA6A77E0051FF52 /* AnalyticsConstants.swift */,
 				DAA716C81AB7C1D700A5EB07 /* LaunchScreen.storyboard */,
 				5C65B37A19EA143A00545FDA /* Main.storyboard */,
 				5C65B37D19EA143A00545FDA /* Images.xcassets */,
@@ -353,42 +341,6 @@
 				5C65B37319EA143A00545FDA /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		5C89A3F51AA697630051FF52 /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				5C89A3F81AA697970051FF52 /* GoogleAnalytics */,
-				5C89A3F61AA697900051FF52 /* libGoogleAnalyticsServices.a */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
-		5C89A3F81AA697970051FF52 /* GoogleAnalytics */ = {
-			isa = PBXGroup;
-			children = (
-				5C89A3F91AA697970051FF52 /* Changelog.txt */,
-				5C89A4241AA697970051FF52 /* Library */,
-				5C89A42F1AA697970051FF52 /* Readme.txt */,
-			);
-			path = GoogleAnalytics;
-			sourceTree = "<group>";
-		};
-		5C89A4241AA697970051FF52 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				5C89A4251AA697970051FF52 /* GAI.h */,
-				5C89A4261AA697970051FF52 /* GAIDictionaryBuilder.h */,
-				5C89A4271AA697970051FF52 /* GAIEcommerceFields.h */,
-				5C89A4281AA697970051FF52 /* GAIEcommerceProduct.h */,
-				5C89A4291AA697970051FF52 /* GAIEcommerceProductAction.h */,
-				5C89A42A1AA697970051FF52 /* GAIEcommercePromotion.h */,
-				5C89A42B1AA697970051FF52 /* GAIFields.h */,
-				5C89A42C1AA697970051FF52 /* GAILogger.h */,
-				5C89A42D1AA697970051FF52 /* GAITrackedViewController.h */,
-				5C89A42E1AA697970051FF52 /* GAITracker.h */,
-			);
-			path = Library;
 			sourceTree = "<group>";
 		};
 		5C89A4591AA69DF10051FF52 /* Libraries */ = {
@@ -434,6 +386,16 @@
 				F77720ADE8BAD8023AEC2D54 /* Pods.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA6C55061BF7BD6800976858 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				5C89A4621AA6A77E0051FF52 /* AnalyticsConstants.swift */,
+				DA6C55071BF7BE3B00976858 /* AnalyticsScreen.swift */,
+				DA6C55091BF7BE7200976858 /* AnalyticsViewControllers.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		DAA8CC4A1ABDCB4400FF3872 /* Settings */ = {
@@ -636,9 +598,11 @@
 				5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */,
 				DA766C841B2DEC96002BA2C9 /* DataStatusDefaultsController.swift in Sources */,
 				DAA8CC4F1ABDCBBD00FF3872 /* SessionSettings.swift in Sources */,
+				DA6C55081BF7BE3B00976858 /* AnalyticsScreen.swift in Sources */,
 				5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */,
 				5C478C081AB273F400BD1A3F /* AnimeDetourAPIClient_Sessions.swift in Sources */,
 				5C337F021A990C51006CAA20 /* WebViewController.swift in Sources */,
+				DA6C550A1BF7BE7200976858 /* AnalyticsViewControllers.swift in Sources */,
 				5CCA903C1A86AA5700C14EE0 /* GuestCollectionViewCell.swift in Sources */,
 				5CBA4D441A996110003D1F60 /* StickyHeaderFlowLayout.swift in Sources */,
 				5C9F66CF1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift in Sources */,

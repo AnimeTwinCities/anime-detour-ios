@@ -72,12 +72,6 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let analytics = GAI.sharedInstance().defaultTracker {
-            analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.Guests)
-            let dict = GAIDictionaryBuilder.createScreenView().build() as NSDictionary as! [NSObject : AnyObject]
-            analytics.send(dict)
-        }
-
         if self.traitCollection != self.lastDisplayedTraitCollection {
             self.setFlowLayoutCellSizes(self.collectionView!)
             self.lastDisplayedTraitCollection = self.traitCollection

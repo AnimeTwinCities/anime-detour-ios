@@ -26,16 +26,6 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         self.guestViewModel.delegate = self
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if let analytics = GAI.sharedInstance().defaultTracker {
-            analytics.set(kGAIScreenName, value: AnalyticsConstants.Screen.GuestDetail)
-            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
-            analytics.send(dict)
-        }
-    }
-
     private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         switch cell.reuseIdentifier {
         case .Some(self.photoIdentifier):
