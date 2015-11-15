@@ -4,6 +4,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 pod 'Aspects'
+pod 'GoogleAnalytics'
 pod 'FXForms', '~> 1.2.0'
 
 post_install do | installer |

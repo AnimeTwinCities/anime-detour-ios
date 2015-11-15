@@ -9,17 +9,17 @@
 /* Begin PBXBuildFile section */
 		1E0E5A5C69F5B60570CC0CFC3DC8C1BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		3444BF3C5B14B199E5ED844755CEA911 /* Pods-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BCC458FDD5F692BBB2BFC64BB5701FC /* Pods-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4927D980EB038B019BE534AA57A3A55A /* Aspects.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B60E85EE9CBE0F27A26377252E8E1B1 /* Aspects.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4968053D4E91117DDD40F4F717BF59F2 /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 097B402D92463684137186644AEB41B9 /* FXForms.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		51F4E976C769978F62B25F470A06ACB9 /* FXForms-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EBAC7487C56037E0AE8C8900D2F184F /* FXForms-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		55ABAB1EF3BF002DD74FDE6328F1B960 /* FXForms-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4EACC33C09E790DAA9038F7702F7C3 /* FXForms-dummy.m */; };
-		6B32B8F5F09A8FF567645B1A8E2F3327 /* FXForms.h in Headers */ = {isa = PBXBuildFile; fileRef = 670F2D4C0F77EB7F8D408B762E47E77B /* FXForms.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4927D980EB038B019BE534AA57A3A55A /* Aspects.h in Headers */ = {isa = PBXBuildFile; fileRef = A5EC7B79FA3A249C8CC012C404B58D30 /* Aspects.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4968053D4E91117DDD40F4F717BF59F2 /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F9AC848DCC80F8C38BB5EEBCBFABD45 /* FXForms.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		51F4E976C769978F62B25F470A06ACB9 /* FXForms-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 684C5335543F591949AD49E763386E34 /* FXForms-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55ABAB1EF3BF002DD74FDE6328F1B960 /* FXForms-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F1D9909393A0BE5C52D64C8B9893EB /* FXForms-dummy.m */; };
+		6B32B8F5F09A8FF567645B1A8E2F3327 /* FXForms.h in Headers */ = {isa = PBXBuildFile; fileRef = E2A0B8E779A5507442FF798C510C92AF /* FXForms.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		71EEADDB4B3A55E45207153836251848 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		839AC19FD3A0ACD7FCEBF5BA75716551 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 3250B81FF3A78BACE1A6D042FF10688E /* Aspects.m */; };
+		839AC19FD3A0ACD7FCEBF5BA75716551 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF40A6F36DE7C369FD27B529C8B3E62 /* Aspects.m */; };
 		85405B2BB56BB10F9EED9FDCE07A8993 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 894E5DA93A9F359521A89826BE6DA777 /* Pods-dummy.m */; };
 		9272B001FEE510576AE0DFD08EB0CFB5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		99355B3A4208CEEA655B60AB7D675FC5 /* Aspects-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1665809F48585905603ABFE578B88AC7 /* Aspects-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BFEBC6EFDEA6FAB274CEA8F8963235B6 /* Aspects-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7218B1E6EDC0F0B891CC6E313945D7 /* Aspects-dummy.m */; };
+		99355B3A4208CEEA655B60AB7D675FC5 /* Aspects-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B018C5F020A9C10AE6BC63006C1BC101 /* Aspects-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BFEBC6EFDEA6FAB274CEA8F8963235B6 /* Aspects-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 10410D8528326765BB1435C6310681DB /* Aspects-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,37 +40,48 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		097B402D92463684137186644AEB41B9 /* FXForms.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FXForms.m; path = FXForms/FXForms.m; sourceTree = "<group>"; };
-		0E4EACC33C09E790DAA9038F7702F7C3 /* FXForms-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FXForms-dummy.m"; sourceTree = "<group>"; };
-		1665809F48585905603ABFE578B88AC7 /* Aspects-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Aspects-umbrella.h"; sourceTree = "<group>"; };
-		1B60E85EE9CBE0F27A26377252E8E1B1 /* Aspects.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
-		2B575211944A0C6EC224F1D267D62097 /* Aspects.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Aspects.xcconfig; sourceTree = "<group>"; };
+		09AFF4275C923B4FC0D21BE347CAFFEF /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProduct.h; path = Headers/Public/GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		10410D8528326765BB1435C6310681DB /* Aspects-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Aspects-dummy.m"; sourceTree = "<group>"; };
+		1927AF89853620E2C67897ECB6679B67 /* Aspects.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Aspects.modulemap; sourceTree = "<group>"; };
 		2BCC458FDD5F692BBB2BFC64BB5701FC /* Pods-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-umbrella.h"; sourceTree = "<group>"; };
-		30DC51EE97E154965D7562E1F052F2D1 /* FXForms.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FXForms.xcconfig; sourceTree = "<group>"; };
-		3250B81FF3A78BACE1A6D042FF10688E /* Aspects.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
-		3B4FD109EAAEBBCB8C0FD3AE02717A86 /* FXForms-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FXForms-prefix.pch"; sourceTree = "<group>"; };
 		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		670F2D4C0F77EB7F8D408B762E47E77B /* FXForms.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FXForms.h; path = FXForms/FXForms.h; sourceTree = "<group>"; };
-		6EBAC7487C56037E0AE8C8900D2F184F /* FXForms-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FXForms-umbrella.h"; sourceTree = "<group>"; };
+		4E5141ADEE48D000EB26C8CA90E80960 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommercePromotion.h; path = Headers/Public/GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		5093F1BD5DF88D4ECB0355EF9DA1D538 /* GAIFields.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIFields.h; path = Headers/Public/GAIFields.h; sourceTree = "<group>"; };
+		5F9AC848DCC80F8C38BB5EEBCBFABD45 /* FXForms.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FXForms.m; path = FXForms/FXForms.m; sourceTree = "<group>"; };
+		684C5335543F591949AD49E763386E34 /* FXForms-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FXForms-umbrella.h"; sourceTree = "<group>"; };
 		79A9DEDC89FE8336BF5FEDAAF75BF7FC /* Pods.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Pods.modulemap; sourceTree = "<group>"; };
 		79F9CAE580EB260EBFC3EA16F8A0FABE /* FXForms.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FXForms.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AF710CCE5AC66530AC2D3E2D430E041 /* GAI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = Headers/Public/GAI.h; sourceTree = "<group>"; };
+		7CF40A6F36DE7C369FD27B529C8B3E62 /* Aspects.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
 		7D93C47FDA30307352E47951F4C2C47F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F6FD3C93827106447ED191121C6E187 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80F1D9909393A0BE5C52D64C8B9893EB /* FXForms-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FXForms-dummy.m"; sourceTree = "<group>"; };
 		87B213035BAC5F75386F62D3C75D2342 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		894E5DA93A9F359521A89826BE6DA777 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
+		9068B22143423B118F5B071C565F48DA /* FXForms.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FXForms.modulemap; sourceTree = "<group>"; };
+		96DEA2C1633C4A5CDCD6E9FC5FABE82A /* GAITrackedViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = Headers/Public/GAITrackedViewController.h; sourceTree = "<group>"; };
 		977577C045EDA9D9D1F46E2598D19FC7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		9A4464B8A8035FBE97A8DCC043BD3C0C /* FXForms.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FXForms.modulemap; sourceTree = "<group>"; };
-		A3718DD38E451D4E05BC110F7386CC33 /* Aspects-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Aspects-prefix.pch"; sourceTree = "<group>"; };
-		AA29A926529423634BE7AEC9AEC786DB /* Aspects.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Aspects.modulemap; sourceTree = "<group>"; };
+		A5EC7B79FA3A249C8CC012C404B58D30 /* Aspects.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
+		AC91C50F82BA0D9EBE75CF0470190FA7 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGoogleAnalytics.a; path = Libraries/libGoogleAnalytics.a; sourceTree = "<group>"; };
 		AE6C8177E0B1E01B1586E2F10D4B1741 /* Aspects.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Aspects.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B018C5F020A9C10AE6BC63006C1BC101 /* Aspects-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Aspects-umbrella.h"; sourceTree = "<group>"; };
+		B1D3C452815CB32A06051956D8C26FAC /* GAILogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAILogger.h; path = Headers/Public/GAILogger.h; sourceTree = "<group>"; };
+		B522C6FFE8C1F1749F50A47C274A24F3 /* Aspects.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Aspects.xcconfig; sourceTree = "<group>"; };
+		B524707EE056D45BC9BF4A2225C63A40 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProductAction.h; path = Headers/Public/GAIEcommerceProductAction.h; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CBC0F7C552B739C909B650A0F42F7F38 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
+		CF9E6A79F2614C8BBD7ED2B7EB91CFDF /* FXForms.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FXForms.xcconfig; sourceTree = "<group>"; };
 		D0405803033A2A777B8E4DFA0C1800ED /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D52FE8758AD73B5AC24C4F3154259778 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA312349A49333542E6F4B36B329960E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
-		DBB19451A661C83AA4D636C1F4B6659B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2A0B8E779A5507442FF798C510C92AF /* FXForms.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FXForms.h; path = FXForms/FXForms.h; sourceTree = "<group>"; };
+		E4397CB6A04B7DDF7DC7E0764A3A3C61 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIDictionaryBuilder.h; path = Headers/Public/GAIDictionaryBuilder.h; sourceTree = "<group>"; };
 		E7F21354943D9F42A70697D5A5EF72E9 /* Pods-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-frameworks.sh"; sourceTree = "<group>"; };
 		E8446514FBAD26C0E18F24A5715AEF67 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EFF056A96C2F32566692166AFE5684AD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FB7218B1E6EDC0F0B891CC6E313945D7 /* Aspects-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Aspects-dummy.m"; sourceTree = "<group>"; };
+		F0073BE68709D036ED818307509F3E65 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceFields.h; path = Headers/Public/GAIEcommerceFields.h; sourceTree = "<group>"; };
+		F730A82B165DAE21A4A566ADC3F9E930 /* FXForms-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FXForms-prefix.pch"; sourceTree = "<group>"; };
+		F8CCF504602C4BF0F22925AD47591DE6 /* Aspects-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Aspects-prefix.pch"; sourceTree = "<group>"; };
+		FB2AA0E5E6A0E09E092796DBA86FA3FF /* GAITracker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = Headers/Public/GAITracker.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,18 +112,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		57B0D14F489C2E69B51EB80F75DE1ABB /* Support Files */ = {
+		09BD1BA7C3E516C623F1E02924C94157 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				AA29A926529423634BE7AEC9AEC786DB /* Aspects.modulemap */,
-				2B575211944A0C6EC224F1D267D62097 /* Aspects.xcconfig */,
-				FB7218B1E6EDC0F0B891CC6E313945D7 /* Aspects-dummy.m */,
-				A3718DD38E451D4E05BC110F7386CC33 /* Aspects-prefix.pch */,
-				1665809F48585905603ABFE578B88AC7 /* Aspects-umbrella.h */,
-				DBB19451A661C83AA4D636C1F4B6659B /* Info.plist */,
+				9068B22143423B118F5B071C565F48DA /* FXForms.modulemap */,
+				CF9E6A79F2614C8BBD7ED2B7EB91CFDF /* FXForms.xcconfig */,
+				80F1D9909393A0BE5C52D64C8B9893EB /* FXForms-dummy.m */,
+				F730A82B165DAE21A4A566ADC3F9E930 /* FXForms-prefix.pch */,
+				684C5335543F591949AD49E763386E34 /* FXForms-umbrella.h */,
+				D52FE8758AD73B5AC24C4F3154259778 /* Info.plist */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/Aspects";
+			path = "../Target Support Files/FXForms";
+			sourceTree = "<group>";
+		};
+		59EF530DAB1A66B46D87AF786CF0CEE1 /* Aspects */ = {
+			isa = PBXGroup;
+			children = (
+				A5EC7B79FA3A249C8CC012C404B58D30 /* Aspects.h */,
+				7CF40A6F36DE7C369FD27B529C8B3E62 /* Aspects.m */,
+				868858B44D05914FDB6B44D2BBB23B61 /* Support Files */,
+			);
+			path = Aspects;
+			sourceTree = "<group>";
+		};
+		66CDEA478E7F5767FA23142ECF0BEE3F /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				7AF710CCE5AC66530AC2D3E2D430E041 /* GAI.h */,
+				E4397CB6A04B7DDF7DC7E0764A3A3C61 /* GAIDictionaryBuilder.h */,
+				F0073BE68709D036ED818307509F3E65 /* GAIEcommerceFields.h */,
+				09AFF4275C923B4FC0D21BE347CAFFEF /* GAIEcommerceProduct.h */,
+				B524707EE056D45BC9BF4A2225C63A40 /* GAIEcommerceProductAction.h */,
+				4E5141ADEE48D000EB26C8CA90E80960 /* GAIEcommercePromotion.h */,
+				5093F1BD5DF88D4ECB0355EF9DA1D538 /* GAIFields.h */,
+				B1D3C452815CB32A06051956D8C26FAC /* GAILogger.h */,
+				96DEA2C1633C4A5CDCD6E9FC5FABE82A /* GAITrackedViewController.h */,
+				FB2AA0E5E6A0E09E092796DBA86FA3FF /* GAITracker.h */,
+				AA01FAA8282C406A7CEB8900D9EBF84E /* Frameworks */,
+			);
+			path = GoogleAnalytics;
 			sourceTree = "<group>";
 		};
 		75D98FF52E597A11900E131B6C4E1ADA /* Pods */ = {
@@ -133,24 +172,39 @@
 			path = "Target Support Files/Pods";
 			sourceTree = "<group>";
 		};
+		7878663619B63953C927938730C64D4E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				59EF530DAB1A66B46D87AF786CF0CEE1 /* Aspects */,
+				B7762EF250A12E25DA0EE5B99EBF34B3 /* FXForms */,
+				66CDEA478E7F5767FA23142ECF0BEE3F /* GoogleAnalytics */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				8743D33643CE9CB240D6B32C2E4CC1A2 /* Pods */,
+				7878663619B63953C927938730C64D4E /* Pods */,
 				89F97CBB404C42534995950C5F07BE36 /* Products */,
 				B7B80995527643776607AFFA75B91E24 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8743D33643CE9CB240D6B32C2E4CC1A2 /* Pods */ = {
+		868858B44D05914FDB6B44D2BBB23B61 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				FA02E8CDED1DFBAA04C45CEFF1CFDAE5 /* Aspects */,
-				D9C05B4E61CE980BDCEE70C244411733 /* FXForms */,
+				1927AF89853620E2C67897ECB6679B67 /* Aspects.modulemap */,
+				B522C6FFE8C1F1749F50A47C274A24F3 /* Aspects.xcconfig */,
+				10410D8528326765BB1435C6310681DB /* Aspects-dummy.m */,
+				F8CCF504602C4BF0F22925AD47591DE6 /* Aspects-prefix.pch */,
+				B018C5F020A9C10AE6BC63006C1BC101 /* Aspects-umbrella.h */,
+				7F6FD3C93827106447ED191121C6E187 /* Info.plist */,
 			);
-			name = Pods;
+			name = "Support Files";
+			path = "../Target Support Files/Aspects";
 			sourceTree = "<group>";
 		};
 		89F97CBB404C42534995950C5F07BE36 /* Products */ = {
@@ -161,6 +215,24 @@
 				7D93C47FDA30307352E47951F4C2C47F /* Pods.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AA01FAA8282C406A7CEB8900D9EBF84E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC91C50F82BA0D9EBE75CF0470190FA7 /* libGoogleAnalytics.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B7762EF250A12E25DA0EE5B99EBF34B3 /* FXForms */ = {
+			isa = PBXGroup;
+			children = (
+				E2A0B8E779A5507442FF798C510C92AF /* FXForms.h */,
+				5F9AC848DCC80F8C38BB5EEBCBFABD45 /* FXForms.m */,
+				09BD1BA7C3E516C623F1E02924C94157 /* Support Files */,
+			);
+			path = FXForms;
 			sourceTree = "<group>";
 		};
 		B7B80995527643776607AFFA75B91E24 /* Targets Support Files */ = {
@@ -185,40 +257,6 @@
 				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
 			);
 			name = iOS;
-			sourceTree = "<group>";
-		};
-		C309387F9B4A290A4727215AFD7540EA /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				9A4464B8A8035FBE97A8DCC043BD3C0C /* FXForms.modulemap */,
-				30DC51EE97E154965D7562E1F052F2D1 /* FXForms.xcconfig */,
-				0E4EACC33C09E790DAA9038F7702F7C3 /* FXForms-dummy.m */,
-				3B4FD109EAAEBBCB8C0FD3AE02717A86 /* FXForms-prefix.pch */,
-				6EBAC7487C56037E0AE8C8900D2F184F /* FXForms-umbrella.h */,
-				EFF056A96C2F32566692166AFE5684AD /* Info.plist */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/FXForms";
-			sourceTree = "<group>";
-		};
-		D9C05B4E61CE980BDCEE70C244411733 /* FXForms */ = {
-			isa = PBXGroup;
-			children = (
-				670F2D4C0F77EB7F8D408B762E47E77B /* FXForms.h */,
-				097B402D92463684137186644AEB41B9 /* FXForms.m */,
-				C309387F9B4A290A4727215AFD7540EA /* Support Files */,
-			);
-			path = FXForms;
-			sourceTree = "<group>";
-		};
-		FA02E8CDED1DFBAA04C45CEFF1CFDAE5 /* Aspects */ = {
-			isa = PBXGroup;
-			children = (
-				1B60E85EE9CBE0F27A26377252E8E1B1 /* Aspects.h */,
-				3250B81FF3A78BACE1A6D042FF10688E /* Aspects.m */,
-				57B0D14F489C2E69B51EB80F75DE1ABB /* Support Files */,
-			);
-			path = Aspects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -381,7 +419,7 @@
 /* Begin XCBuildConfiguration section */
 		26B6101D634E09570D2B11B9E3CEA619 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B575211944A0C6EC224F1D267D62097 /* Aspects.xcconfig */;
+			baseConfigurationReference = B522C6FFE8C1F1749F50A47C274A24F3 /* Aspects.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -541,7 +579,7 @@
 		};
 		B520CA1F1B838554177974C408C4BD36 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30DC51EE97E154965D7562E1F052F2D1 /* FXForms.xcconfig */;
+			baseConfigurationReference = CF9E6A79F2614C8BBD7ED2B7EB91CFDF /* FXForms.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -568,7 +606,7 @@
 		};
 		C909609F3921C601E0BCCC5652CE6496 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30DC51EE97E154965D7562E1F052F2D1 /* FXForms.xcconfig */;
+			baseConfigurationReference = CF9E6A79F2614C8BBD7ED2B7EB91CFDF /* FXForms.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -595,7 +633,7 @@
 		};
 		D15271BBF16357FF28E63E8C1ACA4AB0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B575211944A0C6EC224F1D267D62097 /* Aspects.xcconfig */;
+			baseConfigurationReference = B522C6FFE8C1F1749F50A47C274A24F3 /* Aspects.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;

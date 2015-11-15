@@ -761,7 +761,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Anime\\ Detour",
-					"$(PROJECT_DIR)/Anime\\ Detour/Vendor",
 				);
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.animedetour.mobile;
@@ -788,7 +787,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Anime\\ Detour",
-					"$(PROJECT_DIR)/Anime\\ Detour/Vendor",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.animedetour.mobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
