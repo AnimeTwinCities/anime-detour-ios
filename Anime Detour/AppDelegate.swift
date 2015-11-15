@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     #if os(iOS)
     private var appWideNotificationPermissionsEnabled: Bool {
         let settings = UIApplication.sharedApplication().currentUserNotificationSettings()
-        return (settings?.types ?? .None) != .None
+        return !(settings?.types == .None)
     }
     
     private lazy var sessionNotificationScheduler: SessionNotificationScheduler = {
@@ -103,88 +103,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         if dataStatusDefaultsController.sessionsFetchRequired {
-            self.apiClient.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
-                guard result != nil else {
-                    if let error = error {
-                        NSLog("Error fetching session list from server: \(error)")
-                    }
-
-                    return
-                }
-                
-                guard let strongSelf = self else {
-                    return
-                }
-
-                guard let jsonSessions = result as? [[String : String]] else { return }
-                let context = strongSelf.backgroundContext
-                context.performBlock { () -> Void in
-                    let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
-                    for json: [String : String] in jsonSessions {
-                        let session = Session(entity: sessionEntity, insertIntoManagedObjectContext: context)
-                        session.update(jsonObject: json, jsonDateFormatter: self!.apiClient.dateFormatter)
-                    }
-                    
-                    do {
-                        try context.save()
-                        dataStatusDefaultsController.sessionsFetchRequired = false
-                        dataStatusDefaultsController.lastSessionsClearDate = NSDate()
-
-                        dataStatusDefaultsController.synchronizeDefaults()
-                    } catch {
-                        let error = error
-                        NSLog("Error saving sessions: \(error)")
-                    }
-                }
-            }
+            self.apiClient.fetchSessions(dataStatusDefaultsController, managedObjectContext: self.backgroundContext)
         }
 
         if dataStatusDefaultsController.guestsFetchRequired {
-            self.apiClient.guestList { [weak self] (result, error) -> () in
-                guard result != nil else {
-                    if let error = error {
-                        NSLog("Error fetching guest list from server: \(error)")
-                    }
-
-                    return
-                }
-                
-                guard let strongSelf = self else {
-                    return
-                }
-
-                guard let guestsJson = result as? [[String : AnyObject]] else { return }
-                let context = strongSelf.backgroundContext
-                context.performBlock { () -> Void in
-                    let guestEntity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: context)!
-                    
-                    for category in guestsJson {
-                        guard let categoryName = category["categoryname"] as? String else {
-                            continue
-                        }
-                        
-                        guard let guests = category["guests"] as? [[String : String]] else {
-                            continue
-                        }
-                        
-                        for json: [String : String] in guests {
-                            let guest = Guest(entity: guestEntity, insertIntoManagedObjectContext: context)
-                            guest.update(categoryName: categoryName, jsonObject: json)
-                        }
-                    }
-                    
-                    do {
-                        try context.save()
-                        dataStatusDefaultsController.guestsFetchRequired = false
-                        dataStatusDefaultsController.lastGuestsClearDate = NSDate()
-
-                        dataStatusDefaultsController.synchronizeDefaults()
-                    } catch {
-                        let error = error
-                        NSLog("Error saving guests: \(error)")
-                    }
-                }
-            }
+            self.apiClient.fetchGuests(dataStatusDefaultsController, managedObjectContext: self.backgroundContext)
         }
 
         return true
@@ -277,10 +200,12 @@ extension AppDelegate: NotificationPermissionRequesterDelegate {
 // MARK: - SessionFavoriteNotificationDelegate
 extension AppDelegate: SessionFavoriteNotificationDelegate {
     func didChangeFavoriteSessions(count: Int) {
-        if !self.internalSettings.askedToEnableNotifications && !self.userVisibleSessionSettings.favoriteSessionAlerts {
-            self.notificationPermissionRequester.enableSessionNotificationsOnNotificationsEnabled = true
-            self.notificationPermissionRequester.askEnableSessionNotifications()
+        guard !self.internalSettings.askedToEnableNotifications && !self.userVisibleSessionSettings.favoriteSessionAlerts else {
+            return
         }
+        
+        self.notificationPermissionRequester.enableSessionNotificationsOnNotificationsEnabled = true
+        self.notificationPermissionRequester.askEnableSessionNotifications()
     }
 }
 

@@ -12,6 +12,43 @@ import AnimeDetourAPI
 import CoreData
 
 extension AnimeDetourAPIClient {
+    func fetchSessions(dataStatusDefaultsController: DataStatusDefaultsController, managedObjectContext: NSManagedObjectContext) {
+        self.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
+            guard result != nil else {
+                if let error = error {
+                    NSLog("Error fetching session list from server: \(error)")
+                }
+                
+                return
+            }
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard let jsonSessions = result as? [[String : String]] else { return }
+            let context = managedObjectContext
+            context.performBlock { () -> Void in
+                let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
+                for json: [String : String] in jsonSessions {
+                    let session = Session(entity: sessionEntity, insertIntoManagedObjectContext: context)
+                    session.update(jsonObject: json, jsonDateFormatter: strongSelf.dateFormatter)
+                }
+                
+                do {
+                    try context.save()
+                    dataStatusDefaultsController.sessionsFetchRequired = false
+                    dataStatusDefaultsController.lastSessionsClearDate = NSDate()
+                    
+                    dataStatusDefaultsController.synchronizeDefaults()
+                } catch {
+                    let error = error
+                    NSLog("Error saving sessions: \(error)")
+                }
+            }
+        }
+    }
+    
     /**
     Download Session information, saving into the passed in context.
     */
