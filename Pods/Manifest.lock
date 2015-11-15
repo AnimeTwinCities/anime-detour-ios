@@ -1,10 +1,13 @@
 PODS:
+  - Aspects (1.4.1)
   - FXForms (1.2.14)
 
 DEPENDENCIES:
+  - Aspects
   - FXForms (~> 1.2.0)
 
 SPEC CHECKSUMS:
+  Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
   FXForms: 724500c0c3f3eb3ba1004b3b83abcee55d3daf18
 
 COCOAPODS: 0.39.0
