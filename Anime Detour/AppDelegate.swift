@@ -10,7 +10,6 @@ import CoreData
 import UIKit
 
 import AnimeDetourAPI
-import Aspects
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -63,39 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEBUG
             // no analytics
         #else
-            let analytics = GAI.sharedInstance()
-            analytics.dispatchInterval = 30 // seconds
-            if let file = NSBundle.mainBundle().pathForResource("GoogleAnalyticsConfiguration", ofType: "plist") {
-                if let analyticsDictionary = NSDictionary(contentsOfFile: file) {
-                    if let analyticsID = analyticsDictionary["analyticsID"] as? String {
-                        analytics.trackerWithTrackingId(analyticsID)
-                    }
-                }
-            }
-            
-            let block: @convention(block) (info: AspectInfo, animated: Bool) -> Void = {
-                (info: AspectInfo, animated: Bool) in
-                guard let tracker = analytics.defaultTracker else {
-                    return
-                }
-                
-                guard let analyticsScreen = info.instance() as? AnalyticsScreen else {
-                    return
-                }
-                
-                tracker.set(kGAIScreenName, value: analyticsScreen.screenName)
-                let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
-                tracker.send(dict)
-            }
-            // lol type-safety
-            let objBlock = unsafeBitCast(block, AnyObject.self)
-            
-            do {
-                try UIViewController.aspect_hookSelector(Selector("viewDidAppear:"), withOptions:AspectOptions.PositionAfter, usingBlock: objBlock)
-            } catch {
-                let error = error as! NSError
-                NSLog("Error hooking viewDidAppear: for analytics %@", error)
-            }
+        self.initAnalytics()
         #endif
     
         #if os(iOS)
@@ -154,6 +121,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if os(iOS)
         self.checkAppAllowedToSendNotificationsAndUpdateSessionNotificationsEnabled()
         #endif
+    }
+    
+    // MARK: - Analytics
+    
+    /**
+     Setup analytics tracking.
+     */
+    private func initAnalytics() {
+        let analytics = GAI.sharedInstance()
+        analytics.dispatchInterval = 30 // seconds
+        guard let file = NSBundle.mainBundle().pathForResource("GoogleAnalyticsConfiguration", ofType: "plist"),
+            let analyticsDictionary = NSDictionary(contentsOfFile: file),
+            let analyticsID = analyticsDictionary["analyticsID"] as? String else {
+                return
+        }
+        
+        let tracker = analytics.trackerWithTrackingId(analyticsID)
+        
+        UIViewController.hookViewDidAppearForAnalytics(tracker)
     }
     
     // MARK: - Presenting Alerts

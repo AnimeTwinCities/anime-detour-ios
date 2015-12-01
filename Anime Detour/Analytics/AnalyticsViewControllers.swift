@@ -8,6 +8,32 @@
 
 import Foundation
 
+import Aspects
+
+extension UIViewController {
+    static func hookViewDidAppearForAnalytics(googleTracker: GAITracker) {
+        let block: @convention(block) (info: AspectInfo, animated: Bool) -> Void = {
+            (info: AspectInfo, animated: Bool) in
+            guard let analyticsScreen = info.instance() as? AnalyticsScreen else {
+                return
+            }
+            
+            googleTracker.set(kGAIScreenName, value: analyticsScreen.screenName)
+            let dict = GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject]
+            googleTracker.send(dict)
+        }
+        // lol type-safety
+        let objBlock = unsafeBitCast(block, AnyObject.self)
+        
+        do {
+            try UIViewController.aspect_hookSelector(Selector("viewDidAppear:"), withOptions:AspectOptions.PositionAfter, usingBlock: objBlock)
+        } catch {
+            let error = error as! NSError
+            NSLog("Error hooking viewDidAppear: for analytics %@", error)
+        }
+    }
+}
+
 extension SessionCollectionViewController: AnalyticsScreen {
     var screenName: String { return "Schedule" }
 }
