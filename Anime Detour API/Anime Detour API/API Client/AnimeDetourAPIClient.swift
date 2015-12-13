@@ -33,20 +33,14 @@ public class AnimeDetourAPIClient {
     public let dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // 2015-08-04 19:00:00
+        formatter.timeZone = NSTimeZone(name: "America/Chicago")
         return formatter
     }()
     
-    internal lazy var urlSession: NSURLSession = NSURLSession.sharedSession()
-    private var baseURL: NSURL {
-        return NSURL(string: "http://animedetour.com")!
-    }
+    internal let urlSession: NSURLSession
+    internal let baseURL: NSURL = NSURL(string: "http://animedetour.com")!
     
-    required public init() {
-        self.dateFormatter.timeZone = NSTimeZone(name: "America/Chicago")
-    }
-    
-    convenience public init(urlSession: NSURLSession) {
-        self.init()
+    required public init(urlSession: NSURLSession = NSURLSession.sharedSession()) {
         self.urlSession = urlSession
     }
     
@@ -198,16 +192,14 @@ public extension Session {
             self.name = name
         }
         
-        if let start: String = json["event_start"] {
-            if let date = dateFormatter.dateFromString(start) {
+        if let start: String = json["event_start"],
+            let date = dateFormatter.dateFromString(start) {
                 self.start = date
-            }
         }
         
-        if let end: String = json["event_end"] {
-            if let date = dateFormatter.dateFromString(end) {
+        if let end: String = json["event_end"],
+            let date = dateFormatter.dateFromString(end) {
                 self.end = date
-            }
         }
         
         if let type: String = json["event_type"] {
@@ -222,16 +214,14 @@ public extension Session {
             self.mediaURL = mediaURL
         }
         
-        if let seatsString = json["seats"] {
-            if let seats = Int(seatsString).map({ UInt32($0) }) {
+        if let seatsString = json["seats"],
+            let seats = Int(seatsString).map({ UInt32($0) }) {
                 self.seats = seats
-            }
         }
         
-        if let goersString = json["goers"] {
-            if let goers = Int(goersString).map({ UInt32($0) }) {
+        if let goersString = json["goers"],
+            let goers = Int(goersString).map({ UInt32($0) }) {
                 self.goers = goers
-            }
         }
         
         if let inviteOnly: Bool = json["inviteOnly"].map({ (inviteOnly: String) -> Bool in return inviteOnly == "Y" }) {

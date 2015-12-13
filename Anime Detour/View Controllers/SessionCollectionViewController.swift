@@ -307,13 +307,11 @@ class SessionCollectionViewController: UICollectionViewController {
 
         self.refreshing = true
         let moc = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
-        let dateFormatter = self.apiClient.dateFormatter
 
-        self.apiClient.refreshSessions(moc, dateFormatter: dateFormatter) {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        self.apiClient.refreshSessions(moc) {
+            dispatch_async(dispatch_get_main_queue()) {
                 self.refreshing = false
-                return
-            })
+            }
         }
     }
 

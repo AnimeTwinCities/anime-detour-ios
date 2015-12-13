@@ -14,7 +14,7 @@ import CoreData
 extension AnimeDetourAPIClient {
     func fetchGuests(dataStatusDefaultsController: DataStatusDefaultsController, managedObjectContext: NSManagedObjectContext) {
         self.guestList { [weak self] (result, error) -> () in
-            guard result != nil else {
+            guard let result = result where result.count > 0 else {
                 if let error = error {
                     NSLog("Error fetching guest list from server: \(error)")
                 }
@@ -34,12 +34,9 @@ extension AnimeDetourAPIClient {
                 let guestEntity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: context)!
                 
                 for category in guestsJson {
-                    guard let categoryName = category["categoryname"] as? String else {
-                        continue
-                    }
-                    
-                    guard let guests = category["guests"] as? [[String : String]] else {
-                        continue
+                    guard let categoryName = category["categoryname"] as? String,
+                        guests = category["guests"] as? [[String : String]] else {
+                            continue
                     }
                     
                     for json: [String : String] in guests {
