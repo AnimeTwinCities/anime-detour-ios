@@ -248,33 +248,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Y24-9C-SpY" customClass="ImageHeaderView" customModule="Anime_Detour" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="igP-zm-UPE">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="igP-zm-UPE" secondAttribute="bottom" id="8b1-wx-acS"/>
+                                <constraint firstAttribute="trailing" secondItem="igP-zm-UPE" secondAttribute="trailing" id="Hba-Xy-o1f"/>
+                                <constraint firstItem="igP-zm-UPE" firstAttribute="top" secondItem="Y24-9C-SpY" secondAttribute="top" id="MKx-HM-kHE"/>
+                                <constraint firstItem="igP-zm-UPE" firstAttribute="leading" secondItem="Y24-9C-SpY" secondAttribute="leading" id="MV6-LD-OFk"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="imageView" destination="igP-zm-UPE" id="OxP-D5-K9T"/>
+                                <outlet property="imageViewTopConstraint" destination="MKx-HM-kHE" id="xrV-vN-ASr"/>
+                            </connections>
+                        </view>
                         <sections>
                             <tableViewSection id="o09-ei-q2Y">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCellIdentifier" id="Mau-SH-wW8">
-                                        <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mau-SH-wW8" id="vO1-OX-QXm">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QK0-3x-95g">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="240" id="K4C-sm-ncF"/>
-                                                        <constraint firstAttribute="height" priority="1" id="lc8-Gh-fxy"/>
-                                                        <constraint firstAttribute="width" secondItem="QK0-3x-95g" secondAttribute="height" multiplier="2:1" priority="998" id="sMx-jw-RRG"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="QK0-3x-95g" secondAttribute="bottom" id="QMu-wW-s0a"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="QK0-3x-95g" secondAttribute="trailing" constant="-8" id="RRt-tF-kOi"/>
-                                                <constraint firstItem="QK0-3x-95g" firstAttribute="top" secondItem="vO1-OX-QXm" secondAttribute="top" id="cgu-2i-haI"/>
-                                                <constraint firstItem="QK0-3x-95g" firstAttribute="leading" secondItem="vO1-OX-QXm" secondAttribute="leadingMargin" constant="-8" id="eXf-9R-ayF"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NameCellIdentifier" textLabel="iya-M0-NLd" style="IBUITableViewCellStyleDefault" id="NrL-pu-gaM">
                                         <rect key="frame" x="0.0" y="108" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -323,7 +319,6 @@
                     </tableView>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="bioIdentifier" value="BioCellIdentifier"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="photoIdentifier" value="PhotoCellIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="nameIdentifier" value="NameCellIdentifier"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="photoAspect">
                             <real key="value" value="2"/>
