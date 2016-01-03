@@ -9,18 +9,19 @@
 import Foundation
 import UIKit
 
-class SessionView: UIView, SessionViewModelDelegate {
+class SessionView: UIScrollView, SessionViewModelDelegate {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var typesLabel: UILabel!
-
+    
+    @IBOutlet var imageHeaderView: ImageHeaderView!
     @IBOutlet var imageView: UIImageView!
 
     @IBOutlet var bookmarkButton: UIButton!
     
-    @IBOutlet var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var imageHeaderViewHeightConstraint: NSLayoutConstraint!
     
     /// Value for the image view height constraint, if an image is available.
     @IBInspectable var imageHeight: CGFloat = 180
@@ -31,9 +32,9 @@ class SessionView: UIView, SessionViewModelDelegate {
             
             switch image {
             case .Some(_):
-                self.imageViewHeightConstraint.constant = self.imageHeight
+                self.imageHeaderViewHeightConstraint.constant = self.imageHeight
             default:
-                self.imageViewHeightConstraint.constant = 0
+                self.imageHeaderViewHeightConstraint.constant = 0
             }
             
             self.layoutIfNeeded()
@@ -62,7 +63,7 @@ class SessionView: UIView, SessionViewModelDelegate {
                     case let .Some(image):
                         self?.image = image
                     default:
-                        self?.imageViewHeightConstraint.constant = 0
+                        self?.imageHeaderViewHeightConstraint.constant = 0
                     }
                 })
             })

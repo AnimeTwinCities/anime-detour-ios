@@ -13,6 +13,10 @@ import AnimeDetourAPI
 
 class SessionViewController: UIViewController, SessionViewModelDelegate {
     @IBOutlet var sessionView: SessionView!
+    
+    /// The aspect ratio (width / height) of the photo image view.
+    @IBInspectable var photoAspect: CGFloat = 2
+    
     let imagesURLSession = NSURLSession.sharedSession()
     
     var session: Session! {
@@ -42,6 +46,8 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
         viewModel.delegate = self
         self.sessionView.viewModel = viewModel
+        
+        self.updateHeaderSize()
     }
 
     // MARK: - Session View Model Delegate
@@ -50,4 +56,17 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         self.sessionView.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
         self.sessionView.bookmarkButton.accessibilityLabel = accessibilityLabel
     }
+}
+
+extension SessionViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        self.updateHeaderImageTopConstraint(self.sessionView)
+    }
+}
+
+extension SessionViewController: StretchingImageHeaderContainer {
+    var imageHeaderView: ImageHeaderView! {
+        return self.sessionView.imageHeaderView
+    }
+    // `photoAspect` is already a variable in the main class implmementation
 }

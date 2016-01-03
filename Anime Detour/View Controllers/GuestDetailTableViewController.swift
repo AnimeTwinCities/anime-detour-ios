@@ -11,7 +11,7 @@ import UIKit
 class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, GuestViewModelDelegate {
     var guestViewModel: GuestViewModel!
     
-    private var imageHeaderView: ImageHeaderView!
+    var imageHeaderView: ImageHeaderView!
     private var bioWebViewHeight: CGFloat?
     private var bioWebviewLoadInitiated = false
 
@@ -19,7 +19,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     @IBInspectable var nameIdentifier: String!
 
     /// The aspect ratio (width / height) of the photo image view.
-    @IBInspectable var photoAspect: CGFloat = 1
+    @IBInspectable var photoAspect: CGFloat = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,32 +29,6 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         self.imageHeaderView.imageView.image = self.guestViewModel.hiResPhoto(true, lowResPhotoPlaceholder: true)
         
         self.updateHeaderSize()
-    }
-    
-    /// Adjust the frame of the header view to maintain our target aspect ratio.
-    private func updateHeaderSize() {
-        let headerFrame = self.imageHeaderView.frame
-        let newHeight = round(self.view.frame.width / self.photoAspect)
-        let newFrame = CGRect(origin: headerFrame.origin, size: CGSize(width: headerFrame.width, height: newHeight))
-        self.imageHeaderView.frame = newFrame
-    }
-    
-    /// Adjust the top constraint of the image header view's image,
-    /// so more of the image is visible if the user over-scrolls the table view.
-    private func updateHeaderImageTopConstraint() {
-        let verticalOffset = self.tableView.contentOffset.y
-        let verticalInset = self.tableView.contentInset.top
-        
-        let total = verticalOffset + verticalInset
-        
-        // If `verticalOffset` is < 0, i.e. the table view was overscrolled down such that the
-        // top of its content is lower on the screen than it would be if the user were not touching
-        // the screen, then extend the top of the image header view's image view to fill the empty space.
-        if total < 0 {
-            self.imageHeaderView.imageViewTopConstraint.constant = total
-        } else {
-            self.imageHeaderView.imageViewTopConstraint.constant = 0
-        }
     }
 
     private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
@@ -77,7 +51,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     // MARK: - Scroll view delegate
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        self.updateHeaderImageTopConstraint()
+        self.updateHeaderImageTopConstraint(self.tableView)
     }
 
     // MARK: - Table view data source
@@ -140,6 +114,10 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         // empty
     }
 
+}
+
+extension GuestDetailTableViewController: StretchingImageHeaderContainer {
+    // `imageHeaderView` and `photoAspect` are already variables in the main class implmementation
 }
 
 /**

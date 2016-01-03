@@ -52,6 +52,7 @@
 		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
 		DA29F2E91C388420000337F4 /* ImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29F2E81C388420000337F4 /* ImageHeaderView.swift */; };
+		DA29F2EC1C399F59000337F4 /* StretchingImageHeaderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29F2EB1C399F59000337F4 /* StretchingImageHeaderContainer.swift */; };
 		DA639C631BEE9350004BCA5D /* NotificationPermissionRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA639C621BEE9350004BCA5D /* NotificationPermissionRequester.swift */; };
 		DA6C55081BF7BE3B00976858 /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C55071BF7BE3B00976858 /* AnalyticsScreen.swift */; };
 		DA6C550A1BF7BE7200976858 /* AnalyticsViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C55091BF7BE7200976858 /* AnalyticsViewControllers.swift */; };
@@ -150,6 +151,7 @@
 		5CE11EAC1A34E299005903A4 /* SessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
 		5EF5767D68136EAEF35EF0D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DA29F2E81C388420000337F4 /* ImageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHeaderView.swift; sourceTree = "<group>"; };
+		DA29F2EB1C399F59000337F4 /* StretchingImageHeaderContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StretchingImageHeaderContainer.swift; sourceTree = "<group>"; };
 		DA639C621BEE9350004BCA5D /* NotificationPermissionRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPermissionRequester.swift; sourceTree = "<group>"; };
 		DA6C55071BF7BE3B00976858 /* AnalyticsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
 		DA6C55091BF7BE7200976858 /* AnalyticsViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsViewControllers.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				5C54450B19F2D3A3003CC1C3 /* SessionView.swift */,
 				5CCA903D1A86F90800C14EE0 /* TextHeaderCollectionReusableView.swift */,
 				DA29F2E81C388420000337F4 /* ImageHeaderView.swift */,
+				DA29F2EB1C399F59000337F4 /* StretchingImageHeaderContainer.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				DA766C861B2DF282002BA2C9 /* UserDefaultsUpdater.swift in Sources */,
 				5C6C31AE1A75E158008FC08F /* GuestViewModel.swift in Sources */,
 				5CCA90421A870A8000C14EE0 /* SessionCollectionViewCell.swift in Sources */,
+				DA29F2EC1C399F59000337F4 /* StretchingImageHeaderContainer.swift in Sources */,
 				5C0EF2DD19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */,
 				5C4B436E19F0A19F009342C8 /* SessionViewController.swift in Sources */,
 				5CCA903E1A86F90800C14EE0 /* TextHeaderCollectionReusableView.swift in Sources */,
