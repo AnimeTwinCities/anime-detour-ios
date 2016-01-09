@@ -145,7 +145,7 @@ class GuestViewModel: Equatable {
             return photo
         }
 
-        let returnLowResPlaceholderOrNil = { () -> UIImage? in
+        let returnMethod = { () -> UIImage? in
             if lowResPhotoPlaceholder, let photo = self.photo {
                 return photo
             } else {
@@ -154,10 +154,13 @@ class GuestViewModel: Equatable {
         }
 
         guard downloadIfNecessary else {
-            return returnLowResPlaceholderOrNil()
+            return returnMethod()
         }
         
-        let url = NSURL(string: self.hiResPhotoPath)!
+        guard let url = NSURL(string: self.hiResPhotoPath) else {
+            return returnMethod()
+        }
+        
         let hiResPhotoTask = self.imageSession.dataTaskWithURL(url, completionHandler: { [weak self] (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             guard let strongSelf = self else {
                 return
@@ -192,7 +195,7 @@ class GuestViewModel: Equatable {
         self.hiResPhotoDataTask = hiResPhotoTask
         hiResPhotoTask.resume()
         
-        return returnLowResPlaceholderOrNil()
+        return returnMethod()
     }
     
     deinit {

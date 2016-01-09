@@ -21,12 +21,17 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     
     var session: Session! {
         didSet {
+            let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+            viewModel.delegate = self
+            self.viewModel = viewModel
+            
             if let sessionView = self.sessionView {
-                let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
                 sessionView.viewModel = viewModel
             }
         }
     }
+    
+    private var viewModel: SessionViewModel?
     
     private var shortDateFormat = "MM/dd hh:mm a"
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
@@ -43,10 +48,7 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
-        viewModel.delegate = self
-        self.sessionView.viewModel = viewModel
-        
+        self.sessionView.viewModel = self.viewModel
         self.updateHeaderSize()
     }
 
