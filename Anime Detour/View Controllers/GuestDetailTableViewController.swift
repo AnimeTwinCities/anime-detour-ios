@@ -34,7 +34,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         switch cell.reuseIdentifier {
         case .Some(self.nameIdentifier):
-            cell.textLabel?.text = self.guestViewModel.name
+            (cell as! GuestNameCell).nameLabel.text = self.guestViewModel.name
         case .Some(self.bioIdentifier):
             let webView = cell.contentView.subviews.filter { return $0 is UIWebView }.first as! UIWebView
             webView.delegate = self
@@ -72,7 +72,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         
         switch row {
         case .Name:
-            return 44
+            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
         case .Bio:
             return self.bioWebViewHeight ?? tableView.frame.height - 344
         }
@@ -118,6 +118,10 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
 
 extension GuestDetailTableViewController: StretchingImageHeaderContainer {
     // `imageHeaderView` and `photoAspect` are already variables in the main class implmementation
+}
+
+class GuestNameCell: UITableViewCell {
+    @IBOutlet var nameLabel: UILabel!
 }
 
 /**
