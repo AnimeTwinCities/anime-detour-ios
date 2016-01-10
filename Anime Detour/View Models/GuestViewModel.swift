@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-import AnimeDetourAPI
+import AnimeDetourDataModel
 
 /**
 Provides UI-displayable properties corresponding to a `Guest` object.

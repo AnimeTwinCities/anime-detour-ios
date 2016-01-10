@@ -11,7 +11,7 @@ import UIKit
 
 public class CoreDataController {
     private class var storeFilename: String {
-        return "ConScheduleData.sqlite"
+        return "AnimeDetourDataModel.sqlite"
     }
 
     /// Main managed object context, suitable only for use on the main thread.
@@ -41,7 +41,7 @@ public class CoreDataController {
     It is a fatal error for the application not to be able to find and load its model.
     */
     class func createManagedObjectModel() -> NSManagedObjectModel {
-        let modelURL = NSBundle(forClass: CoreDataController.self).URLForResource("AnimeDetourAPI", withExtension: "momd")!
+        let modelURL = NSBundle(forClass: CoreDataController.self).URLForResource("AnimeDetourDataModel", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }
 

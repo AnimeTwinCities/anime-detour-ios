@@ -8,7 +8,7 @@
 
 import Foundation
 
-import AnimeDetourAPI
+import AnimeDetourDataModel
 
 enum APIEndpoint {
     case GuestList
@@ -29,7 +29,7 @@ enum APIEndpoint {
 
 public typealias APICompletionHandler = (result: AnyObject?, error: NSError?) -> ()
 
-public class AnimeDetourSchedorgAPIClient: AnimeDetourAPI {
+public class AnimeDetourSchedorgAPIClient {
     /// Formatter for use when parsing sched.org API dates.
     /// Do not modify.
     public let dateFormatter: NSDateFormatter = { () -> NSDateFormatter in

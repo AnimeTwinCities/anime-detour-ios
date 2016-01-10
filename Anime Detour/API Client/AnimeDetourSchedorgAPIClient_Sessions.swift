@@ -8,7 +8,7 @@
 
 import Foundation
 
-import AnimeDetourAPI
+import AnimeDetourDataModel
 import AnimeDetourSchedorgAPI
 import CoreData
 

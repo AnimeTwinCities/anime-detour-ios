@@ -8,17 +8,8 @@
 
 import Foundation
 
-import AnimeDetourAPI
-
-private var _onceToken: dispatch_once_t = 0
-private var _sharedInstance: CoreDataController!
+import AnimeDetourDataModel
 
 extension CoreDataController {
-    class var sharedInstance: CoreDataController {
-        dispatch_once(&_onceToken) {
-            _sharedInstance = CoreDataController()
-        }
-
-        return _sharedInstance
-    }
+    static var sharedInstance: CoreDataController = CoreDataController()
 }

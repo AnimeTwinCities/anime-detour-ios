@@ -9,7 +9,7 @@
 import CoreData
 import UIKit
 
-import AnimeDetourAPI
+import AnimeDetourDataModel
 import AnimeDetourSchedorgAPI
 
 @UIApplicationMain
@@ -55,6 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let internalSettings: InternalSettings = InternalSettings()
     private let userVisibleSessionSettings: SessionSettings = SessionSettings()
     
+    // MARK: - Updates Cleanup
+    
+    private lazy var previousDataCleaner: PreviousDataCleaner = PreviousDataCleaner()
+    
     // MARK: - Application Delegate
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -83,6 +87,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sessionsClearDate = calendar.dateFromComponents(components)!
         
         let dataStatusDefaultsController = self.dataStatusDefaultsController
+        
+        self.checkAndHandleDatabase()
 
         let guestsNeedClearing = guestsClearDate.timeIntervalSinceDate(dataStatusDefaultsController.lastGuestsClearDate) > 0
         let sessionsNeedClearing = sessionsClearDate.timeIntervalSinceDate(dataStatusDefaultsController.lastSessionsClearDate) > 0
@@ -160,6 +166,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    private func checkAndHandleDatabase() {
+        let twoDotOneDatabaseNeedsClearing: Bool
+        
+        switch dataStatusDefaultsController.databaseCheckedVersionKey.compare("2.1", options: .NumericSearch, range: nil, locale: nil) {
+        case .OrderedAscending, .OrderedSame:
+            twoDotOneDatabaseNeedsClearing = true
+        case .OrderedDescending:
+            twoDotOneDatabaseNeedsClearing = false
+        }
+        if twoDotOneDatabaseNeedsClearing {
+            self.previousDataCleaner.cleanTwoDotOneDatabase()
+        }
+        
+        let currentVersionNumber = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
+        dataStatusDefaultsController.databaseCheckedVersionKey = currentVersionNumber
+    }
+    
     // MARK: - Settings
     
     @objc private func showSettings() {
@@ -176,6 +199,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainColor = UIColor.adr_orange
 
         self.window?.tintColor = mainColor
+    }
+}
+
+private class PreviousDataCleaner {
+    func cleanTwoDotOneDatabase() {
+        let fileManager = NSFileManager.defaultManager()
+        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        guard let documentsURL = urls.first else {
+            return
+        }
+        
+        let storeFilename = "ConScheduleData"
+        let storeExtensions = ["sqlite", "sqlite-shm", "sqlite-wal"]
+        
+        let storeFileURLs = storeExtensions.map({ "\(storeFilename).\($0)" }).map(documentsURL.URLByAppendingPathComponent)
+        for url in storeFileURLs {
+            _ = try? fileManager.removeItemAtURL(url)
+        }
     }
 }
 

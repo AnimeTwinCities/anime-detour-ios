@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-import AnimeDetourAPI
+import AnimeDetourDataModel
 
 /**
 Collection view controller displaying `Guest`s. Requires the collection view to use a `UICollectionViewFlowLayout`.

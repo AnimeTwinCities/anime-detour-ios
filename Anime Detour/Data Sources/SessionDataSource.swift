@@ -9,7 +9,7 @@
 import CoreData
 import UIKit
 
-import AnimeDetourAPI
+import AnimeDetourDataModel
 
 /**
 Convenience collection view and table view data source.

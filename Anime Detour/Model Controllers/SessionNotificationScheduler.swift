@@ -9,7 +9,7 @@
 import Foundation
 
 import CoreData
-import AnimeDetourAPI
+import AnimeDetourDataModel
 
 /**
 Schedules local notifications for favorite Sessions.

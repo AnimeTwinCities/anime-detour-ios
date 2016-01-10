@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-import AnimeDetourAPI
+import AnimeDetourDataModel
 
 /**
 Delegate protocol with which view model state changes, where allowed,

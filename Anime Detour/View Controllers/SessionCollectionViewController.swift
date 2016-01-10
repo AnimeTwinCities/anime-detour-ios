@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-import AnimeDetourAPI
+import AnimeDetourDataModel
 import AnimeDetourSchedorgAPI
 
 class SessionCollectionViewController: UICollectionViewController {

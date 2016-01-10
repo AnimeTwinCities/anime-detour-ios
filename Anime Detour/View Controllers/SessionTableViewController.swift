@@ -10,7 +10,7 @@ import CoreData
 import Foundation
 import UIKit
 
-import AnimeDetourAPI
+import AnimeDetourDataModel
 
 class SessionTableViewController: UITableViewController, UISearchResultsUpdating {
     private var imagesURLSession = NSURLSession.sharedSession()

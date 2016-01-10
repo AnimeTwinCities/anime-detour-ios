@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-import AnimeDetourAPI
+import AnimeDetourDataModel
 
 class SessionViewController: UIViewController, SessionViewModelDelegate {
     @IBOutlet var sessionView: SessionView!
