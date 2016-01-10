@@ -10,13 +10,14 @@ import CoreData
 import UIKit
 
 import AnimeDetourAPI
+import AnimeDetourSchedorgAPI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    lazy var apiClient = AnimeDetourAPIClient.sharedInstance
+    lazy var apiClient = AnimeDetourSchedorgAPIClient.sharedInstance
     lazy var coreDataController = CoreDataController.sharedInstance
     lazy var backgroundContext: NSManagedObjectContext = {
         let context = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)

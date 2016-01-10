@@ -9,9 +9,10 @@
 import Foundation
 
 import AnimeDetourAPI
+import AnimeDetourSchedorgAPI
 import CoreData
 
-extension AnimeDetourAPIClient {
+extension AnimeDetourSchedorgAPIClient {
     func fetchSessions(dataStatusDefaultsController: DataStatusDefaultsController, managedObjectContext: NSManagedObjectContext) {
         self.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
             guard let result = result where result.count > 0 else {

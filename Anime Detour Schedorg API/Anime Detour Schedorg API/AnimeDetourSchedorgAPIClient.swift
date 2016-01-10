@@ -1,12 +1,14 @@
 //
-//  AnimeDetourAPIClient.swift
-//  Anime Detour API
+//  AnimeDetourSchedorgAPIClient.swift
+//  Anime Detour Schedorg API
 //
-//  Created by Brendon Justin on 10/11/14.
-//  Copyright (c) 2014 Anime Detour. All rights reserved.
+//  Created by Brendon Justin on 1/9/16.
+//  Copyright © 2016 Anime Twin Cities, Inc. All rights reserved.
 //
 
 import Foundation
+
+import AnimeDetourAPI
 
 enum APIEndpoint {
     case GuestList
@@ -27,7 +29,7 @@ enum APIEndpoint {
 
 public typealias APICompletionHandler = (result: AnyObject?, error: NSError?) -> ()
 
-public class AnimeDetourAPIClient {
+public class AnimeDetourSchedorgAPIClient: AnimeDetourAPI {
     /// Formatter for use when parsing sched.org API dates.
     /// Do not modify.
     public let dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
@@ -45,7 +47,7 @@ public class AnimeDetourAPIClient {
     }
     
     // MARK: - Endpoint Methods
-
+    
     public func guestList(completionHandler: APICompletionHandler) -> NSURLSessionDataTask? {
         let url = self.url(fromEndpoint: .GuestList)
         let request = NSURLRequest(URL: url)
@@ -72,7 +74,7 @@ public class AnimeDetourAPIClient {
             }
             completionHandler(result: json, error: jsonError)
         })
-
+        
         dataTask.resume()
         return dataTask
     }
@@ -131,27 +133,27 @@ public extension Guest {
     /// Does not save the object afterward.
     public func update(categoryName category: String, jsonObject json: [String : String]) {
         self.category = category
-
+        
         if let id = json["id"] {
             self.guestID = id
         }
-
+        
         if let firstName = json["FirstName"] {
             self.firstName = firstName
         }
-
+        
         if let lastName = json["LastName"] {
             self.lastName = lastName
         }
-
+        
         if let bio = json["Bio"] {
             self.bio = bio
         }
-
+        
         if let photoPath = json["PhotoPath"] {
             self.photoPath = photoPath
         }
-
+        
         if let hiResPhotoPath = json["HiResPhotoPath"] {
             self.hiResPhotoPath = hiResPhotoPath
         }

@@ -10,11 +10,12 @@ import UIKit
 import CoreData
 
 import AnimeDetourAPI
+import AnimeDetourSchedorgAPI
 
 class SessionCollectionViewController: UICollectionViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy private var refreshingTableViewController: UITableViewController = UITableViewController()
-    lazy private var apiClient = AnimeDetourAPIClient.sharedInstance
+    lazy private var apiClient = AnimeDetourSchedorgAPIClient.sharedInstance
     private var refreshing: Bool = false {
         didSet {
             if self.refreshing {
