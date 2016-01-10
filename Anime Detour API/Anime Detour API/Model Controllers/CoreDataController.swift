@@ -1,5 +1,5 @@
 //
-//  ConModelsController.swift
+//  CoreDataController.swift
 //  Anime Detour API
 //
 //  Created by Brendon Justin on 10/24/14.
@@ -10,12 +10,6 @@ import CoreData
 import UIKit
 
 public class CoreDataController {
-    public class var errorDomain: String {
-        get {
-            return "com.animedetour.anime-detour-api"
-        }
-    }
-
     private class var storeFilename: String {
         return "ConScheduleData.sqlite"
     }
@@ -59,20 +53,14 @@ public class CoreDataController {
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent(storeFilename)
-        let failureReason = "There was an error creating or loading the application's saved data."
         do {
             try self.addPersistentStore(url, coordinator: coordinator)
         } catch {
             let error = error as NSError
             
-            // Report any error we got.
-            let dict = [ NSLocalizedDescriptionKey : "Failed to initialize the store for the application's saved data",
-                NSLocalizedFailureReasonErrorKey : failureReason,
-                NSUnderlyingErrorKey : error, ]
-            let wrappedError = NSError(domain: self.errorDomain, code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
+            NSLog("Unresolved error \(error), \(error.userInfo)")
             abort()
         }
 
