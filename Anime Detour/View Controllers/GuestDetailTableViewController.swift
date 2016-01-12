@@ -8,19 +8,18 @@
 
 import UIKit
 
-class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, GuestViewModelDelegate {
+class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, GuestViewModelDelegate, StretchingImageHeaderContainer {
     var guestViewModel: GuestViewModel!
     
     var imageHeaderView: ImageHeaderView!
+    var photoAspect: CGFloat = 2
+    
     private var bioWebViewHeight: CGFloat?
     private var bioWebviewLoadInitiated = false
 
     @IBInspectable var bioIdentifier: String!
     @IBInspectable var nameIdentifier: String!
 
-    /// The aspect ratio (width / height) of the photo image view.
-    @IBInspectable var photoAspect: CGFloat = 2
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.guestViewModel.delegate = self
@@ -36,15 +35,15 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         case .Some(self.nameIdentifier):
             (cell as! GuestNameCell).nameLabel.text = self.guestViewModel.name
         case .Some(self.bioIdentifier):
-            let webView = cell.contentView.subviews.filter { return $0 is UIWebView }.first as! UIWebView
+            let webView = cell.contentView.subviews.flatMap { $0 as? UIWebView }.first!
             webView.delegate = self
             webView.scrollView.scrollEnabled = false
             if !self.bioWebviewLoadInitiated {
                 webView.loadHTMLString(self.guestViewModel.bio, baseURL: nil)
                 self.bioWebviewLoadInitiated = true
             }
-        default:
-            fatalError("Unexpected reuse identifier: \(cell.reuseIdentifier). Expected a match against one of our xIdentifier properties.")
+        case let identifier:
+            fatalError("Unexpected reuse identifier: \(identifier). Expected a match against one of our xIdentifier properties.")
         }
     }
     
@@ -114,10 +113,6 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         // empty
     }
 
-}
-
-extension GuestDetailTableViewController: StretchingImageHeaderContainer {
-    // `imageHeaderView` and `photoAspect` are already variables in the main class implmementation
 }
 
 class GuestNameCell: UITableViewCell {
