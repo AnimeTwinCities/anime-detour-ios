@@ -9,17 +9,17 @@
 import Foundation
 
 struct AnalyticsConstants {
-    struct Actions {
-        static let Favorite = "Favorite"
-        static let Unfavorite = "Unfavorite"
-        static let Notifications = "Notifications"
-        static let ViewDetails = "View Details"
+    enum Actions: String {
+        case Favorite = "Favorite"
+        case Unfavorite = "Unfavorite"
+        case Notifications = "Notifications"
+        case ViewDetails = "View Details"
     }
 
-    struct Category {
-        static let Guest = "Guest"
-        static let Home = "Home"
-        static let Session = "Event"
-        static let Settings = "Settings"
+    enum Category: String {
+        case Guest = "Guest"
+        case Home = "Home"
+        case Session = "Event"
+        case Settings = "Settings"
     }
 }

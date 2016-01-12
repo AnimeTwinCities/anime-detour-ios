@@ -157,7 +157,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
             let guestVC = segue.destinationViewController as! GuestDetailTableViewController
             guestVC.guestViewModel = guestViewModel
 
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Guest, action: AnalyticsConstants.Actions.ViewDetails, label: guestViewModel.name, value: nil).build() as NSDictionary as! [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createEventDictionary(.Guest, action: .ViewDetails, label: guestViewModel.name, value: nil)
             analytics?.send(dict)
         default:
             fatalError("Unexpected segue encountered.")

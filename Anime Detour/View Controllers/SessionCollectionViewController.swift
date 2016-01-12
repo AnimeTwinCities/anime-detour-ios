@@ -327,7 +327,7 @@ class SessionCollectionViewController: UICollectionViewController {
             let selectedSession = (self.collectionView?.indexPathsForSelectedItems()?.first).map(self.dataSource.session)!
             detailVC.session = selectedSession
 
-            let dict = GAIDictionaryBuilder.createEventWithCategory(self.screenName, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build() as NSDictionary as! [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createEventDictionary(self.screenName, action: .ViewDetails, label: selectedSession.name, value: nil)
             analytics?.send(dict)
         case .Some(self.filterSegueIdentifier):
             let navController = segue.destinationViewController as! UINavigationController

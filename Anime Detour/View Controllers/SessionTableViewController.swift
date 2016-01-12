@@ -233,7 +233,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
             let selectedSession = self.dataSource.session(selectedIndexPath)
             detailVC.session = selectedSession
 
-            let dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.ViewDetails, label: selectedSession.name, value: nil).build() as NSDictionary as! [NSObject : AnyObject]
+            let dict = GAIDictionaryBuilder.createEventDictionary(.Session, action: .ViewDetails, label: selectedSession.name, value: nil)
             analytics?.send(dict)
         default:
             // Segues we don't know about are fine.

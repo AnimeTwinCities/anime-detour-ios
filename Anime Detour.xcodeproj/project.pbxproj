@@ -51,6 +51,7 @@
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
 		DA29F2E91C388420000337F4 /* ImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29F2E81C388420000337F4 /* ImageHeaderView.swift */; };
 		DA29F2EC1C399F59000337F4 /* StretchingImageHeaderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29F2EB1C399F59000337F4 /* StretchingImageHeaderContainer.swift */; };
+		DA31ABB01C448B3100F0D492 /* GAIDictionaryBuilder_AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA31ABAF1C448B3100F0D492 /* GAIDictionaryBuilder_AnalyticsConstants.swift */; };
 		DA639C631BEE9350004BCA5D /* NotificationPermissionRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA639C621BEE9350004BCA5D /* NotificationPermissionRequester.swift */; };
 		DA6C55081BF7BE3B00976858 /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C55071BF7BE3B00976858 /* AnalyticsScreen.swift */; };
 		DA6C550A1BF7BE7200976858 /* AnalyticsViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6C55091BF7BE7200976858 /* AnalyticsViewControllers.swift */; };
@@ -65,10 +66,10 @@
 		DAA8CC521ABDCC6900FF3872 /* Acknowledgements.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8CC511ABDCC6900FF3872 /* Acknowledgements.swift */; };
 		DAA8CC561ABDD26300FF3872 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DAA8CC551ABDD26300FF3872 /* Settings.bundle */; };
 		DAAA90A71ABB979B0088F180 /* SessionNotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAA90A61ABB979B0088F180 /* SessionNotificationScheduler.swift */; };
-		DAB2B6F81C430C6300EFF3AA /* Anime Detour Data Model.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6DA1C430BDC00EFF3AA /* Anime Detour Data Model.framework */; };
-		DAB2B6F91C430C6300EFF3AA /* Anime Detour Data Model.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6DA1C430BDC00EFF3AA /* Anime Detour Data Model.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DAB2B6FC1C430C6B00EFF3AA /* Anime Detour Schedorg API.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6991C419A5D00EFF3AA /* Anime Detour Schedorg API.framework */; };
-		DAB2B6FD1C430C6B00EFF3AA /* Anime Detour Schedorg API.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6991C419A5D00EFF3AA /* Anime Detour Schedorg API.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAB2B6F81C430C6300EFF3AA /* AnimeDetourDataModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6DA1C430BDC00EFF3AA /* AnimeDetourDataModel.framework */; };
+		DAB2B6F91C430C6300EFF3AA /* AnimeDetourDataModel.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6DA1C430BDC00EFF3AA /* AnimeDetourDataModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAB2B6FC1C430C6B00EFF3AA /* AnimeDetourSchedorgAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6991C419A5D00EFF3AA /* AnimeDetourSchedorgAPI.framework */; };
+		DAB2B6FD1C430C6B00EFF3AA /* AnimeDetourSchedorgAPI.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6991C419A5D00EFF3AA /* AnimeDetourSchedorgAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAD992391B32461E0045325A /* Pods.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F77720ADE8BAD8023AEC2D54 /* Pods.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -110,8 +111,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DAB2B6FD1C430C6B00EFF3AA /* Anime Detour Schedorg API.framework in Copy Frameworks */,
-				DAB2B6F91C430C6300EFF3AA /* Anime Detour Data Model.framework in Copy Frameworks */,
+				DAB2B6FD1C430C6B00EFF3AA /* AnimeDetourSchedorgAPI.framework in Copy Frameworks */,
+				DAB2B6F91C430C6300EFF3AA /* AnimeDetourDataModel.framework in Copy Frameworks */,
 				DAD992391B32461E0045325A /* Pods.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -168,6 +169,7 @@
 		5EF5767D68136EAEF35EF0D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DA29F2E81C388420000337F4 /* ImageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHeaderView.swift; sourceTree = "<group>"; };
 		DA29F2EB1C399F59000337F4 /* StretchingImageHeaderContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StretchingImageHeaderContainer.swift; sourceTree = "<group>"; };
+		DA31ABAF1C448B3100F0D492 /* GAIDictionaryBuilder_AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAIDictionaryBuilder_AnalyticsConstants.swift; sourceTree = "<group>"; };
 		DA639C621BEE9350004BCA5D /* NotificationPermissionRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPermissionRequester.swift; sourceTree = "<group>"; };
 		DA6C55071BF7BE3B00976858 /* AnalyticsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
 		DA6C55091BF7BE7200976858 /* AnalyticsViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsViewControllers.swift; sourceTree = "<group>"; };
@@ -194,8 +196,8 @@
 			files = (
 				5C89A45D1AA69E060051FF52 /* libsqlite3.dylib in Frameworks */,
 				5C89A4581AA69DCC0051FF52 /* libz.dylib in Frameworks */,
-				DAB2B6F81C430C6300EFF3AA /* Anime Detour Data Model.framework in Frameworks */,
-				DAB2B6FC1C430C6B00EFF3AA /* Anime Detour Schedorg API.framework in Frameworks */,
+				DAB2B6F81C430C6300EFF3AA /* AnimeDetourDataModel.framework in Frameworks */,
+				DAB2B6FC1C430C6B00EFF3AA /* AnimeDetourSchedorgAPI.framework in Frameworks */,
 				5C89A45B1AA69E010051FF52 /* CoreData.framework in Frameworks */,
 				5C89A4561AA69D8C0051FF52 /* SystemConfiguration.framework in Frameworks */,
 				0E50016B89AA1F69541D5126 /* Pods.framework in Frameworks */,
@@ -412,6 +414,7 @@
 				5C89A4621AA6A77E0051FF52 /* AnalyticsConstants.swift */,
 				DA6C55071BF7BE3B00976858 /* AnalyticsScreen.swift */,
 				DA6C55091BF7BE7200976858 /* AnalyticsViewControllers.swift */,
+				DA31ABAF1C448B3100F0D492 /* GAIDictionaryBuilder_AnalyticsConstants.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -430,7 +433,7 @@
 		DAB2B6951C419A5D00EFF3AA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DAB2B6991C419A5D00EFF3AA /* Anime Detour Schedorg API.framework */,
+				DAB2B6991C419A5D00EFF3AA /* AnimeDetourSchedorgAPI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -438,7 +441,7 @@
 		DAB2B6D61C430BDC00EFF3AA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DAB2B6DA1C430BDC00EFF3AA /* Anime Detour Data Model.framework */,
+				DAB2B6DA1C430BDC00EFF3AA /* AnimeDetourDataModel.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -523,17 +526,17 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		DAB2B6991C419A5D00EFF3AA /* Anime Detour Schedorg API.framework */ = {
+		DAB2B6991C419A5D00EFF3AA /* AnimeDetourSchedorgAPI.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = "Anime Detour Schedorg API.framework";
+			path = AnimeDetourSchedorgAPI.framework;
 			remoteRef = DAB2B6981C419A5D00EFF3AA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		DAB2B6DA1C430BDC00EFF3AA /* Anime Detour Data Model.framework */ = {
+		DAB2B6DA1C430BDC00EFF3AA /* AnimeDetourDataModel.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = "Anime Detour Data Model.framework";
+			path = AnimeDetourDataModel.framework;
 			remoteRef = DAB2B6D91C430BDC00EFF3AA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -646,6 +649,7 @@
 				5C54452919F42E45003CC1C3 /* InformationViewController.swift in Sources */,
 				DA766C841B2DEC96002BA2C9 /* DataStatusDefaultsController.swift in Sources */,
 				DAA8CC4F1ABDCBBD00FF3872 /* SessionSettings.swift in Sources */,
+				DA31ABB01C448B3100F0D492 /* GAIDictionaryBuilder_AnalyticsConstants.swift in Sources */,
 				DA6C55081BF7BE3B00976858 /* AnalyticsScreen.swift in Sources */,
 				5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */,
 				5C478C081AB273F400BD1A3F /* AnimeDetourSchedorgAPIClient_Sessions.swift in Sources */,

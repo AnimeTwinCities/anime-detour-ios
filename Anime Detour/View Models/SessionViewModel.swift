@@ -186,13 +186,13 @@ class SessionViewModel {
         }
 
         if let analytics = GAI.sharedInstance().defaultTracker {
-            let dict: NSDictionary
+            let dict: [NSObject : AnyObject]
             if isBookmarked {
-                dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.Favorite, label: session.name, value: nil).build()
+                dict = GAIDictionaryBuilder.createEventDictionary(.Session, action: .Favorite, label: session.name, value: nil)
             } else {
-                dict = GAIDictionaryBuilder.createEventWithCategory(AnalyticsConstants.Category.Session, action: AnalyticsConstants.Actions.Unfavorite, label: session.name, value: nil).build()
+                dict = GAIDictionaryBuilder.createEventDictionary(.Session, action: .Unfavorite, label: session.name, value: nil)
             }
-            analytics.send(dict as! [NSObject : AnyObject])
+            analytics.send(dict)
         }
 
         self.delegate?.bookmarkImageChanged(self.bookmarkImage, accessibilityLabel: self.bookmarkAccessibilityLabel)
