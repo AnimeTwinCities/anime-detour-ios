@@ -21,10 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var coreDataController = CoreDataController.sharedInstance
     lazy var backgroundContext: NSManagedObjectContext = {
         let context = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
-        NSNotificationCenter.defaultCenter().addObserverForName(NSManagedObjectContextDidSaveNotification, object: context, queue: NSOperationQueue.mainQueue(), usingBlock: { [weak self] (note: NSNotification!) -> Void in
-            self?.updateMainContext(saveNotification: note)
-            return
-        })
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateMainContextForSaveNotification:"), name: NSManagedObjectContextDidSaveNotification, object: context)
         return context
     }()
     lazy var primaryContext: NSManagedObjectContext = {
@@ -160,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /**
     Merge changes from a save notification into the primary, main thread-only MOC.
     */
-    private func updateMainContext(saveNotification notification: NSNotification) {
+    @objc(updateMainContextForSaveNotification:) private func updateMainContextFor(saveNotification notification: NSNotification) {
         self.primaryContext.performBlock {
             self.primaryContext.mergeChangesFromContextDidSaveNotification(notification)
         }
