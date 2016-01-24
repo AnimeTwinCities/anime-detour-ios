@@ -70,6 +70,7 @@
 		DAB2B6F91C430C6300EFF3AA /* AnimeDetourDataModel.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6DA1C430BDC00EFF3AA /* AnimeDetourDataModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB2B6FC1C430C6B00EFF3AA /* AnimeDetourSchedorgAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6991C419A5D00EFF3AA /* AnimeDetourSchedorgAPI.framework */; };
 		DAB2B6FD1C430C6B00EFF3AA /* AnimeDetourSchedorgAPI.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6991C419A5D00EFF3AA /* AnimeDetourSchedorgAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAB61AE31C556157009964C9 /* ImageFaceDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB61AE21C556157009964C9 /* ImageFaceDetector.swift */; };
 		DAD992391B32461E0045325A /* Pods.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F77720ADE8BAD8023AEC2D54 /* Pods.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -186,6 +187,7 @@
 		DAAA90A61ABB979B0088F180 /* SessionNotificationScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionNotificationScheduler.swift; sourceTree = "<group>"; };
 		DAB2B6941C419A5D00EFF3AA /* Anime Detour Schedorg API.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Anime Detour Schedorg API.xcodeproj"; path = "Anime Detour Schedorg API/Anime Detour Schedorg API.xcodeproj"; sourceTree = "<group>"; };
 		DAB2B6D51C430BDC00EFF3AA /* Anime Detour Data Model.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Anime Detour Data Model.xcodeproj"; path = "Anime Detour Data Model/Anime Detour Data Model.xcodeproj"; sourceTree = "<group>"; };
+		DAB61AE21C556157009964C9 /* ImageFaceDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFaceDetector.swift; sourceTree = "<group>"; };
 		F77720ADE8BAD8023AEC2D54 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -212,6 +214,7 @@
 			children = (
 				5C0EF2DC19FB2E4400FA8EEC /* CoreDataController_Singleton.swift */,
 				DA766C831B2DEC96002BA2C9 /* DataStatusDefaultsController.swift */,
+				DAB61AE21C556157009964C9 /* ImageFaceDetector.swift */,
 				DA639C621BEE9350004BCA5D /* NotificationPermissionRequester.swift */,
 				DAAA90A61ABB979B0088F180 /* SessionNotificationScheduler.swift */,
 				DA766C851B2DF282002BA2C9 /* UserDefaultsUpdater.swift */,
@@ -613,6 +616,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAB61AE31C556157009964C9 /* ImageFaceDetector.swift in Sources */,
 				DA95AAF81BF85DCD00B411C9 /* AnimeDetourSchedorgAPIClient_Guests.swift in Sources */,
 				DA639C631BEE9350004BCA5D /* NotificationPermissionRequester.swift in Sources */,
 				5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, GuestViewModelDelegate, StretchingImageHeaderContainer {
+class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, StretchingImageHeaderContainer {
     var guestViewModel: GuestViewModel!
     
     var imageHeaderView: ImageHeaderView!
@@ -22,7 +22,6 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.guestViewModel.delegate = self
         
         self.imageHeaderView = self.tableView.tableHeaderView as! ImageHeaderView
         self.imageHeaderView.imageView.image = self.guestViewModel.hiResPhoto(true, lowResPhotoPlaceholder: true)
@@ -99,20 +98,6 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
             return false
         }
     }
-
-    // MARK: - Guest view model delegate
-
-    func didDownloadPhoto(viewModel: GuestViewModel, photo: UIImage, hiRes: Bool) {
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        if let cell = self.tableView.cellForRowAtIndexPath(indexPath) {
-            self.configure(cell, atIndexPath: indexPath)
-        }
-    }
-
-    func didFailDownloadingPhoto(viewModel: GuestViewModel, error: NSError) {
-        // empty
-    }
-
 }
 
 class GuestNameCell: UITableViewCell {

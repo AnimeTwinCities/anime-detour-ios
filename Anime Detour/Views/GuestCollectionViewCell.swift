@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
+class GuestCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var photoImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
@@ -19,7 +19,6 @@ class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
                 return
             }
 
-            viewModel.delegate = self
             self.nameLabel.text = viewModel.name
             
             let photo = viewModel.photo(true)
@@ -61,19 +60,5 @@ class GuestCollectionViewCell: UICollectionViewCell, GuestViewModelDelegate {
     override func didMoveToWindow() {
         let imageLayer = self.photoImageView.layer
         imageLayer.borderWidth = 1 / (self.window?.screen.scale ?? 1)
-    }
-
-    // MARK: - Guest View Model Delegate
-
-    func didDownloadPhoto(viewModel: GuestViewModel, photo: UIImage, hiRes: Bool) {
-        // Asssume that if the view model downloaded a photo, that is the only property
-        // on it that changed.
-        if self.viewModel === viewModel {
-            self.photoImageView.image = photo
-        }
-    }
-
-    func didFailDownloadingPhoto(viewModel: GuestViewModel, error: NSError) {
-        // empty
     }
 }

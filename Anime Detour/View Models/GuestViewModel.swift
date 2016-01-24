@@ -19,7 +19,8 @@ if they are created to represent `Guest`s with the same `managedObjectID`s.
 Other properties on two equal instances may differ.
 */
 class GuestViewModel: Equatable {
-    private let guestObjectID: NSManagedObjectID
+    let guest: Guest
+    let guestObjectID: NSManagedObjectID
     private let managedObjectContext: NSManagedObjectContext
     private let imageSession: NSURLSession
 
@@ -46,6 +47,7 @@ class GuestViewModel: Equatable {
 
     private(set) var photo: UIImage?
     private(set) var hiResPhoto: UIImage?
+    var photoFaceLocation: CGRect?
 
     // Store our download tasks to cancel them in deinit,
     // if they are still running at that time.
@@ -59,6 +61,7 @@ class GuestViewModel: Equatable {
     be a queue-based concurrency type context. `MainQueueConcurrencyType` is recommended.
     */
     init(guest: Guest, imageSession: NSURLSession) {
+        self.guest = guest
         self.guestObjectID = guest.objectID
         self.managedObjectContext = guest.managedObjectContext!
         self.imageSession = imageSession
@@ -205,7 +208,7 @@ class GuestViewModel: Equatable {
 }
 
 func ==(obj1: GuestViewModel, obj2: GuestViewModel) -> Bool {
-    return obj1.guestObjectID.isEqual(obj2.guestObjectID)
+    return obj1.guest.objectID.isEqual(obj2.guest.objectID)
 }
 
 protocol GuestViewModelDelegate {

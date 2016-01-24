@@ -42,6 +42,9 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     private lazy var managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
 
     private lazy var fetchedResultsControllerDelegate = CollectionViewFetchedResultsControllerDelegate()
+    
+    private let faceDetector = ImageFaceDetector()
+    private var faceData: [NSManagedObjectID : CGRect] = [:]
 
     // MARK: Collection view sizing
 
@@ -141,7 +144,9 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         let cell = cell as! GuestCollectionViewCell
 
         let guest = self.guest(indexPath)
-        let viewModel = GuestViewModel(guest: guest, imageSession: self.imageSession)
+        let viewModel =  GuestViewModel(guest: guest, imageSession: self.imageSession)
+        viewModel.photoFaceLocation = self.faceData[guest.objectID]
+        viewModel.delegate = self
         cell.viewModel = viewModel
     }
 
@@ -164,4 +169,41 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         }
     }
 
+}
+
+extension GuestCollectionViewController: GuestViewModelDelegate {
+    // MARK: - Guest View Model Delegate
+
+    func didDownloadPhoto(viewModel: GuestViewModel, photo: UIImage, hiRes: Bool) {
+        dispatch_async(dispatch_get_main_queue()) { [weak self] () -> Void in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard let indexPath = strongSelf.fetchedResultsController.indexPathForObject(viewModel.guest) else {
+                // ??? what happened to the guest?
+                return
+            }
+            
+            guard let cell = strongSelf.collectionView?.cellForItemAtIndexPath(indexPath) as? GuestCollectionViewCell else {
+                // Cell not being displayed, so just return
+                return
+            }
+            
+            if let face = strongSelf.faceData[viewModel.guestObjectID] {
+                viewModel.photoFaceLocation = face
+            } else if let face = strongSelf.faceDetector.findFace(photo) {
+                strongSelf.faceData[viewModel.guestObjectID] = face
+                viewModel.photoFaceLocation = face
+            }
+            
+            // Asssume that if the view model downloaded a photo, that is the only property
+            // on it that changed.
+            cell.photoImageView.image = photo
+        }
+    }
+
+    func didFailDownloadingPhoto(viewModel: GuestViewModel, error: NSError) {
+        // empty
+    }
 }
