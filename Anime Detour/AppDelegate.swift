@@ -90,6 +90,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let guestsNeedClearing = guestsClearDate.timeIntervalSinceDate(dataStatusDefaultsController.lastGuestsClearDate) > 0
         let sessionsNeedClearing = sessionsClearDate.timeIntervalSinceDate(dataStatusDefaultsController.lastSessionsClearDate) > 0
         if guestsNeedClearing || sessionsNeedClearing {
+            dataStatusDefaultsController.lastGuestsClearDate = NSDate()
+            dataStatusDefaultsController.lastSessionsClearDate = NSDate()
             self.coreDataController.clearPersistentStore()
 
             // Clearing the persistent store removes all sessions and guests, since they are both kept
