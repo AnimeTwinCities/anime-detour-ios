@@ -25,6 +25,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         
         self.imageHeaderView = self.tableView.tableHeaderView as! ImageHeaderView
         self.imageHeaderView.imageView.image = self.guestViewModel.hiResPhoto(true, lowResPhotoPlaceholder: true)
+        self.imageHeaderView.faceBounds = self.guestViewModel.hiResFaceBounds
         
         self.updateHeaderSize()
     }

@@ -27,6 +27,7 @@ class GuestViewModel: Equatable {
     let name: String
     let bio: String
     let category: String
+    let hiResFaceBounds: CGRect?
 
     var delegate: GuestViewModelDelegate?
 
@@ -73,6 +74,8 @@ class GuestViewModel: Equatable {
         self.hiResPhoto = guest.hiResPhoto
         self.photoPath = guest.photoPath
         self.hiResPhotoPath = guest.hiResPhotoPath
+        self.hiResFaceBounds = guest.hiResPhotoFaceBoundsRect
+        self.photoFaceLocation = guest.hiResPhotoFaceBoundsRect
     }
 
     /**

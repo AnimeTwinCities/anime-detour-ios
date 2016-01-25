@@ -22,6 +22,7 @@
 		DAB2B6EA1C430C0500EFF3AA /* AnimeDetourDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AnimeDetourDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DAB2B6EB1C430C0500EFF3AA /* Guest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
 		DAB2B6EC1C430C0500EFF3AA /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		DABCDB351C55E426007BA989 /* AnimeDetourDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AnimeDetourDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +309,7 @@
 				DAB2B6D41C430BDC00EFF3AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
@@ -315,9 +317,10 @@
 		DAB2B6E91C430C0500EFF3AA /* AnimeDetourDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				DABCDB351C55E426007BA989 /* AnimeDetourDataModel 2.xcdatamodel */,
 				DAB2B6EA1C430C0500EFF3AA /* AnimeDetourDataModel.xcdatamodel */,
 			);
-			currentVersion = DAB2B6EA1C430C0500EFF3AA /* AnimeDetourDataModel.xcdatamodel */;
+			currentVersion = DABCDB351C55E426007BA989 /* AnimeDetourDataModel 2.xcdatamodel */;
 			path = AnimeDetourDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

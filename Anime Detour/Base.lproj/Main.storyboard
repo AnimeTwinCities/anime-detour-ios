@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -252,20 +252,21 @@
                             <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="igP-zm-UPE">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vj6-aA-OWm" customClass="FaceDisplayingImageView" customModule="Anime_Detour" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                </imageView>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="igP-zm-UPE" secondAttribute="bottom" id="8b1-wx-acS"/>
-                                <constraint firstAttribute="trailing" secondItem="igP-zm-UPE" secondAttribute="trailing" id="Hba-Xy-o1f"/>
-                                <constraint firstItem="igP-zm-UPE" firstAttribute="top" secondItem="Y24-9C-SpY" secondAttribute="top" id="MKx-HM-kHE"/>
-                                <constraint firstItem="igP-zm-UPE" firstAttribute="leading" secondItem="Y24-9C-SpY" secondAttribute="leading" id="MV6-LD-OFk"/>
+                                <constraint firstItem="vj6-aA-OWm" firstAttribute="leading" secondItem="Y24-9C-SpY" secondAttribute="leading" id="0T4-j8-jX7"/>
+                                <constraint firstItem="vj6-aA-OWm" firstAttribute="top" secondItem="Y24-9C-SpY" secondAttribute="top" id="j4F-Dm-SCX"/>
+                                <constraint firstAttribute="bottom" secondItem="vj6-aA-OWm" secondAttribute="bottom" id="uZ5-X4-zZ7"/>
+                                <constraint firstAttribute="trailing" secondItem="vj6-aA-OWm" secondAttribute="trailing" id="uvQ-IV-EQp"/>
                             </constraints>
                             <connections>
-                                <outlet property="imageView" destination="igP-zm-UPE" id="OxP-D5-K9T"/>
-                                <outlet property="imageViewTopConstraint" destination="MKx-HM-kHE" id="xrV-vN-ASr"/>
+                                <outlet property="imageView" destination="vj6-aA-OWm" id="2ig-qR-7YX"/>
+                                <outlet property="imageViewTopConstraint" destination="j4F-Dm-SCX" id="VvG-PH-b6F"/>
                             </connections>
                         </view>
                         <sections>

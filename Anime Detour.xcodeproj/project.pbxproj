@@ -49,6 +49,7 @@
 		5CDB833F19FC56DE0097D442 /* SessionTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */; };
 		5CDD6E981A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */; };
 		5CE11EAD1A34E299005903A4 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE11EAC1A34E299005903A4 /* SessionType.swift */; };
+		DA0738FE1C66521C005A83E0 /* FaceDisplayingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0738FD1C66521C005A83E0 /* FaceDisplayingImageView.swift */; };
 		DA29F2E91C388420000337F4 /* ImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29F2E81C388420000337F4 /* ImageHeaderView.swift */; };
 		DA29F2EC1C399F59000337F4 /* StretchingImageHeaderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29F2EB1C399F59000337F4 /* StretchingImageHeaderContainer.swift */; };
 		DA31ABB01C448B3100F0D492 /* GAIDictionaryBuilder_AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA31ABAF1C448B3100F0D492 /* GAIDictionaryBuilder_AnalyticsConstants.swift */; };
@@ -168,6 +169,7 @@
 		5CDD6E971A630CD500BB2AA3 /* CollectionViewFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		5CE11EAC1A34E299005903A4 /* SessionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
 		5EF5767D68136EAEF35EF0D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		DA0738FD1C66521C005A83E0 /* FaceDisplayingImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDisplayingImageView.swift; sourceTree = "<group>"; };
 		DA29F2E81C388420000337F4 /* ImageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHeaderView.swift; sourceTree = "<group>"; };
 		DA29F2EB1C399F59000337F4 /* StretchingImageHeaderContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StretchingImageHeaderContainer.swift; sourceTree = "<group>"; };
 		DA31ABAF1C448B3100F0D492 /* GAIDictionaryBuilder_AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAIDictionaryBuilder_AnalyticsConstants.swift; sourceTree = "<group>"; };
@@ -235,14 +237,15 @@
 			isa = PBXGroup;
 			children = (
 				5CCA903B1A86AA5700C14EE0 /* GuestCollectionViewCell.swift */,
+				DA0738FD1C66521C005A83E0 /* FaceDisplayingImageView.swift */,
+				DA29F2E81C388420000337F4 /* ImageHeaderView.swift */,
 				5C9F66CE1A9968E2005C1421 /* SegmentedControlCollectionReusableView.swift */,
 				5CCA90411A870A8000C14EE0 /* SessionCollectionViewCell.swift */,
 				5CDB833E19FC56DE0097D442 /* SessionTableViewHeaderView.swift */,
 				5C16947F1A6AF76C0082F197 /* SessionTableViewCell.swift */,
 				5C54450B19F2D3A3003CC1C3 /* SessionView.swift */,
-				5CCA903D1A86F90800C14EE0 /* TextHeaderCollectionReusableView.swift */,
-				DA29F2E81C388420000337F4 /* ImageHeaderView.swift */,
 				DA29F2EB1C399F59000337F4 /* StretchingImageHeaderContainer.swift */,
+				5CCA903D1A86F90800C14EE0 /* TextHeaderCollectionReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				5C204FA51A7D6BC90050B793 /* SessionFilterTableViewController.swift in Sources */,
 				DA766C861B2DF282002BA2C9 /* UserDefaultsUpdater.swift in Sources */,
 				5C6C31AE1A75E158008FC08F /* GuestViewModel.swift in Sources */,
+				DA0738FE1C66521C005A83E0 /* FaceDisplayingImageView.swift in Sources */,
 				5CCA90421A870A8000C14EE0 /* SessionCollectionViewCell.swift in Sources */,
 				DA29F2EC1C399F59000337F4 /* StretchingImageHeaderContainer.swift in Sources */,
 				5C0EF2DD19FB2E4400FA8EEC /* CoreDataController_Singleton.swift in Sources */,

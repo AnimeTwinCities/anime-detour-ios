@@ -44,7 +44,6 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     private lazy var fetchedResultsControllerDelegate = CollectionViewFetchedResultsControllerDelegate()
     
     private let faceDetector = ImageFaceDetector()
-    private var faceData: [NSManagedObjectID : CGRect] = [:]
 
     // MARK: Collection view sizing
 
@@ -123,7 +122,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
         self.configure(cell, atIndexPath: indexPath)
         return cell
     }
@@ -145,7 +144,6 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 
         let guest = self.guest(indexPath)
         let viewModel =  GuestViewModel(guest: guest, imageSession: self.imageSession)
-        viewModel.photoFaceLocation = self.faceData[guest.objectID]
         viewModel.delegate = self
         cell.viewModel = viewModel
     }
@@ -171,35 +169,44 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 
 }
 
+private extension GuestCollectionViewController {
+    func findFaceFor(photo: UIImage, forGuestWithID guestObjectID: NSManagedObjectID, inContext context: NSManagedObjectContext) {
+        faceDetector.findFace(photo) { [weak self, weak context] face in
+            // Though we don't need `self`, skip doing any work if `self` no longer exists.
+            guard let _ = self, context = context else { return }
+            context.performBlock({ () -> Void in
+                guard let guest = context.objectWithID(guestObjectID) as? Guest else {
+                    return
+                }
+                
+                guest.hiResPhotoFaceBoundsRect = face
+                do {
+                    try context.save()
+                } catch {
+                    NSLog("Error saving after finding a face in a guest image: %@", error as NSError)
+                }
+            })
+        }
+    }
+}
+
 extension GuestCollectionViewController: GuestViewModelDelegate {
     // MARK: - Guest View Model Delegate
 
     func didDownloadPhoto(viewModel: GuestViewModel, photo: UIImage, hiRes: Bool) {
-        dispatch_async(dispatch_get_main_queue()) { [weak self] () -> Void in
+        dispatch_async(dispatch_get_main_queue()) { [weak self, guestObjectID = viewModel.guestObjectID] () -> Void in
             guard let strongSelf = self else {
                 return
             }
             
-            guard let indexPath = strongSelf.fetchedResultsController.indexPathForObject(viewModel.guest) else {
-                // ??? what happened to the guest?
-                return
-            }
+            // Skip face logic for low-res photos
+            guard hiRes else { return }
             
-            guard let cell = strongSelf.collectionView?.cellForItemAtIndexPath(indexPath) as? GuestCollectionViewCell else {
-                // Cell not being displayed, so just return
-                return
+            if let guest = strongSelf.managedObjectContext.objectWithID(guestObjectID) as? Guest, faceLocation = guest.hiResPhotoFaceBoundsRect {
+                viewModel.photoFaceLocation = faceLocation
+            } else {
+                strongSelf.findFaceFor(photo, forGuestWithID: guestObjectID, inContext: strongSelf.managedObjectContext)
             }
-            
-            if let face = strongSelf.faceData[viewModel.guestObjectID] {
-                viewModel.photoFaceLocation = face
-            } else if let face = strongSelf.faceDetector.findFace(photo) {
-                strongSelf.faceData[viewModel.guestObjectID] = face
-                viewModel.photoFaceLocation = face
-            }
-            
-            // Asssume that if the view model downloaded a photo, that is the only property
-            // on it that changed.
-            cell.photoImageView.image = photo
         }
     }
 

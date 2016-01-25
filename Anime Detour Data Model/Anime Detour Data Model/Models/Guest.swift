@@ -17,6 +17,7 @@ public class Guest: NSManagedObject {
     @NSManaged public var hiResPhotoPath: String
     @NSManaged public var photoData: NSData?
     @NSManaged public var hiResPhotoData: NSData?
+    @NSManaged public var hiResPhotoFaceBounds: NSValue?
     @NSManaged public var guestID: String
     @NSManaged public var firstName: String
     @NSManaged public var lastName: String
@@ -60,4 +61,12 @@ public class Guest: NSManagedObject {
         self.bio = ""
     }
 
+    public var hiResPhotoFaceBoundsRect: CGRect? {
+        get {
+            return hiResPhotoFaceBounds?.CGRectValue()
+        }
+        set {
+            hiResPhotoFaceBounds = newValue.map { NSValue(CGRect: $0) }
+        }
+    }
 }
