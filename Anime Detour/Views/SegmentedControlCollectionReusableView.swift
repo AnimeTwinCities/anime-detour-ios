@@ -18,7 +18,7 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.addSegmentedControl()
+        addSegmentedControl()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -28,7 +28,7 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
     private func addSegmentedControl() {
         let segmentedControl = UISegmentedControl()
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(segmentedControl)
+        addSubview(segmentedControl)
         self.segmentedControl = segmentedControl
 
         let hCenter = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0)
@@ -41,6 +41,6 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
         let leftSide = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: self, attribute: NSLayoutAttribute.Left, multiplier: 1.0, constant: 10)
         leftSide.priority = UILayoutPriorityRequired
 
-        self.addConstraints([hCenter, vCenter, width, leftSide])
+        addConstraints([hCenter, vCenter, width, leftSide])
     }
 }

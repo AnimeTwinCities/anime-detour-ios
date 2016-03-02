@@ -28,34 +28,33 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
 
     private var image: UIImage? {
         didSet {
-            self.imageView.image = self.image
+            imageView.image = image
             
             switch image {
-            case .Some(_):
-                self.imageHeaderViewHeightConstraint.constant = self.imageHeight
+            case _?:
+                imageHeaderViewHeightConstraint.constant = imageHeight
             default:
-                self.imageHeaderViewHeightConstraint.constant = 0
+                imageHeaderViewHeightConstraint.constant = 0
             }
             
-            self.layoutIfNeeded()
+            layoutIfNeeded()
         }
     }
 
     @IBAction func bookmarkButtonTapped(sender: AnyObject) {
-        self.viewModel?.toggleBookmarked()
+        viewModel?.toggleBookmarked()
     }
     
     var viewModel: SessionViewModel? {
         didSet {
-            let viewModel = self.viewModel
-            self.nameLabel.text = viewModel?.name
-            self.timeLabel.text = viewModel?.dateAndTime
-            self.locationLabel.text = viewModel?.location
-            self.descriptionLabel.text = viewModel?.sessionDescription
-            self.typesLabel.text = viewModel?.types
+            nameLabel.text = viewModel?.name
+            timeLabel.text = viewModel?.dateAndTime
+            locationLabel.text = viewModel?.location
+            descriptionLabel.text = viewModel?.sessionDescription
+            typesLabel.text = viewModel?.types
 
-            self.bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
-            self.bookmarkButton.accessibilityLabel = viewModel?.bookmarkAccessibilityLabel
+            bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
+            bookmarkButton.accessibilityLabel = viewModel?.bookmarkAccessibilityLabel
             
             viewModel?.image({ [weak self] (image, error) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -73,7 +72,7 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
     // MARK: - Session View Model Delegate
 
     func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
-        self.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
-        self.bookmarkButton.accessibilityLabel = accessibilityLabel
+        bookmarkButton.setImage(bookmarkImage, forState: .Normal)
+        bookmarkButton.accessibilityLabel = accessibilityLabel
     }
 }

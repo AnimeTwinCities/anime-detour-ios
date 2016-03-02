@@ -12,8 +12,8 @@ import CoreData
 import AnimeDetourDataModel
 
 /**
-Collection view controller displaying `Guest`s. Requires the collection view to use a `UICollectionViewFlowLayout`.
-*/
+ Collection view controller displaying `Guest`s. Requires the collection view to use a `UICollectionViewFlowLayout`.
+ */
 class GuestCollectionViewController: UICollectionViewController, CollectionViewFetchedResultsControllerCellCustomizer {
 
     lazy var imageSession: NSURLSession = NSURLSession.sharedSession()
@@ -54,11 +54,11 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.fetchedResultsControllerDelegate.collectionView = self.collectionView
-        self.fetchedResultsControllerDelegate.customizer = self
+        fetchedResultsControllerDelegate.collectionView = collectionView
+        fetchedResultsControllerDelegate.customizer = self
 
-        let frc = self.fetchedResultsController
-        frc.delegate = self.fetchedResultsControllerDelegate
+        let frc = fetchedResultsController
+        frc.delegate = fetchedResultsControllerDelegate
 
         do {
             try frc.performFetch()
@@ -67,28 +67,28 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
             NSLog("Error fetching guests: \(error)")
         }
 
-        self.setFlowLayoutCellSizes(self.collectionView!)
-        self.lastDisplayedTraitCollection = self.traitCollection
+        setFlowLayoutCellSizes(collectionView!)
+        lastDisplayedTraitCollection = traitCollection
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if self.traitCollection != self.lastDisplayedTraitCollection {
-            self.setFlowLayoutCellSizes(self.collectionView!)
-            self.lastDisplayedTraitCollection = self.traitCollection
+        if traitCollection != lastDisplayedTraitCollection {
+            setFlowLayoutCellSizes(collectionView!)
+            lastDisplayedTraitCollection = traitCollection
         }
     }
 
     override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         // Update sizes in `willAnimateRotationToInterfaceOrientation...` so the collection view's
         // frame is already updated.
-        self.setFlowLayoutCellSizes(self.collectionView!)
-        self.lastDisplayedTraitCollection = self.traitCollection
+        setFlowLayoutCellSizes(collectionView!)
+        lastDisplayedTraitCollection = traitCollection
     }
 
-    private func guest(indexPath: NSIndexPath) -> Guest {
-        return self.fetchedResultsController.objectAtIndexPath(indexPath) as! Guest
+    private func guestAt(indexPath: NSIndexPath) -> Guest {
+        return fetchedResultsController.objectAtIndexPath(indexPath) as! Guest
     }
 
     /// Update the sizes of our collection view cells based on the view's trait collection.
@@ -114,24 +114,24 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return self.fetchedResultsController.sections?.count ?? 0
+        return fetchedResultsController.sections?.count ?? 0
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.fetchedResultsController.sections?[section].numberOfObjects ?? 0
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-        self.configure(cell, atIndexPath: indexPath)
+        configure(cell, atIndexPath: indexPath)
         return cell
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: self.headerIdentifier, forIndexPath: indexPath) as! TextHeaderCollectionReusableView
+        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: headerIdentifier, forIndexPath: indexPath) as! TextHeaderCollectionReusableView
 
         // Assume that `indexPath` is for item 0 in whatever section to which the header belongs
-        let anyGuest = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Guest
+        let anyGuest = fetchedResultsController.objectAtIndexPath(indexPath) as! Guest
         header.titleLabel.text = anyGuest.category
 
         return header
@@ -142,8 +142,8 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     func configure(cell: UICollectionViewCell, atIndexPath indexPath: NSIndexPath) {
         let cell = cell as! GuestCollectionViewCell
 
-        let guest = self.guest(indexPath)
-        let viewModel =  GuestViewModel(guest: guest, imageSession: self.imageSession)
+        let guest = guestAt(indexPath)
+        let viewModel =  GuestViewModel(guest: guest, imageSession: imageSession)
         viewModel.delegate = self
         cell.viewModel = viewModel
     }
@@ -154,7 +154,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
 
         switch (segue.identifier) {
-        case .Some(self.detailIdentifier):
+        case detailIdentifier?:
             let cell = sender as! GuestCollectionViewCell
             let guestViewModel = cell.viewModel!
             let guestVC = segue.destinationViewController as! GuestDetailTableViewController

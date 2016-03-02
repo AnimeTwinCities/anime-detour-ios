@@ -25,62 +25,64 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
     // MARK: Fetched Results Controller Delegate
 
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        self.cumulativeChanges.removeAll(keepCapacity: false)
+        cumulativeChanges.removeAll(keepCapacity: false)
     }
 
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        if let cv = self.collectionView {
-            cv.performBatchUpdates({ () -> Void in
-                for change in self.cumulativeChanges {
-                    switch change {
-                    case let .Object(_, indexPath, type, newIndexPath):
-                        switch type {
-                        case .Insert:
-                            cv.insertItemsAtIndexPaths([newIndexPath])
-                        case .Delete:
-                            cv.deleteItemsAtIndexPaths([indexPath])
-                        case .Move:
-                            if self.sectionsChangedDuringUpdate {
-                                cv.deleteItemsAtIndexPaths([indexPath])
-                                cv.insertItemsAtIndexPaths([newIndexPath])
-
-                                self.sectionsChangedDuringUpdate = false
-                            } else {
-                                cv.moveItemAtIndexPath(indexPath, toIndexPath: newIndexPath)
-                            }
-                        case .Update:
-                            switch (self.collectionView?.cellForItemAtIndexPath(indexPath), self.customizer) {
-                            case let (.Some(cell), .Some(customizer)):
-                                customizer.configure(cell, atIndexPath: indexPath)
-                            default:
-                                break
-                            }
-                        }
-                    case let .Section(_, sectionIndex, type):
-                        let indexSet = NSIndexSet(index: sectionIndex)
-                        switch type {
-                        case .Insert:
-                            cv.insertSections(indexSet)
-                        case .Delete:
-                            cv.deleteSections(indexSet)
-                        default:
-                            assertionFailure("Unexpected fetched results controller section change type: \(type)")
-                        }
-
-                        self.sectionsChangedDuringUpdate = true
-                    }
-                }
-                }, completion: nil)
+        guard let cv = collectionView else {
+            return
         }
+        
+        cv.performBatchUpdates({ () -> Void in
+            for change in self.cumulativeChanges {
+                switch change {
+                case let .Object(_, indexPath, type, newIndexPath):
+                    switch type {
+                    case .Insert:
+                        cv.insertItemsAtIndexPaths([newIndexPath])
+                    case .Delete:
+                        cv.deleteItemsAtIndexPaths([indexPath])
+                    case .Move:
+                        if self.sectionsChangedDuringUpdate {
+                            cv.deleteItemsAtIndexPaths([indexPath])
+                            cv.insertItemsAtIndexPaths([newIndexPath])
+                            
+                            self.sectionsChangedDuringUpdate = false
+                        } else {
+                            cv.moveItemAtIndexPath(indexPath, toIndexPath: newIndexPath)
+                        }
+                    case .Update:
+                        switch (self.collectionView?.cellForItemAtIndexPath(indexPath), self.customizer) {
+                        case let (.Some(cell), .Some(customizer)):
+                            customizer.configure(cell, atIndexPath: indexPath)
+                        default:
+                            break
+                        }
+                    }
+                case let .Section(_, sectionIndex, type):
+                    let indexSet = NSIndexSet(index: sectionIndex)
+                    switch type {
+                    case .Insert:
+                        cv.insertSections(indexSet)
+                    case .Delete:
+                        cv.deleteSections(indexSet)
+                    default:
+                        assertionFailure("Unexpected fetched results controller section change type: \(type)")
+                    }
+                    
+                    self.sectionsChangedDuringUpdate = true
+                }
+            }
+            }, completion: nil)
     }
 
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-        self.cumulativeChanges.append(.Section(sectionInfo: sectionInfo, sectionIndex: sectionIndex, type: type))
+        cumulativeChanges.append(.Section(sectionInfo: sectionInfo, sectionIndex: sectionIndex, type: type))
 
     }
 
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {        
-        self.cumulativeChanges.append(.Object(anObject: anObject, indexPath: indexPath, type: type, newIndexPath: newIndexPath))
+        cumulativeChanges.append(.Object(anObject: anObject, indexPath: indexPath, type: type, newIndexPath: newIndexPath))
     }
 }
 

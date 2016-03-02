@@ -36,8 +36,8 @@ class InformationViewController: UITableViewController {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
 
         switch cell.reuseIdentifier {
-        case .Some(self.logoIdentifier):
-            let horizontalSizeClass = self.traitCollection.horizontalSizeClass
+        case logoIdentifier?:
+            let horizontalSizeClass = traitCollection.horizontalSizeClass
             if let imageView = cell.contentView.subviews.filter({
                 return $0.isKindOfClass(UIImageView.self)
             }).first as? UIImageView {
@@ -48,23 +48,23 @@ class InformationViewController: UITableViewController {
                 }
             }
             break
-        case .Some(self.titleIdentifier):
+        case titleIdentifier?:
             break
-        case .Some(self.dateIdentifier):
+        case dateIdentifier?:
             break
-        case .Some(self.mapLinkIdentifier):
+        case mapLinkIdentifier?:
             break
-        case .Some(self.harassmentPolicyIdentifier):
+        case harassmentPolicyIdentifier?:
             break
-        case .Some(self.letterParentsIdentifier):
+        case letterParentsIdentifier?:
             break
-        case .Some(self.weaponsPolicyIdentifier):
+        case weaponsPolicyIdentifier?:
             break
-        case .Some(self.websiteIdentifier):
+        case websiteIdentifier?:
             break
-        case .Some(self.settingsIdentifier):
+        case settingsIdentifier?:
             break
-        case let .Some(identifier):
+        case let identifier?:
             fatalError("Unknown reuse identifier encountered: \(identifier)")
         case .None:
             // Cells without a reuse identifier are fine
@@ -83,27 +83,27 @@ class InformationViewController: UITableViewController {
         
         let url: NSURL
         switch (cell.reuseIdentifier) {
-        case .Some(self.harassmentPolicyIdentifier):
+        case harassmentPolicyIdentifier?:
             url = NSURL(string: "http://www.animedetour.com/policyharrassment")!
-        case .Some(self.letterParentsIdentifier):
+        case letterParentsIdentifier?:
             url = NSURL(string: "http://www.animedetour.com/faqparents")!
-        case .Some(self.weaponsPolicyIdentifier):
+        case weaponsPolicyIdentifier?:
             url = NSURL(string: "http://www.animedetour.com/policyweapons")!
-        case .Some(self.websiteIdentifier):
+        case websiteIdentifier?:
             url = NSURL(string: "http://www.animedetour.com/")!
         default:
             return
         }
         
         let safari = SFSafariViewController(URL: url)
-        self.presentViewController(safari, animated: true, completion: nil)
+        presentViewController(safari, animated: true, completion: nil)
     }
 
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch (segue.identifier) {
-        case .Some(self.settingsSegue):
+        case settingsSegue?:
             let acknowledgements = Acknowledgements()
             let sessionSettingsForm = SessionSettings()
             let settings = Settings(acknowledgements: acknowledgements, sessionSettingsForm: sessionSettingsForm)

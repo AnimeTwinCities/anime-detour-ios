@@ -11,10 +11,15 @@ import Foundation
 protocol UserDefaultsUpdater {
     var userDefaults: NSUserDefaults { get }
     
+    /// If `newValue` is different than the existing value corresponding to `userDefaultsKey`,
+    /// update the value in `userDefaults` then call `delegateCallback`. Otherwise, do nothing.
     func updateDefaultsAndNotifyForPropertyUpdated<T: protocol<AnyObject, Equatable>>(newValue: T, oldValue: T,
         userDefaultsKey: String, delegateCallback: (T -> Void)?)
     
     // bool version
+    /// If `newValue` is different than the existing value corresponding to `userDefaultsKey`,
+    /// update the value in `userDefaults` then call `delegateCallback`. Otherwise, do nothing.
+    /// - SeeAlso: updateDefaultsAndNotifyForPropertyUpdated
     func updateDefaultsAndNotifyForPropertyUpdated(newValue: Bool, oldValue: Bool,
         userDefaultsKey: String, delegateCallback: (Bool -> Void)?)
 }
@@ -22,8 +27,8 @@ protocol UserDefaultsUpdater {
 extension UserDefaultsUpdater {
     func updateDefaultsAndNotifyForPropertyUpdated<T: protocol<AnyObject, Equatable>>(newValue: T, oldValue: T,
         userDefaultsKey: String, delegateCallback: (T -> Void)?) {
-            if self.userDefaults.valueForKey(userDefaultsKey) as! T != newValue {
-                self.userDefaults.setValue(newValue, forKey: userDefaultsKey)
+            if userDefaults.valueForKey(userDefaultsKey) as! T != newValue {
+                userDefaults.setValue(newValue, forKey: userDefaultsKey)
             }
             
             if newValue != oldValue {
@@ -33,8 +38,8 @@ extension UserDefaultsUpdater {
     
     func updateDefaultsAndNotifyForPropertyUpdated(newValue: Bool, oldValue: Bool,
         userDefaultsKey: String, delegateCallback: (Bool -> Void)?) {
-            if self.userDefaults.boolForKey(userDefaultsKey) != newValue {
-                self.userDefaults.setBool(newValue, forKey: userDefaultsKey)
+            if userDefaults.boolForKey(userDefaultsKey) != newValue {
+                userDefaults.setBool(newValue, forKey: userDefaultsKey)
             }
             
             if newValue != oldValue {

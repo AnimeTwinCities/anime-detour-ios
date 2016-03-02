@@ -28,15 +28,15 @@ class TextHeaderCollectionReusableView: UICollectionReusableView {
 
         super.init(frame: frame)
 
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(titleLabel)
+        translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
 
         let bindings = ["titleLabel" : titleLabel]
         let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[titleLabel]-|", options: [], metrics: nil, views: bindings)
         let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[titleLabel]-|", options: [], metrics: nil, views: bindings)
 
         let allConstraints = hConstraints + vConstraints
-        self.addConstraints(allConstraints)
+        addConstraints(allConstraints)
     }
 
     required init?(coder aDecoder: NSCoder) {

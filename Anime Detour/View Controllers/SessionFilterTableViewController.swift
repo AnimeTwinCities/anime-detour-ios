@@ -22,14 +22,14 @@ class SessionFilterTableViewController: UITableViewController {
                 return
             }
 
-            let oldIndexPath = self.indexPath(oldValue)
-            if let cell = self.tableView.cellForRowAtIndexPath(oldIndexPath) {
-                self.configure(cell, atIndexPath: oldIndexPath)
+            let oldIndexPath = indexPath(oldValue)
+            if let cell = tableView.cellForRowAtIndexPath(oldIndexPath) {
+                configure(cell, atIndexPath: oldIndexPath)
             }
 
-            let newIndexPath = self.indexPath(self.selectedType)
-            if let cell = self.tableView.cellForRowAtIndexPath(newIndexPath) {
-                self.configure(cell, atIndexPath: newIndexPath)
+            let newIndexPath = indexPath(selectedType)
+            if let cell = tableView.cellForRowAtIndexPath(newIndexPath) {
+                configure(cell, atIndexPath: newIndexPath)
             }
         }
     }
@@ -82,13 +82,13 @@ class SessionFilterTableViewController: UITableViewController {
         }
 
         self.selectedType = selectedType
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if self.sessionTypes.count > 0 {
+        if sessionTypes.count > 0 {
             return 2
         } else {
             return 1
@@ -100,7 +100,7 @@ class SessionFilterTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            return self.sessionTypes.count
+            return sessionTypes.count
         default:
             fatalError("Unexpected section number: \(section)")
         }
@@ -108,7 +108,7 @@ class SessionFilterTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(self.reuseIdentifier, forIndexPath: indexPath) as UITableViewCell
-        self.configure(cell, atIndexPath: indexPath)
+        configure(cell, atIndexPath: indexPath)
 
         return cell
     }

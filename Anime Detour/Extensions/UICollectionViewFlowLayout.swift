@@ -14,10 +14,10 @@ extension UICollectionViewFlowLayout {
     func yCoordinateForFirstItemInSection(section: Int) -> CGFloat {
         let indexPath = NSIndexPath(forItem: 0, inSection: section)
 
-        if let headerAttributes = self.layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) {
+        if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) {
             return headerAttributes.frame.minY
         }
-        if let itemAttributes = self.layoutAttributesForItemAtIndexPath(indexPath) {
+        if let itemAttributes = layoutAttributesForItemAtIndexPath(indexPath) {
             return itemAttributes.frame.minY
         }
 
@@ -30,17 +30,17 @@ extension StickyHeaderFlowLayout {
     override func yCoordinateForFirstItemInSection(section: Int) -> CGFloat {
         let indexPath = NSIndexPath(forItem: 0, inSection: section)
 
-        if let headerAttributes = self.layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) {
+        if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) {
             var minY = headerAttributes.frame.minY
-            if self.headerEnabled {
+            if headerEnabled {
                 minY -= self.headerHeight
             }
 
             return minY
         }
-        if let itemAttributes = self.layoutAttributesForItemAtIndexPath(indexPath) {
+        if let itemAttributes = layoutAttributesForItemAtIndexPath(indexPath) {
             var minY = itemAttributes.frame.minY
-            if self.headerEnabled {
+            if headerEnabled {
                 minY -= self.headerHeight
             }
 

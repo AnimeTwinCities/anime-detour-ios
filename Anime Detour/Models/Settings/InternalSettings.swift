@@ -21,10 +21,10 @@ final class InternalSettings {
     var askedToEnableNotifications: Bool = false {
         didSet {
             let key = InternalSettingsUserDefaultsKeys.AskedNotificationsKey
-            let newValue = self.askedToEnableNotifications
+            let newValue = askedToEnableNotifications
             
-            if self.userDefaults.boolForKey(key) != newValue {
-                self.userDefaults.setBool(newValue, forKey: key)
+            if userDefaults.boolForKey(key) != newValue {
+                userDefaults.setBool(newValue, forKey: key)
             }
         }
     }
@@ -32,10 +32,10 @@ final class InternalSettings {
     var askedSystemToEnableNotifications: Bool = false {
         didSet {
             let key = InternalSettingsUserDefaultsKeys.AskedSystemNotificationsKey
-            let newValue = self.askedSystemToEnableNotifications
+            let newValue = askedSystemToEnableNotifications
             
-            if self.userDefaults.boolForKey(key) != newValue {
-                self.userDefaults.setBool(newValue, forKey: key)
+            if userDefaults.boolForKey(key) != newValue {
+                userDefaults.setBool(newValue, forKey: key)
             }
         }
     }
@@ -43,8 +43,8 @@ final class InternalSettings {
     init(userDefaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()) {
         self.userDefaults = userDefaults
         
-        self.registerDefaults(userDefaults)
-        self.updateAskedForNotifications()
+        registerDefaults(userDefaults)
+        updateAskedForNotifications()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("defaultsDidChange:"), name: NSUserDefaultsDidChangeNotification, object: userDefaults)
     }
     
@@ -58,14 +58,14 @@ final class InternalSettings {
     }
     
     private func updateAskedForNotifications() {
-        let didAsk = self.userDefaults.boolForKey(InternalSettingsUserDefaultsKeys.AskedNotificationsKey)
-        self.askedToEnableNotifications = didAsk
+        let didAsk = userDefaults.boolForKey(InternalSettingsUserDefaultsKeys.AskedNotificationsKey)
+        askedToEnableNotifications = didAsk
         
-        let didAskSystem = self.userDefaults.boolForKey(InternalSettingsUserDefaultsKeys.AskedSystemNotificationsKey)
-        self.askedSystemToEnableNotifications = didAskSystem
+        let didAskSystem = userDefaults.boolForKey(InternalSettingsUserDefaultsKeys.AskedSystemNotificationsKey)
+        askedSystemToEnableNotifications = didAskSystem
     }
     
     @objc private func defaultsDidChange(notification: NSNotification) {
-        self.updateAskedForNotifications()
+        updateAskedForNotifications()
     }
 }

@@ -18,10 +18,10 @@ class SessionCollectionViewController: UICollectionViewController {
     lazy private var apiClient = AnimeDetourSchedorgAPIClient.sharedInstance
     private var refreshing: Bool = false {
         didSet {
-            if self.refreshing {
-                self.refreshControl.beginRefreshing()
+            if refreshing {
+                refreshControl.beginRefreshing()
             } else {
-                self.refreshControl.endRefreshing()
+                refreshControl.endRefreshing()
             }
         }
     }
@@ -54,30 +54,30 @@ class SessionCollectionViewController: UICollectionViewController {
     /// Must not be changed before `fetchedResultsController` is created.
     private var filteredType: SelectedSessionType = .All {
         didSet {
-            guard self.filteredType != oldValue else {
+            guard filteredType != oldValue else {
                 return
             }
 
-            self.navigationItem.title = self.filteredTitle(self.filteredType)
+            navigationItem.title = filteredTitle(filteredType)
 
-            self.fetchedResultsController.fetchRequest.predicate = self.completePredicate
+            fetchedResultsController.fetchRequest.predicate = completePredicate
 
             do {
-                try self.fetchedResultsController.performFetch()
+                try fetchedResultsController.performFetch()
             } catch {
                 let error = error as NSError
                 let errorDesc = error.userInfo[NSLocalizedDescriptionKey] as? String ?? "Unknown error"
                 print("Error performing Session fetch: %@", errorDesc)
             }
 
-            self.collectionView!.reloadData()
+            collectionView!.reloadData()
         }
     }
 
     private var completePredicate: NSPredicate? {
         let bookmarkedPredicate: NSPredicate? = nil // needs to be rethought since the bookmarked status of a Session is not on the Session itself
         var predicates = [NSPredicate]()
-        if let filterPredicate = self.filteredSessionsPredicate {
+        if let filterPredicate = filteredSessionsPredicate {
             predicates.append(filterPredicate)
         }
         if let bookmarkedPredicate = bookmarkedPredicate {
@@ -87,7 +87,7 @@ class SessionCollectionViewController: UICollectionViewController {
         return completePredicate
     }
     private var filteredSessionsPredicate: NSPredicate? {
-        switch self.filteredType {
+        switch filteredType {
         case .All:
             return nil
         case let .Named(type):
@@ -133,7 +133,7 @@ class SessionCollectionViewController: UICollectionViewController {
 
     @IBOutlet var daySegmentedControl: UISegmentedControl? {
         didSet {
-            self.dayScroller.daySegmentedControl = self.daySegmentedControl
+            dayScroller.daySegmentedControl = daySegmentedControl
         }
     }
 
@@ -157,30 +157,30 @@ class SessionCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Schedule"
-        self.navigationItem.title = self.filteredTitle(self.filteredType)
+        title = "Schedule"
+        navigationItem.title = filteredTitle(filteredType)
 
         let collectionView = self.collectionView!
 
-        self.addRefreshControl()
+        addRefreshControl()
 
-        collectionView.registerClass(SegmentedControlCollectionReusableView.self, forSupplementaryViewOfKind: StickyHeaderFlowLayout.StickyHeaderElementKind, withReuseIdentifier: self.dayControlHeaderReuseIdentifier)
+        collectionView.registerClass(SegmentedControlCollectionReusableView.self, forSupplementaryViewOfKind: StickyHeaderFlowLayout.StickyHeaderElementKind, withReuseIdentifier: dayControlHeaderReuseIdentifier)
 
-        self.updateStickyHeaderLayoutTopOffset()
-        self.updateScrollViewScrollerTopInsetForStickyHeader()
+        updateStickyHeaderLayoutTopOffset()
+        updateScrollViewScrollerTopInsetForStickyHeader()
 
-        self.dataSource.prepareCollectionView(self.collectionView!)
-        self.fetchedResultsControllerDelegate.customizer = self.dataSource
+        dataSource.prepareCollectionView(collectionView)
+        fetchedResultsControllerDelegate.customizer = dataSource
 
         do {
-            try self.fetchedResultsController.performFetch()
+            try fetchedResultsController.performFetch()
         } catch {
             let error = error as NSError
             NSLog("Error fetching sessions: %@", error)
         }
 
-        self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
-        self.lastDisplayedTraitCollection = self.traitCollection
+        setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
+        lastDisplayedTraitCollection = traitCollection
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -188,46 +188,46 @@ class SessionCollectionViewController: UICollectionViewController {
         
         // Possibly update cell sizes. Belongs in `viewDidAppear:`, as case the
         // trait collection is sometimes not up to date in `viewWillAppear:`.
-        self.updateCellSizesIfNecessary()
+        updateCellSizesIfNecessary()
     }
 
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         let collectionView = self.collectionView!
-        self.setFlowLayoutCellSizes(collectionView, forLayoutSize: size)
+        setFlowLayoutCellSizes(collectionView, forLayoutSize: size)
 
-        self.traitCollectionAfterCurrentTransition = nil
-        self.lastDisplayedTraitCollection = self.traitCollection
+        traitCollectionAfterCurrentTransition = nil
+        lastDisplayedTraitCollection = traitCollection
     }
     
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
         
-        self.traitCollectionAfterCurrentTransition = newCollection
+        traitCollectionAfterCurrentTransition = newCollection
     }
 
     // MARK: - Collection view layout support
     
     private func updateCellSizesIfNecessary() {
-        guard self.traitCollection != self.lastDisplayedTraitCollection else {
+        guard traitCollection != lastDisplayedTraitCollection else {
             return
         }
 
         let collectionView = self.collectionView!
-        self.setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
-        self.lastDisplayedTraitCollection = self.traitCollection
+        setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
+        lastDisplayedTraitCollection = traitCollection
     }
 
     /// Update the top offset for our layout, if it is a `StickyHeaderFlowLayout`.
     private func updateStickyHeaderLayoutTopOffset() {
-        guard let stickyHeaderLayout = self.collectionViewLayout as? StickyHeaderFlowLayout else {
+        guard let stickyHeaderLayout = collectionViewLayout as? StickyHeaderFlowLayout else {
             return
         }
         
         // topLayoutGuide doesn't work for our purposes with a translucent navigation bar
-        if let navBar = self.navigationController?.navigationBar where navBar.translucent {
+        if let navBar = navigationController?.navigationBar where navBar.translucent {
             stickyHeaderLayout.headerTopOffset = navBar.frame.maxY
         } else {
-            stickyHeaderLayout.headerTopOffset = self.topLayoutGuide.length
+            stickyHeaderLayout.headerTopOffset = topLayoutGuide.length
         }
     }
     
@@ -236,7 +236,7 @@ class SessionCollectionViewController: UICollectionViewController {
         let collectionView = self.collectionView!
         let insets = collectionView.scrollIndicatorInsets
         var newInsets = insets
-        if let stickyHeaderLayout = self.collectionViewLayout as? StickyHeaderFlowLayout {
+        if let stickyHeaderLayout = collectionViewLayout as? StickyHeaderFlowLayout {
             newInsets.top = stickyHeaderLayout.headerHeight
         } else {
             newInsets.top = 0
@@ -250,7 +250,7 @@ class SessionCollectionViewController: UICollectionViewController {
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let horizontalSpacing = layout.minimumInteritemSpacing
 
-        let traitCollection = self.traitCollectionAfterCurrentTransition ?? collectionView.traitCollection
+        let traitCollection = traitCollectionAfterCurrentTransition ?? collectionView.traitCollection
         let viewWidth = layoutSize.width
 
         var itemSize = layout.itemSize
@@ -273,7 +273,7 @@ class SessionCollectionViewController: UICollectionViewController {
 
     func filteredTitle(filteredSessionType: SelectedSessionType) -> String {
         let unfilteredTitle = "Sessions"
-        switch self.filteredType {
+        switch filteredType {
         case .All:
             return unfilteredTitle
         case let .Named(type):
@@ -286,30 +286,30 @@ class SessionCollectionViewController: UICollectionViewController {
     /// Add the refresh control to the collection view
     private func addRefreshControl() {
         let collectionView = self.collectionView!
-        collectionView.addSubview(self.refreshControl)
+        collectionView.addSubview(refreshControl)
 
         // Cheat and move the refresh control's bounds down, below the day selector header
         var headerHeight: CGFloat
-        if let stickyHeaderLayout = self.collectionViewLayout as? StickyHeaderFlowLayout {
+        if let stickyHeaderLayout = collectionViewLayout as? StickyHeaderFlowLayout {
             headerHeight = stickyHeaderLayout.headerHeight
         } else {
             headerHeight = 50
         }
-        var refreshBounds = self.refreshControl.bounds
+        var refreshBounds = refreshControl.bounds
         refreshBounds.offsetInPlace(dx: 0, dy: -headerHeight)
-        self.refreshControl.bounds = refreshBounds
+        refreshControl.bounds = refreshBounds
         
     }
 
     @objc private func refreshSessions(sender: AnyObject?) {
-        guard !self.refreshing else {
+        guard !refreshing else {
             return
         }
 
-        self.refreshing = true
-        let moc = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
+        refreshing = true
+        let moc = coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
 
-        self.apiClient.refreshSessions(moc) {
+        apiClient.refreshSessions(moc) {
             dispatch_async(dispatch_get_main_queue()) {
                 self.refreshing = false
             }
@@ -322,17 +322,17 @@ class SessionCollectionViewController: UICollectionViewController {
         let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
 
         switch (segue.identifier) {
-        case .Some(self.detailSegueIdentifier):
+        case detailSegueIdentifier?:
             let detailVC = segue.destinationViewController as! SessionViewController
-            let selectedSession = (self.collectionView?.indexPathsForSelectedItems()?.first).map(self.dataSource.session)!
+            let selectedSession = (collectionView?.indexPathsForSelectedItems()?.first).map(dataSource.sessionAt)!
             detailVC.session = selectedSession
 
-            let dict = GAIDictionaryBuilder.createEventDictionary(self.screenName, action: .ViewDetails, label: selectedSession.name, value: nil)
+            let dict = GAIDictionaryBuilder.createEventDictionary(screenName, action: .ViewDetails, label: selectedSession.name, value: nil)
             analytics?.send(dict)
-        case .Some(self.filterSegueIdentifier):
+        case filterSegueIdentifier?:
             let navController = segue.destinationViewController as! UINavigationController
             let filterVC = navController.topViewController as! SessionFilterTableViewController
-            filterVC.selectedType = self.filteredType
+            filterVC.selectedType = filteredType
             filterVC.sessionTypes = { () -> [String] in
                 let typeKey = "type"
                 let request = NSFetchRequest(entityName: Session.entityName)
@@ -341,7 +341,7 @@ class SessionCollectionViewController: UICollectionViewController {
                 request.returnsDistinctResults = true
 
                 do {
-                    let results = try self.managedObjectContext.executeFetchRequest(request)
+                    let results = try managedObjectContext.executeFetchRequest(request)
                     guard let stringly = results as? [[String:String]] else {
                         assertionFailure("Expected [[String:String]] result from fetch request.")
                         return []
@@ -363,7 +363,7 @@ class SessionCollectionViewController: UICollectionViewController {
 
                 return []
                 }()
-        case .Some(self.searchSegueIdentifier):
+        case searchSegueIdentifier?:
             let navController = segue.destinationViewController as! UINavigationController
             let searchVC = navController.topViewController as! SessionTableViewController
             searchVC.bookmarkedOnly = false
@@ -378,40 +378,40 @@ class SessionCollectionViewController: UICollectionViewController {
 
     @IBAction func unwindAfterFiltering(segue: UIStoryboardSegue) {
         let filterVC = segue.sourceViewController as! SessionFilterTableViewController
-        self.filteredType = filterVC.selectedType
+        filteredType = filterVC.selectedType
 
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     @objc private func dismissSearchView() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     // MARK: - UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return self.dataSource.numberOfSectionsInCollectionView(collectionView)
+        return dataSource.numberOfSectionsInCollectionView(collectionView)
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.dataSource.collectionView(collectionView, numberOfItemsInSection: section)
+        return dataSource.collectionView(collectionView, numberOfItemsInSection: section)
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = self.dataSource.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+        let cell = dataSource.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
         return cell
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == StickyHeaderFlowLayout.StickyHeaderElementKind {
             // handle the sticky header ourselves
-            let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: self.dayControlHeaderReuseIdentifier, forIndexPath: indexPath) as! SegmentedControlCollectionReusableView
-            self.daySegmentedControl = view.segmentedControl
+            let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: dayControlHeaderReuseIdentifier, forIndexPath: indexPath) as! SegmentedControlCollectionReusableView
+            daySegmentedControl = view.segmentedControl
 
             return view
         } else {
-            let view = self.dataSource.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+            let view = dataSource.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
             return view
         }
     }
@@ -419,13 +419,13 @@ class SessionCollectionViewController: UICollectionViewController {
     // MARK: - UICollectionViewDelegate
 
     override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        self.dayScroller.willDisplayItemAtIndexPath(indexPath)
+        dayScroller.willDisplayItemAtIndexPath(indexPath)
     }
 
     // MARK: - Scroll View Delegate
 
     override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        self.dayScroller.scrollViewDidEndScrollingAnimation()
+        dayScroller.scrollViewDidEndScrollingAnimation()
     }
 
 }
@@ -449,7 +449,7 @@ private class SessionDayScroller {
     weak private var daySegmentedControl: UISegmentedControl? {
         didSet {
             // Set the names of the days on the day chooser segmented control
-            guard let daysControl = self.daySegmentedControl else {
+            guard let daysControl = daySegmentedControl else {
                 return
             }
             
@@ -458,7 +458,7 @@ private class SessionDayScroller {
             formatter.dateFormat = "EEEE"
             
             daysControl.removeAllSegments()
-            for (idx, date) in self.days.enumerate() {
+            for (idx, date) in days.enumerate() {
                 let title = formatter.stringFromDate(date)
                 daysControl.insertSegmentWithTitle(title, atIndex: idx, animated: false)
             }
@@ -499,16 +499,16 @@ private class SessionDayScroller {
 
     private var sectionOfLatestDisplayedItem: Int = 0 {
         didSet {
-            guard self.sectionOfLatestDisplayedItem != oldValue else {
+            guard sectionOfLatestDisplayedItem != oldValue else {
                 return
             }
             
-            guard let segmentedControl = self.daySegmentedControl else {
+            guard let segmentedControl = daySegmentedControl else {
                 return
             }
             
-            let date = self.date(self.sectionOfLatestDisplayedItem)
-            if let idx = self.dayIndex(date) {
+            let date = dateFor(sectionOfLatestDisplayedItem)
+            if let idx = dayIndex(date) {
                 segmentedControl.selectedSegmentIndex = idx
             }
         }
@@ -525,12 +525,11 @@ private class SessionDayScroller {
     }
 
     /**
-    Finds the index of the date in `self.days` which is the same day as `date`.
+    Finds the index of the date in `days` which is the same day as `date`.
 
     - returns: An index, or `nil` if no matching date was found.
     */
     private func dayIndex(date: NSDate) -> Int? {
-        let days = self.days
         let dateAsInterval = date.timeIntervalSinceReferenceDate
         let fridayAsInterval = days[0].timeIntervalSinceReferenceDate
         let saturdayAsInterval = days[1].timeIntervalSinceReferenceDate
@@ -556,7 +555,7 @@ private class SessionDayScroller {
     sorted using the sort descriptors from out `fetchedResultsController`'s fetch request.
     */
     private func indexPathOfSection(date: NSDate) -> NSIndexPath? {
-        let frc = self.fetchedResultsController
+        let frc = fetchedResultsController
         
         let predicate: NSPredicate
         do {
@@ -582,7 +581,7 @@ private class SessionDayScroller {
         do {
             guard let results = try moc.executeFetchRequest(fetchRequest) as? [Session] else { return nil }
             guard let first = results.first else { return nil }
-            return self.fetchedResultsController.indexPathForObject(first)
+            return fetchedResultsController.indexPathForObject(first)
         } catch {
             let error = error as NSError
             NSLog("Error fetching first object with date %@: %@", date, error)
@@ -594,31 +593,31 @@ private class SessionDayScroller {
     /**
     The start date for `Session`s in a given section.
     */
-    func date(section: Int) -> NSDate {
+    func dateFor(section: Int) -> NSDate {
         var indexPath: NSIndexPath
-        switch self.targetView {
+        switch targetView {
         case .CollectionView:
             indexPath = NSIndexPath(forItem: 0, inSection: section)
         case .TableView:
             indexPath = NSIndexPath(forRow: 0, inSection: section)
         }
 
-        let session = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Session
+        let session = fetchedResultsController.objectAtIndexPath(indexPath) as! Session
         return session.start
     }
 
     /// Scroll to the first session for the day
     func scroll(date: NSDate) {
-        guard let indexPath = self.indexPathOfSection(date) else {
+        guard let indexPath = indexPathOfSection(date) else {
             return
         }
 
-        self.scrollingToDay = true
-        switch self.targetView {
+        scrollingToDay = true
+        switch targetView {
         case let .CollectionView(cv):
             if let flowLayout = cv.collectionViewLayout as? UICollectionViewFlowLayout {
                 // Not animated, so we're not 'scrolling'
-                self.scrollingToDay = false
+                scrollingToDay = false
                 let yCoordOfFirstView = flowLayout.yCoordinateForFirstItemInSection(indexPath.section)
                 var offset = cv.contentOffset
                 offset.y = yCoordOfFirstView
@@ -632,25 +631,25 @@ private class SessionDayScroller {
     }
 
     func willDisplayItemAtIndexPath(indexPath: NSIndexPath) {
-        guard !self.scrollingToDay else {
+        guard !scrollingToDay else {
             return
         }
 
-        self.sectionOfLatestDisplayedItem = indexPath.section
+        sectionOfLatestDisplayedItem = indexPath.section
         return
     }
 
     // MARK: - Scroll View Delegate
 
     func scrollViewDidEndScrollingAnimation() {
-        self.scrollingToDay = false
+        scrollingToDay = false
     }
 
     // MARK: - Received actions
 
     @IBAction func goToDay(sender: UISegmentedControl) {
         let selectedIdx = sender.selectedSegmentIndex
-        let day = self.days[selectedIdx]
-        self.scroll(day)
+        let day = days[selectedIdx]
+        scroll(day)
     }
 }

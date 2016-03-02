@@ -21,11 +21,11 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     
     var session: Session! {
         didSet {
-            let viewModel = SessionViewModel(session: self.session, imagesURLSession: self.imagesURLSession, sessionStartTimeFormatter: self.dateFormatter, shortTimeFormatter: self.timeOnlyDateFormatter)
+            let viewModel = SessionViewModel(session: session, imagesURLSession: imagesURLSession, sessionStartTimeFormatter: dateFormatter, shortTimeFormatter: timeOnlyDateFormatter)
             viewModel.delegate = self
             self.viewModel = viewModel
             
-            if let sessionView = self.sessionView {
+            if let sessionView = sessionView {
                 sessionView.viewModel = viewModel
             }
         }
@@ -48,27 +48,27 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.sessionView.viewModel = self.viewModel
-        self.updateHeaderSize()
+        sessionView.viewModel = viewModel
+        updateHeaderSize()
     }
 
     // MARK: - Session View Model Delegate
 
     func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
-        self.sessionView.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
-        self.sessionView.bookmarkButton.accessibilityLabel = accessibilityLabel
+        sessionView.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
+        sessionView.bookmarkButton.accessibilityLabel = accessibilityLabel
     }
 }
 
 extension SessionViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        self.updateHeaderImageTopConstraint(self.sessionView)
+        updateHeaderImageTopConstraint(sessionView)
     }
 }
 
 extension SessionViewController: StretchingImageHeaderContainer {
     var imageHeaderView: ImageHeaderView! {
-        return self.sessionView.imageHeaderView
+        return sessionView.imageHeaderView
     }
     // `photoAspect` is already a variable in the main class implmementation
 }

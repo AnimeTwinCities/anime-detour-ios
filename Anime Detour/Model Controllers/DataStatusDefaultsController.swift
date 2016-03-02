@@ -27,37 +27,38 @@ class DataStatusDefaultsController {
      */
     var databaseCheckedVersionKey: String {
         didSet {
-            self.defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(self.databaseCheckedVersionKey as NSString, oldValue: oldValue, userDefaultsKey: DataStatusDefaultsKeys.DatabaseCheckedVersionKey, delegateCallback: nil)
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(databaseCheckedVersionKey as NSString, oldValue: oldValue, userDefaultsKey: DataStatusDefaultsKeys.DatabaseCheckedVersionKey, delegateCallback: nil)
         }
     }
     var guestsFetchRequired: Bool {
         didSet {
-            self.defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(self.guestsFetchRequired, oldValue: oldValue,
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(guestsFetchRequired, oldValue: oldValue,
                 userDefaultsKey: DataStatusDefaultsKeys.GuestsFetchRequiredKey, delegateCallback: nil)
         }
     }
     var sessionsFetchRequired: Bool {
         didSet {
-            self.defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(self.sessionsFetchRequired, oldValue: oldValue,
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(sessionsFetchRequired, oldValue: oldValue,
                 userDefaultsKey: DataStatusDefaultsKeys.SessionsFetchRequiredKey, delegateCallback: nil)
         }
     }
     var lastGuestsClearDate: NSDate {
         didSet {
-            self.defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(self.lastGuestsClearDate, oldValue: oldValue,
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(lastGuestsClearDate, oldValue: oldValue,
                 userDefaultsKey: DataStatusDefaultsKeys.LastGuestsClearDateKey, delegateCallback: nil)
         }
     }
     var lastSessionsClearDate: NSDate {
         didSet {
-            self.defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(self.lastSessionsClearDate, oldValue: oldValue,
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(lastSessionsClearDate, oldValue: oldValue,
                 userDefaultsKey: DataStatusDefaultsKeys.LastSessionsClearDateKey, delegateCallback: nil)
         }
     }
     
     init(userDefaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()) {
         self.userDefaults = userDefaults
-        self.defaultsUpdater = DataStatusDefaultsUpdater(userDefaults: self.userDefaults)
+        
+        defaultsUpdater = DataStatusDefaultsUpdater(userDefaults: userDefaults)
         
         // Default last-must-be-cleared dates, set way in the past.
         let defaultGuestsClearDate: NSDate = NSDate(timeIntervalSince1970: 0)
@@ -75,15 +76,15 @@ class DataStatusDefaultsController {
         
         userDefaults.registerDefaults(defaultUserDefaults)
         
-        self.databaseCheckedVersionKey = userDefaults.stringForKey(DataStatusDefaultsKeys.DatabaseCheckedVersionKey)!
-        self.guestsFetchRequired = userDefaults.boolForKey(DataStatusDefaultsKeys.GuestsFetchRequiredKey)
-        self.sessionsFetchRequired = userDefaults.boolForKey(DataStatusDefaultsKeys.SessionsFetchRequiredKey)
-        self.lastGuestsClearDate = userDefaults.valueForKey(DataStatusDefaultsKeys.LastGuestsClearDateKey) as! NSDate
-        self.lastSessionsClearDate = userDefaults.valueForKey(DataStatusDefaultsKeys.LastSessionsClearDateKey) as! NSDate
+        databaseCheckedVersionKey = userDefaults.stringForKey(DataStatusDefaultsKeys.DatabaseCheckedVersionKey)!
+        guestsFetchRequired = userDefaults.boolForKey(DataStatusDefaultsKeys.GuestsFetchRequiredKey)
+        sessionsFetchRequired = userDefaults.boolForKey(DataStatusDefaultsKeys.SessionsFetchRequiredKey)
+        lastGuestsClearDate = userDefaults.valueForKey(DataStatusDefaultsKeys.LastGuestsClearDateKey) as! NSDate
+        lastSessionsClearDate = userDefaults.valueForKey(DataStatusDefaultsKeys.LastSessionsClearDateKey) as! NSDate
     }
     
     func synchronizeDefaults() {
-        self.userDefaults.synchronize()
+        userDefaults.synchronize()
     }
     
 }

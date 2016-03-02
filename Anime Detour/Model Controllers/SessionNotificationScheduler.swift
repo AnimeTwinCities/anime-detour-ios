@@ -12,8 +12,8 @@ import CoreData
 import AnimeDetourDataModel
 
 /**
-Schedules local notifications for favorite Sessions.
-*/
+ Schedules local notifications for favorite Sessions.
+ */
 class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate, SessionSettingsDelegate {
     let managedObjectContext: NSManagedObjectContext
     let fetchedResultsController: NSFetchedResultsController
@@ -21,17 +21,17 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
     /// Enable/disable the setting of notifications.
     var notificationsEnabled: Bool = false {
         didSet {
-            self.updateScheduledNotifications()
+            updateScheduledNotifications()
         }
     }
     
     weak var delegate: SessionFavoriteNotificationDelegate?
     
     /**
-    Designated initializer.
-    
-    - parameter managedObjectContext: A context. Note that saves on other contexts must be merged
-    into this context, or changes to Session favorite status may not be picked up.
+     Designated initializer.
+     
+     - parameter managedObjectContext: A context. Note that saves on other contexts must be merged
+     into this context, or changes to Session favorite status may not be picked up.
     */
     init(managedObjectContext: NSManagedObjectContext) {
         self.managedObjectContext = managedObjectContext
@@ -45,7 +45,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
         fetchRequest.sortDescriptors = sorts
         
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: startKey, cacheName: nil)
-        self.fetchedResultsController = frc
+        fetchedResultsController = frc
         
         super.init()
         
@@ -58,7 +58,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
             assertionFailure("Failed to fetch sessions: \(error)")
         }
         
-        self.updateScheduledNotifications()
+        updateScheduledNotifications()
     }
     
     /// Schedule local notifications, one per time for which a favorite Session starts.
@@ -67,8 +67,8 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
         
         let timeToStart = "10 minutes"
         
-        guard self.notificationsEnabled else {
-            self.unscheduleNotifications()
+        guard notificationsEnabled else {
+            unscheduleNotifications()
             return
         }
         
@@ -104,7 +104,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
             let sessions = section.objects as! [Session]
             let firstSession = sessions.first!
             
-            let notification = self.notification(firstSession)
+            let notification = notificationFor(firstSession)
             var alertBody: String
             if numberSessionsAtTime > 1 {
                 alertBody = "\(numberSessionsAtTime) favorite sessions starting in \(timeToStart)."
@@ -133,7 +133,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
     }
     
     /// Create a local notification with our standard fire time, for a favorite session.
-    private func notification(session: Session) -> UILocalNotification {
+    private func notificationFor(session: Session) -> UILocalNotification {
         let notification = UILocalNotification()
         
         let tenMinutes: NSTimeInterval = 10 * 60 // 10 minutes * 60 seconds
@@ -170,10 +170,10 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
     /// Update all scheduled local notifications to match the current set of favorite Sessions.
     private func updateScheduledNotifications() {
         // Always remove any existing notifications that we scheduled
-        self.unscheduleNotifications()
+        unscheduleNotifications()
         
-        if self.notificationsEnabled {
-            self.scheduleNotifications(self.fetchedResultsController)
+        if notificationsEnabled {
+            scheduleNotifications(fetchedResultsController)
         }
     }
     
@@ -188,14 +188,14 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
             }
         })
         
-        self.delegate?.didChangeFavoriteSessions(count)
-        self.updateScheduledNotifications()
+        delegate?.didChangeFavoriteSessions(count)
+        updateScheduledNotifications()
     }
     
     // MARK: - User Visible Settings Delegate
     
     func didChangeSessionNotificationsSetting(enabled: Bool) {
-        self.notificationsEnabled = enabled
+        notificationsEnabled = enabled
         
         // Track notifications getting enabled/disabled
         if let analytics = GAI.sharedInstance().defaultTracker {
@@ -213,7 +213,7 @@ private struct SessionNotificationInfo {
     let sessionIDs: [String]
     
     init(sessions: [Session]) {
-        self.sessionIDs = sessions.map { return $0.sessionID }
+        sessionIDs = sessions.map { return $0.sessionID }
     }
     
     init?(userInfo: [NSObject : AnyObject]) {
@@ -225,6 +225,6 @@ private struct SessionNotificationInfo {
     }
     
     func toUserInfo() -> [NSObject : AnyObject] {
-        return ["sessionIDs" : self.sessionIDs]
+        return ["sessionIDs" : sessionIDs]
     }
 }

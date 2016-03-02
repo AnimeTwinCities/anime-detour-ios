@@ -23,24 +23,24 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.imageHeaderView = self.tableView.tableHeaderView as! ImageHeaderView
-        self.imageHeaderView.imageView.image = self.guestViewModel.hiResPhoto(true, lowResPhotoPlaceholder: true)
-        self.imageHeaderView.faceBounds = self.guestViewModel.hiResFaceBounds
+        imageHeaderView = tableView.tableHeaderView as! ImageHeaderView
+        imageHeaderView.imageView.image = guestViewModel.hiResPhoto(true, lowResPhotoPlaceholder: true)
+        imageHeaderView.faceBounds = guestViewModel.hiResFaceBounds
         
-        self.updateHeaderSize()
+        updateHeaderSize()
     }
 
     private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         switch cell.reuseIdentifier {
-        case .Some(self.nameIdentifier):
-            (cell as! GuestNameCell).nameLabel.text = self.guestViewModel.name
-        case .Some(self.bioIdentifier):
+        case nameIdentifier?:
+            (cell as! GuestNameCell).nameLabel.text = guestViewModel.name
+        case bioIdentifier?:
             let webView = cell.contentView.subviews.flatMap { $0 as? UIWebView }.first!
             webView.delegate = self
             webView.scrollView.scrollEnabled = false
-            if !self.bioWebviewLoadInitiated {
-                webView.loadHTMLString(self.guestViewModel.bio, baseURL: nil)
-                self.bioWebviewLoadInitiated = true
+            if !bioWebviewLoadInitiated {
+                webView.loadHTMLString(guestViewModel.bio, baseURL: nil)
+                bioWebviewLoadInitiated = true
             }
         case let identifier:
             fatalError("Unexpected reuse identifier: \(identifier). Expected a match against one of our xIdentifier properties.")
@@ -50,14 +50,14 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     // MARK: - Scroll view delegate
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        self.updateHeaderImageTopConstraint(self.tableView)
+        updateHeaderImageTopConstraint(tableView)
     }
 
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        self.configure(cell, atIndexPath: indexPath)
+        configure(cell, atIndexPath: indexPath)
 
         return cell
     }
@@ -73,7 +73,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         case .Name:
             return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
         case .Bio:
-            return self.bioWebViewHeight ?? tableView.frame.height - 344
+            return bioWebViewHeight ?? tableView.frame.height - 344
         }
     }
 
@@ -84,9 +84,9 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
 
         // Calling `beginUpdates` and then `endUpdates` makes the table view reload cells,
         // getting our calculated cell height.
-        self.tableView.beginUpdates()
-        self.bioWebViewHeight = size.height
-        self.tableView.endUpdates()
+        tableView.beginUpdates()
+        bioWebViewHeight = size.height
+        tableView.endUpdates()
     }
 
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {

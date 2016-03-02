@@ -59,16 +59,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Application Delegate
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.setColors(application)
+        setColors(application)
 
         #if DEBUG
             // no analytics
         #else
-        self.initAnalytics()
+        initAnalytics()
         #endif
     
         #if os(iOS)
-        self.userVisibleSessionSettings.delegate = self
+        userVisibleSessionSettings.delegate = self
         #endif
 
         // Latest must-be-cleared dates, e.g. if this version of the app points
@@ -83,16 +83,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let guestsClearDate = calendar.dateFromComponents(components)!
         let sessionsClearDate = calendar.dateFromComponents(components)!
         
-        let dataStatusDefaultsController = self.dataStatusDefaultsController
-        
-        self.checkAndHandleDatabase()
+        checkAndHandleDatabase()
 
         let guestsNeedClearing = guestsClearDate.timeIntervalSinceDate(dataStatusDefaultsController.lastGuestsClearDate) > 0
         let sessionsNeedClearing = sessionsClearDate.timeIntervalSinceDate(dataStatusDefaultsController.lastSessionsClearDate) > 0
         if guestsNeedClearing || sessionsNeedClearing {
             dataStatusDefaultsController.lastGuestsClearDate = NSDate()
             dataStatusDefaultsController.lastSessionsClearDate = NSDate()
-            self.coreDataController.clearPersistentStore()
+            coreDataController.clearPersistentStore()
 
             // Clearing the persistent store removes all sessions and guests, since they are both kept
             // in the same store, so we need to fetch them again.
@@ -101,11 +99,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         if dataStatusDefaultsController.sessionsFetchRequired {
-            self.apiClient.fetchSessions(dataStatusDefaultsController, managedObjectContext: self.backgroundContext)
+            apiClient.fetchSessions(dataStatusDefaultsController, managedObjectContext: backgroundContext)
         }
 
         if dataStatusDefaultsController.guestsFetchRequired {
-            self.apiClient.fetchGuests(dataStatusDefaultsController, managedObjectContext: self.backgroundContext)
+            apiClient.fetchGuests(dataStatusDefaultsController, managedObjectContext: backgroundContext)
         }
 
         return true
@@ -119,13 +117,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             localNotificationsAllowed = true
         }
-        self.localNotificationsAllowedChanged(localNotificationsAllowed)
+        localNotificationsAllowedChanged(localNotificationsAllowed)
     }
     #endif
     
     func applicationDidBecomeActive(application: UIApplication) {
         #if os(iOS)
-        self.checkAppAllowedToSendNotificationsAndUpdateSessionNotificationsEnabled()
+        checkAppAllowedToSendNotificationsAndUpdateSessionNotificationsEnabled()
         #endif
     }
     
@@ -151,7 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Presenting Alerts
     
     private func show(alertController: UIAlertController) {
-        self.window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+        window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
     }
     
     // MARK: - Core Data
@@ -160,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     Merge changes from a save notification into the primary, main thread-only MOC.
     */
     @objc(updateMainContextForSaveNotification:) private func updateMainContextFor(saveNotification notification: NSNotification) {
-        self.primaryContext.performBlock {
+        primaryContext.performBlock {
             self.primaryContext.mergeChangesFromContextDidSaveNotification(notification)
         }
     }
@@ -175,7 +173,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             twoDotOneDatabaseNeedsClearing = false
         }
         if twoDotOneDatabaseNeedsClearing {
-            self.previousDataCleaner.cleanTwoDotOneDatabase()
+            previousDataCleaner.cleanTwoDotOneDatabase()
         }
         
         let currentVersionNumber = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
@@ -197,7 +195,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func setColors(application: UIApplication) {
         let mainColor = UIColor.adr_orange
 
-        self.window?.tintColor = mainColor
+        window?.tintColor = mainColor
     }
 }
 
@@ -223,13 +221,13 @@ private class PreviousDataCleaner {
 #if os(iOS)
 extension AppDelegate {
     private func checkAppAllowedToSendNotificationsAndUpdateSessionNotificationsEnabled() {
-        let localNotificationsAllowed = self.appWideNotificationPermissionsEnabled
-        self.localNotificationsAllowedChanged(localNotificationsAllowed)
+        let localNotificationsAllowed = appWideNotificationPermissionsEnabled
+        localNotificationsAllowedChanged(localNotificationsAllowed)
     }
     
     private func localNotificationsAllowedChanged(localNotificationsAllowed: Bool) {
-        self.notificationPermissionRequester.localNotificationsAllowed = localNotificationsAllowed
-        self.updateSessionNotificationsEnabled(localNotificationsAllowed)
+        notificationPermissionRequester.localNotificationsAllowed = localNotificationsAllowed
+        updateSessionNotificationsEnabled(localNotificationsAllowed)
     }
     
     /**
@@ -237,27 +235,27 @@ extension AppDelegate {
     based on our user visible settings' setting.
     */
     private func updateSessionNotificationsEnabled(localNotificationsAllowed: Bool) {
-        let enabledInUserPref = self.userVisibleSessionSettings.favoriteSessionAlerts
-        self.sessionNotificationScheduler.notificationsEnabled = localNotificationsAllowed && enabledInUserPref
+        let enabledInUserPref = userVisibleSessionSettings.favoriteSessionAlerts
+        sessionNotificationScheduler.notificationsEnabled = localNotificationsAllowed && enabledInUserPref
     }
 }
 
 // MARK: - NotificationPermissionRequesterDelegate
 extension AppDelegate: NotificationPermissionRequesterDelegate {
     func notificationPermissionRequester(requester: NotificationPermissionRequester, wantsToPresentAlertController alertController: UIAlertController) {
-        self.show(alertController)
+        show(alertController)
     }
 }
 
 // MARK: - SessionFavoriteNotificationDelegate
 extension AppDelegate: SessionFavoriteNotificationDelegate {
     func didChangeFavoriteSessions(count: Int) {
-        guard !self.internalSettings.askedToEnableNotifications && !self.userVisibleSessionSettings.favoriteSessionAlerts else {
+        guard !internalSettings.askedToEnableNotifications && !userVisibleSessionSettings.favoriteSessionAlerts else {
             return
         }
         
-        self.notificationPermissionRequester.enableSessionNotificationsOnNotificationsEnabled = true
-        self.notificationPermissionRequester.askEnableSessionNotifications()
+        notificationPermissionRequester.enableSessionNotificationsOnNotificationsEnabled = true
+        notificationPermissionRequester.askEnableSessionNotifications()
     }
 }
 
@@ -265,23 +263,23 @@ extension AppDelegate: SessionFavoriteNotificationDelegate {
 extension AppDelegate: SessionSettingsDelegate {
     func didChangeSessionNotificationsSetting(enabled: Bool) {
         guard enabled else {
-            self.sessionNotificationScheduler.didChangeSessionNotificationsSetting(enabled)
+            sessionNotificationScheduler.didChangeSessionNotificationsSetting(enabled)
             return
         }
         
-        guard self.internalSettings.askedToEnableNotifications else {
-            self.notificationPermissionRequester.askEnableSessionNotifications()
+        guard internalSettings.askedToEnableNotifications else {
+            notificationPermissionRequester.askEnableSessionNotifications()
             return
         }
         
-        guard self.internalSettings.askedSystemToEnableNotifications else {
-            self.notificationPermissionRequester.requestNotificationPermissions()
+        guard internalSettings.askedSystemToEnableNotifications else {
+            notificationPermissionRequester.requestNotificationPermissions()
             return
         }
         
-        guard self.notificationPermissionRequester.localNotificationsAllowed else {
+        guard notificationPermissionRequester.localNotificationsAllowed else {
             // Disable the notification setting if notifications are not allowed
-            self.userVisibleSessionSettings.favoriteSessionAlerts = false
+            userVisibleSessionSettings.favoriteSessionAlerts = false
             
             let alertController = UIAlertController(title: "Enable Notifications", message: "Enable notifications in the Settings app before enabling session alerts.", preferredStyle: UIAlertControllerStyle.Alert)
             
@@ -294,11 +292,11 @@ extension AppDelegate: SessionSettingsDelegate {
             alertController.addAction(cancel)
             alertController.addAction(settings)
             
-            self.show(alertController)
+            show(alertController)
             return
         }
         
-        self.sessionNotificationScheduler.didChangeSessionNotificationsSetting(enabled)
+        sessionNotificationScheduler.didChangeSessionNotificationsSetting(enabled)
     }
 }
 #endif

@@ -22,14 +22,14 @@ class NotificationPermissionRequester {
     */
     var localNotificationsAllowed: Bool = false {
         didSet {
-            let allowed = self.localNotificationsAllowed
+            let allowed = localNotificationsAllowed
             
             if allowed {
-                if self.enableSessionNotificationsOnNotificationsEnabled {
-                    self.sessionSettings.favoriteSessionAlerts = true
+                if enableSessionNotificationsOnNotificationsEnabled {
+                    sessionSettings.favoriteSessionAlerts = true
                 }
                 
-                self.enableSessionNotificationsOnNotificationsEnabled = false
+                enableSessionNotificationsOnNotificationsEnabled = false
             }
         }
     }
@@ -43,7 +43,7 @@ class NotificationPermissionRequester {
     Request permission to display the types of notifications we want to display.
     */
     func requestNotificationPermissions() {
-        self.internalSettings.askedSystemToEnableNotifications = true
+        internalSettings.askedSystemToEnableNotifications = true
         
         let application = UIApplication.sharedApplication()
         
@@ -73,7 +73,7 @@ class NotificationPermissionRequester {
         alertController.addAction(cancel)
         alertController.addAction(accept)
         
-        self.delegate?.notificationPermissionRequester(self, wantsToPresentAlertController: alertController)
+        delegate?.notificationPermissionRequester(self, wantsToPresentAlertController: alertController)
     }
 }
 

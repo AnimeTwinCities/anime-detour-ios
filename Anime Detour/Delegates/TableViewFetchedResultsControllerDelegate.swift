@@ -17,11 +17,11 @@ class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsContr
     // MARK: Fetched Results Controller Delegate
 
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        self.tableView?.beginUpdates()
+        tableView?.beginUpdates()
     }
 
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        self.tableView?.endUpdates()
+        tableView?.endUpdates()
     }
 
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
@@ -38,27 +38,29 @@ class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsContr
             assertionFailure("Unexpected fetched results controller section change type: \(type)")
         }
     }
-
+    
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         // Use with caution
         let (indexPath, newIndexPath): (NSIndexPath!, NSIndexPath!) = (indexPath, newIndexPath)
-        if let tableView = self.tableView {
-            switch type {
-            case .Insert:
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
-            case .Delete:
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            case .Move:
-                // Likely to break for inserted or deleted sections.
-                // Must fix later.
-                tableView.moveRowAtIndexPath(indexPath, toIndexPath: newIndexPath)
-            case .Update:
-                switch (self.tableView?.cellForRowAtIndexPath(indexPath), self.customizer) {
-                case let (.Some(cell), .Some(customizer)):
-                    customizer.configure(cell, atIndexPath: indexPath)
-                default:
-                    break
-                }
+        guard let tableView = self.tableView else {
+            return
+        }
+        
+        switch type {
+        case .Insert:
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
+        case .Delete:
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        case .Move:
+            // Likely to break for inserted or deleted sections.
+            // Must fix later.
+            tableView.moveRowAtIndexPath(indexPath, toIndexPath: newIndexPath)
+        case .Update:
+            switch (tableView.cellForRowAtIndexPath(indexPath), customizer) {
+            case let (.Some(cell), .Some(customizer)):
+                customizer.configure(cell, atIndexPath: indexPath)
+            default:
+                break
             }
         }
     }

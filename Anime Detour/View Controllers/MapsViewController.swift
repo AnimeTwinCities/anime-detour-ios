@@ -23,7 +23,7 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
     }()
     private var activeMapIndex: Int = 0 {
         didSet {
-            self.previewController.reloadData()
+            previewController.reloadData()
         }
     }
 
@@ -39,18 +39,18 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
         
         previewController.view.backgroundColor = UIColor.clearColor()
         previewController.view.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(previewController.view)
+        view.addSubview(previewController.view)
         let bindings: [String : AnyObject] = [
             "preview" : previewController.view,
-            "top" : self.topLayoutGuide,
-            "bottom" : self.bottomLayoutGuide
+            "top" : topLayoutGuide,
+            "bottom" : bottomLayoutGuide
         ]
         let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|[preview]|", options: [], metrics: nil, views: bindings)
         let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[top][preview][bottom]", options: [], metrics: nil, views: bindings)
         let previewConstraints = hConstraints + vConstraints
-        self.view.addConstraints(previewConstraints)
+        view.addConstraints(previewConstraints)
         
-        self.addChildViewController(previewController)
+        addChildViewController(previewController)
 
         previewController.currentPreviewItemIndex = 0
     }
@@ -58,7 +58,7 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
     // MARK: - Segmented Control
 
     @IBAction func segmentedControlValueChanged(sender: UISegmentedControl?) {
-        self.activeMapIndex = sender?.selectedSegmentIndex ?? 0
+        activeMapIndex = sender?.selectedSegmentIndex ?? 0
     }
 
     // MARK: - Preview Controller Data Source
@@ -70,7 +70,7 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
     func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
         // Assume that we only ever want to show one item, at `activeMapIndex`.
         // Change `activeMapIndex` to change the active item.
-        let item = NSURL(fileURLWithPath: self.mapPaths[self.activeMapIndex], isDirectory: false)
+        let item = NSURL(fileURLWithPath: mapPaths[activeMapIndex], isDirectory: false)
         return item
     }
 }

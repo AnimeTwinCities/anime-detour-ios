@@ -18,8 +18,8 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
 
     @IBInspectable var bookmarkedOnly: Bool = false {
         didSet {
-            if !self.bookmarkedOnly {
-                self.title = "Search"
+            if !bookmarkedOnly {
+                title = "Search"
             }
         }
     }
@@ -30,9 +30,9 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
 
     var searchPredicate: NSPredicate? {
         didSet {
-            if let frc = self.fetchedResultsController {
+            if let frc = fetchedResultsController {
                 let request = frc.fetchRequest
-                request.predicate = self.completePredicate
+                request.predicate = completePredicate
 
                 do {
                     try frc.performFetch()
@@ -41,19 +41,19 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
                     assertionFailure("Error performing search fetch in session table: \(error)")
                 }
 
-                self.tableView.reloadData()
+                tableView.reloadData()
             }
         }
     }
 
     var completePredicate: NSPredicate? {
         var predicates: [NSPredicate] = []
-        if self.bookmarkedOnly {
+        if bookmarkedOnly {
             let bookmarkPredicate = NSPredicate(format: "bookmarked == YES")
             predicates.append(bookmarkPredicate)
         }
 
-        if let searchPredicate = self.searchPredicate {
+        if let searchPredicate = searchPredicate {
             predicates.append(searchPredicate)
         }
         
@@ -67,7 +67,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
 
     // MARK: Core Data
 
-    private var managedObjectContext: NSManagedObjectContext { return self.coreDataController.managedObjectContext }
+    private var managedObjectContext: NSManagedObjectContext { return coreDataController.managedObjectContext }
 
     /// Fetched results controller over `Session`s.
     private var fetchedResultsController: NSFetchedResultsController?
@@ -83,7 +83,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     */
     private var sessionsFetchRequest: NSFetchRequest {
         get {
-            let predicate = self.completePredicate
+            let predicate = completePredicate
             let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
             let sessionsFetchRequest = NSFetchRequest(entityName: Session.entityName)
             sessionsFetchRequest.predicate = predicate
@@ -144,14 +144,13 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let sessionsFetchRequest = self.sessionsFetchRequest
-        let frc = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
-        frc.delegate = self.fetchedResultsControllerDelegate
-        self.fetchedResultsController = frc
+        let frc = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
+        frc.delegate = fetchedResultsControllerDelegate
+        fetchedResultsController = frc
 
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 100
-        self.dataSource.prepareTableView(self.tableView)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
+        dataSource.prepareTableView(tableView)
 
         do {
             try frc.performFetch()
@@ -160,30 +159,30 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
             NSLog("Error fetching sessions in session table: %@", error)
         }
 
-        self.navigationItem.rightBarButtonItem = self.defaultRightBarButtonItem
+        navigationItem.rightBarButtonItem = defaultRightBarButtonItem
 
-        let searchBar = self.searchController.searchBar
+        let searchBar = searchController.searchBar
         searchBar.sizeToFit()
-        self.tableView.tableHeaderView = searchBar
+        tableView.tableHeaderView = searchBar
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.searchController.searchBar.text = self.lastSearchText
+        searchController.searchBar.text = lastSearchText
     }
 
     // MARK: - Table View Data Source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return self.dataSource.numberOfSectionsInTableView(tableView)
+        return dataSource.numberOfSectionsInTableView(tableView)
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.tableView(tableView, numberOfRowsInSection: section)
+        return dataSource.tableView(tableView, numberOfRowsInSection: section)
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return self.dataSource.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        return dataSource.tableView(tableView, cellForRowAtIndexPath: indexPath)
     }
 
     // MARK: - Search Results Updating
@@ -194,28 +193,31 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
         }
         
         let searchText = searchController.searchBar.text
-        self.lastSearchText = searchText
+        lastSearchText = searchText
 
         var searchPredicate: NSPredicate?
+        defer {
+            self.searchPredicate = searchPredicate
+        }
+        
         if case let searchText? = searchText where searchText.characters.count > 0 {
             // Case- and diacritic-insensitive searching
             searchPredicate = NSPredicate(format: "name CONTAINS[cd] %@", searchText)
         }
-        self.searchPredicate = searchPredicate
     }
 
     // MARK: - Navigation
 
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         switch(identifier) {
-        case self.detailIdentifier:
+        case detailIdentifier:
             // Get the selected index path
             if let cell = sender as? UITableViewCell {
-                self.selectedCellIndex = self.tableView.indexPathForCell(cell)
+                selectedCellIndex = tableView.indexPathForCell(cell)
             }
 
             // Block the detail segue while in editing mode
-            return !self.tableView.editing
+            return !tableView.editing
         default:
             // Always allow other segues
             return true
@@ -223,14 +225,14 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        self.searchController.active = false
+        searchController.active = false
         let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
 
         switch (segue.identifier) {
-        case .Some(self.detailIdentifier):
+        case detailIdentifier?:
             let detailVC = segue.destinationViewController as! SessionViewController
-            let selectedIndexPath = self.selectedCellIndex!
-            let selectedSession = self.dataSource.session(selectedIndexPath)
+            let selectedIndexPath = selectedCellIndex!
+            let selectedSession = dataSource.sessionAt(selectedIndexPath)
             detailVC.session = selectedSession
 
             let dict = GAIDictionaryBuilder.createEventDictionary(.Session, action: .ViewDetails, label: selectedSession.name, value: nil)

@@ -27,13 +27,13 @@ Specify the runtime class name for the benefit of FXForms.
     var favoriteSessionAlerts: Bool = false {
         didSet {
             let key = SessionSettingsUserDefaultsKeys.FavoriteSessionAlertsKey
-            let newValue = self.favoriteSessionAlerts
-            if self.userDefaults.boolForKey(key) != newValue {
-                self.userDefaults.setBool(newValue, forKey: key)
+            let newValue = favoriteSessionAlerts
+            if userDefaults.boolForKey(key) != newValue {
+                userDefaults.setBool(newValue, forKey: key)
             }
             
             if newValue != oldValue {
-                self.delegate?.didChangeSessionNotificationsSetting(newValue)
+                delegate?.didChangeSessionNotificationsSetting(newValue)
             }
         }
     }
@@ -42,13 +42,13 @@ Specify the runtime class name for the benefit of FXForms.
         self.userDefaults = userDefaults
         super.init()
         
-        self.registerDefaults(userDefaults)
-        self.updateSessionNotificationsEnabled()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("userDefaultsChanged:"), name: NSUserDefaultsDidChangeNotification, object: self.userDefaults)
+        registerDefaults(userDefaults)
+        updateSessionNotificationsEnabled()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("userDefaultsChanged:"), name: NSUserDefaultsDidChangeNotification, object: userDefaults)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: NSUserDefaultsDidChangeNotification, object: self.userDefaults)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: NSUserDefaultsDidChangeNotification, object: userDefaults)
     }
     
     private func registerDefaults(userDefaults: NSUserDefaults) {
@@ -60,12 +60,12 @@ Specify the runtime class name for the benefit of FXForms.
     }
     
     private func updateSessionNotificationsEnabled() {
-        let notificationsEnabled = self.userDefaults.boolForKey(SessionSettingsUserDefaultsKeys.FavoriteSessionAlertsKey)
-        self.favoriteSessionAlerts = notificationsEnabled
+        let notificationsEnabled = userDefaults.boolForKey(SessionSettingsUserDefaultsKeys.FavoriteSessionAlertsKey)
+        favoriteSessionAlerts = notificationsEnabled
     }
     
     @objc private func userDefaultsChanged(notification: NSNotification) {
-        self.updateSessionNotificationsEnabled()
+        updateSessionNotificationsEnabled()
     }
 }
 
