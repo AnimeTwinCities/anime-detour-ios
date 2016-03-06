@@ -21,10 +21,10 @@ class GuestCollectionViewCell: UICollectionViewCell {
                 return
             }
 
-            self.nameLabel.text = viewModel.name
+            nameLabel.text = viewModel.name
             
             let photo = viewModel.photo(true)
-            self.photoImageView.image = photo
+            photoImageView.image = photo
         }
     }
 
@@ -56,7 +56,7 @@ class GuestCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        self.viewModel = nil
+        viewModel = nil
     }
     
     override func didMoveToWindow() {

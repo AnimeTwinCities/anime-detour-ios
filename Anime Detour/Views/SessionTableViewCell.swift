@@ -28,11 +28,11 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
             }
             
             viewModel.delegate = self
-            self.nameLabel.text = viewModel.name
-            self.locationLabel.text = viewModel.location
-            self.timeLabel.text = viewModel.dateAndTime
+            nameLabel.text = viewModel.name
+            locationLabel.text = viewModel.location
+            timeLabel.text = viewModel.dateAndTime
             
-            self.bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
+            bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
         }
     }
 
@@ -53,8 +53,8 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
     // MARK: Session View Model Delegate
     
     func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
-        self.bookmarkButton?.setImage(bookmarkImage, forState: .Normal)
-        self.bookmarkButton?.accessibilityLabel = accessibilityLabel
+        bookmarkButton?.setImage(bookmarkImage, forState: .Normal)
+        bookmarkButton?.accessibilityLabel = accessibilityLabel
     }
 
 }
