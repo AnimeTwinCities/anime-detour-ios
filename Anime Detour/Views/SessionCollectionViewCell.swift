@@ -9,6 +9,9 @@
 import UIKit
 
 class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate {
+    // `dynamic` allows the use of UIAppearance to set a value.
+    dynamic var highlightColor: UIColor = UIColor(white: 0.8, alpha: 1)
+
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
@@ -41,7 +44,7 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
             let backgroundColor: UIColor
 
             if self.highlighted {
-                backgroundColor = UIColor(white: 0.8, alpha: 1)
+                backgroundColor = highlightColor
             } else {
                 backgroundColor = UIColor.clearColor()
             }

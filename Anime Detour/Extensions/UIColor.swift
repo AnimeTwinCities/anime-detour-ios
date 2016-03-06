@@ -12,6 +12,13 @@ extension UIColor {
     class var adr_orange: UIColor {
         return UIColor.adr_colorFromHex(0xfe7f00)
     }
+    
+    /// A lighter version of adr_orange, suitable as a highlight color
+    /// as opposed to a tint color.
+    // Chosen using http://paletton.com/
+    class var adr_lighterOrange: UIColor {
+        return UIColor.adr_colorFromHex(0xffb163)
+    }
 
     class var adr_brown: UIColor {
         return UIColor.adr_colorFromHex(0x281200)

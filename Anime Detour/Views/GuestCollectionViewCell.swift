@@ -9,6 +9,8 @@
 import UIKit
 
 class GuestCollectionViewCell: UICollectionViewCell {
+    // `dynamic` allows the use of UIAppearance to set a value.
+    dynamic var highlightColor: UIColor = UIColor(white: 0.8, alpha: 1)
 
     @IBOutlet var photoImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
@@ -31,7 +33,7 @@ class GuestCollectionViewCell: UICollectionViewCell {
             let backgroundColor: UIColor
 
             if self.highlighted {
-                backgroundColor = UIColor(white: 0.8, alpha: 1)
+                backgroundColor = highlightColor
             } else {
                 backgroundColor = UIColor.clearColor()
             }

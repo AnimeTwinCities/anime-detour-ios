@@ -196,6 +196,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainColor = UIColor.adr_orange
 
         window?.tintColor = mainColor
+        
+        let tableViewBackgroundView = UIView()
+        tableViewBackgroundView.backgroundColor = UIColor.adr_lighterOrange
+        UITableViewCell.appearance().selectedBackgroundView = tableViewBackgroundView
+        GuestCollectionViewCell.appearance().highlightColor = UIColor.adr_lighterOrange
+        SessionCollectionViewCell.appearance().highlightColor = UIColor.adr_lighterOrange
     }
 }
 
