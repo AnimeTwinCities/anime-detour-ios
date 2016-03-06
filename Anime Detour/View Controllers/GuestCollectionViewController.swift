@@ -31,11 +31,11 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     private lazy var fetchedResultsController: NSFetchedResultsController = {
         let moc = self.managedObjectContext
         let entity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: moc)
-        let sort = NSSortDescriptor(key: "firstName", ascending: true)
+        let sort = NSSortDescriptor(key: Guest.Keys.firstName.rawValue, ascending: true)
         let fetchRequest = NSFetchRequest()
         fetchRequest.entity = entity
         fetchRequest.sortDescriptors = [sort]
-        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "category", cacheName: nil)
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: Guest.Keys.category.rawValue, cacheName: nil)
         return frc
     }()
 

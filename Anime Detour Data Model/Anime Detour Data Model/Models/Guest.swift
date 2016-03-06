@@ -11,6 +11,10 @@ import CoreData
 import UIKit
 
 public class Guest: NSManagedObject {
+    public enum Keys: String {
+        case firstName
+        case category
+    }
 
     @NSManaged public var category: String
     @NSManaged public var photoPath: String
