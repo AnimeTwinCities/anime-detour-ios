@@ -936,10 +936,10 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-yc-2Sr" userLabel="Below Image Container View">
-                                <rect key="frame" x="0.0" y="308" width="206" height="209"/>
+                                <rect key="frame" x="0.0" y="308" width="206" height="256.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="iQN-zd-mDe" userLabel="Below Image Stack View">
-                                        <rect key="frame" x="8" y="12" width="190.5" height="185"/>
+                                        <rect key="frame" x="8" y="12" width="190.5" height="232.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="knm-pV-W4A">
                                                 <rect key="frame" x="0.0" y="0.0" width="190.5" height="19.5"/>
@@ -1015,6 +1015,23 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JYp-EB-4tN">
+                                                <rect key="frame" x="0.0" y="201" width="190.5" height="31.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Panelists" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gA-Ug-Gmd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="190.5" height="14.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Panelists, list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0X-s0-DhR" userLabel="Panelists Label">
+                                                        <rect key="frame" x="0.0" y="14.5" width="190.5" height="17"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -1044,6 +1061,7 @@
                             <outlet property="imageView" destination="8cl-G7-uQi" id="6mR-jO-AgL"/>
                             <outlet property="locationLabel" destination="Jpq-3d-szy" id="PcM-nP-QJn"/>
                             <outlet property="nameLabel" destination="knm-pV-W4A" id="09g-ST-y0J"/>
+                            <outlet property="panelistsLabel" destination="Z0X-s0-DhR" id="FPk-7Z-dFY"/>
                             <outlet property="timeLabel" destination="f68-27-ZzS" id="mSo-jY-qSB"/>
                             <outlet property="typesLabel" destination="OFP-8K-uuP" id="S35-w8-ros"/>
                         </connections>

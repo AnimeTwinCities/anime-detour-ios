@@ -15,6 +15,7 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var typesLabel: UILabel!
+    @IBOutlet var panelistsLabel: UILabel!
     
     @IBOutlet var imageHeaderView: ImageHeaderView!
     @IBOutlet var imageView: UIImageView!
@@ -52,6 +53,7 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
             locationLabel.text = viewModel?.location
             descriptionLabel.text = viewModel?.sessionDescription
             typesLabel.text = viewModel?.types
+            panelistsLabel.text = ""
 
             bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
             bookmarkButton.accessibilityLabel = viewModel?.bookmarkAccessibilityLabel
