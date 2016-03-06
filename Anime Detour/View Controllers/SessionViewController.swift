@@ -51,6 +51,21 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         sessionView.viewModel = viewModel
         updateHeaderSize()
     }
+    
+    override func previewActionItems() -> [UIPreviewActionItem] {
+        let changeBookmarkedAction: UIPreviewActionItem
+        if session.bookmarked {
+            changeBookmarkedAction = UIPreviewAction(title: "Remove Bookmark", style: UIPreviewActionStyle.Default) { _, _ in
+                self.viewModel?.toggleBookmarked()
+            }
+        } else {
+            changeBookmarkedAction = UIPreviewAction(title: "Bookmark", style: UIPreviewActionStyle.Default) { _, _ in
+                self.viewModel?.toggleBookmarked()
+            }
+        }
+        
+        return [changeBookmarkedAction]
+    }
 
     // MARK: - Session View Model Delegate
 
