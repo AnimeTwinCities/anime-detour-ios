@@ -12,6 +12,8 @@ import UIKit
 import AnimeDetourDataModel
 import AnimeDetourSchedorgAPI
 
+import WatchdogInspector
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -63,12 +65,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         #if DEBUG
             // no analytics
+            #if os(iOS)
+                TWWatchdogInspector.start()
+            #endif
         #else
-        initAnalytics()
+            initAnalytics()
         #endif
-    
+        
         #if os(iOS)
-        userVisibleSessionSettings.delegate = self
+            userVisibleSessionSettings.delegate = self
         #endif
 
         // Latest must-be-cleared dates, e.g. if this version of the app points

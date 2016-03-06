@@ -6,6 +6,7 @@ use_frameworks!
 pod 'Aspects'
 pod 'GoogleAnalytics'
 pod 'FXForms', '~> 1.2.0'
+pod 'WatchdogInspector'
 
 post_install do | installer |
   require 'fileutils'
