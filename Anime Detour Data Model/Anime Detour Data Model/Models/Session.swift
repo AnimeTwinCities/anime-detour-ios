@@ -11,6 +11,12 @@ import Foundation
 import CoreData
 
 public class Session: NSManagedObject {
+    public enum Keys: String {
+        case name
+        case startTime = "start"
+        case type
+    }
+    
     @NSManaged public var key: String
     @NSManaged public var active: Bool
     @NSManaged public var bookmarked: Bool

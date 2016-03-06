@@ -84,7 +84,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     private var sessionsFetchRequest: NSFetchRequest {
         get {
             let predicate = completePredicate
-            let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
+            let sortDescriptors = [NSSortDescriptor(key: Session.Keys.startTime.rawValue, ascending: true), NSSortDescriptor(key: Session.Keys.name.rawValue, ascending: true)]
             let sessionsFetchRequest = NSFetchRequest(entityName: Session.entityName)
             sessionsFetchRequest.predicate = predicate
             sessionsFetchRequest.sortDescriptors = sortDescriptors

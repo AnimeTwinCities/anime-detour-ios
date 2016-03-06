@@ -25,30 +25,30 @@ class SessionCollectionViewController: UICollectionViewController {
             }
         }
     }
-
+    
     /// Refresh control added to a dummy table view controller for the table view's management functionality
     lazy private var refreshControl: UIRefreshControl = { () -> UIRefreshControl in
         let control = UIRefreshControl()
         self.refreshingTableViewController.refreshControl = control
-
+        
         control.addTarget(self, action: Selector("refreshSessions:"), forControlEvents: UIControlEvents.ValueChanged)
-
+        
         return control
     }()
-
+    
     // MARK: Core Data
-
+    
     lazy private var coreDataController: CoreDataController = CoreDataController.sharedInstance
     lazy private var managedObjectContext: NSManagedObjectContext = self.coreDataController.managedObjectContext
     
     /// Fetched results controller over `Session`s.
     lazy private var fetchedResultsController: NSFetchedResultsController = {
         let sessionsFetchRequest = self.sessionsFetchRequest
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: Session.Keys.startTime.rawValue, cacheName: nil)
         fetchedResultsController.delegate = self.fetchedResultsControllerDelegate
         return fetchedResultsController
     }()
-
+    
     /// Type name for which the Session list will be filtered.
     /// Updating this property will update out `title`.
     /// Must not be changed before `fetchedResultsController` is created.
@@ -57,11 +57,11 @@ class SessionCollectionViewController: UICollectionViewController {
             guard filteredType != oldValue else {
                 return
             }
-
+            
             navigationItem.title = filteredTitle(filteredType)
-
+            
             fetchedResultsController.fetchRequest.predicate = completePredicate
-
+            
             do {
                 try fetchedResultsController.performFetch()
             } catch {
@@ -69,11 +69,11 @@ class SessionCollectionViewController: UICollectionViewController {
                 let errorDesc = error.userInfo[NSLocalizedDescriptionKey] as? String ?? "Unknown error"
                 print("Error performing Session fetch: %@", errorDesc)
             }
-
+            
             collectionView!.reloadData()
         }
     }
-
+    
     private var completePredicate: NSPredicate? {
         let bookmarkedPredicate: NSPredicate? = nil // needs to be rethought since the bookmarked status of a Session is not on the Session itself
         var predicates = [NSPredicate]()
@@ -91,9 +91,9 @@ class SessionCollectionViewController: UICollectionViewController {
         case .All:
             return nil
         case let .Named(type):
-            let begins = NSPredicate(format: "type BEGINSWITH %@", type)
-            let contains = NSPredicate(format: "type CONTAINS %@", ", " + type + ",")
-            let ends = NSPredicate(format: "type ENDSWITH %@", ", " + type)
+            let begins = NSPredicate(format: "\(Session.Keys.type.rawValue) BEGINSWITH %@", type)
+            let contains = NSPredicate(format: "\(Session.Keys.type.rawValue) CONTAINS %@", ", " + type + ",")
+            let ends = NSPredicate(format: "\(Session.Keys.type.rawValue) ENDSWITH %@", ", " + type)
             let pred = NSCompoundPredicate(orPredicateWithSubpredicates: [begins, contains, ends])
             return pred
         }
@@ -103,42 +103,42 @@ class SessionCollectionViewController: UICollectionViewController {
         delegate.collectionView = self.collectionView!
         return delegate
     }()
-
+    
     /**
-    Fetch request for all Sessions, sorted by start time then name. Creates a new fetch request on every access.
-    */
+     Fetch request for all Sessions, sorted by start time then name. Creates a new fetch request on every access.
+     */
     private var sessionsFetchRequest: NSFetchRequest {
         get {
-            let sortDescriptors = [NSSortDescriptor(key: "start", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
+            let sortDescriptors = [NSSortDescriptor(key: Session.Keys.startTime.rawValue, ascending: true), NSSortDescriptor(key: Session.Keys.name.rawValue, ascending: true)]
             let sessionsFetchRequest = NSFetchRequest(entityName: Session.entityName)
             sessionsFetchRequest.sortDescriptors = sortDescriptors
             return sessionsFetchRequest
         }
     }
-
+    
     // MARK: Collection view
-
+    
     /**
     Collection view data source that we call through to from our data
     source methods.
     */
     lazy private var dataSource: SessionDataSource = SessionDataSource(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
-
+    
     // MARK: Day indicator
     
     lazy private var dayScroller: SessionDayScroller = SessionDayScroller(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, targetView: .CollectionView(self.collectionView!))
     private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
-
+    
     // MARK: Controls
-
+    
     @IBOutlet var daySegmentedControl: UISegmentedControl? {
         didSet {
             dayScroller.daySegmentedControl = daySegmentedControl
         }
     }
-
+    
     // MARK: Reuse identifiers
-
+    
     private var dayControlHeaderReuseIdentifier: String = "dayControlHeaderReuseIdentifier"
     
     // MARK: Segue identifiers
@@ -146,39 +146,39 @@ class SessionCollectionViewController: UICollectionViewController {
     @IBInspectable var detailSegueIdentifier: String!
     @IBInspectable var filterSegueIdentifier: String!
     @IBInspectable var searchSegueIdentifier: String!
-
+    
     // MARK: Collection view sizing
-
+    
     private var traitCollectionAfterCurrentTransition: UITraitCollection?
     private var lastDisplayedTraitCollection: UITraitCollection!
-
+    
     // MARK: - View controller
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "Schedule"
         navigationItem.title = filteredTitle(filteredType)
-
+        
         let collectionView = self.collectionView!
-
+        
         addRefreshControl()
-
+        
         collectionView.registerClass(SegmentedControlCollectionReusableView.self, forSupplementaryViewOfKind: StickyHeaderFlowLayout.StickyHeaderElementKind, withReuseIdentifier: dayControlHeaderReuseIdentifier)
-
+        
         updateStickyHeaderLayoutTopOffset()
         updateScrollViewScrollerTopInsetForStickyHeader()
-
+        
         dataSource.prepareCollectionView(collectionView)
         fetchedResultsControllerDelegate.customizer = dataSource
-
+        
         do {
             try fetchedResultsController.performFetch()
         } catch {
             let error = error as NSError
             NSLog("Error fetching sessions: %@", error)
         }
-
+        
         setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
         lastDisplayedTraitCollection = traitCollection
     }
@@ -190,11 +190,11 @@ class SessionCollectionViewController: UICollectionViewController {
         // trait collection is sometimes not up to date in `viewWillAppear:`.
         updateCellSizesIfNecessary()
     }
-
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         let collectionView = self.collectionView!
         setFlowLayoutCellSizes(collectionView, forLayoutSize: size)
-
+        
         traitCollectionAfterCurrentTransition = nil
         lastDisplayedTraitCollection = traitCollection
     }
@@ -204,19 +204,44 @@ class SessionCollectionViewController: UICollectionViewController {
         
         traitCollectionAfterCurrentTransition = newCollection
     }
-
+    
+    // MARK: - Show next sessions that haven't yet started
+    
+    /// Scroll to the Session that started closest to, but not at or after, the current time.
+    @IBAction private func showUpcomingSessions() {
+        let now = NSDate()
+        let fallbackDate = NSDate.distantPast()
+        guard let sectionIndex = fetchedResultsController.indexOfFirstSectionPassing(test: { info in
+            let firstSession = info.objects?.first as? Session
+            let sessionStart = firstSession?.start ?? fallbackDate
+            
+            // Session starts before `now` if `sessionStart.compare(now)` is `.OrderedDescending`
+            switch sessionStart.compare(now){
+            case .OrderedDescending:
+                return true
+            case .OrderedAscending, .OrderedSame:
+                return false
+            }
+        }) where sectionIndex > 0 else {
+            return
+        }
+        
+        let indexPath = NSIndexPath(forItem: 0, inSection: sectionIndex - 1)
+        collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+    }
+    
     // MARK: - Collection view layout support
     
     private func updateCellSizesIfNecessary() {
         guard traitCollection != lastDisplayedTraitCollection else {
             return
         }
-
+        
         let collectionView = self.collectionView!
         setFlowLayoutCellSizes(collectionView, forLayoutSize: collectionView.frame.size)
         lastDisplayedTraitCollection = traitCollection
     }
-
+    
     /// Update the top offset for our layout, if it is a `StickyHeaderFlowLayout`.
     private func updateStickyHeaderLayoutTopOffset() {
         guard let stickyHeaderLayout = collectionViewLayout as? StickyHeaderFlowLayout else {
@@ -244,17 +269,17 @@ class SessionCollectionViewController: UICollectionViewController {
         
         collectionView.scrollIndicatorInsets = newInsets
     }
-
+    
     /// Update the sizes of our collection view items based on the view's trait collection.
     private func setFlowLayoutCellSizes(collectionView: UICollectionView, forLayoutSize layoutSize: CGSize) {
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let horizontalSpacing = layout.minimumInteritemSpacing
-
+        
         let traitCollection = traitCollectionAfterCurrentTransition ?? collectionView.traitCollection
         let viewWidth = layoutSize.width
-
+        
         var itemSize = layout.itemSize
-
+        
         if traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Compact {
             itemSize.width = viewWidth
         } else {
@@ -265,12 +290,12 @@ class SessionCollectionViewController: UICollectionViewController {
             let widthPerCell = floor((viewWidth - (cellsPerRow - 1) * horizontalSpacing) / cellsPerRow)
             itemSize.width = widthPerCell
         }
-
+        
         layout.itemSize = itemSize
     }
-
+    
     // MARK: - Filtering
-
+    
     func filteredTitle(filteredSessionType: SelectedSessionType) -> String {
         let unfilteredTitle = "Sessions"
         switch filteredType {
@@ -280,14 +305,14 @@ class SessionCollectionViewController: UICollectionViewController {
             return type
         }
     }
-
+    
     // MARK: - Refreshing
-
+    
     /// Add the refresh control to the collection view
     private func addRefreshControl() {
         let collectionView = self.collectionView!
         collectionView.addSubview(refreshControl)
-
+        
         // Cheat and move the refresh control's bounds down, below the day selector header
         var headerHeight: CGFloat
         if let stickyHeaderLayout = collectionViewLayout as? StickyHeaderFlowLayout {
@@ -300,33 +325,33 @@ class SessionCollectionViewController: UICollectionViewController {
         refreshControl.bounds = refreshBounds
         
     }
-
+    
     @objc private func refreshSessions(sender: AnyObject?) {
         guard !refreshing else {
             return
         }
-
+        
         refreshing = true
         let moc = coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
-
+        
         apiClient.refreshSessions(moc) {
             dispatch_async(dispatch_get_main_queue()) {
                 self.refreshing = false
             }
         }
     }
-
+    
     // MARK: - Navigation
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
-
+        
         switch (segue.identifier) {
         case detailSegueIdentifier?:
             let detailVC = segue.destinationViewController as! SessionViewController
             let selectedSession = (collectionView?.indexPathsForSelectedItems()?.first).map(dataSource.sessionAt)!
             detailVC.session = selectedSession
-
+            
             let dict = GAIDictionaryBuilder.createEventDictionary(screenName, action: .ViewDetails, label: selectedSession.name, value: nil)
             analytics?.send(dict)
         case filterSegueIdentifier?:
@@ -339,7 +364,7 @@ class SessionCollectionViewController: UICollectionViewController {
                 request.propertiesToFetch = [ typeKey ]
                 request.resultType = NSFetchRequestResultType.DictionaryResultType
                 request.returnsDistinctResults = true
-
+                
                 do {
                     let results = try managedObjectContext.executeFetchRequest(request)
                     guard let stringly = results as? [[String:String]] else {
@@ -360,14 +385,14 @@ class SessionCollectionViewController: UICollectionViewController {
                     let error = error as NSError
                     NSLog("Error fetching session information: \(error)")
                 }
-
+                
                 return []
                 }()
         case searchSegueIdentifier?:
             let navController = segue.destinationViewController as! UINavigationController
             let searchVC = navController.topViewController as! SessionTableViewController
             searchVC.bookmarkedOnly = false
-
+            
             let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("dismissSearchView"))
             searchVC.defaultRightBarButtonItem = doneButton
         default:
@@ -375,59 +400,76 @@ class SessionCollectionViewController: UICollectionViewController {
             break
         }
     }
-
+    
     @IBAction func unwindAfterFiltering(segue: UIStoryboardSegue) {
         let filterVC = segue.sourceViewController as! SessionFilterTableViewController
         filteredType = filterVC.selectedType
-
+        
         dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
     @objc private func dismissSearchView() {
         dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
     // MARK: - UICollectionViewDataSource
-
+    
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return dataSource.numberOfSectionsInCollectionView(collectionView)
     }
-
-
+    
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.collectionView(collectionView, numberOfItemsInSection: section)
     }
-
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = dataSource.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
         return cell
     }
-
+    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == StickyHeaderFlowLayout.StickyHeaderElementKind {
             // handle the sticky header ourselves
             let view = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: dayControlHeaderReuseIdentifier, forIndexPath: indexPath) as! SegmentedControlCollectionReusableView
             daySegmentedControl = view.segmentedControl
-
+            
             return view
         } else {
             let view = dataSource.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
             return view
         }
     }
-
+    
     // MARK: - UICollectionViewDelegate
-
+    
     override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         dayScroller.willDisplayItemAtIndexPath(indexPath)
     }
-
+    
     // MARK: - Scroll View Delegate
-
+    
     override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
         dayScroller.scrollViewDidEndScrollingAnimation()
     }
+}
 
+private extension NSFetchedResultsController {
+    /**
+     Find the first section that passes `test`.
+     
+     As all sections should contain at least one object, this can be used to find the
+     first object whose value for the `sectionNameKeyPath` passes `test`.
+     */
+    func indexOfFirstSectionPassing(@noescape test test: (sectionInfo: NSFetchedResultsSectionInfo) -> Bool) -> Int? {
+        guard let (idx, _) = sections?.enumerate().filter({ _, info in
+            return test(sectionInfo: info)
+        }).first else {
+            return nil
+        }
+        
+        return idx
+    }
 }
 
 // MARK: - Session Day Scroller
@@ -442,7 +484,7 @@ private class SessionDayScroller {
         case CollectionView(UICollectionView)
         case TableView(UITableView)
     }
-
+    
     private let fetchedResultsController: NSFetchedResultsController
     private let timeZone: NSTimeZone
     private let targetView: TargetView
@@ -467,12 +509,12 @@ private class SessionDayScroller {
             daysControl.addTarget(self, action: Selector("goToDay:"), forControlEvents: UIControlEvents.ValueChanged)
         }
     }
-
+    
     /**
-    Create an array of dates, set to midnight, of each day of the con.
-
-    Hard-coded for Anime Detour.
-    */
+     Create an array of dates, set to midnight, of each day of the con.
+     
+     Hard-coded for Anime Detour.
+     */
     private lazy var days: [NSDate] = {
         // Components for Friday at midnight
         let components = NSDateComponents()
@@ -482,21 +524,21 @@ private class SessionDayScroller {
         components.hour = 0
         components.minute = 0
         components.timeZone = self.timeZone
-
+        
         let calendar = NSCalendar.currentCalendar()
         let friday = calendar.dateFromComponents(components)!
         components.day += 1
         let saturday = calendar.dateFromComponents(components)!
         components.day += 1
         let sunday = calendar.dateFromComponents(components)!
-
+        
         return [friday, saturday, sunday]
     }()
-
+    
     /// `true` indicates that the view is currently scrolling to the first item on
     /// a particular day.
     private var scrollingToDay = false
-
+    
     private var sectionOfLatestDisplayedItem: Int = 0 {
         didSet {
             guard sectionOfLatestDisplayedItem != oldValue else {
@@ -513,28 +555,28 @@ private class SessionDayScroller {
             }
         }
     }
-
+    
     /**
-    - parameter fetchedResultsController: The FRC using which the scroller will look up `Session`s and their starting times. Must return `Session`s and be sectioned on the key path `start`.
-    - parameter daySegmentedControl: The control using which the day of the latest displayed `Session` will be indicated.
-    */
+     - parameter fetchedResultsController: The FRC using which the scroller will look up `Session`s and their starting times. Must return `Session`s and be sectioned on the key path `start`.
+     - parameter daySegmentedControl: The control using which the day of the latest displayed `Session` will be indicated.
+     */
     init(fetchedResultsController: NSFetchedResultsController, timeZone: NSTimeZone, targetView: TargetView) {
         self.fetchedResultsController = fetchedResultsController
         self.timeZone = timeZone
         self.targetView = targetView
     }
-
+    
     /**
-    Finds the index of the date in `days` which is the same day as `date`.
-
-    - returns: An index, or `nil` if no matching date was found.
-    */
+     Finds the index of the date in `days` which is the same day as `date`.
+     
+     - returns: An index, or `nil` if no matching date was found.
+     */
     private func dayIndex(date: NSDate) -> Int? {
         let dateAsInterval = date.timeIntervalSinceReferenceDate
         let fridayAsInterval = days[0].timeIntervalSinceReferenceDate
         let saturdayAsInterval = days[1].timeIntervalSinceReferenceDate
         let sundayAsInterval = days[2].timeIntervalSinceReferenceDate
-
+        
         var dateIdx: Int?
         switch dateAsInterval {
         case fridayAsInterval ..< saturdayAsInterval:
@@ -546,53 +588,36 @@ private class SessionDayScroller {
         default:
             break
         }
-
+        
         return dateIdx
     }
-
+    
     /**
-    Find the index path of the first Session with a start time of `date` (or later),
-    sorted using the sort descriptors from out `fetchedResultsController`'s fetch request.
-    */
+     Find the index path of the first Session with a start time of `date` (or later),
+     based on our `fetchedResultsController`'s current fetched sections.
+     */
     private func indexPathOfSection(date: NSDate) -> NSIndexPath? {
         let frc = fetchedResultsController
         
-        let predicate: NSPredicate
-        do {
-            let frcPredicate = frc.fetchRequest.predicate
-            let datePredicate = NSPredicate(format: "start >= %@", argumentArray: [date])
-            var predicates = [datePredicate]
-            if let frcPredicate = frcPredicate {
-                predicates.append(frcPredicate)
+        let fallbackDate = NSDate.distantPast()
+        return frc.indexOfFirstSectionPassing { info in
+            let firstSession = info.objects?.first as? Session
+            let sessionStart = firstSession?.start ?? fallbackDate
+            
+            // If `sessionStart.compare(date)` is `.OrderedAscending` or `.OrderedSame`,
+            // i.e. it matches or comes after `date`, we found the Session we want.
+            switch sessionStart.compare(date) {
+            case .OrderedAscending, .OrderedSame:
+                return true
+            case .OrderedDescending:
+                return false
             }
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-        }
-        
-        let moc = frc.managedObjectContext
-        let fetchRequest: NSFetchRequest
-        do {
-            let sortDescriptors = frc.fetchRequest.sortDescriptors
-            fetchRequest = NSFetchRequest()
-            fetchRequest.entity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: moc)
-            fetchRequest.predicate = predicate
-            fetchRequest.sortDescriptors = sortDescriptors
-        }
-
-        do {
-            guard let results = try moc.executeFetchRequest(fetchRequest) as? [Session] else { return nil }
-            guard let first = results.first else { return nil }
-            return fetchedResultsController.indexPathForObject(first)
-        } catch {
-            let error = error as NSError
-            NSLog("Error fetching first object with date %@: %@", date, error)
-        }
-
-        return nil
+        }.map { idx in return NSIndexPath(forItem: 0, inSection: idx) }
     }
-
+    
     /**
-    The start date for `Session`s in a given section.
-    */
+     The start date for `Session`s in a given section.
+     */
     func dateFor(section: Int) -> NSDate {
         var indexPath: NSIndexPath
         switch targetView {
@@ -601,17 +626,17 @@ private class SessionDayScroller {
         case .TableView:
             indexPath = NSIndexPath(forRow: 0, inSection: section)
         }
-
+        
         let session = fetchedResultsController.objectAtIndexPath(indexPath) as! Session
         return session.start
     }
-
+    
     /// Scroll to the first session for the day
     func scroll(date: NSDate) {
         guard let indexPath = indexPathOfSection(date) else {
             return
         }
-
+        
         scrollingToDay = true
         switch targetView {
         case let .CollectionView(cv):
@@ -629,24 +654,24 @@ private class SessionDayScroller {
             tv.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
         }
     }
-
+    
     func willDisplayItemAtIndexPath(indexPath: NSIndexPath) {
         guard !scrollingToDay else {
             return
         }
-
+        
         sectionOfLatestDisplayedItem = indexPath.section
         return
     }
-
+    
     // MARK: - Scroll View Delegate
-
+    
     func scrollViewDidEndScrollingAnimation() {
         scrollingToDay = false
     }
-
+    
     // MARK: - Received actions
-
+    
     @IBAction func goToDay(sender: UISegmentedControl) {
         let selectedIdx = sender.selectedSegmentIndex
         let day = days[selectedIdx]
