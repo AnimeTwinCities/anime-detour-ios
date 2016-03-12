@@ -14,6 +14,7 @@ class GuestCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var photoImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
+    private var photoShadowView: UIView!
 
     var viewModel: GuestViewModel? {
         didSet {
@@ -47,8 +48,19 @@ class GuestCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        photoShadowView = UIView()
+        photoShadowView.frame = photoImageView.frame
+        contentView.insertSubview(photoShadowView, belowSubview: photoImageView)
+        
+        let shadowLayer = photoShadowView.layer
+        shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
+        shadowLayer.shadowRadius = 2
+        shadowLayer.shadowOpacity = 0.25
+        shadowLayer.shadowColor = UIColor(white: 0.0, alpha: 1).CGColor // black
+        shadowLayer.shadowPath = UIBezierPath(ovalInRect: photoImageView.bounds).CGPath
+        shadowLayer.shouldRasterize = true
+        
         let imageLayer = self.photoImageView.layer
-        imageLayer.borderColor = UIColor.lightGrayColor().CGColor
         imageLayer.cornerRadius = self.photoImageView.frame.width / 2
         imageLayer.masksToBounds = true
     }
@@ -60,7 +72,8 @@ class GuestCollectionViewCell: UICollectionViewCell {
     }
     
     override func didMoveToWindow() {
-        let imageLayer = self.photoImageView.layer
-        imageLayer.borderWidth = 1 / (self.window?.screen.scale ?? 1)
+        super.didMoveToWindow()
+        let shadowLayer = photoShadowView.layer
+        shadowLayer.rasterizationScale = window?.screen.scale ?? 1
     }
 }
