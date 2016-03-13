@@ -8,10 +8,15 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 import AnimeDetourDataModel
 
 class SessionViewController: UIViewController, SessionViewModelDelegate {
+    static let sessionActivitySessionIDKey = (NSBundle.mainBundle().bundleIdentifier ?? "") + ".sessionID"
+    private static let sessionActivityTypeSuffix = ".session"
+    static let activityType = (NSBundle.mainBundle().bundleIdentifier ?? "") + sessionActivityTypeSuffix
+    
     @IBOutlet var sessionView: SessionView!
     
     /// The aspect ratio (width / height) of the photo image view.
@@ -19,8 +24,23 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     
     let imagesURLSession = NSURLSession.sharedSession()
     
-    var session: Session! {
+    lazy var managedObjectContext: NSManagedObjectContext! = CoreDataController.sharedInstance.managedObjectContext
+    var sessionID: String! {
         didSet {
+            guard let sessionID = sessionID else {
+                assertionFailure("`nil` SessionID set")
+                return
+            }
+            
+            let fetchRequest = NSFetchRequest(entityName: Session.entityName)
+            fetchRequest.predicate = NSPredicate(format: "%K == %@", Session.Keys.sessionID.rawValue, sessionID)
+            fetchRequest.fetchLimit = 1
+            let results = try? managedObjectContext.executeFetchRequest(fetchRequest)
+            guard let session = results?.first as? Session else {
+                NSLog("Received `sessionID` but couldn't find corresponding Session")
+                return
+            }
+            
             let viewModel = SessionViewModel(session: session, imagesURLSession: imagesURLSession, sessionStartTimeFormatter: dateFormatter, shortTimeFormatter: timeOnlyDateFormatter)
             viewModel.delegate = self
             self.viewModel = viewModel
@@ -30,6 +50,8 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
             }
         }
     }
+    
+    private var session: Session!
     
     private var viewModel: SessionViewModel?
     
@@ -47,10 +69,62 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
+        let dict = GAIDictionaryBuilder.createEventDictionary(screenName, action: .ViewDetails, label: viewModel?.session.name, value: nil)
+        analytics?.send(dict)
 
         sessionView.viewModel = viewModel
         updateHeaderSize()
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let currentActivity: NSUserActivity
+        if let activity = userActivity where activity.activityType == SessionViewController.activityType {
+            currentActivity = activity
+        } else {
+            userActivity?.invalidate()
+            currentActivity = NSUserActivity(activityType: SessionViewController.activityType)
+            
+            userActivity = currentActivity
+        }
+        
+        currentActivity.needsSave = true
+        currentActivity.becomeCurrent()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        userActivity?.resignCurrent()
+        userActivity = nil
+    }
+    
+    // MARK: - NSUserActivity
+    
+    override func restoreUserActivityState(activity: NSUserActivity) {
+        super.restoreUserActivityState(activity)
+        sessionID = activity.userInfo?["sessionID"] as? String
+    }
+    
+    override func updateUserActivityState(activity: NSUserActivity) {
+        super.updateUserActivityState(activity)
+        
+        activity.title = viewModel?.name
+        
+        var userInfo: [String:AnyObject] = [:]
+        if let viewModel = viewModel {
+            userInfo[SessionViewController.sessionActivitySessionIDKey] = viewModel.session.sessionID
+            activity.eligibleForSearch = true
+        } else {
+            activity.eligibleForSearch = false
+        }
+        
+        activity.addUserInfoEntriesFromDictionary(userInfo)
+    }
+    
+    // MARK: - Peek Preview Action Items
     
     override func previewActionItems() -> [UIPreviewActionItem] {
         let changeBookmarkedAction: UIPreviewActionItem

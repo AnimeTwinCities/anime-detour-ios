@@ -116,6 +116,14 @@ class SessionCollectionViewController: UICollectionViewController {
         }
     }
     
+    // MARK: Handoff
+    
+    /**
+    Session ID to display in a `SessionViewController` following a Handoff.
+    Should be reset to `nil` after Handoff.
+    */
+    private var handoffSessionID: String?
+    
     // MARK: Collection view
     
     /**
@@ -203,6 +211,26 @@ class SessionCollectionViewController: UICollectionViewController {
         super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
         
         traitCollectionAfterCurrentTransition = newCollection
+    }
+    
+    // MARK: - UIResponder
+    
+    override func restoreUserActivityState(activity: NSUserActivity) {
+        guard let sessionID = activity.userInfo?[SessionViewController.sessionActivitySessionIDKey] as? String else {
+            return
+        }
+        
+        let fetchRequest = NSFetchRequest(entityName: Session.entityName)
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", Session.Keys.sessionID.rawValue, sessionID)
+        let count = fetchedResultsController.managedObjectContext.countForFetchRequest(fetchRequest, error: nil)
+        guard count == 1 else {
+            // don't do anything, since we don't have the session for the ID that we received
+            return
+        }
+        
+        handoffSessionID = sessionID
+        performSegueWithIdentifier(detailSegueIdentifier, sender: self)
     }
     
     // MARK: - Show next sessions that haven't yet started
@@ -350,18 +378,25 @@ class SessionCollectionViewController: UICollectionViewController {
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
-        
-        switch (segue.identifier) {
+        switch segue.identifier {
         case detailSegueIdentifier?:
             let detailVC = segue.destinationViewController as! SessionViewController
-            let cell = sender as! UICollectionViewCell
-            let indexPath = collectionView?.indexPathForCell(cell)
-            let selectedSession = indexPath.map(dataSource.sessionAt)!
-            detailVC.session = selectedSession
+            let indexPath: NSIndexPath?
+            let selectedSessionID: String
+            if let cell = sender as? UICollectionViewCell {
+                indexPath = collectionView?.indexPathForCell(cell)
+                let selectedSession = indexPath.map(dataSource.sessionAt)!
+                selectedSessionID = selectedSession.sessionID
+            } else if sender === self {
+                // Handoff is the only way that we should get to this point.
+                selectedSessionID = handoffSessionID!
+                handoffSessionID = nil
+            } else {
+                preconditionFailure("Unexpected segue sender, can't display Session.")
+            }
             
-            let dict = GAIDictionaryBuilder.createEventDictionary(screenName, action: .ViewDetails, label: selectedSession.name, value: nil)
-            analytics?.send(dict)
+            detailVC.sessionID = selectedSessionID
+            
         case filterSegueIdentifier?:
             let navController = segue.destinationViewController as! UINavigationController
             let filterVC = navController.topViewController as! SessionFilterTableViewController

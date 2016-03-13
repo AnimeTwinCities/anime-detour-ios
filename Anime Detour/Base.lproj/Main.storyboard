@@ -1120,8 +1120,8 @@
                                                 </constraints>
                                                 <variation key="default">
                                                     <mask key="constraints">
-                                                        <exclude reference="dAt-tN-GCG"/>
                                                         <exclude reference="8v0-xx-2pJ"/>
+                                                        <exclude reference="dAt-tN-GCG"/>
                                                     </mask>
                                                 </variation>
                                             </view>
@@ -1132,8 +1132,8 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="rdJ-lL-9f2"/>
                                                 <exclude reference="huF-OM-2rO"/>
+                                                <exclude reference="rdJ-lL-9f2"/>
                                             </mask>
                                         </variation>
                                     </stackView>

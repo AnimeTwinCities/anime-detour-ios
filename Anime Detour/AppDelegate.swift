@@ -134,6 +134,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
     }
     
+    // MARK: - Handoff
+    
+    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+        let tabBarController = window?.rootViewController as? UITabBarController
+        if let activityController = tabBarController.map({ UserActivityController(tabBarController: $0) }) {
+            restorationHandler([activityController])
+        }
+        
+        return true
+    }
+    
     // MARK: - Analytics
     
     /**

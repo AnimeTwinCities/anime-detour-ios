@@ -233,7 +233,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
             let detailVC = segue.destinationViewController as! SessionViewController
             let selectedIndexPath = selectedCellIndex!
             let selectedSession = dataSource.sessionAt(selectedIndexPath)
-            detailVC.session = selectedSession
+            detailVC.sessionID = selectedSession.sessionID
 
             let dict = GAIDictionaryBuilder.createEventDictionary(.Session, action: .ViewDetails, label: selectedSession.name, value: nil)
             analytics?.send(dict)
