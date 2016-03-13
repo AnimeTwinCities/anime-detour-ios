@@ -7,157 +7,124 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DAB2B68D1C419A5D00EFF3AA /* Anime Detour Schedorg API.h in Headers */ = {isa = PBXBuildFile; fileRef = DAB2B68C1C419A5C00EFF3AA /* Anime Detour Schedorg API.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DAB2B69B1C419BD300EFF3AA /* AnimeDetourSchedorgAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2B69A1C419BD300EFF3AA /* AnimeDetourSchedorgAPIClient.swift */; };
-		DAB2B6F71C430C3A00EFF3AA /* Anime Detour Data Model.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB2B6F61C430C1E00EFF3AA /* Anime Detour Data Model.framework */; };
+		DA3691F11C960522001BA639 /* Anime Detour API.h in Headers */ = {isa = PBXBuildFile; fileRef = DA3691F01C960522001BA639 /* Anime Detour API.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA3692111C960534001BA639 /* AnimeDetourAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3692101C960534001BA639 /* AnimeDetourAPIClient.swift */; };
+		DA3692131C960562001BA639 /* AnimeDetourDataModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3692121C960562001BA639 /* AnimeDetourDataModel.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		DAB2B6F51C430C1E00EFF3AA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAB2B6F11C430C1E00EFF3AA /* Anime Detour Data Model.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DAB2B6CA1C430BDC00EFF3AA;
-			remoteInfo = "Anime Detour Data Model";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		DAB2B6891C419A5C00EFF3AA /* AnimeDetourSchedorgAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimeDetourSchedorgAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAB2B68C1C419A5C00EFF3AA /* Anime Detour Schedorg API.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour Schedorg API.h"; sourceTree = "<group>"; };
-		DAB2B68E1C419A5D00EFF3AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DAB2B69A1C419BD300EFF3AA /* AnimeDetourSchedorgAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetourSchedorgAPIClient.swift; sourceTree = "<group>"; };
-		DAB2B6F11C430C1E00EFF3AA /* Anime Detour Data Model.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Anime Detour Data Model.xcodeproj"; path = "../Anime Detour Data Model/Anime Detour Data Model.xcodeproj"; sourceTree = "<group>"; };
+		DA3691ED1C960522001BA639 /* AnimeDetourAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimeDetourAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA3691F01C960522001BA639 /* Anime Detour API.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour API.h"; sourceTree = "<group>"; };
+		DA3691F21C960522001BA639 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA3692101C960534001BA639 /* AnimeDetourAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetourAPIClient.swift; sourceTree = "<group>"; };
+		DA3692121C960562001BA639 /* AnimeDetourDataModel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AnimeDetourDataModel.framework; path = "../Anime Detour Data Model/build/Debug-iphoneos/AnimeDetourDataModel.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		DAB2B6851C419A5C00EFF3AA /* Frameworks */ = {
+		DA3691E91C960522001BA639 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB2B6F71C430C3A00EFF3AA /* Anime Detour Data Model.framework in Frameworks */,
+				DA3692131C960562001BA639 /* AnimeDetourDataModel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DAB2B67F1C419A5C00EFF3AA = {
+		DA3691E31C960522001BA639 = {
 			isa = PBXGroup;
 			children = (
-				DAB2B6F11C430C1E00EFF3AA /* Anime Detour Data Model.xcodeproj */,
-				DAB2B68B1C419A5C00EFF3AA /* Anime Detour Schedorg API */,
-				DAB2B68A1C419A5C00EFF3AA /* Products */,
+				DA3692121C960562001BA639 /* AnimeDetourDataModel.framework */,
+				DA3691EF1C960522001BA639 /* Anime Detour API */,
+				DA3691EE1C960522001BA639 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		DAB2B68A1C419A5C00EFF3AA /* Products */ = {
+		DA3691EE1C960522001BA639 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DAB2B6891C419A5C00EFF3AA /* AnimeDetourSchedorgAPI.framework */,
+				DA3691ED1C960522001BA639 /* AnimeDetourAPI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DAB2B68B1C419A5C00EFF3AA /* Anime Detour Schedorg API */ = {
+		DA3691EF1C960522001BA639 /* Anime Detour API */ = {
 			isa = PBXGroup;
 			children = (
-				DAB2B68C1C419A5C00EFF3AA /* Anime Detour Schedorg API.h */,
-				DAB2B68E1C419A5D00EFF3AA /* Info.plist */,
-				DAB2B69A1C419BD300EFF3AA /* AnimeDetourSchedorgAPIClient.swift */,
+				DA3692101C960534001BA639 /* AnimeDetourAPIClient.swift */,
+				DA3691F01C960522001BA639 /* Anime Detour API.h */,
+				DA3691F21C960522001BA639 /* Info.plist */,
 			);
-			path = "Anime Detour Schedorg API";
-			sourceTree = "<group>";
-		};
-		DAB2B6F21C430C1E00EFF3AA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DAB2B6F61C430C1E00EFF3AA /* Anime Detour Data Model.framework */,
-			);
-			name = Products;
+			path = "Anime Detour API";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		DAB2B6861C419A5C00EFF3AA /* Headers */ = {
+		DA3691EA1C960522001BA639 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB2B68D1C419A5D00EFF3AA /* Anime Detour Schedorg API.h in Headers */,
+				DA3691F11C960522001BA639 /* Anime Detour API.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		DAB2B6881C419A5C00EFF3AA /* AnimeDetourSchedorgAPI */ = {
+		DA3691EC1C960522001BA639 /* Anime Detour API */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAB2B6911C419A5D00EFF3AA /* Build configuration list for PBXNativeTarget "AnimeDetourSchedorgAPI" */;
+			buildConfigurationList = DA3692011C960522001BA639 /* Build configuration list for PBXNativeTarget "Anime Detour API" */;
 			buildPhases = (
-				DAB2B6841C419A5C00EFF3AA /* Sources */,
-				DAB2B6851C419A5C00EFF3AA /* Frameworks */,
-				DAB2B6861C419A5C00EFF3AA /* Headers */,
-				DAB2B6871C419A5C00EFF3AA /* Resources */,
+				DA3691E81C960522001BA639 /* Sources */,
+				DA3691E91C960522001BA639 /* Frameworks */,
+				DA3691EA1C960522001BA639 /* Headers */,
+				DA3691EB1C960522001BA639 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = AnimeDetourSchedorgAPI;
-			productName = "Anime Detour Schedorg API";
-			productReference = DAB2B6891C419A5C00EFF3AA /* AnimeDetourSchedorgAPI.framework */;
+			name = "Anime Detour API";
+			productName = "Anime Detour API";
+			productReference = DA3691ED1C960522001BA639 /* AnimeDetourAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		DAB2B6801C419A5C00EFF3AA /* Project object */ = {
+		DA3691E41C960522001BA639 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Anime Twin Cities, Inc";
 				TargetAttributes = {
-					DAB2B6881C419A5C00EFF3AA = {
-						CreatedOnToolsVersion = 7.2;
+					DA3691EC1C960522001BA639 = {
+						CreatedOnToolsVersion = 7.2.1;
 					};
 				};
 			};
-			buildConfigurationList = DAB2B6831C419A5C00EFF3AA /* Build configuration list for PBXProject "Anime Detour Schedorg API" */;
+			buildConfigurationList = DA3691E71C960522001BA639 /* Build configuration list for PBXProject "Anime Detour API" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = DAB2B67F1C419A5C00EFF3AA;
-			productRefGroup = DAB2B68A1C419A5C00EFF3AA /* Products */;
+			mainGroup = DA3691E31C960522001BA639;
+			productRefGroup = DA3691EE1C960522001BA639 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = DAB2B6F21C430C1E00EFF3AA /* Products */;
-					ProjectRef = DAB2B6F11C430C1E00EFF3AA /* Anime Detour Data Model.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
-				DAB2B6881C419A5C00EFF3AA /* AnimeDetourSchedorgAPI */,
+				DA3691EC1C960522001BA639 /* Anime Detour API */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		DAB2B6F61C430C1E00EFF3AA /* Anime Detour Data Model.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = "Anime Detour Data Model.framework";
-			remoteRef = DAB2B6F51C430C1E00EFF3AA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
-		DAB2B6871C419A5C00EFF3AA /* Resources */ = {
+		DA3691EB1C960522001BA639 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -167,18 +134,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		DAB2B6841C419A5C00EFF3AA /* Sources */ = {
+		DA3691E81C960522001BA639 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB2B69B1C419BD300EFF3AA /* AnimeDetourSchedorgAPIClient.swift in Sources */,
+				DA3692111C960534001BA639 /* AnimeDetourAPIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		DAB2B68F1C419A5D00EFF3AA /* Debug */ = {
+		DA3691FF1C960522001BA639 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -215,7 +182,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -226,7 +193,7 @@
 			};
 			name = Debug;
 		};
-		DAB2B6901C419A5D00EFF3AA /* Release */ = {
+		DA3692001C960522001BA639 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -257,7 +224,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -267,7 +234,7 @@
 			};
 			name = Release;
 		};
-		DAB2B6921C419A5D00EFF3AA /* Debug */ = {
+		DA3692021C960522001BA639 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -275,17 +242,18 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Anime Detour Schedorg API/Info.plist";
+				INFOPLIST_FILE = "Anime Detour API/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.animedetour.Anime-Detour-Schedorg-API";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.animedetour.Anime-Detour-API";
+				PRODUCT_NAME = AnimeDetourAPI;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		DAB2B6931C419A5D00EFF3AA /* Release */ = {
+		DA3692031C960522001BA639 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -293,11 +261,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Anime Detour Schedorg API/Info.plist";
+				INFOPLIST_FILE = "Anime Detour API/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.animedetour.Anime-Detour-Schedorg-API";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.animedetour.Anime-Detour-API";
+				PRODUCT_NAME = AnimeDetourAPI;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -305,24 +274,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DAB2B6831C419A5C00EFF3AA /* Build configuration list for PBXProject "Anime Detour Schedorg API" */ = {
+		DA3691E71C960522001BA639 /* Build configuration list for PBXProject "Anime Detour API" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DAB2B68F1C419A5D00EFF3AA /* Debug */,
-				DAB2B6901C419A5D00EFF3AA /* Release */,
+				DA3691FF1C960522001BA639 /* Debug */,
+				DA3692001C960522001BA639 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAB2B6911C419A5D00EFF3AA /* Build configuration list for PBXNativeTarget "AnimeDetourSchedorgAPI" */ = {
+		DA3692011C960522001BA639 /* Build configuration list for PBXNativeTarget "Anime Detour API" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DAB2B6921C419A5D00EFF3AA /* Debug */,
-				DAB2B6931C419A5D00EFF3AA /* Release */,
+				DA3692021C960522001BA639 /* Debug */,
+				DA3692031C960522001BA639 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = DAB2B6801C419A5C00EFF3AA /* Project object */;
+	rootObject = DA3691E41C960522001BA639 /* Project object */;
 }

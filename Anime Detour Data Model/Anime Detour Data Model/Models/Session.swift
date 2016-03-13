@@ -11,57 +11,96 @@ import Foundation
 import CoreData
 
 public class Session: NSManagedObject {
+    public static let entityName: String = "Session"
+    
     public enum Keys: String {
+        case bannerURL
+        case category
+        case hosts
         case name
         case startTime = "start"
-        case type
+        case tags
+        case sessionID
     }
     
-    @NSManaged public var key: String
-    @NSManaged public var active: Bool
-    @NSManaged public var bookmarked: Bool
+    @NSManaged public var sessionID: String
     @NSManaged public var name: String
+    @NSManaged public var sessionDescription: String
     @NSManaged public var start: NSDate
     @NSManaged public var end: NSDate
-    @NSManaged public var type: String
-    @NSManaged public var sessionDescription: String
-    @NSManaged public var mediaURL: String
-    @NSManaged public var seats: UInt32
-    @NSManaged public var goers: UInt32
-    @NSManaged public var inviteOnly: Bool
-    @NSManaged public var venue: String
-    @NSManaged public var address: String
-    @NSManaged public var sessionID: String
-    @NSManaged public var venueID: String
-
-    class public var entityName: String {
-        return "Session"
+    @NSManaged public var category: String
+    @NSManaged public var room: String
+    @NSManaged public var bookmarked: Bool
+    
+    public var bannerURL: NSURL? {
+        get {
+            willAccessValueForKey(Keys.bannerURL.rawValue)
+            defer {
+                didAccessValueForKey(Keys.bannerURL.rawValue)
+            }
+            
+            return primitiveBannerURL.flatMap { NSURL(string: $0) }
+        }
+        set {
+            willChangeValueForKey(Keys.bannerURL.rawValue)
+            defer {
+                didChangeValueForKey(Keys.bannerURL.rawValue)
+            }
+            
+            primitiveBannerURL = newValue?.absoluteString
+        }
     }
-
+    @NSManaged var primitiveBannerURL: String?
+    
+    public var hosts: [String] {
+        get {
+            willAccessValueForKey(Keys.hosts.rawValue)
+            defer {
+                didAccessValueForKey(Keys.hosts.rawValue)
+            }
+            return primitiveHosts.componentsSeparatedByString("SPLIT, ")
+        }
+        set {
+            willChangeValueForKey(Keys.hosts.rawValue)
+            defer {
+                didChangeValueForKey(Keys.hosts.rawValue)
+            }
+            
+            primitiveHosts = newValue.joinWithSeparator("SPLIT, ")
+        }
+    }
+    @NSManaged var primitiveHosts: String
+    
+    public var tags: [String] {
+        get {
+            willAccessValueForKey(Keys.tags.rawValue)
+            defer {
+                didAccessValueForKey(Keys.tags.rawValue)
+            }
+            return primitiveTags.componentsSeparatedByString("SPLIT, ")
+        }
+        set {
+            willChangeValueForKey(Keys.tags.rawValue)
+            defer {
+                didChangeValueForKey(Keys.tags.rawValue)
+            }
+            primitiveTags = newValue.joinWithSeparator("SPLIT, ")
+        }
+    }
+    @NSManaged var primitiveTags: String
+    
     override public var description: String {
         return "Session: \(name) - \(sessionDescription)"
-    }
-
-    /// All of the types of this Session. Ordered by importance. Assumes `type` is a
-    /// comma-separated list of types.
-    public var types: [String] {
-        get {
-            return self.type.componentsSeparatedByString(",")
-        }
     }
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()
 
         // set empty default strings for String properties
-        self.key = ""
-        self.name = ""
-        self.type = ""
-        self.sessionDescription = ""
-        self.mediaURL = ""
-        self.venue = ""
-        self.address = ""
-        self.sessionID = ""
-        self.venueID = ""
+        sessionID = ""
+        name = ""
+        sessionDescription = ""
+        category = ""
+        room = ""
     }
 }

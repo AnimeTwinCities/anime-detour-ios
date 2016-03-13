@@ -8,8 +8,8 @@
 
 import Foundation
 
-import AnimeDetourSchedorgAPI
+import AnimeDetourAPI
 
-extension AnimeDetourSchedorgAPIClient {
-    static let sharedInstance: AnimeDetourSchedorgAPIClient = AnimeDetourSchedorgAPIClient()
+extension AnimeDetourAPIClient {
+    static let sharedInstance: AnimeDetourAPIClient = AnimeDetourAPIClient()
 }

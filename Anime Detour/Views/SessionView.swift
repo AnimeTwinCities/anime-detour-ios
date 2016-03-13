@@ -52,7 +52,7 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
             timeLabel.text = viewModel?.dateAndTime
             locationLabel.text = viewModel?.location
             descriptionLabel.text = viewModel?.sessionDescription
-            typesLabel.text = viewModel?.types
+            typesLabel.text = viewModel?.category
             panelistsLabel.text = ""
 
             bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)

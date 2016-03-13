@@ -9,10 +9,10 @@
 import Foundation
 
 import AnimeDetourDataModel
-import AnimeDetourSchedorgAPI
+import AnimeDetourAPI
 import CoreData
 
-extension AnimeDetourSchedorgAPIClient {
+extension AnimeDetourAPIClient {
     func fetchGuests(dataStatusDefaultsController: DataStatusDefaultsController, managedObjectContext: NSManagedObjectContext) {
         self.guestList { [weak self] (result, error) -> () in
             guard let result = result where result.count > 0 else {

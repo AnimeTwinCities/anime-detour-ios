@@ -9,10 +9,10 @@
 import Foundation
 
 import AnimeDetourDataModel
-import AnimeDetourSchedorgAPI
+import AnimeDetourAPI
 import CoreData
 
-extension AnimeDetourSchedorgAPIClient {
+extension AnimeDetourAPIClient {
     func fetchSessions(dataStatusDefaultsController: DataStatusDefaultsController, managedObjectContext: NSManagedObjectContext) {
         self.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
             guard let result = result where result.count > 0 else {
@@ -110,7 +110,7 @@ extension AnimeDetourSchedorgAPIClient {
      */
     private func createOrUpdateSessionFor(json: [String : String], context: NSManagedObjectContext) -> NSManagedObjectID {
         var foundSession: Session?
-        if let id = json[SessionJSONKeys.sessionID] {
+        if let id = json[SessionJSONKeys.sessionID.rawValue] {
             let existingPredicate = NSPredicate(format: "sessionID == %@", id)
             let fetchRequest = NSFetchRequest(entityName: Session.entityName)
             fetchRequest.predicate = existingPredicate

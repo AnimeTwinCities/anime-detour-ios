@@ -10,12 +10,12 @@ import UIKit
 import CoreData
 
 import AnimeDetourDataModel
-import AnimeDetourSchedorgAPI
+import AnimeDetourAPI
 
 class SessionCollectionViewController: UICollectionViewController {
     private var imagesURLSession = NSURLSession.sharedSession()
     lazy private var refreshingTableViewController: UITableViewController = UITableViewController()
-    lazy private var apiClient = AnimeDetourSchedorgAPIClient.sharedInstance
+    lazy private var apiClient = AnimeDetourAPIClient.sharedInstance
     private var refreshing: Bool = false {
         didSet {
             if refreshing {
@@ -49,16 +49,16 @@ class SessionCollectionViewController: UICollectionViewController {
         return fetchedResultsController
     }()
     
-    /// Type name for which the Session list will be filtered.
-    /// Updating this property will update out `title`.
+    /// Category name for which the Session list will be filtered.
+    /// Updating this property will update our `title`.
     /// Must not be changed before `fetchedResultsController` is created.
-    private var filteredType: SelectedSessionType = .All {
+    private var filteredCategory: SelectedSessionCategory = .All {
         didSet {
-            guard filteredType != oldValue else {
+            guard filteredCategory != oldValue else {
                 return
             }
             
-            navigationItem.title = filteredTitle(filteredType)
+            navigationItem.title = filteredTitle(filteredCategory)
             
             fetchedResultsController.fetchRequest.predicate = completePredicate
             
@@ -87,13 +87,13 @@ class SessionCollectionViewController: UICollectionViewController {
         return completePredicate
     }
     private var filteredSessionsPredicate: NSPredicate? {
-        switch filteredType {
+        switch filteredCategory {
         case .All:
             return nil
-        case let .Named(type):
-            let begins = NSPredicate(format: "\(Session.Keys.type.rawValue) BEGINSWITH %@", type)
-            let contains = NSPredicate(format: "\(Session.Keys.type.rawValue) CONTAINS %@", ", " + type + ",")
-            let ends = NSPredicate(format: "\(Session.Keys.type.rawValue) ENDSWITH %@", ", " + type)
+        case let .Named(category):
+            let begins = NSPredicate(format: "\(Session.Keys.category.rawValue) BEGINSWITH %@", category)
+            let contains = NSPredicate(format: "\(Session.Keys.category.rawValue) CONTAINS %@", ", " + category + ",")
+            let ends = NSPredicate(format: "\(Session.Keys.category.rawValue) ENDSWITH %@", ", " + category)
             let pred = NSCompoundPredicate(orPredicateWithSubpredicates: [begins, contains, ends])
             return pred
         }
@@ -158,7 +158,7 @@ class SessionCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         title = "Schedule"
-        navigationItem.title = filteredTitle(filteredType)
+        navigationItem.title = filteredTitle(filteredCategory)
         
         let collectionView = self.collectionView!
         
@@ -296,9 +296,9 @@ class SessionCollectionViewController: UICollectionViewController {
     
     // MARK: - Filtering
     
-    func filteredTitle(filteredSessionType: SelectedSessionType) -> String {
+    func filteredTitle(filteredSessionType: SelectedSessionCategory) -> String {
         let unfilteredTitle = "Sessions"
-        switch filteredType {
+        switch filteredCategory {
         case .All:
             return unfilteredTitle
         case let .Named(type):
@@ -357,11 +357,11 @@ class SessionCollectionViewController: UICollectionViewController {
         case filterSegueIdentifier?:
             let navController = segue.destinationViewController as! UINavigationController
             let filterVC = navController.topViewController as! SessionFilterTableViewController
-            filterVC.selectedType = filteredType
+            filterVC.selectedType = filteredCategory
             filterVC.sessionTypes = { () -> [String] in
-                let typeKey = "type"
+                let categoryKey = Session.Keys.category.rawValue
                 let request = NSFetchRequest(entityName: Session.entityName)
-                request.propertiesToFetch = [ typeKey ]
+                request.propertiesToFetch = [ categoryKey ]
                 request.resultType = NSFetchRequestResultType.DictionaryResultType
                 request.returnsDistinctResults = true
                 
@@ -373,7 +373,7 @@ class SessionCollectionViewController: UICollectionViewController {
                     }
                     
                     // This is probably very slow...
-                    let allTypeProperties = stringly.map { dict -> String in return dict[typeKey]! }
+                    let allTypeProperties = stringly.map { dict -> String in return dict[categoryKey]! }
                     let types = allTypeProperties.flatMap { (types: String) -> [String] in
                         let separatedTypes = types.componentsSeparatedByString(", ")
                         return separatedTypes
@@ -403,7 +403,7 @@ class SessionCollectionViewController: UICollectionViewController {
     
     @IBAction func unwindAfterFiltering(segue: UIStoryboardSegue) {
         let filterVC = segue.sourceViewController as! SessionFilterTableViewController
-        filteredType = filterVC.selectedType
+        filteredCategory = filterVC.selectedType
         
         dismissViewControllerAnimated(true, completion: nil)
     }

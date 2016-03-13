@@ -116,7 +116,7 @@ class SessionNotificationScheduler: NSObject, NSFetchedResultsControllerDelegate
                     displayName = sessionName.substringToIndex(displayName.startIndex.advancedBy(maxNameLength)) + "..."
                 }
                 
-                let location = firstSession.venue
+                let location = firstSession.room
                 alertBody = "\(displayName) starting in \(timeToStart) at \(location)."
             }
             

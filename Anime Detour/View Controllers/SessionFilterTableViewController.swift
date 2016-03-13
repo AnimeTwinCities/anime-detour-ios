@@ -16,7 +16,7 @@ class SessionFilterTableViewController: UITableViewController {
 
     /// The current selection on which to filter.
     /// Setting the selected type will update the table view.
-    var selectedType: SelectedSessionType = .All {
+    var selectedType: SelectedSessionCategory = .All {
         didSet {
             if sessionTypes == nil {
                 return
@@ -36,7 +36,7 @@ class SessionFilterTableViewController: UITableViewController {
 
     /// The index path corresponding to a session type.
     /// Depends on `sessionTypes`. Must only be called when `sessionTypes` is non-nil.
-    private func indexPath(type: SelectedSessionType) -> NSIndexPath {
+    private func indexPath(type: SelectedSessionCategory) -> NSIndexPath {
         var indexPath: NSIndexPath
         switch type {
         case .All:
@@ -73,7 +73,7 @@ class SessionFilterTableViewController: UITableViewController {
     // MARK: - Table view delegate
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var selectedType: SelectedSessionType
+        var selectedType: SelectedSessionCategory
         switch (indexPath.section, indexPath.row) {
         case (0, _):
             selectedType = .All

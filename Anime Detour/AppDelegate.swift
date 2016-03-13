@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 
 import AnimeDetourDataModel
-import AnimeDetourSchedorgAPI
+import AnimeDetourAPI
 
 import WatchdogInspector
 
@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    lazy var apiClient = AnimeDetourSchedorgAPIClient.sharedInstance
+    lazy var apiClient = AnimeDetourAPIClient.sharedInstance
     lazy var coreDataController = CoreDataController.sharedInstance
     lazy var backgroundContext: NSManagedObjectContext = {
         let context = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)

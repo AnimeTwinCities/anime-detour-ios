@@ -1,5 +1,5 @@
 //
-//  SelectedSessionType.swift
+//  SelectedSessionCategory.swift
 //  Anime Detour
 //
 //  Created by Brendon Justin on 2/1/15.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum SelectedSessionType: Equatable {
+enum SelectedSessionCategory: Equatable {
     case All
     case Named(String)
 }
 
-func ==(type1: SelectedSessionType, type2: SelectedSessionType) -> Bool {
+func ==(type1: SelectedSessionCategory, type2: SelectedSessionCategory) -> Bool {
     switch (type1, type2) {
     case (.All, .All):
         return true

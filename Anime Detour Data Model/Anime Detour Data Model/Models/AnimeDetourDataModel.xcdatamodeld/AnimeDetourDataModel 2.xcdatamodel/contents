@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10118.6" systemVersion="15D21" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
     <entity name="Guest" representedClassName=".Guest" syncable="YES">
         <attribute name="bio" attributeType="String" syncable="YES"/>
         <attribute name="category" attributeType="String" syncable="YES"/>
@@ -13,25 +13,20 @@
         <attribute name="photoPath" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Session" representedClassName=".Session" syncable="YES">
-        <attribute name="active" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="address" attributeType="String" syncable="YES"/>
-        <attribute name="bookmarked" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="bannerURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bookmarked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="end" attributeType="Date" defaultDateTimeInterval="-978303600" syncable="YES"/>
-        <attribute name="goers" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="inviteOnly" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="key" attributeType="String" syncable="YES"/>
-        <attribute name="mediaURL" attributeType="String" syncable="YES"/>
+        <attribute name="hosts" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="seats" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="room" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sessionDescription" attributeType="String" syncable="YES"/>
         <attribute name="sessionID" attributeType="String" syncable="YES"/>
         <attribute name="start" attributeType="Date" defaultDateTimeInterval="-978307200" syncable="YES"/>
-        <attribute name="type" attributeType="String" syncable="YES"/>
-        <attribute name="venue" attributeType="String" syncable="YES"/>
-        <attribute name="venueID" attributeType="String" syncable="YES"/>
+        <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Guest" positionX="-54" positionY="108" width="128" height="195"/>
-        <element name="Session" positionX="-63" positionY="-18" width="128" height="285"/>
+        <element name="Session" positionX="-63" positionY="-18" width="128" height="210"/>
     </elements>
 </model>

@@ -81,40 +81,18 @@ class SessionViewModel {
         return "\(startDateString) - \(endDateString)"
     }
 
-    var location: String? {
-        return session.venue
+    var location: String {
+        return session.room
     }
 
-    /**
-    The primary color for our session, i.e. the color corresponding to our session's
-    primary type.
-    */
-    var primaryColor: UIColor {
-        // Default to gray #333333
-        return self.sessionType?.color ?? UIColor(red: 51 / 255, green: 51 / 255, blue: 51 / 255, alpha: 1)
+    var category: String {
+        return session.category
     }
-
-    /// The Session's primary type.
-    var type: String {
-        return session.type
-    }
-
-    /// A comma-separated string of all of the Session's types.
-    var types: String {
-        return session.types.joinWithSeparator(", ")
-    }
-
-    /**
-    The primary type of our session.
-    */
-    private var sessionType: SessionType? {
-        return SessionType.from(self.type)
-    }
-
+    
     private var image: UIImage?
 
     private var imageURL: NSURL? {
-        return NSURL(string: session.mediaURL)
+        return session.bannerURL
     }
 
     /**
