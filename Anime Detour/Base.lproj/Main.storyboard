@@ -419,7 +419,7 @@
             </objects>
             <point key="canvasLocation" x="882" y="1075"/>
         </scene>
-        <!--Anime Detour 2015-->
+        <!--Anime Detour 2016-->
         <scene sceneID="2JE-w2-d4d">
             <objects>
                 <tableViewController id="LKD-2f-hmH" customClass="InformationViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
@@ -460,8 +460,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="March 27th-29th, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BA-Hq-Tuh">
-                                                    <rect key="frame" x="211" y="11" width="178.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apri 22nd-24th, 2016" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BA-Hq-Tuh">
+                                                    <rect key="frame" x="217.5" y="11" width="165.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -614,7 +614,7 @@
                             <outlet property="delegate" destination="LKD-2f-hmH" id="at2-93-z34"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Anime Detour 2015" id="nMS-Wl-yAg"/>
+                    <navigationItem key="navigationItem" title="Anime Detour 2016" id="nMS-Wl-yAg"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="logoIdentifier" value="LogoReuseIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="titleIdentifier" value="TitleReuseIdentifier"/>
@@ -1098,11 +1098,11 @@
         <image name="building" width="25" height="25"/>
         <image name="building_filled" width="25" height="25"/>
         <image name="disclosure_indicator" width="8" height="14"/>
-        <image name="list" width="50" height="50"/>
-        <image name="list_filled" width="50" height="50"/>
+        <image name="list" width="25" height="25"/>
+        <image name="list_filled" width="25" height="25"/>
         <image name="settings" width="25" height="25"/>
         <image name="settings_filled" width="25" height="25"/>
-        <image name="star" width="50" height="50"/>
+        <image name="star" width="25" height="25"/>
         <image name="star_filled" width="25" height="25"/>
         <image name="user_female" width="25" height="25"/>
         <image name="user_female_filled" width="25" height="25"/>
