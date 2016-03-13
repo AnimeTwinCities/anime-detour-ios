@@ -82,13 +82,6 @@
 			remoteGlobalIDString = DA3691ED1C960522001BA639;
 			remoteInfo = "Anime Detour API";
 		};
-		DA36920E1C960523001BA639 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DA3692071C960522001BA639 /* Anime Detour API.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DA3691F71C960522001BA639;
-			remoteInfo = "Anime Detour APITests";
-		};
 		DA3692141C960577001BA639 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA3692071C960522001BA639 /* Anime Detour API.xcodeproj */;
@@ -422,7 +415,6 @@
 			isa = PBXGroup;
 			children = (
 				DA36920D1C960523001BA639 /* Anime Detour API.framework */,
-				DA36920F1C960523001BA639 /* Anime Detour APITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -542,13 +534,6 @@
 			fileType = wrapper.framework;
 			path = "Anime Detour API.framework";
 			remoteRef = DA36920C1C960523001BA639 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DA36920F1C960523001BA639 /* Anime Detour APITests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Anime Detour APITests.xctest";
-			remoteRef = DA36920E1C960523001BA639 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		DAB2B6DA1C430BDC00EFF3AA /* AnimeDetourDataModel.framework */ = {
