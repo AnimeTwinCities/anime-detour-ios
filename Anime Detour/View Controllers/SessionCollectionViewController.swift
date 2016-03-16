@@ -308,10 +308,17 @@ class SessionCollectionViewController: UICollectionViewController {
     
     // MARK: - Refreshing
     
-    /// Add the refresh control to the collection view
+    /**
+     Add the refresh control to the collection view.
+     
+     - Note: Also sets `alwaysBounceVertical` on the collection view, so it may be refreshed event
+     when empty.
+     */
     private func addRefreshControl() {
         let collectionView = self.collectionView!
         collectionView.addSubview(refreshControl)
+        
+        collectionView.alwaysBounceVertical = true
         
         // Cheat and move the refresh control's bounds down, below the day selector header
         var headerHeight: CGFloat
@@ -323,7 +330,6 @@ class SessionCollectionViewController: UICollectionViewController {
         var refreshBounds = refreshControl.bounds
         refreshBounds.offsetInPlace(dx: 0, dy: -headerHeight)
         refreshControl.bounds = refreshBounds
-        
     }
     
     @objc private func refreshSessions(sender: AnyObject?) {
