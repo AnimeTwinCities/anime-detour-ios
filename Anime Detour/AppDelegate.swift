@@ -67,6 +67,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // no analytics
             #if os(iOS)
                 TWWatchdogInspector.start()
+                // Disable the stalling threshold by setting it to 50 minutes
+                TWWatchdogInspector.setStallingThreshhold(3000)
             #endif
         #else
             initAnalytics()
