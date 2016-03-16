@@ -49,7 +49,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     var completePredicate: NSPredicate? {
         var predicates: [NSPredicate] = []
         if bookmarkedOnly {
-            let bookmarkPredicate = NSPredicate(format: "bookmarked == YES")
+            let bookmarkPredicate = NSPredicate(format: "%K == YES", Session.Keys.bookmarked.rawValue)
             predicates.append(bookmarkPredicate)
         }
 

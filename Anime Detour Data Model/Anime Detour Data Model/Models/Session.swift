@@ -15,6 +15,7 @@ public class Session: NSManagedObject {
     
     public enum Keys: String {
         case bannerURL
+        case bookmarked
         case category
         case hosts
         case name
