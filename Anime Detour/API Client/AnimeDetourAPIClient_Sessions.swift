@@ -26,11 +26,11 @@ extension AnimeDetourAPIClient {
                 return
             }
             
-            guard let jsonSessions = result as? [[String : String]] else { return }
+            guard let jsonSessions = result as? [[String : AnyObject]] else { return }
             let context = managedObjectContext
             context.performBlock { () -> Void in
                 let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
-                for json: [String : String] in jsonSessions {
+                for json: [String : AnyObject] in jsonSessions {
                     let session = Session(entity: sessionEntity, insertIntoManagedObjectContext: context)
                     session.update(jsonObject: json, jsonDateFormatter: strongSelf.dateFormatter)
                 }

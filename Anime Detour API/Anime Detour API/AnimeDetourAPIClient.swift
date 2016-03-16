@@ -20,7 +20,7 @@ enum APIEndpoint {
         case .GuestList:
             url = "/guest_list/2/"
         case .SessionList:
-            url = "/events"
+            url = "/programming_events"
         }
         
         return url
