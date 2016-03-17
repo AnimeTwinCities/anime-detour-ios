@@ -15,8 +15,11 @@ import AnimeDetourDataModel
  Collection view controller displaying `Guest`s. Requires the collection view to use a `UICollectionViewFlowLayout`.
  */
 class GuestCollectionViewController: UICollectionViewController, CollectionViewFetchedResultsControllerCellCustomizer {
+    // MARK: Images
 
     lazy var imageSession: NSURLSession = NSURLSession.sharedSession()
+    
+    // MARK: Segues
 
     /// Detail segue identifier
     @IBInspectable var detailIdentifier: String!
@@ -26,7 +29,13 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 
     /// Section header reuse identifier
     @IBInspectable var headerIdentifier: String!
+    
+    // MARK: Handoff
+    
+    private var handoffGuestID: String?
 
+    // MARK: Core Data
+    
     /// Lazily created FRC. To use, first perform a fetch on it.
     private lazy var fetchedResultsController: NSFetchedResultsController = {
         let moc = self.managedObjectContext
@@ -43,8 +52,10 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 
     private lazy var fetchedResultsControllerDelegate = CollectionViewFetchedResultsControllerDelegate()
     
+    // MARK: Face Detection
+    
     private let faceDetector = ImageFaceDetector()
-
+    
     // MARK: Collection view sizing
 
     private var lastDisplayedTraitCollection: UITraitCollection!
@@ -86,6 +97,28 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         setFlowLayoutCellSizes(collectionView!)
         lastDisplayedTraitCollection = traitCollection
     }
+    
+    // MARK: - UIResponder
+    
+    override func restoreUserActivityState(activity: NSUserActivity) {
+        guard let guestID = activity.userInfo?[GuestDetailTableViewController.guestActivityGuestIDKey] as? String else {
+            return
+        }
+        
+        let fetchRequest = NSFetchRequest(entityName: Guest.entityName)
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", Guest.Keys.guestID.rawValue, guestID)
+        let count = fetchedResultsController.managedObjectContext.countForFetchRequest(fetchRequest, error: nil)
+        guard count == 1 else {
+            // don't do anything, since we don't have the guest for the ID that we received
+            return
+        }
+        
+        handoffGuestID = guestID
+        performSegueWithIdentifier(detailIdentifier, sender: self)
+    }
+    
+    // MARK: Data Display
 
     private func guestAt(indexPath: NSIndexPath) -> Guest {
         return fetchedResultsController.objectAtIndexPath(indexPath) as! Guest
@@ -151,17 +184,20 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
-
         switch (segue.identifier) {
         case detailIdentifier?:
-            let cell = sender as! GuestCollectionViewCell
-            let guestViewModel = cell.viewModel!
+            let guestID: String
+            switch sender {
+            case let cell as GuestCollectionViewCell:
+                guestID = cell.viewModel!.guest.guestID
+            case self as GuestCollectionViewController:
+                guestID = handoffGuestID!
+            default:
+                preconditionFailure("Unexpected segue sender.")
+            }
+            
             let guestVC = segue.destinationViewController as! GuestDetailTableViewController
-            guestVC.guestViewModel = guestViewModel
-
-            let dict = GAIDictionaryBuilder.createEventDictionary(.Guest, action: .ViewDetails, label: guestViewModel.name, value: nil)
-            analytics?.send(dict)
+            guestVC.guestID = guestID
         default:
             fatalError("Unexpected segue encountered.")
         }

@@ -12,6 +12,7 @@ import UIKit
 
 public class Guest: NSManagedObject {
     public enum Keys: String {
+        case guestID
         case firstName
         case category
     }

@@ -105,7 +105,7 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     
     override func restoreUserActivityState(activity: NSUserActivity) {
         super.restoreUserActivityState(activity)
-        sessionID = activity.userInfo?["sessionID"] as? String
+        sessionID = activity.userInfo?[SessionViewController.sessionActivitySessionIDKey] as? String
     }
     
     override func updateUserActivityState(activity: NSUserActivity) {

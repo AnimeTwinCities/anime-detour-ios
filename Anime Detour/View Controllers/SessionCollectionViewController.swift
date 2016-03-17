@@ -396,7 +396,6 @@ class SessionCollectionViewController: UICollectionViewController {
             }
             
             detailVC.sessionID = selectedSessionID
-            
         case filterSegueIdentifier?:
             let navController = segue.destinationViewController as! UINavigationController
             let filterVC = navController.topViewController as! SessionFilterTableViewController

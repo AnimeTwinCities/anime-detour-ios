@@ -8,8 +8,16 @@
 
 import UIKit
 
+import AnimeDetourDataModel
+import CoreData
+
+
 class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, StretchingImageHeaderContainer {
-    var guestViewModel: GuestViewModel!
+    static let guestActivityGuestIDKey = (NSBundle.mainBundle().bundleIdentifier ?? "") + ".guestID"
+    private static let guestActivityTypeSuffix = ".guest"
+    static let activityType = (NSBundle.mainBundle().bundleIdentifier ?? "") + guestActivityTypeSuffix
+
+    private var guestViewModel: GuestViewModel?
     
     var imageHeaderView: ImageHeaderView!
     var photoAspect: CGFloat = 2
@@ -19,33 +27,115 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
 
     @IBInspectable var bioIdentifier: String!
     @IBInspectable var nameIdentifier: String!
+    
+    // MARK: Images
+
+    lazy var imageSession: NSURLSession = NSURLSession.sharedSession()
+    
+    // MARK: Core Data
+    
+    lazy var managedObjectContext: NSManagedObjectContext! = CoreDataController.sharedInstance.managedObjectContext
+    var guestID: String! {
+        didSet {
+            guard let guestID = guestID else {
+                assertionFailure("`nil` guestID set")
+                return
+            }
+            
+            let fetchRequest = NSFetchRequest(entityName: Guest.entityName)
+            fetchRequest.predicate = NSPredicate(format: "%K == %@", Guest.Keys.guestID.rawValue, guestID)
+            fetchRequest.fetchLimit = 1
+            let results = try? managedObjectContext.executeFetchRequest(fetchRequest)
+            guard let guest = results?.first as? Guest else {
+                NSLog("Received `guestID` but couldn't find corresponding Session")
+                return
+            }
+            
+            let viewModel = GuestViewModel(guest: guest, imageSession: imageSession)
+            self.guestViewModel = viewModel
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         imageHeaderView = tableView.tableHeaderView as! ImageHeaderView
-        imageHeaderView.imageView.image = guestViewModel.hiResPhoto(true, lowResPhotoPlaceholder: true)
-        imageHeaderView.faceBounds = guestViewModel.hiResFaceBounds
+        imageHeaderView.imageView.image = guestViewModel?.hiResPhoto(true, lowResPhotoPlaceholder: true)
+        imageHeaderView.faceBounds = guestViewModel?.hiResFaceBounds
         
         updateHeaderSize()
+        
+        let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
+        
+        let dict = GAIDictionaryBuilder.createEventDictionary(.Guest, action: .ViewDetails, label: guestViewModel?.name, value: nil)
+        analytics?.send(dict)
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let currentActivity: NSUserActivity
+        if let activity = userActivity where activity.activityType == GuestDetailTableViewController.activityType {
+            currentActivity = activity
+        } else {
+            userActivity?.invalidate()
+            currentActivity = NSUserActivity(activityType: GuestDetailTableViewController.activityType)
+            
+            userActivity = currentActivity
+        }
+        
+        currentActivity.needsSave = true
+        currentActivity.becomeCurrent()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        userActivity?.resignCurrent()
+        userActivity = nil
+    }
+    
+    // MARK: Guest Display
 
     private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         switch cell.reuseIdentifier {
         case nameIdentifier?:
-            (cell as! GuestNameCell).nameLabel.text = guestViewModel.name
+            (cell as! GuestNameCell).nameLabel.text = guestViewModel?.name
         case bioIdentifier?:
             let webView = cell.contentView.subviews.flatMap { $0 as? UIWebView }.first!
             webView.delegate = self
             webView.scrollView.scrollEnabled = false
             if !bioWebviewLoadInitiated {
-                webView.loadHTMLString(guestViewModel.bio, baseURL: nil)
+                webView.loadHTMLString(guestViewModel?.bio ?? "", baseURL: nil)
                 bioWebviewLoadInitiated = true
             }
         case let identifier:
             fatalError("Unexpected reuse identifier: \(identifier). Expected a match against one of our xIdentifier properties.")
         }
     }
+    
+    // MARK: - NSUserActivity
+    
+    override func restoreUserActivityState(activity: NSUserActivity) {
+        super.restoreUserActivityState(activity)
+        guestID = activity.userInfo?[GuestDetailTableViewController.guestActivityGuestIDKey] as? String
+    }
+    
+    override func updateUserActivityState(activity: NSUserActivity) {
+        super.updateUserActivityState(activity)
+        
+        activity.title = guestViewModel?.name
+        
+        var userInfo: [String:AnyObject] = [:]
+        if let viewModel = guestViewModel {
+            userInfo[GuestDetailTableViewController.guestActivityGuestIDKey] = viewModel.guest.guestID
+            activity.eligibleForSearch = true
+        } else {
+            activity.eligibleForSearch = false
+        }
+        
+        activity.addUserInfoEntriesFromDictionary(userInfo)
+    }
+    
     
     // MARK: - Scroll view delegate
     
