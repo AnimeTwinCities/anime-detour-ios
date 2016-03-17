@@ -737,7 +737,9 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Favorite Sessions" id="RQL-cG-YJa"/>
+                    <navigationItem key="navigationItem" title="Favorite Sessions" id="RQL-cG-YJa">
+                        <barButtonItem key="backBarButtonItem" title="Favorites" id="mEa-MO-OP6"/>
+                    </navigationItem>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="detailIdentifier" value="BookmarkedSessionDetail"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="bookmarkedOnly" value="YES"/>
