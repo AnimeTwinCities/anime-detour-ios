@@ -89,6 +89,10 @@ class SessionViewModel {
         return session.category
     }
     
+    var panelists: String {
+        return session.hosts.joinWithSeparator(", ")
+    }
+    
     private var image: UIImage?
 
     private var imageURL: NSURL? {
