@@ -19,9 +19,13 @@ extension UIColor {
     class var adr_lighterOrange: UIColor {
         return UIColor.adr_colorFromHex(0xffb163)
     }
-
+    
     class var adr_brown: UIColor {
         return UIColor.adr_colorFromHex(0x281200)
+    }
+    
+    class var adr_lightGray: UIColor {
+        return UIColor(white: 0.95, alpha: 1)
     }
 
     class func adr_colorFromHex(hex: Int) -> UIColor {

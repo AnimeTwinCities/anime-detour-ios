@@ -213,6 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITableViewCell.appearance().selectedBackgroundView = tableViewBackgroundView
         GuestCollectionViewCell.appearance().highlightColor = UIColor.adr_lighterOrange
         SessionCollectionViewCell.appearance().highlightColor = UIColor.adr_lighterOrange
+        TextHeaderCollectionReusableView.appearance().backgroundColor = UIColor.adr_lightGray
     }
 }
 
