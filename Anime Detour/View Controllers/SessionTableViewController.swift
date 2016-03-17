@@ -99,6 +99,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
         controller.dimsBackgroundDuringPresentation = false
         controller.hidesNavigationBarDuringPresentation = false
         controller.searchResultsUpdater = self
+        controller.searchBar.placeholder = "Search Sessions"
 
         return controller
     }()
