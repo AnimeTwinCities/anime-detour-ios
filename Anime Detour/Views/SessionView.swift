@@ -27,8 +27,6 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
 
     @IBOutlet var bookmarkButton: UIButton!
     
-    @IBOutlet var imageHeaderViewHeightConstraint: NSLayoutConstraint!
-    
     /// Value for the image view height constraint, if an image is available.
     @IBInspectable var imageHeight: CGFloat = 180
 
@@ -38,12 +36,10 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
             
             switch image {
             case _?:
-                imageHeaderViewHeightConstraint.constant = imageHeight
+                imageHeaderView.hidden = false
             default:
-                imageHeaderViewHeightConstraint.constant = 0
+                imageHeaderView.hidden = true
             }
-            
-            layoutIfNeeded()
         }
     }
 
@@ -73,7 +69,7 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
                     case let .Some(image):
                         self?.image = image
                     default:
-                        self?.imageHeaderViewHeightConstraint.constant = 0
+                        self?.imageHeaderView.hidden = true
                     }
                 })
             })
