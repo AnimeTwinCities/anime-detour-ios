@@ -13,8 +13,9 @@ import UIKit
 public class Guest: NSManagedObject {
     public enum Keys: String {
         case guestID
-        case firstName
         case category
+        case firstName
+        case hiResPhotoData
     }
 
     @NSManaged public var category: String

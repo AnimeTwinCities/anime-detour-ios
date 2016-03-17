@@ -11,13 +11,21 @@ import UIKit
 import AnimeDetourDataModel
 import CoreData
 
+let photoContext = UnsafeMutablePointer<Void>.alloc(1)
 
 class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, StretchingImageHeaderContainer {
     static let guestActivityGuestIDKey = (NSBundle.mainBundle().bundleIdentifier ?? "") + ".guestID"
     private static let guestActivityTypeSuffix = ".guest"
     static let activityType = (NSBundle.mainBundle().bundleIdentifier ?? "") + guestActivityTypeSuffix
 
-    private var guestViewModel: GuestViewModel?
+    var guestViewModel: GuestViewModel? {
+        didSet {
+            if isViewLoaded() {
+                updateImageHeader()
+                tableView?.reloadData()
+            }
+        }
+    }
     
     var imageHeaderView: ImageHeaderView!
     var photoAspect: CGFloat = 2
@@ -31,38 +39,11 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     // MARK: Images
 
     lazy var imageSession: NSURLSession = NSURLSession.sharedSession()
-    
-    // MARK: Core Data
-    
-    lazy var managedObjectContext: NSManagedObjectContext! = CoreDataController.sharedInstance.managedObjectContext
-    var guestID: String! {
-        didSet {
-            guard let guestID = guestID else {
-                assertionFailure("`nil` guestID set")
-                return
-            }
-            
-            let fetchRequest = NSFetchRequest(entityName: Guest.entityName)
-            fetchRequest.predicate = NSPredicate(format: "%K == %@", Guest.Keys.guestID.rawValue, guestID)
-            fetchRequest.fetchLimit = 1
-            let results = try? managedObjectContext.executeFetchRequest(fetchRequest)
-            guard let guest = results?.first as? Guest else {
-                NSLog("Received `guestID` but couldn't find corresponding Session")
-                return
-            }
-            
-            let viewModel = GuestViewModel(guest: guest, imageSession: imageSession)
-            self.guestViewModel = viewModel
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageHeaderView = tableView.tableHeaderView as! ImageHeaderView
-        imageHeaderView.imageView.image = guestViewModel?.hiResPhoto(true, lowResPhotoPlaceholder: true)
-        imageHeaderView.faceBounds = guestViewModel?.hiResFaceBounds
-        
+        updateImageHeader()
         updateHeaderSize()
         
         let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
@@ -95,6 +76,12 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     }
     
     // MARK: Guest Display
+    
+    private func updateImageHeader() {
+        imageHeaderView = tableView.tableHeaderView as! ImageHeaderView
+        imageHeaderView.imageView.image = guestViewModel?.hiResPhoto(true, lowResPhotoPlaceholder: true)
+        imageHeaderView.faceBounds = guestViewModel?.hiResFaceBounds
+    }
 
     private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         switch cell.reuseIdentifier {
@@ -117,7 +104,8 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     
     override func restoreUserActivityState(activity: NSUserActivity) {
         super.restoreUserActivityState(activity)
-        guestID = activity.userInfo?[GuestDetailTableViewController.guestActivityGuestIDKey] as? String
+        
+        // we don't support restoring user activity state directly
     }
     
     override func updateUserActivityState(activity: NSUserActivity) {
@@ -136,6 +124,15 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         activity.addUserInfoEntriesFromDictionary(userInfo)
     }
     
+    // MARK: - NSObject (KVO)
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        guard "hiResPhoto" == keyPath && photoContext == context else {
+            return super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
+        
+        updateImageHeader()
+    }
     
     // MARK: - Scroll view delegate
     

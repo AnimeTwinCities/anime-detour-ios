@@ -56,6 +56,9 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     
     private let faceDetector = ImageFaceDetector()
     
+    // The detail view, so we can update it after we get a hi res photo or face.
+    private weak var detailViewController: GuestDetailTableViewController?
+    
     // MARK: Collection view sizing
 
     private var lastDisplayedTraitCollection: UITraitCollection!
@@ -179,6 +182,15 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         let viewModel =  GuestViewModel(guest: guest, imageSession: imageSession)
         viewModel.delegate = self
         cell.viewModel = viewModel
+
+        // lol separation of concerns
+        // Update the detail view controller's view model if that's the one
+        // we're configuring.
+        guard let detailVC = detailViewController where detailVC.guestViewModel?.guestObjectID == guest.objectID else {
+            return
+        }
+        
+        detailVC.guestViewModel = viewModel
     }
 
     // MARK: - Navigation
@@ -186,18 +198,28 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch (segue.identifier) {
         case detailIdentifier?:
-            let guestID: String
+            let viewModel: GuestViewModel
             switch sender {
             case let cell as GuestCollectionViewCell:
-                guestID = cell.viewModel!.guest.guestID
+                viewModel = cell.viewModel!
             case self as GuestCollectionViewController:
-                guestID = handoffGuestID!
+                let guestID = handoffGuestID!
+                let fetchRequest = NSFetchRequest(entityName: Guest.entityName)
+                fetchRequest.predicate = NSPredicate(format: "%K == %@", Guest.Keys.guestID.rawValue, guestID)
+                fetchRequest.fetchLimit = 1
+                let results = try? managedObjectContext.executeFetchRequest(fetchRequest)
+                let guest = results?.first as! Guest
+                
+                viewModel = GuestViewModel(guest: guest, imageSession: imageSession)
+                viewModel.delegate = self
             default:
                 preconditionFailure("Unexpected segue sender.")
             }
             
             let guestVC = segue.destinationViewController as! GuestDetailTableViewController
-            guestVC.guestID = guestID
+            guestVC.guestViewModel = viewModel
+            
+            detailViewController = guestVC
         default:
             fatalError("Unexpected segue encountered.")
         }
