@@ -213,9 +213,8 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
         switch(identifier) {
         case detailIdentifier:
             // Get the selected index path
-            if let cell = sender as? UITableViewCell {
-                selectedCellIndex = tableView.indexPathForCell(cell)
-            }
+            let cell = sender as! UITableViewCell
+            selectedCellIndex = tableView.indexPathForCell(cell)
 
             // Block the detail segue while in editing mode
             return !tableView.editing

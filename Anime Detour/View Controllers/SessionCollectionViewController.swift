@@ -355,7 +355,9 @@ class SessionCollectionViewController: UICollectionViewController {
         switch (segue.identifier) {
         case detailSegueIdentifier?:
             let detailVC = segue.destinationViewController as! SessionViewController
-            let selectedSession = (collectionView?.indexPathsForSelectedItems()?.first).map(dataSource.sessionAt)!
+            let cell = sender as! UICollectionViewCell
+            let indexPath = collectionView?.indexPathForCell(cell)
+            let selectedSession = indexPath.map(dataSource.sessionAt)!
             detailVC.session = selectedSession
             
             let dict = GAIDictionaryBuilder.createEventDictionary(screenName, action: .ViewDetails, label: selectedSession.name, value: nil)
