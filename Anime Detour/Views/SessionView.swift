@@ -26,9 +26,6 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
     @IBOutlet var imageView: UIImageView!
 
     @IBOutlet var bookmarkButton: UIButton!
-    
-    /// Value for the image view height constraint, if an image is available.
-    @IBInspectable var imageHeight: CGFloat = 180
 
     private var image: UIImage? {
         didSet {
