@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10112" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10083"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -932,7 +932,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNy-km-Viz" customClass="SessionView" customModule="Anime_Detour" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NNy-km-Viz" customClass="SessionView" customModule="Anime_Detour" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="D5i-HM-kbM">
@@ -951,13 +951,13 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="2d5-6a-c0q" firstAttribute="leading" secondItem="0id-b7-M4n" secondAttribute="leading" id="FBq-iq-ft3"/>
+                                                    <constraint firstItem="2d5-6a-c0q" firstAttribute="top" secondItem="0id-b7-M4n" secondAttribute="top" id="FaT-oV-3px"/>
                                                     <constraint firstAttribute="trailing" secondItem="2d5-6a-c0q" secondAttribute="trailing" id="YlR-Ny-VYZ"/>
-                                                    <constraint firstItem="2d5-6a-c0q" firstAttribute="top" secondItem="0id-b7-M4n" secondAttribute="top" id="YnW-cb-4S1"/>
                                                     <constraint firstAttribute="bottom" secondItem="2d5-6a-c0q" secondAttribute="bottom" id="rND-7Z-WB9"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="imageView" destination="2d5-6a-c0q" id="xID-6S-LpQ"/>
-                                                    <outlet property="imageViewTopConstraint" destination="Jyl-dY-iOo" id="Aib-Gt-KeD"/>
+                                                    <outlet property="imageViewTopConstraint" destination="FaT-oV-3px" id="EHe-ju-H1P"/>
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PbF-BR-Xqi" userLabel="Below Image Container View">
@@ -1141,16 +1141,6 @@
                                                 </variation>
                                             </view>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="0id-b7-M4n" secondAttribute="trailing" id="huF-OM-2rO"/>
-                                            <constraint firstItem="0id-b7-M4n" firstAttribute="leading" secondItem="D5i-HM-kbM" secondAttribute="leading" id="rdJ-lL-9f2"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="huF-OM-2rO"/>
-                                                <exclude reference="rdJ-lL-9f2"/>
-                                            </mask>
-                                        </variation>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -1162,6 +1152,7 @@
                                 <connections>
                                     <outlet property="bookmarkButton" destination="jnd-Jo-exM" id="0hE-me-zhD"/>
                                     <outlet property="categoryLabel" destination="XN4-qE-Dga" id="gzI-w3-PCH"/>
+                                    <outlet property="delegate" destination="kio-kf-C2X" id="2f2-xL-ln7"/>
                                     <outlet property="descriptionLabel" destination="60s-P8-Wet" id="fG5-dg-T7q"/>
                                     <outlet property="imageHeaderView" destination="0id-b7-M4n" id="VkW-0O-jlY"/>
                                     <outlet property="imageView" destination="2d5-6a-c0q" id="IMz-Cp-4I2"/>
@@ -1175,21 +1166,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="NNy-km-Viz" secondAttribute="trailing" id="EUA-0u-31M"/>
                             <constraint firstItem="NNy-km-Viz" firstAttribute="top" secondItem="eyl-SH-DF9" secondAttribute="top" id="Hjb-iO-EJO"/>
-                            <constraint firstItem="NNy-km-Viz" firstAttribute="leading" secondItem="eyl-SH-DF9" secondAttribute="leading" id="LR1-iY-fcg"/>
                             <constraint firstAttribute="trailing" secondItem="NNy-km-Viz" secondAttribute="trailing" id="Z24-vU-oTR"/>
                             <constraint firstItem="NNy-km-Viz" firstAttribute="leading" secondItem="eyl-SH-DF9" secondAttribute="leading" id="aI8-9Y-Is2"/>
                             <constraint firstAttribute="bottom" secondItem="NNy-km-Viz" secondAttribute="bottom" id="w8O-PT-q2B"/>
                             <constraint firstAttribute="trailing" secondItem="D5i-HM-kbM" secondAttribute="trailing" id="xST-3E-as2"/>
                             <constraint firstItem="D5i-HM-kbM" firstAttribute="leading" secondItem="eyl-SH-DF9" secondAttribute="leading" id="xly-pD-z67"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="EUA-0u-31M"/>
-                                <exclude reference="LR1-iY-fcg"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="sessionView" destination="NNy-km-Viz" id="jW5-xy-LWl"/>
