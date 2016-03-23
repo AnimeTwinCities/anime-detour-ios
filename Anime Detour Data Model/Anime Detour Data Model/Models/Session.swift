@@ -26,7 +26,7 @@ public class Session: NSManagedObject {
     
     @NSManaged public var sessionID: String
     @NSManaged public var name: String
-    @NSManaged public var sessionDescription: String
+    @NSManaged public var sessionDescription: String?
     @NSManaged public var start: NSDate
     @NSManaged public var end: NSDate
     @NSManaged public var category: String
@@ -100,7 +100,6 @@ public class Session: NSManagedObject {
         // set empty default strings for String properties
         sessionID = ""
         name = ""
-        sessionDescription = ""
         category = ""
         room = ""
     }

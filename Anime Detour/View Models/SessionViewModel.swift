@@ -54,7 +54,7 @@ class SessionViewModel {
         return session.name
     }
 
-    var sessionDescription: String {
+    var sessionDescription: String? {
         return session.sessionDescription
     }
 

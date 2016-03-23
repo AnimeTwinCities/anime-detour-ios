@@ -20,6 +20,9 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
     @IBOutlet var categoryLabel: UILabel!
     @IBOutlet var panelistsLabel: UILabel!
     
+    /// The view displaying the session's description and any associated views.
+    @IBOutlet var descriptionView: UIView!
+    /// The view displaying the session's panelists and any associated views.
     @IBOutlet var panelistsView: UIView!
     
     @IBOutlet var imageHeaderView: ImageHeaderView!
@@ -49,9 +52,15 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
             nameLabel.text = viewModel?.name
             timeLabel.text = viewModel?.dateAndTime
             locationLabel.text = viewModel?.location
-            descriptionLabel.text = viewModel?.sessionDescription
+            if let sessionDescription = viewModel?.sessionDescription where !sessionDescription.isEmpty {
+                descriptionView.hidden = false
+                descriptionLabel.text = sessionDescription
+            } else {
+                descriptionView.hidden = true
+            }
             categoryLabel.text = viewModel?.category
-            if let panelists = viewModel?.panelists where panelists.characters.count > 0 {
+            if let panelists = viewModel?.panelists where !panelists.isEmpty {
+                panelistsView.hidden = false
                 panelistsLabel.text = panelists
             } else {
                 panelistsView.hidden = true

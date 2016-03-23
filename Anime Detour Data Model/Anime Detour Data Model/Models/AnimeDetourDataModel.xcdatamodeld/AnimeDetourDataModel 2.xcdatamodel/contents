@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
     <entity name="Guest" representedClassName=".Guest" syncable="YES">
         <attribute name="bio" attributeType="String" syncable="YES"/>
         <attribute name="category" attributeType="String" syncable="YES"/>
@@ -20,7 +20,7 @@
         <attribute name="hosts" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="room" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sessionDescription" attributeType="String" syncable="YES"/>
+        <attribute name="sessionDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sessionID" attributeType="String" syncable="YES"/>
         <attribute name="start" attributeType="Date" defaultDateTimeInterval="-978307200" syncable="YES"/>
         <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>

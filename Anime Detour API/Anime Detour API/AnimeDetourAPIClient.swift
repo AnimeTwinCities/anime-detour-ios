@@ -231,6 +231,8 @@ public extension Session {
         
         if let description = json[SessionJSONKeys.sessionDescription.rawValue] as? String {
             self.sessionDescription = description
+        } else {
+            self.sessionDescription = nil
         }
         
         if let bannerURL = json[SessionJSONKeys.bannerURL.rawValue] as? String {
