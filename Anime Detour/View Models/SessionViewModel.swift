@@ -93,6 +93,10 @@ class SessionViewModel {
         return session.hosts.joinWithSeparator(", ")
     }
     
+    var hasImage: Bool {
+        return imageURL != nil
+    }
+    
     private var image: UIImage?
 
     private var imageURL: NSURL? {

@@ -13,6 +13,10 @@ import UIKit
  UIScrollView so it can adjust the photo during scrolling.
  */
 class SessionView: UIScrollView, SessionViewModelDelegate {
+    /// The view which contains all of our subviews that actually have content,
+    /// since we're a scroll view.
+    @IBOutlet var contentView: UIView!
+    
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
@@ -68,6 +72,12 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
 
             bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
             bookmarkButton.accessibilityLabel = viewModel?.bookmarkAccessibilityLabel
+            
+            if case true? = viewModel?.hasImage {
+                imageHeaderView.hidden = false
+            } else {
+                imageHeaderView.hidden = true
+            }
             
             viewModel?.image({ [weak self] (image, error) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in

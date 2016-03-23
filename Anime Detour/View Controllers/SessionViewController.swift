@@ -74,10 +74,19 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
 
         sessionView.viewModel = viewModel
         updateHeaderSize()
+        
+        // Layout the sessionView immediately, so that its sizeThatFits(_) will be
+        // accurate from now on based on the `viewModel` and header size.
+        sessionView.layoutIfNeeded()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        let viewSize = view.frame.size
+        var preferredSize = sessionView.contentView.sizeThatFits(viewSize)
+        preferredSize.width = viewSize.width
+        preferredContentSize = preferredSize
         
         let currentActivity: NSUserActivity
         if let activity = userActivity where activity.activityType == SessionViewController.activityType {

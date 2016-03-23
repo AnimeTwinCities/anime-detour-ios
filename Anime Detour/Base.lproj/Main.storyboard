@@ -1151,6 +1151,7 @@
                                 <connections>
                                     <outlet property="bookmarkButton" destination="jnd-Jo-exM" id="0hE-me-zhD"/>
                                     <outlet property="categoryLabel" destination="XN4-qE-Dga" id="gzI-w3-PCH"/>
+                                    <outlet property="contentView" destination="D5i-HM-kbM" id="FMt-ac-Ug2"/>
                                     <outlet property="delegate" destination="kio-kf-C2X" id="2f2-xL-ln7"/>
                                     <outlet property="descriptionLabel" destination="60s-P8-Wet" id="fG5-dg-T7q"/>
                                     <outlet property="descriptionView" destination="aRj-wg-kqB" id="dei-P8-lSC"/>
