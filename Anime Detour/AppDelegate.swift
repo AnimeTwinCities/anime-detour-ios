@@ -84,9 +84,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let timezone = NSTimeZone(name: "America/Chicago")!
         calendar.timeZone = timezone
         let components = NSDateComponents()
-        components.day = 16
-        components.month = 1
-        components.year = 2015
+        components.day = 21
+        components.month = 3
+        components.year = 2016
         let guestsClearDate = calendar.dateFromComponents(components)!
         let sessionsClearDate = calendar.dateFromComponents(components)!
         
