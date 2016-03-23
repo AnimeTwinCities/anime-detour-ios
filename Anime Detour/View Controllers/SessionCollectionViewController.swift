@@ -687,7 +687,10 @@ private class SessionDayScroller {
                 scrollingToDay = false
                 let yCoordOfFirstView = flowLayout.yCoordinateForFirstItemInSection(indexPath.section)
                 var offset = cv.contentOffset
-                offset.y = yCoordOfFirstView
+                // Subtract the top content inset to take into account anything that floats at
+                // the top of the collection view, e.g. a navigation bar or in our case,
+                // the day selector.
+                offset.y = yCoordOfFirstView - cv.contentInset.top
                 cv.contentOffset = offset
             } else {
                 cv.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
