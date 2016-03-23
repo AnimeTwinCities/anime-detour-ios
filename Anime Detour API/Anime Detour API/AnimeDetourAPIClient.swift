@@ -30,11 +30,11 @@ enum APIEndpoint {
 public typealias APICompletionHandler = (result: AnyObject?, error: NSError?) -> ()
 
 public class AnimeDetourAPIClient {
-    /// Formatter for use when parsing sched.org API dates.
+    /// Formatter for use when parsing API dates.
     /// Do not modify.
     public let dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // 2015-08-04 19:00:00
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ" // 2016-04-22T09:00:00-06:00
         formatter.timeZone = NSTimeZone(name: "America/Chicago")
         return formatter
     }()
