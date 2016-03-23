@@ -560,9 +560,9 @@ private class SessionDayScroller {
     private lazy var days: [NSDate] = {
         // Components for Friday at midnight
         let components = NSDateComponents()
-        components.year = 2015
-        components.month = 3
-        components.day = 27
+        components.year = 2016
+        components.month = 4
+        components.day = 22
         components.hour = 0
         components.minute = 0
         components.timeZone = self.timeZone
