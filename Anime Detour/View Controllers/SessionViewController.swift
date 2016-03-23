@@ -51,8 +51,6 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         }
     }
     
-    private var session: Session!
-    
     private var viewModel: SessionViewModel?
     
     private var shortDateFormat = "MM/dd hh:mm a"
@@ -128,7 +126,7 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     
     override func previewActionItems() -> [UIPreviewActionItem] {
         let changeBookmarkedAction: UIPreviewActionItem
-        if session.bookmarked {
+        if viewModel?.isBookmarked ?? false {
             changeBookmarkedAction = UIPreviewAction(title: "Remove Bookmark", style: UIPreviewActionStyle.Default) { _, _ in
                 self.viewModel?.toggleBookmarked()
             }

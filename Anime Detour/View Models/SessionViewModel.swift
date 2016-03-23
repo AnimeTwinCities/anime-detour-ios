@@ -25,18 +25,18 @@ View model for Sessions. State changes, where handled, are communicated to the `
 class SessionViewModel {
     let imageURLSession: NSURLSession?
     let session: Session
-    private var bookmarked: Bool {
+    var isBookmarked: Bool {
         return self.session.bookmarked
     }
     var bookmarkImage: UIImage {
-        if self.bookmarked {
+        if isBookmarked {
             return UIImage(named: "star_filled")!
         } else {
             return UIImage(named: "star")!
         }
     }
     var bookmarkAccessibilityLabel: String {
-        if self.bookmarked {
+        if isBookmarked {
             return "Remove Bookmark"
         } else {
             return "Bookmark"
@@ -156,11 +156,11 @@ class SessionViewModel {
     }
 
     func toggleBookmarked() {
-        let wasBookmarked = self.bookmarked
-        let isBookmarked = !wasBookmarked
+        let wasBookmarked = isBookmarked
+        let nowBookmarked = !wasBookmarked
 
         let session = self.session
-        session.bookmarked = isBookmarked
+        session.bookmarked = nowBookmarked
         do {
             try session.managedObjectContext?.save()
         } catch {
@@ -177,6 +177,6 @@ class SessionViewModel {
             analytics.send(dict)
         }
 
-        self.delegate?.bookmarkImageChanged(self.bookmarkImage, accessibilityLabel: self.bookmarkAccessibilityLabel)
+        delegate?.bookmarkImageChanged(self.bookmarkImage, accessibilityLabel: self.bookmarkAccessibilityLabel)
     }
 }
