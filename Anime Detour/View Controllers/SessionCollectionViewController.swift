@@ -646,12 +646,12 @@ private class SessionDayScroller {
             let firstSession = info.objects?.first as? Session
             let sessionStart = firstSession?.start ?? fallbackDate
             
-            // If `sessionStart.compare(date)` is `.OrderedAscending` or `.OrderedSame`,
+            // If `sessionStart.compare(date)` is `.OrderedDescending` or `.OrderedSame`,
             // i.e. it matches or comes after `date`, we found the Session we want.
             switch sessionStart.compare(date) {
-            case .OrderedAscending, .OrderedSame:
+            case .OrderedDescending, .OrderedSame:
                 return true
-            case .OrderedDescending:
+            case .OrderedAscending:
                 return false
             }
         }.map { idx in return NSIndexPath(forItem: 0, inSection: idx) }
