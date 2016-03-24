@@ -1114,7 +1114,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AD-Header-Logo-375" width="375" height="196"/>
+        <image name="AD-Header-Logo-375" width="375" height="197"/>
         <image name="clock" width="25" height="25"/>
         <image name="disclosure_indicator" width="8" height="14"/>
         <image name="star" width="30" height="30"/>
