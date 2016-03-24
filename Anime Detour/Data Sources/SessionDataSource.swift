@@ -22,7 +22,7 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     var sessionCellIdentifier = "SessionCell"
     var sectionHeaderIdentifier = "SessionHeader"
 
-    private var shortDateFormat = "EEEE – hh:mm a" // like "Friday – 12:45 PM"
+    private var shortDateFormat = "EEE – hh:mm a" // like "Fri – 12:45 PM"
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
         formatter.dateFormat = self.shortDateFormat

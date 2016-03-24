@@ -53,7 +53,7 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     
     private var viewModel: SessionViewModel?
     
-    private var shortDateFormat = "MM/dd hh:mm a"
+    private var shortDateFormat = "EEE – hh:mm a" // Fri – 12:30 PM
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
         formatter.dateFormat = self.shortDateFormat
