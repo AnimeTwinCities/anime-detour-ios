@@ -342,6 +342,9 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="bioIdentifier" value="BioCellIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="nameIdentifier" value="NameCellIdentifier"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="bioWebViewSideMargin">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EqE-Az-9dW" userLabel="First Responder" sceneMemberID="firstResponder"/>

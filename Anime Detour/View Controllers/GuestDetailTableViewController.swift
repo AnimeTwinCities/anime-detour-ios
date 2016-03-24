@@ -30,9 +30,11 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     var imageHeaderView: ImageHeaderView!
     var photoAspect: CGFloat = 2
     
+    private weak var bioWebView: UIWebView?
     private var bioWebViewHeight: CGFloat?
     private var bioWebviewLoadInitiated = false
-
+    
+    @IBInspectable var bioWebViewSideMargin: CGFloat = 0
     @IBInspectable var bioIdentifier: String!
     @IBInspectable var nameIdentifier: String!
     
@@ -75,12 +77,40 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         userActivity = nil
     }
     
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        updateWebViewHeightForWidth(size.width - 2 * bioWebViewSideMargin)
+    }
+    
     // MARK: Guest Display
     
     private func updateImageHeader() {
         imageHeaderView = tableView.tableHeaderView as! ImageHeaderView
         imageHeaderView.imageView.image = guestViewModel?.hiResPhoto(true, lowResPhotoPlaceholder: true)
         imageHeaderView.faceBounds = guestViewModel?.hiResFaceBounds
+    }
+    
+    /**
+     Update `bioWebViewHeight` by asking our `bioWebView` for the height necessary
+     to display its entire contents, if it its width were set to `width`.
+     */
+    private func updateWebViewHeightForWidth(width: CGFloat) {
+        guard let webView = bioWebView else {
+            return
+        }
+        
+        var frame = webView.frame
+        let halfwaySize = CGSize(width: width, height: 1)
+        frame.size = halfwaySize
+        webView.frame = frame
+        let size = webView.sizeThatFits(CGSize(width: width, height: CGFloat.max))
+        
+        // Calling `beginUpdates` and then `endUpdates` makes the table view reload cells,
+        // getting our calculated cell height.
+        tableView.beginUpdates()
+        bioWebViewHeight = size.height
+        tableView.endUpdates()
     }
 
     private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
@@ -89,6 +119,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
             (cell as! GuestNameCell).nameLabel.text = guestViewModel?.name
         case bioIdentifier?:
             let webView = cell.contentView.subviews.flatMap { $0 as? UIWebView }.first!
+            bioWebView = webView
             webView.delegate = self
             webView.scrollView.scrollEnabled = false
             if !bioWebviewLoadInitiated {
@@ -167,13 +198,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     // MARK: - Web view delegate
 
     func webViewDidFinishLoad(webView: UIWebView) {
-        let size = webView.sizeThatFits(CGSize(width: webView.frame.width, height: CGFloat.max))
-
-        // Calling `beginUpdates` and then `endUpdates` makes the table view reload cells,
-        // getting our calculated cell height.
-        tableView.beginUpdates()
-        bioWebViewHeight = size.height
-        tableView.endUpdates()
+        updateWebViewHeightForWidth(webView.frame.width)
     }
 
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
