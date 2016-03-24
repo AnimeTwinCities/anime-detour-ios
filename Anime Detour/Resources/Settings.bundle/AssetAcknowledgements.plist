@@ -14,20 +14,20 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Material Design Icons
+			<string>Icons8 Icons
 
-Attribution 4.0 International
+Commercial. Used with a free license as offered for open source projects.
 
-Full license text available at http://creativecommons.org/licenses/by/4.0/</string>
+Website at https://icons8.com</string>
 			<key>Title</key>
-			<string>Material Design Icons</string>
+			<string>Icons8 Icons</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>
-	<string>Material Design Icons</string>
+	<string>Icons8 Icons</string>
 	<key>Title</key>
-	<string>Material Design Icons</string>
+	<string>Icons8 Icons</string>
 </dict>
 </plist>
