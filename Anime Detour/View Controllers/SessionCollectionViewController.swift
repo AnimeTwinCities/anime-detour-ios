@@ -197,6 +197,9 @@ class SessionCollectionViewController: UICollectionViewController {
         // Possibly update cell sizes. Belongs in `viewDidAppear:`, as case the
         // trait collection is sometimes not up to date in `viewWillAppear:`.
         updateCellSizesIfNecessary()
+        
+        // Push the refresh control behind the collection view's reusable views.
+        refreshControl.superview?.sendSubviewToBack(refreshControl)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
