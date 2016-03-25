@@ -60,9 +60,9 @@ class DataStatusDefaultsController {
         
         defaultsUpdater = DataStatusDefaultsUpdater(userDefaults: userDefaults)
         
-        // Default last-must-be-cleared dates, set way in the past.
-        let defaultGuestsClearDate: NSDate = NSDate(timeIntervalSince1970: 0)
-        let defaultSessionsClearDate: NSDate = NSDate(timeIntervalSince1970: 0)
+        // Default last-must-be-cleared dates. Set to early on 3/25/2016 UTC.
+        let defaultGuestsClearDate: NSDate = NSDate(timeIntervalSince1970: 1458873747)
+        let defaultSessionsClearDate: NSDate = NSDate(timeIntervalSince1970: 1458873747)
         
         let defaultUserDefaults = [
             // 2.1 is the last version that used the "Anime Detour API" framework,
