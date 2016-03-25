@@ -13,6 +13,10 @@ public class CoreDataController {
     private class var storeFilename: String {
         return "AnimeDetourDataModel.sqlite"
     }
+    
+    public class var URLForDefaultStoreFile: NSURL {
+        return URLForStoreWithFilename(storeFilename)
+    }
 
     /// Main managed object context, suitable only for use on the main thread.
     public let managedObjectContext: NSManagedObjectContext
@@ -52,7 +56,7 @@ public class CoreDataController {
     private class func createPersistentStoreCoordinator(managedObjectModel: NSManagedObjectModel, storeFilename: String) -> NSPersistentStoreCoordinator {
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent(storeFilename)
+        let url = self.URLForStoreWithFilename(storeFilename)
         do {
             try self.addPersistentStore(url, coordinator: coordinator)
         } catch {
@@ -78,6 +82,10 @@ public class CoreDataController {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
         return managedObjectContext
+    }
+    
+    private class func URLForStoreWithFilename(filename: String) -> NSURL {
+        return self.applicationDocumentsDirectory.URLByAppendingPathComponent(storeFilename)
     }
 
     /// Create a new managed object context sharing the same store as our main context.

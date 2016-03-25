@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         setColors(application)
-
+        
         #if DEBUG
             // no analytics
             #if os(iOS)
@@ -77,6 +77,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if os(iOS)
             userVisibleSessionSettings.delegate = self
         #endif
+        
+        // Force initialization of our database before doing anything with data
+        _ = coreDataController
 
         // Latest must-be-cleared dates, e.g. if this version of the app points
         // at a different data set and must discard and re-download data.
