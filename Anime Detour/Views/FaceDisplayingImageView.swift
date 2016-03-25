@@ -53,9 +53,8 @@ class FaceDisplayingImageView: UIView {
         
         let noChangesImageBounds = rectForAspectFillFor(image)
         
-        guard let faceRect = faceRect where !noChangesImageBounds.contains(faceRect) else {
-            // If we don't have a face rect, or we have one but it fits in the default bounds of
-            // the image that would be rendered, just draw the image using aspect fill.
+        guard let faceRect = faceRect else {
+            // If we don't have a face rect
             drawingRect = noChangesImageBounds
             return
         }
