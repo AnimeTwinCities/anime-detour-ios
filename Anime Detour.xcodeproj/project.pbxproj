@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		131E853CBE8DA6A3B7E54D2B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB42EA03A5C9F3E6AA640554 /* Pods.framework */; };
-		DA0E97201CA23CFA00043A30 /* DoubleTree_Floor1_2015.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA0E971C1CA23CFA00043A30 /* DoubleTree_Floor1_2015.jpg */; };
-		DA0E97211CA23CFA00043A30 /* DoubleTree_Floor22_2015.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA0E971D1CA23CFA00043A30 /* DoubleTree_Floor22_2015.jpg */; };
-		DA0E97221CA23CFA00043A30 /* DoubleTree_Floor2_2015.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA0E971E1CA23CFA00043A30 /* DoubleTree_Floor2_2015.jpg */; };
 		DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DA0E971F1CA23CFA00043A30 /* Settings.bundle */; };
+		DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */; };
+		DA5341FF1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */; };
+		DA5342001CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */; };
 		DA90BDA81CA23E07006A5ACD /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */; };
 		DA90BDA91CA23E07006A5ACD /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */; };
 		DA90BDAA1CA23E07006A5ACD /* AnalyticsViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD661CA23E07006A5ACD /* AnalyticsViewControllers.swift */; };
@@ -118,10 +118,10 @@
 /* Begin PBXFileReference section */
 		0EDC32C1F49B201EDB48C6C7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		89845D4298D7D6831C8AF0FC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		DA0E971C1CA23CFA00043A30 /* DoubleTree_Floor1_2015.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DoubleTree_Floor1_2015.jpg; sourceTree = "<group>"; };
-		DA0E971D1CA23CFA00043A30 /* DoubleTree_Floor22_2015.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DoubleTree_Floor22_2015.jpg; sourceTree = "<group>"; };
-		DA0E971E1CA23CFA00043A30 /* DoubleTree_Floor2_2015.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DoubleTree_Floor2_2015.jpg; sourceTree = "<group>"; };
 		DA0E971F1CA23CFA00043A30 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_1.pdf"; sourceTree = "<group>"; };
+		DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_2.pdf"; sourceTree = "<group>"; };
+		DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_3.pdf"; sourceTree = "<group>"; };
 		DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
 		DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
 		DA90BD661CA23E07006A5ACD /* AnalyticsViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsViewControllers.swift; sourceTree = "<group>"; };
@@ -225,9 +225,9 @@
 		DA0E971B1CA23CFA00043A30 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				DA0E971C1CA23CFA00043A30 /* DoubleTree_Floor1_2015.jpg */,
-				DA0E971D1CA23CFA00043A30 /* DoubleTree_Floor22_2015.jpg */,
-				DA0E971E1CA23CFA00043A30 /* DoubleTree_Floor2_2015.jpg */,
+				DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */,
+				DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */,
+				DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -560,14 +560,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA5341FF1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf in Resources */,
 				DA90BDB81CA23E07006A5ACD /* LaunchScreen.storyboard in Resources */,
+				DA5342001CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf in Resources */,
 				DA90BDB01CA23E07006A5ACD /* Main.storyboard in Resources */,
 				DA90BDB71CA23E07006A5ACD /* Images.xcassets in Resources */,
-				DA0E97211CA23CFA00043A30 /* DoubleTree_Floor22_2015.jpg in Resources */,
-				DA0E97201CA23CFA00043A30 /* DoubleTree_Floor1_2015.jpg in Resources */,
 				DA90BDAC1CA23E07006A5ACD /* Info.plist in Resources */,
-				DA0E97221CA23CFA00043A30 /* DoubleTree_Floor2_2015.jpg in Resources */,
 				DA9652161CA23BBB00EA4112 /* Main.storyboard in Resources */,
+				DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */,
 				DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

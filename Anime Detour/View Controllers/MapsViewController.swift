@@ -12,11 +12,11 @@ import QuickLook
 
 class MapsViewController: UIViewController, QLPreviewControllerDataSource {
     private var previewController: QLPreviewController!
-    private let mapFileNames = ["DoubleTree_Floor1_2015", "DoubleTree_Floor2_2015", "DoubleTree_Floor22_2015"]
+    private let mapFileNames = ["AnimeDetour2016-MapsOnly_1", "AnimeDetour2016-MapsOnly_2", "AnimeDetour2016-MapsOnly_3"]
     lazy private var mapPaths: [String] = {
         let mainBundle = NSBundle.mainBundle()
         let mapPaths = self.mapFileNames.map { (filename: String) -> String in
-            return mainBundle.pathForResource(filename, ofType: "jpg")!
+            return mainBundle.pathForResource(filename, ofType: "pdf")!
         }
 
         return mapPaths
