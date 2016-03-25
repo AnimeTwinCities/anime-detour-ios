@@ -26,32 +26,47 @@ class DataStatusDefaultsController {
      file must be renamed or deleted.
      */
     var databaseCheckedVersionKey: String {
-        didSet {
-            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(databaseCheckedVersionKey as NSString, oldValue: oldValue, userDefaultsKey: DataStatusDefaultsKeys.DatabaseCheckedVersionKey, delegateCallback: nil)
+        get {
+            return userDefaults.stringForKey(DataStatusDefaultsKeys.DatabaseCheckedVersionKey)!
+        }
+        set {
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: databaseCheckedVersionKey as NSString, userDefaultsKey: DataStatusDefaultsKeys.DatabaseCheckedVersionKey, delegateCallback: nil)
         }
     }
     var guestsFetchRequired: Bool {
-        didSet {
-            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(guestsFetchRequired, oldValue: oldValue,
-                userDefaultsKey: DataStatusDefaultsKeys.GuestsFetchRequiredKey, delegateCallback: nil)
+        get {
+            return userDefaults.boolForKey(DataStatusDefaultsKeys.GuestsFetchRequiredKey)
+        }
+        set {
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: guestsFetchRequired,
+                                                                      userDefaultsKey: DataStatusDefaultsKeys.GuestsFetchRequiredKey, delegateCallback: nil)
         }
     }
     var sessionsFetchRequired: Bool {
-        didSet {
-            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(sessionsFetchRequired, oldValue: oldValue,
-                userDefaultsKey: DataStatusDefaultsKeys.SessionsFetchRequiredKey, delegateCallback: nil)
+        get {
+            return userDefaults.boolForKey(DataStatusDefaultsKeys.SessionsFetchRequiredKey)
+        }
+        set {
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: sessionsFetchRequired,
+                                                                      userDefaultsKey: DataStatusDefaultsKeys.SessionsFetchRequiredKey, delegateCallback: nil)
         }
     }
     var lastGuestsClearDate: NSDate {
-        didSet {
-            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(lastGuestsClearDate, oldValue: oldValue,
-                userDefaultsKey: DataStatusDefaultsKeys.LastGuestsClearDateKey, delegateCallback: nil)
+        get {
+            return userDefaults.valueForKey(DataStatusDefaultsKeys.LastGuestsClearDateKey) as! NSDate
+        }
+        set {
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: lastGuestsClearDate,
+                                                                      userDefaultsKey: DataStatusDefaultsKeys.LastGuestsClearDateKey, delegateCallback: nil)
         }
     }
     var lastSessionsClearDate: NSDate {
-        didSet {
-            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(lastSessionsClearDate, oldValue: oldValue,
-                userDefaultsKey: DataStatusDefaultsKeys.LastSessionsClearDateKey, delegateCallback: nil)
+        get {
+            return userDefaults.valueForKey(DataStatusDefaultsKeys.LastSessionsClearDateKey) as! NSDate
+        }
+        set {
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: lastSessionsClearDate,
+                                                                      userDefaultsKey: DataStatusDefaultsKeys.LastSessionsClearDateKey, delegateCallback: nil)
         }
     }
     
@@ -75,12 +90,6 @@ class DataStatusDefaultsController {
         ]
         
         userDefaults.registerDefaults(defaultUserDefaults)
-        
-        databaseCheckedVersionKey = userDefaults.stringForKey(DataStatusDefaultsKeys.DatabaseCheckedVersionKey)!
-        guestsFetchRequired = userDefaults.boolForKey(DataStatusDefaultsKeys.GuestsFetchRequiredKey)
-        sessionsFetchRequired = userDefaults.boolForKey(DataStatusDefaultsKeys.SessionsFetchRequiredKey)
-        lastGuestsClearDate = userDefaults.valueForKey(DataStatusDefaultsKeys.LastGuestsClearDateKey) as! NSDate
-        lastSessionsClearDate = userDefaults.valueForKey(DataStatusDefaultsKeys.LastSessionsClearDateKey) as! NSDate
     }
     
     func synchronizeDefaults() {
