@@ -26,7 +26,7 @@ extension UIViewController {
         let objBlock = unsafeBitCast(block, AnyObject.self)
         
         do {
-            try UIViewController.aspect_hookSelector(Selector("viewDidAppear:"), withOptions:AspectOptions.PositionAfter, usingBlock: objBlock)
+            try UIViewController.aspect_hookSelector(#selector(UIViewController.viewDidAppear(_:)), withOptions:AspectOptions.PositionAfter, usingBlock: objBlock)
         } catch {
             let error = error as! NSError
             NSLog("Error hooking viewDidAppear: for analytics %@", error)

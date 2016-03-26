@@ -44,7 +44,7 @@ Specify the runtime class name for the benefit of FXForms.
         
         registerDefaults(userDefaults)
         updateSessionNotificationsEnabled()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("userDefaultsChanged:"), name: NSUserDefaultsDidChangeNotification, object: userDefaults)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SessionSettings.userDefaultsChanged(_:)), name: NSUserDefaultsDidChangeNotification, object: userDefaults)
     }
     
     deinit {

@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var coreDataController = CoreDataController.sharedInstance
     lazy var backgroundContext: NSManagedObjectContext = {
         let context = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateMainContextForSaveNotification:"), name: NSManagedObjectContextDidSaveNotification, object: context)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.updateMainContextFor(saveNotification:)), name: NSManagedObjectContextDidSaveNotification, object: context)
         return context
     }()
     lazy var primaryContext: NSManagedObjectContext = {

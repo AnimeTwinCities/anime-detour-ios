@@ -31,7 +31,7 @@ class SessionCollectionViewController: UICollectionViewController {
         let control = UIRefreshControl()
         self.refreshingTableViewController.refreshControl = control
         
-        control.addTarget(self, action: Selector("refreshSessions:"), forControlEvents: UIControlEvents.ValueChanged)
+        control.addTarget(self, action: #selector(SessionCollectionViewController.refreshSessions(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
         return control
     }()
@@ -438,7 +438,7 @@ class SessionCollectionViewController: UICollectionViewController {
             let searchVC = navController.topViewController as! SessionTableViewController
             searchVC.bookmarkedOnly = false
             
-            let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("dismissSearchView"))
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(SessionCollectionViewController.dismissSearchView))
             searchVC.defaultRightBarButtonItem = doneButton
         default:
             // Segues we don't know about are fine.
@@ -551,7 +551,7 @@ private class SessionDayScroller {
             }
             
             daysControl.selectedSegmentIndex = 0
-            daysControl.addTarget(self, action: Selector("goToDay:"), forControlEvents: UIControlEvents.ValueChanged)
+            daysControl.addTarget(self, action: #selector(SessionDayScroller.goToDay(_:)), forControlEvents: UIControlEvents.ValueChanged)
         }
     }
     
@@ -720,7 +720,7 @@ private class SessionDayScroller {
     
     // MARK: - Received actions
     
-    @IBAction func goToDay(sender: UISegmentedControl) {
+    @IBAction @objc func goToDay(sender: UISegmentedControl) {
         let selectedIdx = sender.selectedSegmentIndex
         let day = days[selectedIdx]
         scroll(day)

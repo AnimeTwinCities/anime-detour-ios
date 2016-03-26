@@ -45,7 +45,7 @@ final class InternalSettings {
         
         registerDefaults(userDefaults)
         updateAskedForNotifications()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("defaultsDidChange:"), name: NSUserDefaultsDidChangeNotification, object: userDefaults)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InternalSettings.defaultsDidChange(_:)), name: NSUserDefaultsDidChangeNotification, object: userDefaults)
     }
     
     private func registerDefaults(userDefaults: NSUserDefaults) {
