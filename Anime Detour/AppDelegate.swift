@@ -12,8 +12,6 @@ import UIKit
 import AnimeDetourDataModel
 import AnimeDetourAPI
 
-import WatchdogInspector
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -65,11 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         #if DEBUG
             // no analytics
-            #if os(iOS)
-                TWWatchdogInspector.start()
-                // Disable the stalling threshold by setting it to 50 minutes
-                TWWatchdogInspector.setStallingThreshhold(3000)
-            #endif
         #else
             initAnalytics()
         #endif

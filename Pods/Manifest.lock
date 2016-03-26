@@ -2,21 +2,15 @@ PODS:
   - Aspects (1.4.1)
   - FXForms (1.2.14)
   - GoogleAnalytics (3.14.0)
-  - WatchdogInspector (0.1.0):
-    - YourStatusBar (~> 1.0.0)
-  - YourStatusBar (1.0.1)
 
 DEPENDENCIES:
   - Aspects
   - FXForms (~> 1.2.0)
   - GoogleAnalytics
-  - WatchdogInspector
 
 SPEC CHECKSUMS:
   Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
   FXForms: 724500c0c3f3eb3ba1004b3b83abcee55d3daf18
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
-  WatchdogInspector: 165a595625cec274c204aabe4030560dc0cdd314
-  YourStatusBar: 8fe2e308865c97018565e57da6dab1a17d4fdf25
 
 COCOAPODS: 0.39.0
