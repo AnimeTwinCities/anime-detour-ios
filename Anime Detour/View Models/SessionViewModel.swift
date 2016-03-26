@@ -37,9 +37,9 @@ class SessionViewModel {
     }
     var bookmarkAccessibilityLabel: String {
         if isBookmarked {
-            return "Remove Bookmark"
+            return "Remove Favorite"
         } else {
-            return "Bookmark"
+            return "Add Favorite"
         }
     }
     let startDateFormatter: NSDateFormatter

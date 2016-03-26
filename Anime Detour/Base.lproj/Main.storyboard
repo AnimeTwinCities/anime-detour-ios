@@ -141,9 +141,9 @@
                                                 <constraint firstAttribute="width" constant="8" id="IAX-mi-yad"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Enq-lO-6de" userLabel="Bookmark">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Enq-lO-6de" userLabel="Favorite Button">
                                             <rect key="frame" x="472" y="44" width="44" height="44"/>
-                                            <accessibility key="accessibilityConfiguration" label="Bookmark"/>
+                                            <accessibility key="accessibilityConfiguration" label="Favorite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="DNY-ZY-ens"/>
                                                 <constraint firstAttribute="width" constant="44" id="cVP-BN-9kZ"/>
@@ -1018,7 +1018,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xa5-IG-xoW">
                                                                 <rect key="frame" x="16" y="69" width="568" height="77"/>
                                                                 <subviews>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="BJX-2T-eXy">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="BJX-2T-eXy">
                                                                         <rect key="frame" x="0.0" y="20" width="514" height="38"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Day and Time like 5/21 08:30pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bca-ng-2cp">
@@ -1035,9 +1035,9 @@
                                                                             </label>
                                                                         </subviews>
                                                                     </stackView>
-                                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jnd-Jo-exM" userLabel="Bookmark">
+                                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jnd-Jo-exM" userLabel="Favorite Button">
                                                                         <rect key="frame" x="524" y="17" width="44" height="44"/>
-                                                                        <accessibility key="accessibilityConfiguration" label="Bookmark"/>
+                                                                        <accessibility key="accessibilityConfiguration" label="Favorite"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="44" id="NnR-Kg-HsM"/>
                                                                             <constraint firstAttribute="width" constant="44" id="tXT-3s-C9J"/>

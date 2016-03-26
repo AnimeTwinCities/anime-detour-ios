@@ -136,11 +136,11 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     override func previewActionItems() -> [UIPreviewActionItem] {
         let changeBookmarkedAction: UIPreviewActionItem
         if viewModel?.isBookmarked ?? false {
-            changeBookmarkedAction = UIPreviewAction(title: "Remove Bookmark", style: UIPreviewActionStyle.Default) { _, _ in
+            changeBookmarkedAction = UIPreviewAction(title: "Remove Favorite", style: UIPreviewActionStyle.Default) { _, _ in
                 self.viewModel?.toggleBookmarked()
             }
         } else {
-            changeBookmarkedAction = UIPreviewAction(title: "Bookmark", style: UIPreviewActionStyle.Default) { _, _ in
+            changeBookmarkedAction = UIPreviewAction(title: "Add Favorite", style: UIPreviewActionStyle.Default) { _, _ in
                 self.viewModel?.toggleBookmarked()
             }
         }
