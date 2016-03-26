@@ -16,6 +16,7 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var bookmarkButton: UIButton?
+    @IBOutlet var colorView: UIView?
 
     var viewModel: SessionViewModel? {
         didSet {
@@ -36,6 +37,13 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
             self.timeLabel.text = viewModel.dateAndTime
             
             self.bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
+            
+            if let color = viewModel.categoryColor {
+                colorView?.hidden = false
+                colorView?.backgroundColor = color
+            } else {
+                colorView?.hidden = true
+            }
         }
     }
 

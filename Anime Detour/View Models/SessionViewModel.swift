@@ -86,7 +86,17 @@ class SessionViewModel {
     }
 
     var category: String {
-        return session.category
+        return session.category.name
+    }
+    
+    var categoryWithColor: NSAttributedString {
+        let string = NSMutableAttributedString(string: category)
+        
+        return string
+    }
+    
+    var categoryColor: UIColor? {
+        return session.category.color
     }
     
     var panelists: String {

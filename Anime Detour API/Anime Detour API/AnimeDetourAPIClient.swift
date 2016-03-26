@@ -214,7 +214,7 @@ public extension Session {
         }
         
         if let category = json[SessionJSONKeys.category.rawValue] as? String {
-            self.category = category
+            self.category = Session.Category(name: category)
         }
         
         if let tags = json[SessionJSONKeys.tags.rawValue] as? [String] {

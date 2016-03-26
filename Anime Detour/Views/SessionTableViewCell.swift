@@ -13,6 +13,7 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var bookmarkButton: UIButton?
+    @IBOutlet var colorView: UIView?
 
     var viewModel: SessionViewModel? {
         didSet {
@@ -33,6 +34,13 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
             timeLabel.text = viewModel.dateAndTime
             
             bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
+            
+            if let color = viewModel.categoryColor {
+                colorView?.hidden = false
+                colorView?.backgroundColor = color
+            } else {
+                colorView?.hidden = true
+            }
         }
     }
 
@@ -40,6 +48,16 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
         super.init(coder: aDecoder)
     }
 
+    // MARK: UITableViewCell
+    
+    override func setHighlighted(highlighted: Bool, animated: Bool) {
+        let colorViewColor = colorView?.backgroundColor
+        defer {
+            colorView?.backgroundColor = colorViewColor
+        }
+        super.setHighlighted(highlighted, animated: animated)        
+    }
+    
     override func prepareForReuse() {
         self.viewModel?.delegate = nil
     }
