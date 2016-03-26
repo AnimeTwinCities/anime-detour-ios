@@ -12,7 +12,6 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
-    @IBOutlet var bookmarkButton: UIButton?
     @IBOutlet var colorView: UIView?
 
     var viewModel: SessionViewModel? {
@@ -32,8 +31,6 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
             nameLabel.text = viewModel.name
             locationLabel.text = viewModel.location
             timeLabel.text = viewModel.dateAndTime
-            
-            bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
             
             if let color = viewModel.categoryColor {
                 colorView?.hidden = false
@@ -61,18 +58,10 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
     override func prepareForReuse() {
         self.viewModel?.delegate = nil
     }
-
-    // MARK: Bookmarking
-
-    @IBAction func toggleBookmark(sender: AnyObject) {
-        self.viewModel?.toggleBookmarked()
-    }
     
     // MARK: Session View Model Delegate
     
     func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
-        bookmarkButton?.setImage(bookmarkImage, forState: .Normal)
-        bookmarkButton?.accessibilityLabel = accessibilityLabel
+        // empty
     }
-
 }
