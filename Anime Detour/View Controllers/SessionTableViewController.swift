@@ -117,25 +117,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
 
     private var selectedCellIndex: NSIndexPath?
-
-    // MARK: Editing
-
-    /// Done button for editing the table view.
-    /// Uses the same selector as `editButton`.
-    private var doneButton: UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("toggleEditing:"))
-    }
-
-    /// Edit button for editing the table view.
-    /// Uses the same selector as `doneButton`.
-    private var editButton: UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: Selector("toggleEditing:"))
-    }
-
-    private var unfavoriteButton: UIBarButtonItem {
-        return UIBarButtonItem(title: "Unfavorite", style: .Plain, target: self, action: Selector("removeFavorites"))
-    }
-
+    
     // MARK: Segue identifiers
 
     @IBInspectable var detailIdentifier: String!
