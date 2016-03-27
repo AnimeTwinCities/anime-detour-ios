@@ -42,25 +42,25 @@ public class Session: NSManagedObject {
                 let hex: Int
                 switch self {
                 case .cosplayPhotoshoot:
-                    hex = 0xffC0CA33
+                    hex = 0xC0CA33
                 case .electronicGaming:
-                    hex = 0xff3949AB
+                    hex = 0x3949AB
                 case .event:
-                    hex = 0xff43A047
+                    hex = 0x43A047
                 case .guestSigning:
-                    hex = 0xff8E24AA
+                    hex = 0x8E24AA
                 case .hoursOfOperation:
-                    hex = 0xffFE7F00
+                    hex = 0xFE7F00
                 case .panel:
-                    hex = 0xffE53935
+                    hex = 0xE53935
                 case .roomParty:
-                    hex = 0xff424242
+                    hex = 0x424242
                 case .tabletopGaming:
-                    hex = 0xff00ACC1
+                    hex = 0x00ACC1
                 case .video:
-                    hex = 0xffFFB300
+                    hex = 0xFFB300
                 case .workshop:
-                    hex = 0xff546E7A
+                    hex = 0x546E7A
                 }
                 
                 return UIColor(hex: hex)
