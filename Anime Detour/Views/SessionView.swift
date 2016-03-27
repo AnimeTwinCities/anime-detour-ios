@@ -30,7 +30,6 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
     @IBOutlet var panelistsView: UIView!
     
     @IBOutlet var imageHeaderView: ImageHeaderView!
-    @IBOutlet var imageView: UIImageView!
 
     @IBOutlet var bookmarkButton: UIButton!
     
@@ -38,7 +37,7 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
 
     private var image: UIImage? {
         didSet {
-            imageView.image = image
+            imageHeaderView.image = image
             
             switch image {
             case _?:

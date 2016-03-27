@@ -1012,21 +1012,22 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0id-b7-M4n" customClass="ImageHeaderView" customModule="Anime_Detour" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2d5-6a-c0q">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Izc-Bd-J7a" customClass="FaceDisplayingImageView" customModule="Anime_Detour" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
-                                                    </imageView>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="999" constant="180" id="Apa-Hv-NYS"/>
-                                                    <constraint firstItem="2d5-6a-c0q" firstAttribute="leading" secondItem="0id-b7-M4n" secondAttribute="leading" id="FBq-iq-ft3"/>
-                                                    <constraint firstItem="2d5-6a-c0q" firstAttribute="top" secondItem="0id-b7-M4n" secondAttribute="top" id="FaT-oV-3px"/>
-                                                    <constraint firstAttribute="trailing" secondItem="2d5-6a-c0q" secondAttribute="trailing" id="YlR-Ny-VYZ"/>
-                                                    <constraint firstAttribute="bottom" secondItem="2d5-6a-c0q" secondAttribute="bottom" id="rND-7Z-WB9"/>
+                                                    <constraint firstItem="Izc-Bd-J7a" firstAttribute="top" secondItem="0id-b7-M4n" secondAttribute="top" id="YBa-ae-VBy"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Izc-Bd-J7a" secondAttribute="bottom" id="d8a-s7-v3L"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Izc-Bd-J7a" secondAttribute="trailing" id="g1V-E2-E7j"/>
+                                                    <constraint firstItem="Izc-Bd-J7a" firstAttribute="leading" secondItem="0id-b7-M4n" secondAttribute="leading" id="pDJ-Mf-BOP"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="imageView" destination="2d5-6a-c0q" id="xID-6S-LpQ"/>
-                                                    <outlet property="imageViewTopConstraint" destination="FaT-oV-3px" id="EHe-ju-H1P"/>
+                                                    <outlet property="imageView" destination="Izc-Bd-J7a" id="NjB-uM-34N"/>
+                                                    <outlet property="imageViewTopConstraint" destination="YBa-ae-VBy" id="iq4-JF-EH3"/>
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PbF-BR-Xqi" userLabel="Below Image Container View">
@@ -1160,7 +1161,6 @@
                                     <outlet property="descriptionLabel" destination="60s-P8-Wet" id="fG5-dg-T7q"/>
                                     <outlet property="descriptionView" destination="aRj-wg-kqB" id="dei-P8-lSC"/>
                                     <outlet property="imageHeaderView" destination="0id-b7-M4n" id="VkW-0O-jlY"/>
-                                    <outlet property="imageView" destination="2d5-6a-c0q" id="IMz-Cp-4I2"/>
                                     <outlet property="locationLabel" destination="HVh-mQ-jis" id="2zP-1r-2D5"/>
                                     <outlet property="nameLabel" destination="fKd-8m-hgW" id="qVq-bD-kCN"/>
                                     <outlet property="panelistsLabel" destination="BBR-Zx-uF5" id="idb-C3-RNV"/>
