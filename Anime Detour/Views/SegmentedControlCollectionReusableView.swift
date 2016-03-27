@@ -9,7 +9,10 @@
 import UIKit
 
 class SegmentedControlCollectionReusableView: UICollectionReusableView {
-    @IBOutlet private(set) var segmentedControl: UISegmentedControl!
+    @IBOutlet private(set) weak var segmentedControl: UISegmentedControl!
+    @IBOutlet private weak var blurView: UIVisualEffectView!
+    @IBOutlet private weak var bottomLine: UIView!
+    @IBOutlet private weak var bottomLineHeightConstraint: NSLayoutConstraint!
 
     convenience init() {
         self.init(frame: CGRect.zero)
@@ -18,8 +21,8 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
-        
+        addBlurView()
+        addBottomLine()
         addSegmentedControl()
     }
 
@@ -27,6 +30,33 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
         super.init(coder: aDecoder)
     }
 
+    private func addBlurView() {
+        let blurEffect = UIBlurEffect(style: .ExtraLight)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        addSubview(blurView)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        blurView.topAnchor.constraintEqualToAnchor(topAnchor).active = true
+        blurView.leftAnchor.constraintEqualToAnchor(leftAnchor).active = true
+        blurView.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
+        blurView.rightAnchor.constraintEqualToAnchor(rightAnchor).active = true
+        
+        self.blurView = blurView
+    }
+    
+    private func addBottomLine() {
+        let bottomLine = UIView()
+        addSubview(bottomLine)
+        bottomLine.translatesAutoresizingMaskIntoConstraints = false
+        bottomLine.backgroundColor =  UIColor.lightGrayColor()
+        bottomLineHeightConstraint = NSLayoutConstraint(item: bottomLine, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 1.0)
+        bottomLine.addConstraint(bottomLineHeightConstraint)
+        bottomLine.leftAnchor.constraintEqualToAnchor(leftAnchor).active = true
+        bottomLine.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
+        bottomLine.rightAnchor.constraintEqualToAnchor(rightAnchor).active = true
+        
+        self.bottomLine = bottomLine
+    }
+    
     private func addSegmentedControl() {
         let segmentedControl = UISegmentedControl()
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
@@ -44,5 +74,12 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
         leftSide.priority = UILayoutPriorityRequired
 
         addConstraints([hCenter, vCenter, width, leftSide])
+    }
+    
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        
+        let scale = window?.screen.scale ?? 1
+        bottomLineHeightConstraint.constant = 1 / scale
     }
 }
