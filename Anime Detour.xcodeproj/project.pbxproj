@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		131E853CBE8DA6A3B7E54D2B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB42EA03A5C9F3E6AA640554 /* Pods.framework */; };
 		DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DA0E971F1CA23CFA00043A30 /* Settings.bundle */; };
+		DA2F3C3F1CA7926B00939929 /* InsettableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2F3C3E1CA7926B00939929 /* InsettableLabel.swift */; };
 		DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */; };
 		DA5341FF1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */; };
 		DA5342001CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */; };
@@ -120,6 +121,7 @@
 		0EDC32C1F49B201EDB48C6C7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		89845D4298D7D6831C8AF0FC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DA0E971F1CA23CFA00043A30 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		DA2F3C3E1CA7926B00939929 /* InsettableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsettableLabel.swift; sourceTree = "<group>"; };
 		DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_1.pdf"; sourceTree = "<group>"; };
 		DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_2.pdf"; sourceTree = "<group>"; };
 		DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_3.pdf"; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				DA90BDA51CA23E07006A5ACD /* SessionView.swift */,
 				DA90BDA61CA23E07006A5ACD /* StretchingImageHeaderContainer.swift */,
 				DA90BDA71CA23E07006A5ACD /* TextHeaderCollectionReusableView.swift */,
+				DA2F3C3E1CA7926B00939929 /* InsettableLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -669,6 +672,7 @@
 				DA90BDAA1CA23E07006A5ACD /* AnalyticsViewControllers.swift in Sources */,
 				DA90BDC71CA23E07006A5ACD /* InformationViewController.swift in Sources */,
 				DA90BDC11CA23E07006A5ACD /* InternalSettings.swift in Sources */,
+				DA2F3C3F1CA7926B00939929 /* InsettableLabel.swift in Sources */,
 				DA90BDCF1CA23E07006A5ACD /* GuestViewModel.swift in Sources */,
 				DA90BDB51CA23E07006A5ACD /* UICollectionViewFlowLayout.swift in Sources */,
 				DA90BDD11CA23E07006A5ACD /* FaceDisplayingImageView.swift in Sources */,

@@ -21,7 +21,7 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var categoryLabel: UILabel!
+    @IBOutlet var categoryLabel: InsettableLabel!
     @IBOutlet var panelistsLabel: UILabel!
     
     /// The view displaying the session's description and any associated views.
@@ -33,6 +33,8 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
     @IBOutlet var imageView: UIImageView!
 
     @IBOutlet var bookmarkButton: UIButton!
+    
+    private var originalCategoryLabelColor: UIColor = UIColor.blackColor()
 
     private var image: UIImage? {
         didSet {
@@ -63,6 +65,11 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
                 descriptionView.hidden = true
             }
             categoryLabel.text = viewModel?.category
+            let categoryColor = viewModel?.categoryColor ?? originalCategoryLabelColor
+            categoryLabel.textColor = categoryColor
+            let categoryLabelLayer = categoryLabel.layer
+            categoryLabelLayer.borderColor = categoryColor.CGColor
+            
             if let panelists = viewModel?.panelists where !panelists.isEmpty {
                 panelistsView.hidden = false
                 panelistsLabel.text = panelists
@@ -90,6 +97,16 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
                 })
             })
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        originalCategoryLabelColor = categoryLabel.textColor
+        let categoryLabelLayer = categoryLabel.layer
+        categoryLabelLayer.borderWidth = 2
+        categoryLabelLayer.cornerRadius = 5
+        categoryLabel.insets = UIEdgeInsetsMake(4, 8, 4, 8)
     }
 
     // MARK: - Session View Model Delegate
