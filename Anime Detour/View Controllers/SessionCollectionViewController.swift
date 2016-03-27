@@ -251,7 +251,7 @@ class SessionCollectionViewController: UICollectionViewController {
         
         if !dayScroller.scroll(now, after: false) {
             // Show an alert saying what we'll do once the con starts
-            let alert = UIAlertController(title: "Now Button", message: "During Anime Detour, use the Now button to scroll the schedule to the current time.", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "‘Now’ Button", message: "During Anime Detour, use the ‘Now’ button to scroll the schedule to the current time.", preferredStyle: .Alert)
             let ok = UIAlertAction(title: "Got It", style: .Cancel, handler: { _ in alert.dismissViewControllerAnimated(true, completion: nil) })
             alert.addAction(ok)
             presentViewController(alert, animated: true, completion: nil)
