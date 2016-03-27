@@ -243,27 +243,19 @@ class SessionCollectionViewController: UICollectionViewController {
     
     // MARK: - Show next sessions that haven't yet started
     
-    /// Scroll to the Session that started closest to, but not at or after, the current time.
+    /// Scroll to the Session that started closest to, but not after, the current time.
     @IBAction private func showUpcomingSessions() {
         let now = NSDate()
-        let fallbackDate = NSDate.distantPast()
-        guard let sectionIndex = fetchedResultsController.indexOfFirstSectionPassing(test: { info in
-            let firstSession = info.objects?.first as? Session
-            let sessionStart = firstSession?.start ?? fallbackDate
-            
-            // Session starts before `now` if `sessionStart.compare(now)` is `.OrderedDescending`
-            switch sessionStart.compare(now){
-            case .OrderedDescending:
-                return true
-            case .OrderedAscending, .OrderedSame:
-                return false
-            }
-        }) where sectionIndex > 0 else {
-            return
-        }
+        // 1461380400 is 4/23/16 at 3AM UTC, which is 4/22/16 at 10 PM CDT
+//        let now = NSDate(timeIntervalSince1970: 1461380400)
         
-        let indexPath = NSIndexPath(forItem: 0, inSection: sectionIndex - 1)
-        collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+        if !dayScroller.scroll(now, after: false) {
+            // Show an alert saying what we'll do once the con starts
+            let alert = UIAlertController(title: "Now Button", message: "During Anime Detour, use the Now button to scroll the schedule to the current time.", preferredStyle: .Alert)
+            let ok = UIAlertAction(title: "Got It", style: .Cancel, handler: { _ in alert.dismissViewControllerAnimated(true, completion: nil) })
+            alert.addAction(ok)
+            presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Collection view layout support
@@ -522,6 +514,16 @@ private extension NSFetchedResultsController {
         
         return idx
     }
+    
+    func indexOfLastSectionPassing(@noescape test test: (sectionInfo: NSFetchedResultsSectionInfo) -> Bool) -> Int? {
+        guard let (idx, _) = sections?.enumerate().reverse().filter({ _, info in
+            return test(sectionInfo: info)
+        }).first else {
+            return nil
+        }
+        
+        return idx
+    }
 }
 
 // MARK: - Session Day Scroller
@@ -647,24 +649,31 @@ private class SessionDayScroller {
     /**
      Find the index path of the first Session with a start time of `date` (or later),
      based on our `fetchedResultsController`'s current fetched sections.
+     
+     Find session with a start time of `date` or *before*, logic if `after` is `false`.
      */
-    private func indexPathOfSection(date: NSDate) -> NSIndexPath? {
+    private func indexPathOfSection(date: NSDate, after: Bool = true) -> NSIndexPath? {
         let frc = fetchedResultsController
         
         let fallbackDate = NSDate.distantPast()
-        return frc.indexOfFirstSectionPassing { info in
+        let method = after ? frc.indexOfFirstSectionPassing : frc.indexOfLastSectionPassing
+        return method { info in
             let firstSession = info.objects?.first as? Session
             let sessionStart = firstSession?.start ?? fallbackDate
             
             // If `sessionStart.compare(date)` is `.OrderedDescending` or `.OrderedSame`,
             // i.e. it matches or comes after `date`, we found the Session we want.
             switch sessionStart.compare(date) {
-            case .OrderedDescending, .OrderedSame:
+            case .OrderedDescending:
+                return after ? true : false
+            case .OrderedSame:
                 return true
             case .OrderedAscending:
-                return false
+                return after ? false : true
             }
-        }.map { idx in return NSIndexPath(forItem: 0, inSection: idx) }
+        }.map {
+            idx in return NSIndexPath(forItem: 0, inSection: idx)
+        }
     }
     
     /**
@@ -683,10 +692,14 @@ private class SessionDayScroller {
         return session.start
     }
     
-    /// Scroll to the first session for the day
-    func scroll(date: NSDate) {
-        guard let indexPath = indexPathOfSection(date) else {
-            return
+    /**
+     Scroll to the first session at or after `date`. If `after` is `false`, scroll to the first session at or *before* `date`.
+     
+     - returns: `true` if scrolling was done, `false` if not.
+     */
+    func scroll(date: NSDate, after: Bool = true) -> Bool {
+        guard let indexPath = indexPathOfSection(date, after: after) else {
+            return false
         }
         
         scrollingToDay = true
@@ -708,6 +721,8 @@ private class SessionDayScroller {
         case let .TableView(tv):
             tv.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
         }
+        
+        return true
     }
     
     func willDisplayItemAtIndexPath(indexPath: NSIndexPath) {
