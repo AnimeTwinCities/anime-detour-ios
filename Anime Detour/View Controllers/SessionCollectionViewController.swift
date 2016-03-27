@@ -208,6 +208,8 @@ class SessionCollectionViewController: UICollectionViewController {
         
         traitCollectionAfterCurrentTransition = nil
         lastDisplayedTraitCollection = traitCollection
+        
+        coordinator.animateAlongsideTransition({ _ in self.updateStickyHeaderLayoutTopOffset() }, completion: nil)
     }
     
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
