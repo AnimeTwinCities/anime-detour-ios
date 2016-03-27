@@ -44,7 +44,7 @@
 		DA90BDC31CA23E07006A5ACD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD8C1CA23E07006A5ACD /* Settings.swift */; };
 		DA90BDC41CA23E07006A5ACD /* UserActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD8E1CA23E07006A5ACD /* UserActivityController.swift */; };
 		DA90BDC51CA23E07006A5ACD /* GuestCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD901CA23E07006A5ACD /* GuestCollectionViewController.swift */; };
-		DA90BDC61CA23E07006A5ACD /* GuestDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD911CA23E07006A5ACD /* GuestDetailTableViewController.swift */; };
+		DA90BDC61CA23E07006A5ACD /* GuestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD911CA23E07006A5ACD /* GuestDetailViewController.swift */; };
 		DA90BDC71CA23E07006A5ACD /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD921CA23E07006A5ACD /* InformationViewController.swift */; };
 		DA90BDC81CA23E07006A5ACD /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD931CA23E07006A5ACD /* MapsViewController.swift */; };
 		DA90BDC91CA23E07006A5ACD /* SessionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD941CA23E07006A5ACD /* SessionCollectionViewController.swift */; };
@@ -157,7 +157,7 @@
 		DA90BD8C1CA23E07006A5ACD /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		DA90BD8E1CA23E07006A5ACD /* UserActivityController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityController.swift; sourceTree = "<group>"; };
 		DA90BD901CA23E07006A5ACD /* GuestCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestCollectionViewController.swift; sourceTree = "<group>"; };
-		DA90BD911CA23E07006A5ACD /* GuestDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestDetailTableViewController.swift; sourceTree = "<group>"; };
+		DA90BD911CA23E07006A5ACD /* GuestDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestDetailViewController.swift; sourceTree = "<group>"; };
 		DA90BD921CA23E07006A5ACD /* InformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		DA90BD931CA23E07006A5ACD /* MapsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		DA90BD941CA23E07006A5ACD /* SessionCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCollectionViewController.swift; sourceTree = "<group>"; };
@@ -369,7 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				DA90BD901CA23E07006A5ACD /* GuestCollectionViewController.swift */,
-				DA90BD911CA23E07006A5ACD /* GuestDetailTableViewController.swift */,
+				DA90BD911CA23E07006A5ACD /* GuestDetailViewController.swift */,
 				DA90BD921CA23E07006A5ACD /* InformationViewController.swift */,
 				DA90BD931CA23E07006A5ACD /* MapsViewController.swift */,
 				DA90BD941CA23E07006A5ACD /* SessionCollectionViewController.swift */,
@@ -678,7 +678,7 @@
 				DA90BDD11CA23E07006A5ACD /* FaceDisplayingImageView.swift in Sources */,
 				DA90BDDA1CA23E07006A5ACD /* TextHeaderCollectionReusableView.swift in Sources */,
 				DA90BDB91CA23E07006A5ACD /* CoreDataController_Singleton.swift in Sources */,
-				DA90BDC61CA23E07006A5ACD /* GuestDetailTableViewController.swift in Sources */,
+				DA90BDC61CA23E07006A5ACD /* GuestDetailViewController.swift in Sources */,
 				DA90BDD61CA23E07006A5ACD /* SessionTableViewCell.swift in Sources */,
 				DA90BDD31CA23E07006A5ACD /* ImageHeaderView.swift in Sources */,
 				DA90BDAF1CA23E07006A5ACD /* AnimeDetourAPIClient_Singleton.swift in Sources */,

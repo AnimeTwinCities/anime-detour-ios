@@ -66,7 +66,7 @@ private enum KnownActivityTypes {
     
     init?(activityType: String) {
         switch activityType {
-        case GuestDetailTableViewController.activityType:
+        case GuestDetailViewController.activityType:
             self = .Guest
         case SessionViewController.activityType:
             self = .Session

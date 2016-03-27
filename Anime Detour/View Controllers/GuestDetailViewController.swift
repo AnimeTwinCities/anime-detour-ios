@@ -13,7 +13,7 @@ import CoreData
 
 let photoContext = UnsafeMutablePointer<Void>.alloc(1)
 
-class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, StretchingImageHeaderContainer {
+class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebViewDelegate, StretchingImageHeaderContainer {
     static let guestActivityGuestIDKey = (NSBundle.mainBundle().bundleIdentifier ?? "") + ".guestID"
     private static let guestActivityTypeSuffix = ".guest"
     static let activityType = (NSBundle.mainBundle().bundleIdentifier ?? "") + guestActivityTypeSuffix
@@ -22,21 +22,23 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         didSet {
             if isViewLoaded() {
                 updateImageHeader()
-                tableView?.reloadData()
             }
         }
     }
     
-    var imageHeaderView: ImageHeaderView!
     var photoAspect: CGFloat = 2
     
-    private weak var bioWebView: UIWebView?
-    private var bioWebViewHeight: CGFloat?
-    private var bioWebviewLoadInitiated = false
+    @IBOutlet internal weak var imageHeaderView: ImageHeaderView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var bioWebView: UIWebView!
+    @IBOutlet private weak var bioWebViewHeightConstraint: NSLayoutConstraint!
+    private var bioWebViewHeight: CGFloat = 400 {
+        didSet {
+            bioWebViewHeightConstraint.constant = bioWebViewHeight
+        }
+    }
     
     @IBInspectable var bioWebViewSideMargin: CGFloat = 0
-    @IBInspectable var bioIdentifier: String!
-    @IBInspectable var nameIdentifier: String!
     
     // MARK: Images
 
@@ -48,6 +50,11 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         updateImageHeader()
         updateHeaderSize()
         
+        nameLabel.text = guestViewModel?.name
+        
+        bioWebView.scrollView.scrollEnabled = false
+        bioWebView.loadHTMLString(guestViewModel?.bio ?? "", baseURL: nil)
+        
         let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
         
         let dict = GAIDictionaryBuilder.createEventDictionary(.Guest, action: .ViewDetails, label: guestViewModel?.name, value: nil)
@@ -58,11 +65,11 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         super.viewDidAppear(animated)
         
         let currentActivity: NSUserActivity
-        if let activity = userActivity where activity.activityType == GuestDetailTableViewController.activityType {
+        if let activity = userActivity where activity.activityType == GuestDetailViewController.activityType {
             currentActivity = activity
         } else {
             userActivity?.invalidate()
-            currentActivity = NSUserActivity(activityType: GuestDetailTableViewController.activityType)
+            currentActivity = NSUserActivity(activityType: GuestDetailViewController.activityType)
             
             userActivity = currentActivity
         }
@@ -79,14 +86,15 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({ _ in
+            self.updateWebViewHeightForWidth(size.width - 2 * self.bioWebViewSideMargin)
+            }, completion: nil)
         
-        updateWebViewHeightForWidth(size.width - 2 * bioWebViewSideMargin)
     }
     
     // MARK: Guest Display
     
     private func updateImageHeader() {
-        imageHeaderView = tableView.tableHeaderView as! ImageHeaderView
         imageHeaderView.image = guestViewModel?.hiResPhoto(true, lowResPhotoPlaceholder: true)
         imageHeaderView.faceBounds = guestViewModel?.hiResFaceBounds
     }
@@ -106,29 +114,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         webView.frame = frame
         let size = webView.sizeThatFits(CGSize(width: width, height: CGFloat.max))
         
-        // Calling `beginUpdates` and then `endUpdates` makes the table view reload cells,
-        // getting our calculated cell height.
-        tableView.beginUpdates()
         bioWebViewHeight = size.height
-        tableView.endUpdates()
-    }
-
-    private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-        switch cell.reuseIdentifier {
-        case nameIdentifier?:
-            (cell as! GuestNameCell).nameLabel.text = guestViewModel?.name
-        case bioIdentifier?:
-            let webView = cell.contentView.subviews.flatMap { $0 as? UIWebView }.first!
-            bioWebView = webView
-            webView.delegate = self
-            webView.scrollView.scrollEnabled = false
-            if !bioWebviewLoadInitiated {
-                webView.loadHTMLString(guestViewModel?.bio ?? "", baseURL: nil)
-                bioWebviewLoadInitiated = true
-            }
-        case let identifier:
-            fatalError("Unexpected reuse identifier: \(identifier). Expected a match against one of our xIdentifier properties.")
-        }
     }
     
     // MARK: - NSUserActivity
@@ -146,7 +132,7 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
         
         var userInfo: [String:AnyObject] = [:]
         if let viewModel = guestViewModel {
-            userInfo[GuestDetailTableViewController.guestActivityGuestIDKey] = viewModel.guest.guestID
+            userInfo[GuestDetailViewController.guestActivityGuestIDKey] = viewModel.guest.guestID
             activity.eligibleForSearch = true
         } else {
             activity.eligibleForSearch = false
@@ -167,34 +153,10 @@ class GuestDetailTableViewController: UITableViewController, UIWebViewDelegate, 
     
     // MARK: - Scroll view delegate
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        updateHeaderImageTopConstraint(tableView)
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        updateHeaderImageTopConstraint(scrollView)
     }
-
-    // MARK: - Table view data source
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        configure(cell, atIndexPath: indexPath)
-
-        return cell
-    }
-
-    // MARK: - Table view delegate
-
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        guard let row = GuestDetailTableViewCellRow(row: indexPath.row) else {
-            fatalError("Unexpected row number: \(indexPath.row) in guest detail view.")
-        }
-        
-        switch row {
-        case .Name:
-            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
-        case .Bio:
-            return bioWebViewHeight ?? tableView.frame.height - 344
-        }
-    }
-
+    
     // MARK: - Web view delegate
 
     func webViewDidFinishLoad(webView: UIWebView) {

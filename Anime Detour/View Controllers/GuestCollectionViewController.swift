@@ -57,7 +57,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     private let faceDetector = ImageFaceDetector()
     
     // The detail view, so we can update it after we get a hi res photo or face.
-    private weak var detailViewController: GuestDetailTableViewController?
+    private weak var detailViewController: GuestDetailViewController?
 
     // MARK: View controller
 
@@ -95,7 +95,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     // MARK: - UIResponder
     
     override func restoreUserActivityState(activity: NSUserActivity) {
-        guard let guestID = activity.userInfo?[GuestDetailTableViewController.guestActivityGuestIDKey] as? String else {
+        guard let guestID = activity.userInfo?[GuestDetailViewController.guestActivityGuestIDKey] as? String else {
             return
         }
         
@@ -207,7 +207,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
                 preconditionFailure("Unexpected segue sender.")
             }
             
-            let guestVC = segue.destinationViewController as! GuestDetailTableViewController
+            let guestVC = segue.destinationViewController as! GuestDetailViewController
             guestVC.guestViewModel = viewModel
             
             detailViewController = guestVC

@@ -60,7 +60,7 @@ extension GuestCollectionViewController: AnalyticsScreen {
     var screenName: String { return "Guests" }
 }
 
-extension GuestDetailTableViewController: AnalyticsScreen {
+extension GuestDetailViewController: AnalyticsScreen {
     var screenName: String { return "Guest Detail" }
 }
 
