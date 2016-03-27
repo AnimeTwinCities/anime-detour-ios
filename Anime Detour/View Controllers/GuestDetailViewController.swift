@@ -174,26 +174,3 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
         }
     }
 }
-
-class GuestNameCell: UITableViewCell {
-    @IBOutlet var nameLabel: UILabel!
-}
-
-/**
- Cases correspond to data expected to be displayed for a given row.
- */
-private enum GuestDetailTableViewCellRow {
-    case Name
-    case Bio
-    
-    init?(row: Int) {
-        switch row {
-        case 0:
-            self = .Name
-        case 1:
-            self = .Bio
-        default:
-            return nil
-        }
-    }
-}
