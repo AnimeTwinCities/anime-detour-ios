@@ -58,10 +58,6 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     
     // The detail view, so we can update it after we get a hi res photo or face.
     private weak var detailViewController: GuestDetailTableViewController?
-    
-    // MARK: Collection view sizing
-
-    private var lastDisplayedTraitCollection: UITraitCollection!
 
     // MARK: View controller
 
@@ -82,23 +78,18 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         }
 
         setFlowLayoutCellSizes(collectionView!)
-        lastDisplayedTraitCollection = traitCollection
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if traitCollection != lastDisplayedTraitCollection {
-            setFlowLayoutCellSizes(collectionView!)
-            lastDisplayedTraitCollection = traitCollection
-        }
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        self.setFlowLayoutCellSizes(self.collectionView!)
     }
-
-    override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        // Update sizes in `willAnimateRotationToInterfaceOrientation...` so the collection view's
-        // frame is already updated.
-        setFlowLayoutCellSizes(collectionView!)
-        lastDisplayedTraitCollection = traitCollection
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({ _ in
+            self.view.setNeedsUpdateConstraints()
+            }, completion: nil)
     }
     
     // MARK: - UIResponder

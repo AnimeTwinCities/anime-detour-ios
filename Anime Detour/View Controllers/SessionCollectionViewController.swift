@@ -194,7 +194,9 @@ class SessionCollectionViewController: UICollectionViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        // Possibly update cell sizes. Belongs in `viewDidAppear:`, as case the
+        updateStickyHeaderLayoutTopOffset()
+        
+        // Possibly update cell sizes. Belongs in `viewDidAppear:`, as the
         // trait collection is sometimes not up to date in `viewWillAppear:`.
         updateCellSizesIfNecessary()
         
