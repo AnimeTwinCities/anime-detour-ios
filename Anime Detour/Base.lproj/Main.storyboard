@@ -882,7 +882,9 @@
                                                     <constraint firstAttribute="bottom" secondItem="m1j-Dp-9je" secondAttribute="bottom" id="gX1-s4-Po0"/>
                                                     <constraint firstItem="m1j-Dp-9je" firstAttribute="leading" secondItem="ogR-EI-QTf" secondAttribute="leading" id="tB4-YE-Aok"/>
                                                     <constraint firstAttribute="trailing" secondItem="m1j-Dp-9je" secondAttribute="trailing" id="tQ6-uX-uce"/>
-                                                    <constraint firstAttribute="height" priority="999" constant="180" id="xSx-Xb-LFM"/>
+                                                    <constraint firstAttribute="height" priority="999" constant="180" id="xSx-Xb-LFM">
+                                                        <variation key="heightClass=regular" constant="400"/>
+                                                    </constraint>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="imageView" destination="m1j-Dp-9je" id="QTK-8z-fCx"/>
@@ -1019,7 +1021,9 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" priority="999" constant="180" id="Apa-Hv-NYS"/>
+                                                    <constraint firstAttribute="height" priority="999" constant="180" id="Apa-Hv-NYS">
+                                                        <variation key="heightClass=regular" constant="400"/>
+                                                    </constraint>
                                                     <constraint firstItem="Izc-Bd-J7a" firstAttribute="top" secondItem="0id-b7-M4n" secondAttribute="top" id="YBa-ae-VBy"/>
                                                     <constraint firstAttribute="bottom" secondItem="Izc-Bd-J7a" secondAttribute="bottom" id="d8a-s7-v3L"/>
                                                     <constraint firstAttribute="trailing" secondItem="Izc-Bd-J7a" secondAttribute="trailing" id="g1V-E2-E7j"/>
