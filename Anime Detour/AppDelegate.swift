@@ -212,7 +212,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.tintColor = mainColor
         
         // Make UISearchBars minimal style but with gray text fields by default
-        UISearchBar.appearance().searchBarStyle = .Minimal
+        let searchBar = UISearchBar.appearance()
+        searchBar.searchBarStyle = .Minimal
+        searchBar.backgroundColor = UIColor.adr_lightGray
         UITextField.appearanceWhenContainedInInstancesOfClasses([UISearchBar.self]).backgroundColor = UIColor.grayColor()
         
         let tableViewBackgroundView = UIView()
