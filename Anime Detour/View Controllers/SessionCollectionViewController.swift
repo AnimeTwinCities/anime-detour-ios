@@ -706,15 +706,13 @@ private class SessionDayScroller {
         switch targetView {
         case let .CollectionView(cv):
             if let flowLayout = cv.collectionViewLayout as? UICollectionViewFlowLayout {
-                // Not animated, so we're not 'scrolling'
-                scrollingToDay = false
                 let yCoordOfFirstView = flowLayout.yCoordinateForFirstItemInSection(indexPath.section)
                 var offset = cv.contentOffset
                 // Subtract the top content inset to take into account anything that floats at
                 // the top of the collection view, e.g. a navigation bar or in our case,
                 // the day selector.
                 offset.y = yCoordOfFirstView - cv.contentInset.top
-                cv.contentOffset = offset
+                cv.setContentOffset(offset, animated: true)
             } else {
                 cv.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
             }
@@ -737,7 +735,11 @@ private class SessionDayScroller {
     // MARK: - Scroll View Delegate
     
     func scrollViewDidEndScrollingAnimation() {
-        scrollingToDay = false
+        // Delay un-setting `scrollingToDay` so we don't depend on ordering
+        // relative to `willDisplayItemAtIndexPath(_:)`.
+        dispatch_async(dispatch_get_main_queue(), {
+            self.scrollingToDay = false
+        })
     }
     
     // MARK: - Received actions
