@@ -90,10 +90,11 @@ class SessionCollectionViewController: UICollectionViewController {
         switch filteredCategory {
         case .All:
             return nil
-        case let .Named(category):
-            let begins = NSPredicate(format: "\(Session.Keys.category.rawValue) BEGINSWITH %@", category)
-            let contains = NSPredicate(format: "\(Session.Keys.category.rawValue) CONTAINS %@", ", " + category + ",")
-            let ends = NSPredicate(format: "\(Session.Keys.category.rawValue) ENDSWITH %@", ", " + category)
+        case let .Category(category):
+            let categoryName = category.name
+            let begins = NSPredicate(format: "\(Session.Keys.category.rawValue) BEGINSWITH %@", categoryName)
+            let contains = NSPredicate(format: "\(Session.Keys.category.rawValue) CONTAINS %@", ", " + categoryName + ",")
+            let ends = NSPredicate(format: "\(Session.Keys.category.rawValue) ENDSWITH %@", ", " + categoryName)
             let pred = NSCompoundPredicate(orPredicateWithSubpredicates: [begins, contains, ends])
             return pred
         }
@@ -336,8 +337,8 @@ class SessionCollectionViewController: UICollectionViewController {
         switch filteredCategory {
         case .All:
             return unfilteredTitle
-        case let .Named(type):
-            return type
+        case let .Category(category):
+            return category.name
         }
     }
     
@@ -407,7 +408,7 @@ class SessionCollectionViewController: UICollectionViewController {
             let navController = segue.destinationViewController as! UINavigationController
             let filterVC = navController.topViewController as! SessionFilterTableViewController
             filterVC.selectedType = filteredCategory
-            filterVC.sessionTypes = { () -> [String] in
+            filterVC.sessionTypes = { () -> [Session.Category] in
                 let categoryKey = Session.Keys.category.rawValue
                 let request = NSFetchRequest(entityName: Session.entityName)
                 request.propertiesToFetch = [ categoryKey ]
@@ -429,7 +430,9 @@ class SessionCollectionViewController: UICollectionViewController {
                     }
                     
                     let unique = Set<String>(types)
-                    return unique.sort()
+                    let sorted = unique.sort()
+                    let categories = sorted.map { name in Session.Category(name: name) }
+                    return categories
                 } catch {
                     let error = error as NSError
                     NSLog("Error fetching session information: \(error)")

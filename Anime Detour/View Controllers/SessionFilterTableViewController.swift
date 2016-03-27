@@ -8,11 +8,14 @@
 
 import UIKit
 
+import AnimeDetourDataModel
+
 class SessionFilterTableViewController: UITableViewController {
+    
+    @IBInspectable var allReuseIdentifier: String!
+    @IBInspectable var categoryReuseIdentifier: String!
 
-    @IBInspectable var reuseIdentifier: String!
-
-    var sessionTypes: [String]!
+    var sessionTypes: [Session.Category]!
 
     /// The current selection on which to filter.
     /// Setting the selected type will update the table view.
@@ -41,8 +44,8 @@ class SessionFilterTableViewController: UITableViewController {
         switch type {
         case .All:
             indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        case let .Named(name):
-            if let index = self.sessionTypes.indexOf(name) {
+        case let .Category(category):
+            if let index = self.sessionTypes.indexOf(category) {
                 indexPath = NSIndexPath(forRow: index, inSection: 1)
             } else {
                 indexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -53,11 +56,21 @@ class SessionFilterTableViewController: UITableViewController {
     }
 
     private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
+        
         switch indexPath.section {
         case 0:
             cell.textLabel?.text = "All"
         case 1:
-            cell.textLabel?.text = self.sessionTypes[indexPath.row]
+            let category = self.sessionTypes[indexPath.row]
+            let categoryCell = cell as! FilterCategoryTableViewCell
+            let color = category.color
+            
+            let label = categoryCell.categoryLabel
+            label?.text = category.name
+            label?.textColor = color
+            
+            let layer = label?.layer
+            layer?.borderColor = color?.CGColor
         default:
             fatalError("Unexpected section number: \(indexPath.section)")
         }
@@ -78,7 +91,7 @@ class SessionFilterTableViewController: UITableViewController {
         case (0, _):
             selectedType = .All
         case let (_, row):
-            selectedType = .Named(self.sessionTypes[row])
+            selectedType = .Category(self.sessionTypes[row])
         }
 
         self.selectedType = selectedType
@@ -107,7 +120,8 @@ class SessionFilterTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.reuseIdentifier, forIndexPath: indexPath) as UITableViewCell
+        let reuseIdentifier = indexPath.section == 0 ? allReuseIdentifier : categoryReuseIdentifier
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as UITableViewCell
         configure(cell, atIndexPath: indexPath)
 
         return cell
@@ -124,4 +138,8 @@ class SessionFilterTableViewController: UITableViewController {
         }
     }
 
+}
+
+class FilterCategoryTableViewCell: UITableViewCell {
+    @IBOutlet var categoryLabel: UILabel?
 }

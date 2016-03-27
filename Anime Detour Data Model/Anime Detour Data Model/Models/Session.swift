@@ -173,6 +173,14 @@ public class Session: NSManagedObject {
     }
 }
 
+extension Session.Category: Equatable {
+    // empty
+}
+
+public func ==(categoryOne: Session.Category, categoryTwo: Session.Category) -> Bool {
+    return (categoryOne.name == categoryTwo.name) && (categoryOne.color == categoryTwo.color)
+}
+
 private extension UIColor {
     convenience init(hex: Int) {
         let red = (hex & 0xff0000) >> 16

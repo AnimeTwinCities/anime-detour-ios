@@ -8,17 +8,19 @@
 
 import Foundation
 
+import AnimeDetourDataModel
+
 enum SelectedSessionCategory: Equatable {
     case All
-    case Named(String)
+    case Category(Session.Category)
 }
 
 func ==(type1: SelectedSessionCategory, type2: SelectedSessionCategory) -> Bool {
     switch (type1, type2) {
     case (.All, .All):
         return true
-    case let (.Named(name1), .Named(name2)):
-        return name1 == name2
+    case let (.Category(c1), .Category(c2)):
+        return c1 == c2
     default:
         return false
     }

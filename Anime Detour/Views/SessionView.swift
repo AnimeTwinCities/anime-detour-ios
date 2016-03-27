@@ -104,10 +104,6 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
         super.awakeFromNib()
         
         originalCategoryLabelColor = categoryLabel.textColor
-        let categoryLabelLayer = categoryLabel.layer
-        categoryLabelLayer.borderWidth = 2
-        categoryLabelLayer.cornerRadius = 5
-        categoryLabel.insets = UIEdgeInsetsMake(4, 8, 4, 8)
     }
 
     // MARK: - Session View Model Delegate

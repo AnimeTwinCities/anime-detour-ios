@@ -11,6 +11,16 @@ import UIKit
 class InsettableLabel: UILabel {
     var insets: UIEdgeInsets = UIEdgeInsetsZero
     
+    @IBInspectable var showsBorder: Bool = false
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        layer.borderWidth = 2
+        layer.cornerRadius = 5
+        insets = UIEdgeInsetsMake(4, 8, 4, 8)
+    }
+    
     override func drawTextInRect(rect: CGRect) {
         super.drawTextInRect(UIEdgeInsetsInsetRect(rect, insets))
     }
