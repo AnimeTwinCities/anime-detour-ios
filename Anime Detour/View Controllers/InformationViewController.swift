@@ -29,23 +29,54 @@ class InformationViewController: UITableViewController {
     // MARK: - Segue identifiers
 
     @IBInspectable var settingsSegue: String!
+    
+    // MARK: Logo Image
+    
+    private var afterTransitionSize: CGSize?
+    
+    // MARK: - View Controller
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        afterTransitionSize = size
+        coordinator.animateAlongsideTransition({ _ in
+            let tableView = self.tableView
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            tableView.beginUpdates()
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                self.configure(cell, forRowAtIndexPath: indexPath)
+            }
+            tableView.endUpdates()
+        }, completion: nil)
+    }
 
-    // MARK: - Table View Data Source
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-
+    private func configure(cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         switch cell.reuseIdentifier {
         case logoIdentifier?:
-            let horizontalSizeClass = traitCollection.horizontalSizeClass
             if let imageView = cell.contentView.subviews.filter({
                 return $0.isKindOfClass(UIImageView.self)
             }).first as? UIImageView {
-                if horizontalSizeClass == .Regular {
-                    imageView.image = UIImage(named: "ADHeader1152")
+                let image: UIImage
+                if let size = afterTransitionSize {
+                    switch Int(size.width) {
+                    case 0..<415: // Portrait on known iphones
+                        image = UIImage(named: "AD-Header-Logo-375")!
+                    case 415..<Int.max: // Landscape
+                        image = UIImage(named: "ADHeader1152")!
+                    default:
+                        image = UIImage(named: "ADHeader1152")!
+                    }
                 } else {
-                    imageView.image = UIImage(named: "AD-Header-Logo-375")
+                    let horizontalSizeClass = traitCollection.horizontalSizeClass
+                    if horizontalSizeClass == .Regular {
+                        image = UIImage(named: "ADHeader1152")!
+                    } else {
+                        image = UIImage(named: "AD-Header-Logo-375")!
+                    }
                 }
+                
+                imageView.image = image
             }
             break
         case titleIdentifier?:
@@ -70,7 +101,13 @@ class InformationViewController: UITableViewController {
             // Cells without a reuse identifier are fine
             break
         }
+    }
+    
+    // MARK: - Table View Data Source
 
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        configure(cell, forRowAtIndexPath: indexPath)
         return cell
     }
     
