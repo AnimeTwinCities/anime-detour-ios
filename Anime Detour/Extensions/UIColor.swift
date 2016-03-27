@@ -27,6 +27,10 @@ extension UIColor {
     class var adr_lightGray: UIColor {
         return UIColor(white: 0.95, alpha: 1)
     }
+    
+    class var adr_mediumGray: UIColor {
+        return UIColor(white: 0.55, alpha: 1)
+    }
 
     class func adr_colorFromHex(hex: Int) -> UIColor {
         let red = (hex & 0xff0000) >> 16

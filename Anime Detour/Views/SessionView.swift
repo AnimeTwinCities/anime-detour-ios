@@ -82,6 +82,7 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
             
             if case true? = viewModel?.hasImage {
                 imageHeaderView.hidden = false
+                imageHeaderView.image = nil
             } else {
                 imageHeaderView.hidden = true
             }
