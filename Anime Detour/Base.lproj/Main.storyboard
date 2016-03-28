@@ -866,7 +866,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1DT-Dp-JSD">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="525"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="529.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ogR-EI-QTf" customClass="ImageHeaderView" customModule="Anime_Detour" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
@@ -883,7 +883,7 @@
                                                     <constraint firstItem="m1j-Dp-9je" firstAttribute="leading" secondItem="ogR-EI-QTf" secondAttribute="leading" id="tB4-YE-Aok"/>
                                                     <constraint firstAttribute="trailing" secondItem="m1j-Dp-9je" secondAttribute="trailing" id="tQ6-uX-uce"/>
                                                     <constraint firstAttribute="height" priority="999" constant="180" id="xSx-Xb-LFM">
-                                                        <variation key="heightClass=regular" constant="400"/>
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="400"/>
                                                     </constraint>
                                                 </constraints>
                                                 <connections>
@@ -892,14 +892,14 @@
                                                 </connections>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kNo-3w-rdE" userLabel="Below Image Stack View">
-                                                <rect key="frame" x="0.0" y="180" width="600" height="345"/>
+                                                <rect key="frame" x="0.0" y="180" width="600" height="349.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sdh-0G-zST">
-                                                        <rect key="frame" x="8" y="16" width="584" height="21"/>
+                                                        <rect key="frame" x="8" y="16" width="584" height="25.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mos-bB-JPu">
-                                                                <rect key="frame" x="8" y="0.0" width="568" height="21"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mos-bB-JPu">
+                                                                <rect key="frame" x="8" y="0.0" width="568" height="25.5"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -913,7 +913,7 @@
                                                         </constraints>
                                                     </view>
                                                     <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fn0-S2-NIy">
-                                                        <rect key="frame" x="8" y="37" width="584" height="300"/>
+                                                        <rect key="frame" x="8" y="41.5" width="584" height="300"/>
                                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="300" id="gZX-KL-TDx"/>
@@ -993,10 +993,10 @@
             </objects>
             <point key="canvasLocation" x="1589" y="1075"/>
         </scene>
-        <!--Session Details-->
+        <!--Details-->
         <scene sceneID="hSi-GY-k7R">
             <objects>
-                <viewController title="Session Details" id="kio-kf-C2X" customClass="SessionViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Details" id="kio-kf-C2X" customClass="SessionViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wMy-g8-ZCC"/>
                         <viewControllerLayoutGuide type="bottom" id="xwP-Hy-ccH"/>
@@ -1022,7 +1022,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="999" constant="180" id="Apa-Hv-NYS">
-                                                        <variation key="heightClass=regular" constant="400"/>
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="400"/>
                                                     </constraint>
                                                     <constraint firstItem="Izc-Bd-J7a" firstAttribute="top" secondItem="0id-b7-M4n" secondAttribute="top" id="YBa-ae-VBy"/>
                                                     <constraint firstAttribute="bottom" secondItem="Izc-Bd-J7a" secondAttribute="bottom" id="d8a-s7-v3L"/>
@@ -1209,8 +1209,8 @@
         <image name="tab_bar_user_female_circle_filled" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3N2-vy-Rxv"/>
         <segue reference="FFF-d5-6gs"/>
+        <segue reference="JH2-B1-h50"/>
         <segue reference="6hr-Yl-ENj"/>
     </inferredMetricsTieBreakers>
 </document>
