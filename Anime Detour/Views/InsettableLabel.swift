@@ -18,6 +18,8 @@ class InsettableLabel: UILabel {
         
         layer.borderWidth = 2
         layer.cornerRadius = 5
+        
+        // Move this to `init(coder:)` if `insets` ever becomes `@IBInspectable`
         insets = UIEdgeInsetsMake(4, 8, 4, 8)
     }
     

@@ -12,12 +12,13 @@ import UIKit
 /**
  UIScrollView so it can adjust the photo during scrolling.
  */
-class SessionView: UIScrollView, SessionViewModelDelegate {
+class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelDelegate {
     /// The view which contains all of our subviews that actually have content,
     /// since we're a scroll view.
     @IBOutlet var contentView: UIView!
     
     @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var ageRequirementLabel: InsettableLabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
@@ -56,6 +57,11 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
         didSet {
             nameLabel.text = viewModel?.name
             timeLabel.text = viewModel?.dateAndTime
+            
+            if let viewModel = viewModel {
+                showAgeRequirementOrHideLabel(forViewModel: viewModel)
+            }
+            
             locationLabel.text = viewModel?.location
             if let sessionDescription = viewModel?.sessionDescription where !sessionDescription.isEmpty {
                 descriptionView.hidden = false
@@ -101,7 +107,6 @@ class SessionView: UIScrollView, SessionViewModelDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         originalCategoryLabelColor = categoryLabel.textColor
     }
 

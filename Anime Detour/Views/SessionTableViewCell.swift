@@ -8,8 +8,9 @@
 
 import UIKit
 
-class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
+class SessionTableViewCell: UITableViewCell, AgeRequirementDisplayingView, SessionViewModelDelegate {
     @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var ageRequirementLabel: InsettableLabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var colorView: UIView?
@@ -26,6 +27,8 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
             guard let viewModel = viewModel else {
                 return
             }
+            
+            showAgeRequirementOrHideLabel(forViewModel: viewModel)
             
             viewModel.delegate = self
             nameLabel.text = viewModel.name

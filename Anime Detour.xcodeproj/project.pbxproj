@@ -69,6 +69,7 @@
 		DA90BDFA1CA23F71006A5ACD /* AnimeDetourDataModel.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA90BDF31CA23F1F006A5ACD /* AnimeDetourDataModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA9652111CA23BBB00EA4112 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9652101CA23BBB00EA4112 /* AppDelegate.swift */; };
 		DA9652161CA23BBB00EA4112 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA9652141CA23BBB00EA4112 /* Main.storyboard */; };
+		DABABF051CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABABF041CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,7 @@
 		DA9652101CA23BBB00EA4112 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA9652151CA23BBB00EA4112 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA96521C1CA23BBB00EA4112 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DABABF041CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeRequirementDisplayingView.swift; sourceTree = "<group>"; };
 		FB42EA03A5C9F3E6AA640554 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -405,6 +407,7 @@
 				DA90BDA61CA23E07006A5ACD /* StretchingImageHeaderContainer.swift */,
 				DA90BDA71CA23E07006A5ACD /* TextHeaderCollectionReusableView.swift */,
 				DA2F3C3E1CA7926B00939929 /* InsettableLabel.swift */,
+				DABABF041CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				DA90BDD01CA23E07006A5ACD /* SessionViewModel.swift in Sources */,
 				DA90BDB21CA23E07006A5ACD /* SessionDataSource.swift in Sources */,
 				DA90BDD41CA23E07006A5ACD /* SegmentedControlCollectionReusableView.swift in Sources */,
+				DABABF051CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift in Sources */,
 				DA90BDBB1CA23E07006A5ACD /* ImageFaceDetector.swift in Sources */,
 				DA90BDC81CA23E07006A5ACD /* MapsViewController.swift in Sources */,
 				DA90BDB31CA23E07006A5ACD /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */,

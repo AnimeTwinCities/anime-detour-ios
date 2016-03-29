@@ -211,12 +211,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window?.tintColor = mainColor
         
+        // Setup the appearance of age requirement labels
+        AgeRequirementAwakeFromNibHook.hookAwakeFromNibForAgeLabelAppearance()
+        AgeRequirementAwakeFromNibHook.hookTableViewCellSetHighlightedForAgeLabelAppearance()
+        AgeRequirementAwakeFromNibHook.hookTableViewCellSetSelectedForAgeLabelAppearance()
+        
         // Make UISearchBars minimal style but with gray text fields by default
         let searchBar = UISearchBar.appearance()
         searchBar.searchBarStyle = .Minimal
         searchBar.backgroundColor = UIColor.adr_lightGray
         UITextField.appearanceWhenContainedInInstancesOfClasses([UISearchBar.self]).backgroundColor = UIColor.grayColor()
-        
+                
         let tableViewBackgroundView = UIView()
         tableViewBackgroundView.backgroundColor = UIColor.adr_lighterOrange
         UITableViewCell.appearance().selectedBackgroundView = tableViewBackgroundView

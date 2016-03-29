@@ -53,6 +53,14 @@ class SessionViewModel {
     var name: String {
         return session.name
     }
+    
+    var is18Plus: Bool {
+        return session.tags.contains("18+")
+    }
+    
+    var is21Plus: Bool {
+        return session.tags.contains("21+")
+    }
 
     var sessionDescription: String? {
         return session.sessionDescription

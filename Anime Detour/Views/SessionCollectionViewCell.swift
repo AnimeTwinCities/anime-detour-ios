@@ -8,11 +8,12 @@
 
 import UIKit
 
-class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate {
+class SessionCollectionViewCell: UICollectionViewCell, AgeRequirementDisplayingView, SessionViewModelDelegate {
     // `dynamic` allows the use of UIAppearance to set a value.
     dynamic var highlightColor: UIColor = UIColor(white: 0.8, alpha: 1)
-
+    
     @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var ageRequirementLabel: InsettableLabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var bookmarkButton: UIButton?
@@ -33,6 +34,9 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
             
             viewModel.delegate = self
             self.nameLabel.text = viewModel.name
+            
+            showAgeRequirementOrHideLabel(forViewModel: viewModel)
+            
             self.locationLabel.text = viewModel.location
             self.timeLabel.text = viewModel.dateAndTime
             
@@ -69,8 +73,6 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
 
         // Without setting an `autoresizingMask`, the content view has a
         // mysterious 50pt width constraint that we don't want.
