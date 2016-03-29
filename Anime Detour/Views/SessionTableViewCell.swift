@@ -52,7 +52,15 @@ class SessionTableViewCell: UITableViewCell, SessionViewModelDelegate {
         defer {
             colorView?.backgroundColor = colorViewColor
         }
-        super.setHighlighted(highlighted, animated: animated)        
+        super.setHighlighted(highlighted, animated: animated)
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        let colorViewColor = colorView?.backgroundColor
+        defer {
+            colorView?.backgroundColor = colorViewColor
+        }
+        super.setSelected(selected, animated: animated)
     }
     
     override func prepareForReuse() {
