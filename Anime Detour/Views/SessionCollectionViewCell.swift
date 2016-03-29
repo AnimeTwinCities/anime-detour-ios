@@ -57,8 +57,8 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
                 backgroundColor = UIColor.clearColor()
             }
 
-            UIView.animateWithDuration(0.1, animations: { () -> Void in
-                self.contentView.backgroundColor = backgroundColor
+            UIView.animateWithDuration(0.1, animations: { [contentView] () -> Void in
+                contentView.backgroundColor = backgroundColor
             })
         }
     }
@@ -69,28 +69,30 @@ class SessionCollectionViewCell: UICollectionViewCell, SessionViewModelDelegate 
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        
 
         // Without setting an `autoresizingMask`, the content view has a
         // mysterious 50pt width constraint that we don't want.
         // So just set it to autoresize.
-        self.contentView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        self.contentView.translatesAutoresizingMaskIntoConstraints = true
+        contentView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        contentView.translatesAutoresizingMaskIntoConstraints = true
     }
 
     override func prepareForReuse() {
-        self.viewModel?.delegate = nil
+        viewModel?.delegate = nil
     }
 
     // MARK: Bookmarking
 
     @IBAction func toggleBookmark(sender: AnyObject) {
-        self.viewModel?.toggleBookmarked()
+        viewModel?.toggleBookmarked()
     }
 
     // MARK: Session View Model Delegate
 
     func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
-        self.bookmarkButton?.setImage(bookmarkImage, forState: .Normal)
-        self.bookmarkButton?.accessibilityLabel = accessibilityLabel
+        bookmarkButton?.setImage(bookmarkImage, forState: .Normal)
+        bookmarkButton?.accessibilityLabel = accessibilityLabel
     }
 }
