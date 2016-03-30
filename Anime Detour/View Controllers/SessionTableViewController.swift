@@ -109,10 +109,12 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     // MARK: Table view
 
     /**
-    Table view data source that we call through to from our data
-    source methods.
-    */
-    lazy private var dataSource: SessionDataSource! = SessionDataSource(fetchedResultsController: self.fetchedResultsController!, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
+     Table view data source that we call through to from our data
+     source methods.
+     
+     Our cells don't allow adding or removing favorites, so we don't need to set a delegate.
+     */
+    lazy private var dataSource: SessionDataSource! = SessionDataSource(fetchedResultsController: self.fetchedResultsController!, cellDelegate: nil, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
 
     private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
 

@@ -8,6 +8,10 @@
 
 import UIKit
 
+@objc protocol SessionCollectionViewCellDelegate {
+    func sessionCellBookmarkButtonTapped(cell: SessionCollectionViewCell)
+}
+
 class SessionCollectionViewCell: UICollectionViewCell, AgeRequirementDisplayingView, SessionViewModelDelegate {
     // `dynamic` allows the use of UIAppearance to set a value.
     dynamic var highlightColor: UIColor = UIColor(white: 0.8, alpha: 1)
@@ -18,6 +22,8 @@ class SessionCollectionViewCell: UICollectionViewCell, AgeRequirementDisplayingV
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var bookmarkButton: UIButton?
     @IBOutlet var colorView: UIView?
+    
+    @IBOutlet weak var sessionCellDelegate: SessionCollectionViewCellDelegate?
 
     var viewModel: SessionViewModel? {
         didSet {
@@ -88,7 +94,7 @@ class SessionCollectionViewCell: UICollectionViewCell, AgeRequirementDisplayingV
     // MARK: Bookmarking
 
     @IBAction func toggleBookmark(sender: AnyObject) {
-        viewModel?.toggleBookmarked()
+        sessionCellDelegate?.sessionCellBookmarkButtonTapped(self)
     }
 
     // MARK: Session View Model Delegate

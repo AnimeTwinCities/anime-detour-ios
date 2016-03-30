@@ -131,7 +131,7 @@ class SessionCollectionViewController: UICollectionViewController {
     Collection view data source that we call through to from our data
     source methods.
     */
-    lazy private var dataSource: SessionDataSource = SessionDataSource(fetchedResultsController: self.fetchedResultsController, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
+    lazy private var dataSource: SessionDataSource = SessionDataSource(fetchedResultsController: self.fetchedResultsController, cellDelegate: self, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
     
     // MARK: Day indicator
     
@@ -366,7 +366,7 @@ class SessionCollectionViewController: UICollectionViewController {
         }
         
         refreshing = true
-        let moc = coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
+        let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).backgroundContext
         
         apiClient.refreshSessions(moc) {
             dispatch_async(dispatch_get_main_queue()) {
@@ -495,6 +495,19 @@ class SessionCollectionViewController: UICollectionViewController {
     
     override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
         dayScroller.scrollViewDidEndScrollingAnimation()
+    }
+}
+
+extension SessionCollectionViewController: SessionCollectionViewCellDelegate {
+    func sessionCellBookmarkButtonTapped(cell: SessionCollectionViewCell) {
+        do {
+            try cell.viewModel?.toggleBookmarked()
+        } catch {
+            NSLog("Couldn't save after toggling session bookmarked status: \((error as NSError).localizedDescription)")
+            let actionString = (cell.viewModel?.isBookmarked ?? false) ? "remove favorite" : "add favorite"
+            let alert = UIAlertController(title: "Uh Oh", message: "Couldn't \(actionString). Sorry :(", preferredStyle: .Alert)
+            presentViewController(alert, animated: true, completion: nil)
+        }
     }
 }
 

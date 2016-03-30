@@ -41,7 +41,7 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
                 return
             }
             
-            let viewModel = SessionViewModel(session: session, imagesURLSession: imagesURLSession, sessionStartTimeFormatter: dateFormatter, shortTimeFormatter: timeOnlyDateFormatter)
+            let viewModel = SessionViewModel(session: session, managedObjectContext: managedObjectContext, imagesURLSession: imagesURLSession, sessionStartTimeFormatter: dateFormatter, shortTimeFormatter: timeOnlyDateFormatter)
             viewModel.delegate = self
             self.viewModel = viewModel
             
@@ -108,6 +108,17 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         userActivity = nil
     }
     
+    private func toggleBookmarked() {
+        do {
+            try viewModel?.toggleBookmarked()
+        } catch {
+            NSLog("Couldn't save after toggling session bookmarked status: \((error as NSError).localizedDescription)")
+            let actionString = (viewModel?.isBookmarked ?? false) ? "add favorite" : "remove favorite"
+            let alert = UIAlertController(title: "Uh Oh", message: "Couldn't \(actionString). Sorry :(", preferredStyle: .Alert)
+            presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
     // MARK: - NSUserActivity
     
     override func restoreUserActivityState(activity: NSUserActivity) {
@@ -137,11 +148,11 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         let changeBookmarkedAction: UIPreviewActionItem
         if viewModel?.isBookmarked ?? false {
             changeBookmarkedAction = UIPreviewAction(title: "Remove Favorite", style: UIPreviewActionStyle.Default) { _, _ in
-                self.viewModel?.toggleBookmarked()
+                self.toggleBookmarked()
             }
         } else {
             changeBookmarkedAction = UIPreviewAction(title: "Add Favorite", style: UIPreviewActionStyle.Default) { _, _ in
-                self.viewModel?.toggleBookmarked()
+                self.toggleBookmarked()
             }
         }
         
@@ -153,6 +164,12 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
         sessionView.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
         sessionView.bookmarkButton.accessibilityLabel = accessibilityLabel
+    }
+}
+
+extension SessionViewController: SessionViewDelegate {
+    func didTapBookmarkButton() {
+        toggleBookmarked()
     }
 }
 

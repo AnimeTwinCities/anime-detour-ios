@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 import AnimeDetourDataModel
 
@@ -25,6 +26,8 @@ View model for Sessions. State changes, where handled, are communicated to the `
 class SessionViewModel {
     let imageURLSession: NSURLSession?
     let session: Session
+    let managedObjectContext: NSManagedObjectContext
+    
     var isBookmarked: Bool {
         return self.session.bookmarked
     }
@@ -126,8 +129,9 @@ class SessionViewModel {
 
     - parameter imagesURLSession: A URL session to use when downloading images. If `nil`, will not attempt to download images.
     */
-    init(session: Session, imagesURLSession: NSURLSession?, sessionStartTimeFormatter startDateFormatter: NSDateFormatter, shortTimeFormatter: NSDateFormatter) {
+    init(session: Session, managedObjectContext: NSManagedObjectContext, imagesURLSession: NSURLSession?, sessionStartTimeFormatter startDateFormatter: NSDateFormatter, shortTimeFormatter: NSDateFormatter) {
         self.session = session
+        self.managedObjectContext = managedObjectContext
         self.imageURLSession = imagesURLSession
         self.startDateFormatter = startDateFormatter
         self.shortEndDateFormatter = shortTimeFormatter
@@ -177,17 +181,22 @@ class SessionViewModel {
         }
     }
 
-    func toggleBookmarked() {
+    func toggleBookmarked() throws {
         let wasBookmarked = isBookmarked
         let nowBookmarked = !wasBookmarked
 
         let session = self.session
         session.bookmarked = nowBookmarked
-        do {
-            try session.managedObjectContext?.save()
-        } catch {
-            NSLog("Couldn't save after toggling session bookmarked status: \((error as NSError).localizedDescription)")
+        
+        var succeededTogglingBookmarked = false
+        defer {
+            if !succeededTogglingBookmarked {
+                session.bookmarked = wasBookmarked
+            }
         }
+        try managedObjectContext.save()
+        
+        succeededTogglingBookmarked = true
 
         if let analytics = GAI.sharedInstance().defaultTracker {
             let dict: [NSObject : AnyObject]

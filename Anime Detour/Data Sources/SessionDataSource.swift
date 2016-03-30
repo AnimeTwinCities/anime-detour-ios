@@ -21,6 +21,8 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     let timeZone: NSTimeZone?
     var sessionCellIdentifier = "SessionCell"
     var sectionHeaderIdentifier = "SessionHeader"
+    
+    weak var cellDelegate: SessionCollectionViewCellDelegate?
 
     private var shortDateFormat = "EEE – hh:mm a" // like "Fri – 12:45 PM"
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
@@ -46,7 +48,8 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     - parameter imagesURLSession: The NSURLSession to use for downloading images. If `nil`, images will not be downloaded.
     - parameter fetchedResultsController: An FRC fetching Sessions to display in a collection view.
     */
-    init(fetchedResultsController: NSFetchedResultsController, timeZone: NSTimeZone?, imagesURLSession: NSURLSession?) {
+    init(fetchedResultsController: NSFetchedResultsController, cellDelegate: SessionCollectionViewCellDelegate?, timeZone: NSTimeZone?, imagesURLSession: NSURLSession?) {
+        self.cellDelegate = cellDelegate
         self.imagesURLSession = imagesURLSession
         self.fetchedResultsController = fetchedResultsController
         self.timeZone = timeZone
@@ -129,7 +132,7 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
         let cell = tableView.dequeueReusableCellWithIdentifier(sessionCellIdentifier, forIndexPath: indexPath) as! SessionTableViewCell
 
         let session = sessionAt(indexPath)
-        let viewModel = SessionViewModel(session: session, imagesURLSession: imagesURLSession, sessionStartTimeFormatter: dateFormatter, shortTimeFormatter: timeOnlyDateFormatter)
+        let viewModel = SessionViewModel(session: session, managedObjectContext: fetchedResultsController.managedObjectContext, imagesURLSession: imagesURLSession, sessionStartTimeFormatter: dateFormatter, shortTimeFormatter: timeOnlyDateFormatter)
         cell.viewModel = viewModel
 
         return cell
@@ -143,8 +146,9 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
 extension SessionDataSource: CollectionViewFetchedResultsControllerCellCustomizer {
     func configure(cell: UICollectionViewCell, atIndexPath indexPath: NSIndexPath) {
         let sessionCell = cell as! SessionCollectionViewCell
+        sessionCell.sessionCellDelegate = cellDelegate
         let session = sessionAt(indexPath)
-        let viewModel = SessionViewModel(session: session, imagesURLSession: imagesURLSession, sessionStartTimeFormatter: dateFormatter, shortTimeFormatter: timeOnlyDateFormatter)
+        let viewModel = SessionViewModel(session: session, managedObjectContext: fetchedResultsController.managedObjectContext, imagesURLSession: imagesURLSession, sessionStartTimeFormatter: dateFormatter, shortTimeFormatter: timeOnlyDateFormatter)
         sessionCell.viewModel = viewModel
     }
 }

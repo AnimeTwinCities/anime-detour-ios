@@ -19,6 +19,9 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
 
     var collectionView: UICollectionView?
     var customizer: CollectionViewFetchedResultsControllerCellCustomizer?
+    
+    /// Track if any sections changed, and if any did, bail on attempting to apply updates,
+    /// reloading the collection view instead.
     private var sectionsChangedDuringUpdate: Bool = false
     private var cumulativeChanges: [FetchedResultsControllerChange] = []
 
@@ -29,7 +32,16 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
     }
 
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        defer {
+            sectionsChangedDuringUpdate = false
+        }
+        
         guard let cv = collectionView else {
+            return
+        }
+        
+        guard !sectionsChangedDuringUpdate else {
+            cv.reloadData()
             return
         }
         
@@ -43,14 +55,8 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
                     case .Delete:
                         cv.deleteItemsAtIndexPaths([indexPath])
                     case .Move:
-                        if self.sectionsChangedDuringUpdate {
-                            cv.deleteItemsAtIndexPaths([indexPath])
-                            cv.insertItemsAtIndexPaths([newIndexPath])
-                            
-                            self.sectionsChangedDuringUpdate = false
-                        } else {
-                            cv.moveItemAtIndexPath(indexPath, toIndexPath: newIndexPath)
-                        }
+                        cv.deleteItemsAtIndexPaths([indexPath])
+                        cv.insertItemsAtIndexPaths([newIndexPath])
                     case .Update:
                         switch (self.collectionView?.cellForItemAtIndexPath(indexPath), self.customizer) {
                         case let (.Some(cell), .Some(customizer)):
@@ -69,8 +75,6 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
                     default:
                         assertionFailure("Unexpected fetched results controller section change type: \(type)")
                     }
-                    
-                    self.sectionsChangedDuringUpdate = true
                 }
             }
             }, completion: nil)
@@ -78,7 +82,8 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
 
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
         cumulativeChanges.append(.Section(sectionInfo: sectionInfo, sectionIndex: sectionIndex, type: type))
-
+        
+        sectionsChangedDuringUpdate = true
     }
 
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {        

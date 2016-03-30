@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+@objc protocol SessionViewDelegate {
+    func didTapBookmarkButton()
+}
+
 /**
  UIScrollView so it can adjust the photo during scrolling.
  */
@@ -34,6 +38,8 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
 
     @IBOutlet var bookmarkButton: UIButton!
     
+    @IBOutlet weak var sessionDelegate: SessionViewDelegate?
+    
     private var originalCategoryLabelColor: UIColor = UIColor.blackColor()
 
     private var image: UIImage? {
@@ -47,10 +53,6 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
                 imageHeaderView.hidden = true
             }
         }
-    }
-
-    @IBAction func bookmarkButtonTapped(sender: AnyObject) {
-        viewModel?.toggleBookmarked()
     }
     
     var viewModel: SessionViewModel? {
@@ -108,6 +110,10 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
     override func awakeFromNib() {
         super.awakeFromNib()
         originalCategoryLabelColor = categoryLabel.textColor
+    }
+    
+    @IBAction func bookmarkButtonTapped(sender: AnyObject) {
+        
     }
 
     // MARK: - Session View Model Delegate
