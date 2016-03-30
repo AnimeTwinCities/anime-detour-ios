@@ -68,6 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         #if os(iOS)
+            notificationPermissionRequester.delegate = self
             userVisibleSessionSettings.delegate = self
         #endif
         
