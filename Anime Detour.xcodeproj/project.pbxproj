@@ -13,7 +13,7 @@
 		DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */; };
 		DA5341FF1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */; };
 		DA5342001CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */; };
-		DA5342021CA4E66D00480A49 /* AnimeDetourDataModel.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DA5342011CA4E57000480A49 /* AnimeDetourDataModel.sqlite */; };
+		DA53F2911CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DA53F2901CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite */; };
 		DA90BDA81CA23E07006A5ACD /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */; };
 		DA90BDA91CA23E07006A5ACD /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */; };
 		DA90BDAA1CA23E07006A5ACD /* AnalyticsViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD661CA23E07006A5ACD /* AnalyticsViewControllers.swift */; };
@@ -126,8 +126,8 @@
 		DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_1.pdf"; sourceTree = "<group>"; };
 		DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_2.pdf"; sourceTree = "<group>"; };
 		DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_3.pdf"; sourceTree = "<group>"; };
-		DA5342011CA4E57000480A49 /* AnimeDetourDataModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnimeDetourDataModel.sqlite; sourceTree = "<group>"; };
 		DA53F28D1CAC883500526BD9 /* AnimeDetourStaleData.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AnimeDetourStaleData.xcappdata; sourceTree = "<group>"; };
+		DA53F2901CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnimeDetourDataModel.sqlite; sourceTree = "<group>"; };
 		DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
 		DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
 		DA90BD661CA23E07006A5ACD /* AnalyticsViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsViewControllers.swift; sourceTree = "<group>"; };
@@ -223,6 +223,7 @@
 		DA0E971A1CA23CFA00043A30 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DA53F2901CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite */,
 				DA0E971B1CA23CFA00043A30 /* Maps */,
 				DA0E971F1CA23CFA00043A30 /* Settings.bundle */,
 			);
@@ -342,7 +343,6 @@
 		DA90BD861CA23E07006A5ACD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DA5342011CA4E57000480A49 /* AnimeDetourDataModel.sqlite */,
 				DA90BD871CA23E07006A5ACD /* SelectedSessionCategory.swift */,
 				DA90BD881CA23E07006A5ACD /* Settings */,
 			);
@@ -580,7 +580,7 @@
 				DA9652161CA23BBB00EA4112 /* Main.storyboard in Resources */,
 				DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */,
 				DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */,
-				DA5342021CA4E66D00480A49 /* AnimeDetourDataModel.sqlite in Resources */,
+				DA53F2911CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
