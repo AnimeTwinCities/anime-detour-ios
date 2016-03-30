@@ -255,6 +255,11 @@ class SessionCollectionViewController: UICollectionViewController {
             let ok = UIAlertAction(title: "Got It", style: .Cancel, handler: { _ in alert.dismissViewControllerAnimated(true, completion: nil) })
             alert.addAction(ok)
             presentViewController(alert, animated: true, completion: nil)
+        } else {
+            // Since we just started a scroll, update the day selector for the target date.
+            if let idx = dayScroller.dayIndex(now) {
+                daySegmentedControl?.selectedSegmentIndex = idx
+            }
         }
     }
     
