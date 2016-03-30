@@ -127,6 +127,7 @@
 		DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_2.pdf"; sourceTree = "<group>"; };
 		DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_3.pdf"; sourceTree = "<group>"; };
 		DA5342011CA4E57000480A49 /* AnimeDetourDataModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnimeDetourDataModel.sqlite; sourceTree = "<group>"; };
+		DA53F28D1CAC883500526BD9 /* AnimeDetourStaleData.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AnimeDetourStaleData.xcappdata; sourceTree = "<group>"; };
 		DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
 		DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
 		DA90BD661CA23E07006A5ACD /* AnalyticsViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsViewControllers.swift; sourceTree = "<group>"; };
@@ -472,6 +473,7 @@
 				DA9652101CA23BBB00EA4112 /* AppDelegate.swift */,
 				DA9652141CA23BBB00EA4112 /* Main.storyboard */,
 				DA96521C1CA23BBB00EA4112 /* Info.plist */,
+				DA53F28D1CAC883500526BD9 /* AnimeDetourStaleData.xcappdata */,
 				DA0E971A1CA23CFA00043A30 /* Resources */,
 			);
 			path = "Anime Detour";
