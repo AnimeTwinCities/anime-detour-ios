@@ -12,6 +12,9 @@ import AnimeDetourDataModel
 import AnimeDetourAPI
 import CoreData
 
+private typealias IndividualSessionJSONDataType = [String:AnyObject]
+private typealias SessionsJSONDataType = [IndividualSessionJSONDataType]
+
 extension AnimeDetourAPIClient {
     func fetchSessions(dataStatusDefaultsController: DataStatusDefaultsController, managedObjectContext: NSManagedObjectContext) {
         self.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
@@ -26,7 +29,7 @@ extension AnimeDetourAPIClient {
                 return
             }
             
-            guard let jsonSessions = result as? [[String : AnyObject]] else { return }
+            guard let jsonSessions = result as? SessionsJSONDataType else { return }
             let context = managedObjectContext
             context.performBlock { () -> Void in
                 let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
@@ -67,7 +70,7 @@ extension AnimeDetourAPIClient {
                 return
             }
             
-            guard let jsonSessions = result as? [[String : String]] else {
+            guard let jsonSessions = result as? SessionsJSONDataType else {
                 completion?()
                 return
             }
@@ -108,9 +111,9 @@ extension AnimeDetourAPIClient {
      
      Returns the object ID of the found or created `Session`.
      */
-    private func createOrUpdateSessionFor(json: [String : String], context: NSManagedObjectContext) -> NSManagedObjectID {
+    private func createOrUpdateSessionFor(json: IndividualSessionJSONDataType, context: NSManagedObjectContext) -> NSManagedObjectID {
         var foundSession: Session?
-        if let id = json[SessionJSONKeys.sessionID.rawValue] {
+        if let id = json[SessionJSONKeys.sessionID.rawValue] as? String {
             let existingPredicate = NSPredicate(format: "sessionID == %@", id)
             let fetchRequest = NSFetchRequest(entityName: Session.entityName)
             fetchRequest.predicate = existingPredicate
