@@ -113,7 +113,7 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
     }
     
     @IBAction func bookmarkButtonTapped(sender: AnyObject) {
-        
+        sessionDelegate?.didTapBookmarkButton()
     }
 
     // MARK: - Session View Model Delegate

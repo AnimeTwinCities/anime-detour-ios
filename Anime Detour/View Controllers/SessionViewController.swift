@@ -72,6 +72,7 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         let dict = GAIDictionaryBuilder.createEventDictionary(screenName, action: .ViewDetails, label: viewModel?.session.name, value: nil)
         analytics?.send(dict)
 
+        sessionView.sessionDelegate = self
         sessionView.viewModel = viewModel
         updateHeaderSize()
         
