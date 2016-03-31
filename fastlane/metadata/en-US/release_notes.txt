@@ -1,7 +1,8 @@
 New in 2016.0:
 * Anime Detour 2016 schedule, guests, and maps
+* Schedule and guest information bundled in the app - no internet service required after updating the app
 * Use the `Now` button to jump to ongoing sessions during Anime Detour
 * Notifications for favorite sessions, 10 minutes before they start
 * Colors in the schedule for each type of session
 * 3D Touch peek and pop support in the main schedule and guest list
-* Full multitasking support on supported devices: slide over and split view
+* Full multitasking support on devices that support it
