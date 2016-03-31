@@ -24,7 +24,7 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     
     weak var cellDelegate: SessionCollectionViewCellDelegate?
 
-    private var shortDateFormat = "EEE – hh:mm a" // like "Fri – 12:45 PM"
+    private var shortDateFormat = "EEE – h:mm a" // like "Fri – 1:45 PM"
     lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
         formatter.dateFormat = self.shortDateFormat
@@ -35,7 +35,7 @@ class SessionDataSource: NSObject, UICollectionViewDataSource, UITableViewDataSo
     }()
     lazy private var timeOnlyDateFormatter: NSDateFormatter = { () -> NSDateFormatter in
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "hh:mm a"
+        formatter.dateFormat = "h:mm a" // like "1:45 PM"
         if let timeZone = self.timeZone {
             formatter.timeZone = timeZone
         }
