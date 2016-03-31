@@ -13,9 +13,8 @@ Provides for a header that "sticks" to the top of the layout, in front of
 all other views.
 */
 class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
-    class var StickyHeaderElementKind: String {
-        return "StickyHeaderElementKind"
-    }
+    static let StickyHeaderElementKind: String = "StickyHeaderElementKind"
+    static let stickyHeaderIndexPath = NSIndexPath(forItem: 0, inSection: 0)
 
     @IBInspectable var headerEnabled: Bool = true
     @IBInspectable var headerHeight: CGFloat = 50
@@ -44,8 +43,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
                 offsetForStickyHeader(itemAttributes)
             }
             
-            let indexPath = NSIndexPath(forItem: 0, inSection: 0)
-            if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(StickyHeaderFlowLayout.StickyHeaderElementKind, atIndexPath: indexPath).map(copy) {
+            if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(StickyHeaderFlowLayout.StickyHeaderElementKind, atIndexPath: StickyHeaderFlowLayout.stickyHeaderIndexPath) {
                 attributes.append(headerAttributes)
             }
         }
@@ -108,11 +106,17 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
     }
 
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-        if !headerEnabled {
-            return super.shouldInvalidateLayoutForBoundsChange(newBounds)
+        if headerEnabled {
+            invalidateLayoutWithContext(invalidationContextForBoundsChange(newBounds))
         }
-
-        return true
+        
+        return super.shouldInvalidateLayoutForBoundsChange(newBounds)
+    }
+    
+    override func invalidationContextForBoundsChange(newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
+        let context = super.invalidationContextForBoundsChange(newBounds)
+        setStickyHeaderInvalid(context)
+        return context
     }
 
     private func offsetForStickyHeader(attributes: UICollectionViewLayoutAttributes) {
@@ -124,8 +128,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
     }
 
     private func setStickyHeaderInvalid(invalidationContext: UICollectionViewLayoutInvalidationContext) {
-        let indexPath = NSIndexPath(forItem: 0, inSection: 0)
-        invalidationContext.invalidateSupplementaryElementsOfKind(StickyHeaderFlowLayout.StickyHeaderElementKind, atIndexPaths: [indexPath])
+        invalidationContext.invalidateSupplementaryElementsOfKind(StickyHeaderFlowLayout.StickyHeaderElementKind, atIndexPaths: [StickyHeaderFlowLayout.stickyHeaderIndexPath])
     }
     
     /**
