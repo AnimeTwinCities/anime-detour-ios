@@ -70,6 +70,8 @@
 		DA9652111CA23BBB00EA4112 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9652101CA23BBB00EA4112 /* AppDelegate.swift */; };
 		DA9652161CA23BBB00EA4112 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA9652141CA23BBB00EA4112 /* Main.storyboard */; };
 		DABABF051CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABABF041CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift */; };
+		DAFCAF5B1CACAA0200100BB8 /* AnimeDetourScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCAF5A1CACAA0200100BB8 /* AnimeDetourScreenshots.swift */; };
+		DAFCAF631CACAA7D00100BB8 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCAF621CACAA7D00100BB8 /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DAB2B6C91C430BDC00EFF3AA;
 			remoteInfo = AnimeDetourDataModel;
+		};
+		DAFCAF5D1CACAA0200100BB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA9652051CA23BBB00EA4112 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA96520C1CA23BBB00EA4112;
+			remoteInfo = "Anime Detour";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -188,6 +197,10 @@
 		DA9652151CA23BBB00EA4112 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA96521C1CA23BBB00EA4112 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DABABF041CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeRequirementDisplayingView.swift; sourceTree = "<group>"; };
+		DAFCAF581CACAA0200100BB8 /* Anime Detour Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Anime Detour Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAFCAF5A1CACAA0200100BB8 /* AnimeDetourScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetourScreenshots.swift; sourceTree = "<group>"; };
+		DAFCAF5C1CACAA0200100BB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAFCAF621CACAA7D00100BB8 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		FB42EA03A5C9F3E6AA640554 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -197,6 +210,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				131E853CBE8DA6A3B7E54D2B /* Pods.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAFCAF551CACAA0200100BB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +453,7 @@
 			isa = PBXGroup;
 			children = (
 				DA96520F1CA23BBB00EA4112 /* Anime Detour */,
+				DAFCAF591CACAA0200100BB8 /* Anime Detour Screenshots */,
 				DA96520E1CA23BBB00EA4112 /* Products */,
 				5C1A20F1181952C60234AEEB /* Pods */,
 				BBA15183FEF1DA24167747C7 /* Frameworks */,
@@ -445,6 +466,7 @@
 			isa = PBXGroup;
 			children = (
 				DA96520D1CA23BBB00EA4112 /* Anime Detour.app */,
+				DAFCAF581CACAA0200100BB8 /* Anime Detour Screenshots.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -479,6 +501,16 @@
 			path = "Anime Detour";
 			sourceTree = "<group>";
 		};
+		DAFCAF591CACAA0200100BB8 /* Anime Detour Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				DAFCAF621CACAA7D00100BB8 /* SnapshotHelper.swift */,
+				DAFCAF5A1CACAA0200100BB8 /* AnimeDetourScreenshots.swift */,
+				DAFCAF5C1CACAA0200100BB8 /* Info.plist */,
+			);
+			path = "Anime Detour Screenshots";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -505,6 +537,24 @@
 			productReference = DA96520D1CA23BBB00EA4112 /* Anime Detour.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DAFCAF571CACAA0200100BB8 /* Anime Detour Screenshots */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAFCAF5F1CACAA0200100BB8 /* Build configuration list for PBXNativeTarget "Anime Detour Screenshots" */;
+			buildPhases = (
+				DAFCAF541CACAA0200100BB8 /* Sources */,
+				DAFCAF551CACAA0200100BB8 /* Frameworks */,
+				DAFCAF561CACAA0200100BB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAFCAF5E1CACAA0200100BB8 /* PBXTargetDependency */,
+			);
+			name = "Anime Detour Screenshots";
+			productName = "Anime Detour Screenshots";
+			productReference = DAFCAF581CACAA0200100BB8 /* Anime Detour Screenshots.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -518,6 +568,10 @@
 					DA96520C1CA23BBB00EA4112 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = CSE7H7E6BP;
+					};
+					DAFCAF571CACAA0200100BB8 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = DA96520C1CA23BBB00EA4112;
 					};
 				};
 			};
@@ -545,6 +599,7 @@
 			projectRoot = "";
 			targets = (
 				DA96520C1CA23BBB00EA4112 /* Anime Detour */,
+				DAFCAF571CACAA0200100BB8 /* Anime Detour Screenshots */,
 			);
 		};
 /* End PBXProject section */
@@ -581,6 +636,13 @@
 				DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */,
 				DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */,
 				DA53F2911CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAFCAF561CACAA0200100BB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +754,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAFCAF541CACAA0200100BB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAFCAF5B1CACAA0200100BB8 /* AnimeDetourScreenshots.swift in Sources */,
+				DAFCAF631CACAA7D00100BB8 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -704,6 +775,11 @@
 			isa = PBXTargetDependency;
 			name = AnimeDetourDataModel;
 			targetProxy = DA90BDF61CA23F2F006A5ACD /* PBXContainerItemProxy */;
+		};
+		DAFCAF5E1CACAA0200100BB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA96520C1CA23BBB00EA4112 /* Anime Detour */;
+			targetProxy = DAFCAF5D1CACAA0200100BB8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -843,6 +919,30 @@
 			};
 			name = Release;
 		};
+		DAFCAF601CACAA0200100BB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Anime Detour Screenshots/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.animedetour.mobile.Anime-Detour-Screenshots";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Anime Detour";
+			};
+			name = Debug;
+		};
+		DAFCAF611CACAA0200100BB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Anime Detour Screenshots/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.animedetour.mobile.Anime-Detour-Screenshots";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Anime Detour";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -860,6 +960,15 @@
 			buildConfigurations = (
 				DA9652201CA23BBB00EA4112 /* Debug */,
 				DA9652211CA23BBB00EA4112 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAFCAF5F1CACAA0200100BB8 /* Build configuration list for PBXNativeTarget "Anime Detour Screenshots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAFCAF601CACAA0200100BB8 /* Debug */,
+				DAFCAF611CACAA0200100BB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
