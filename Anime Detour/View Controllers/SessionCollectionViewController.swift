@@ -200,9 +200,6 @@ class SessionCollectionViewController: UICollectionViewController {
         // Possibly update cell sizes. Belongs in `viewDidAppear:`, as the
         // trait collection is sometimes not up to date in `viewWillAppear:`.
         updateCellSizesIfNecessary()
-        
-        // Push the refresh control behind the collection view's reusable views.
-        refreshControl.superview?.sendSubviewToBack(refreshControl)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -363,6 +360,8 @@ class SessionCollectionViewController: UICollectionViewController {
         var refreshBounds = refreshControl.bounds
         refreshBounds.offsetInPlace(dx: 0, dy: -headerHeight)
         refreshControl.bounds = refreshBounds
+        
+        refreshControl.layer.zPosition = -1
     }
     
     @objc private func refreshSessions(sender: AnyObject?) {
