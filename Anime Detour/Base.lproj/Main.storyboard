@@ -1039,7 +1039,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="D5i-HM-kbM">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="630"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="640"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0id-b7-M4n" customClass="ImageHeaderView" customModule="Anime_Detour" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
@@ -1065,10 +1065,10 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PbF-BR-Xqi" userLabel="Below Image Container View">
-                                                <rect key="frame" x="0.0" y="180" width="600" height="450"/>
+                                                <rect key="frame" x="0.0" y="180" width="600" height="460"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="qJr-aG-e0B" userLabel="Below Image Stack View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="460"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="34G-Bc-bl1">
                                                                 <rect key="frame" x="16" y="16" width="568" height="20"/>
@@ -1089,10 +1089,10 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xa5-IG-xoW">
-                                                                <rect key="frame" x="16" y="52" width="568" height="242"/>
+                                                                <rect key="frame" x="16" y="52" width="568" height="160"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="BJX-2T-eXy">
-                                                                        <rect key="frame" x="0.0" y="102" width="514" height="38"/>
+                                                                        <rect key="frame" x="0.0" y="61" width="514" height="38"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Day and Time like 5/21 08:30pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bca-ng-2cp">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="209" height="17"/>
@@ -1109,7 +1109,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jnd-Jo-exM" userLabel="Favorite Button">
-                                                                        <rect key="frame" x="524" y="99" width="44" height="44"/>
+                                                                        <rect key="frame" x="524" y="58" width="44" height="44"/>
                                                                         <accessibility key="accessibilityConfiguration" label="Favorite"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="44" id="NnR-Kg-HsM"/>
@@ -1126,7 +1126,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="MNa-Jf-mbY">
-                                                                <rect key="frame" x="16" y="309" width="568" height="17"/>
+                                                                <rect key="frame" x="16" y="227" width="568" height="17"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XN4-qE-Dga" customClass="InsettableLabel" customModule="Anime_Detour" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="17"/>
@@ -1140,7 +1140,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="aRj-wg-kqB">
-                                                                <rect key="frame" x="16" y="342" width="568" height="38"/>
+                                                                <rect key="frame" x="16" y="260" width="568" height="38"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Qn-F9-VeD">
                                                                         <rect key="frame" x="0.0" y="0.0" width="568" height="15"/>
@@ -1157,7 +1157,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="6bE-D0-AIy">
-                                                                <rect key="frame" x="16" y="396" width="568" height="38"/>
+                                                                <rect key="frame" x="16" y="314" width="568" height="38"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Panelists" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGM-UZ-hpU">
                                                                         <rect key="frame" x="0.0" y="0.0" width="568" height="15"/>
@@ -1169,6 +1169,30 @@
                                                                         <rect key="frame" x="0.0" y="19" width="568" height="20"/>
                                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sPR-Ja-GKc">
+                                                                <rect key="frame" x="16" y="368" width="568" height="1"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="1" id="MKJ-9j-TpS"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="2Ko-LN-3U5">
+                                                                <rect key="frame" x="16" y="385" width="568" height="59"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Age Requirements" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cD-eb-9bR">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="568" height="15"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="This event is only for attendees %d years of age or older. Photo ID may be required to attend." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNZ-Fr-ag7">
+                                                                        <rect key="frame" x="0.0" y="19" width="568" height="41"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -1195,6 +1219,7 @@
                                     <constraint firstItem="D5i-HM-kbM" firstAttribute="leading" secondItem="NNy-km-Viz" secondAttribute="leading" id="kof-jf-pPB"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="ageRequirementInfoLabel" destination="YNZ-Fr-ag7" id="LI8-gd-xnJ"/>
                                     <outlet property="ageRequirementLabel" destination="ISJ-uT-cMi" id="uhA-d6-3xA"/>
                                     <outlet property="bookmarkButton" destination="jnd-Jo-exM" id="0hE-me-zhD"/>
                                     <outlet property="categoryLabel" destination="XN4-qE-Dga" id="gzI-w3-PCH"/>
@@ -1208,6 +1233,8 @@
                                     <outlet property="panelistsLabel" destination="BBR-Zx-uF5" id="idb-C3-RNV"/>
                                     <outlet property="panelistsView" destination="6bE-D0-AIy" id="LbR-eT-Rfj"/>
                                     <outlet property="timeLabel" destination="Bca-ng-2cp" id="ncI-B2-SBk"/>
+                                    <outletCollection property="ageRequirementViews" destination="sPR-Ja-GKc" collectionClass="NSMutableArray" id="5Kr-4Z-Oeo"/>
+                                    <outletCollection property="ageRequirementViews" destination="2Ko-LN-3U5" collectionClass="NSMutableArray" id="XGJ-gV-Jz1"/>
                                 </connections>
                             </scrollView>
                         </subviews>

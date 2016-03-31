@@ -28,17 +28,23 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var categoryLabel: InsettableLabel!
     @IBOutlet var panelistsLabel: UILabel!
+    @IBOutlet var ageRequirementInfoLabel: UILabel!
     
     /// The view displaying the session's description and any associated views.
     @IBOutlet var descriptionView: UIView!
     /// The view displaying the session's panelists and any associated views.
     @IBOutlet var panelistsView: UIView!
+    /// The views displaying the session's age requirement info text and any associated views.
+    /// They may not all be contained in one stack view, so use a collection.
+    @IBOutlet var ageRequirementViews: [UIView]!
     
     @IBOutlet var imageHeaderView: ImageHeaderView!
 
     @IBOutlet var bookmarkButton: UIButton!
     
     @IBOutlet weak var sessionDelegate: SessionViewDelegate?
+    
+    private var ageRequirementDescriptionText: String?
     
     private var originalCategoryLabelColor: UIColor = UIColor.blackColor()
 
@@ -62,6 +68,7 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
             
             if let viewModel = viewModel {
                 showAgeRequirementOrHideLabel(forViewModel: viewModel)
+                showAgeRequirementInfoOrHideViews(viewModel)
             }
             
             locationLabel.text = viewModel?.location
@@ -109,11 +116,34 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        ageRequirementDescriptionText = ageRequirementInfoLabel.text
         originalCategoryLabelColor = categoryLabel.textColor
     }
     
     @IBAction func bookmarkButtonTapped(sender: AnyObject) {
         sessionDelegate?.didTapBookmarkButton()
+    }
+    
+    private func showAgeRequirementInfoOrHideViews(viewModel: SessionViewModel) {
+        let ageRequired: Int?
+        if viewModel.is18Plus {
+            ageRequired = 18
+        } else if viewModel.is21Plus {
+            ageRequired = 21
+        } else {
+            ageRequired = nil
+        }
+        
+        if let ageRequired = ageRequired, ageRequirementDescriptionText = ageRequirementDescriptionText {
+            ageRequirementInfoLabel.text = String(format: ageRequirementDescriptionText, ageRequired)
+            for view in ageRequirementViews {
+                view.hidden = false
+            }
+        } else {
+            for view in ageRequirementViews {
+                view.hidden = true
+            }
+        }
     }
 
     // MARK: - Session View Model Delegate
