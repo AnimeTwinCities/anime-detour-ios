@@ -1,0 +1,9 @@
+The official iOS app of Anime Detour for 2016. View the convention schedule, hotel maps, and more.
+
+The app provides easy access to con information:
+- See the full list of sessions, or only the category you want. Looking for photo shoots? Pick it in the Filter view.
+- The full schedule now supports favorites! Mark sessions to remember for later, and turn on alerts to get a message when one is starting soon. Toggle alerts from the Settings view, in the Info tab.
+- Search sessions by name.
+- See the guests coming to Anime Detour this year.
+- Use the hotel map to find the room for a session.
+- Tap the hotel name on the Info tab to find it in Maps.
