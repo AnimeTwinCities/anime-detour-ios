@@ -38,7 +38,7 @@ class AnimeDetourScreenshots: XCTestCase {
         
         app.navigationBars["Sessions"].buttons["Search"].tap()
         app.searchFields["Search Sessions"].tap()
-        app.typeText("Photoshoot")
+        app.typeText("Pokemon")
         
         app.keyboards.buttons["Search"].tap()
         
