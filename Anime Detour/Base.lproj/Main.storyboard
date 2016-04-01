@@ -293,6 +293,9 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="filterSegueIdentifier" value="FilterSessions"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="searchSegueIdentifier" value="SearchSessions"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="nowButton" destination="tSh-xz-V9N" id="oUw-Pp-cn9"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zve-7b-l3Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

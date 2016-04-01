@@ -140,6 +140,13 @@ class SessionCollectionViewController: UICollectionViewController {
     
     // MARK: Controls
     
+    @IBOutlet var nowButton: UIBarButtonItem? {
+        didSet {
+            nowButton?.accessibilityLabel = "Now"
+            nowButton?.accessibilityHint = "Jump to the current time"
+        }
+    }
+    
     @IBOutlet var daySegmentedControl: UISegmentedControl? {
         didSet {
             dayScroller.daySegmentedControl = daySegmentedControl
