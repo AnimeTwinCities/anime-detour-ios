@@ -771,6 +771,8 @@ private class SessionDayScroller {
     @IBAction @objc func goToDay(sender: UISegmentedControl) {
         let selectedIdx = sender.selectedSegmentIndex
         let day = days[selectedIdx]
-        scroll(day)
+        let nineHoursInSeconds = 9 * 60 * 60 as NSTimeInterval
+        let dayAt9AM = day.dateByAddingTimeInterval(nineHoursInSeconds)
+        scroll(dayAt9AM)
     }
 }
