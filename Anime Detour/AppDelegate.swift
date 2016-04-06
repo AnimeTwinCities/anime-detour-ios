@@ -123,6 +123,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         localNotificationsAllowedChanged(localNotificationsAllowed)
     }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        let alert = UIAlertController(title: notification.alertTitle ?? "Favorite Starting Soon", message: notification.alertBody, preferredStyle: .Alert)
+        let dismiss = UIAlertAction(title: "Got It", style: .Default, handler: { [weak alert] _ in alert?.dismissViewControllerAnimated(true, completion: nil) })
+        alert.addAction(dismiss)
+        window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+    }
     #endif
     
     func applicationDidBecomeActive(application: UIApplication) {
