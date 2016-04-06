@@ -128,7 +128,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let alert = UIAlertController(title: notification.alertTitle ?? "Favorite Starting Soon", message: notification.alertBody, preferredStyle: .Alert)
         let dismiss = UIAlertAction(title: "Got It", style: .Default, handler: { [weak alert] _ in alert?.dismissViewControllerAnimated(true, completion: nil) })
         alert.addAction(dismiss)
-        window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+    
+        show(alert)
     }
     #endif
     
@@ -171,7 +172,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Presenting Alerts
     
     private func show(alertController: UIAlertController) {
-        window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+        let presenter = window?.rootViewController?.presentedViewController ?? window?.rootViewController
+        presenter?.presentViewController(alertController, animated: true, completion: nil)
     }
     
     // MARK: - Core Data
