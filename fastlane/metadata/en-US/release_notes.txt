@@ -1,8 +1,10 @@
-New in 2016.0:
+New in 2016.0 and 2016.1:
+* Picking a day goes to 9AM
+* Events with an age requirement now include a note about requiring an ID
 * Anime Detour 2016 schedule, guests, and maps
-* Schedule and guest information bundled in the app - no internet service required after updating the app
-* Use the `Now` button to jump to ongoing sessions during Anime Detour
-* Notifications for favorite sessions, 10 minutes before they start
-* Colors in the schedule for each type of session
+* Schedule and guest information bundled in the app - no internet service required for most of the app
+* Use the `Now` button to jump to ongoing events during Anime Detour
+* Notifications for favorite events, 10 minutes before they start
+* Colors in the schedule for each type of event
 * 3D Touch peek and pop support in the main schedule and guest list
 * Full multitasking support on devices that support it
