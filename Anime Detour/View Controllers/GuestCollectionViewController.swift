@@ -158,8 +158,8 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: headerIdentifier, forIndexPath: indexPath) as! TextHeaderCollectionReusableView
 
         // Assume that `indexPath` is for item 0 in whatever section to which the header belongs
-        let anyGuest = fetchedResultsController.objectAtIndexPath(indexPath) as! Guest
-        header.titleLabel.text = anyGuest.category
+        let info = fetchedResultsController.sections?[indexPath.section]
+        header.titleLabel.text = info?.name
 
         return header
     }
