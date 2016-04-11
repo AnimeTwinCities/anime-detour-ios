@@ -69,6 +69,7 @@
 		DA90BDFA1CA23F71006A5ACD /* AnimeDetourDataModel.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA90BDF31CA23F1F006A5ACD /* AnimeDetourDataModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA9652111CA23BBB00EA4112 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9652101CA23BBB00EA4112 /* AppDelegate.swift */; };
 		DA9652161CA23BBB00EA4112 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA9652141CA23BBB00EA4112 /* Main.storyboard */; };
+		DAA05C771CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAA05C761CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist */; };
 		DABABF051CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABABF041CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift */; };
 		DAFCAF5B1CACAA0200100BB8 /* AnimeDetourScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCAF5A1CACAA0200100BB8 /* AnimeDetourScreenshots.swift */; };
 		DAFCAF631CACAA7D00100BB8 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCAF621CACAA7D00100BB8 /* SnapshotHelper.swift */; };
@@ -196,6 +197,7 @@
 		DA9652101CA23BBB00EA4112 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA9652151CA23BBB00EA4112 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA96521C1CA23BBB00EA4112 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAA05C761CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GoogleAnalyticsConfiguration.plist; sourceTree = "<group>"; };
 		DABABF041CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeRequirementDisplayingView.swift; sourceTree = "<group>"; };
 		DAFCAF581CACAA0200100BB8 /* Anime Detour Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Anime Detour Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFCAF5A1CACAA0200100BB8 /* AnimeDetourScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetourScreenshots.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 				DA9652101CA23BBB00EA4112 /* AppDelegate.swift */,
 				DA9652141CA23BBB00EA4112 /* Main.storyboard */,
 				DA96521C1CA23BBB00EA4112 /* Info.plist */,
+				DAA05C761CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist */,
 				DA53F28D1CAC883500526BD9 /* AnimeDetourStaleData.xcappdata */,
 				DA0E971A1CA23CFA00043A30 /* Resources */,
 			);
@@ -636,6 +639,7 @@
 				DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */,
 				DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */,
 				DA53F2911CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite in Resources */,
+				DAA05C771CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

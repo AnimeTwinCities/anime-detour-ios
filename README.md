@@ -6,7 +6,11 @@ The official Anime Detour iOS application.
 
 The app is written in Swift 2. Xcode 7 or later is required to compile it.
 
-## Analytics
+## Building
+
+Note that the app does not build without modification after checkout. To make the app buildable, following the [Analytics](#Analytics) instructions to enable or disable usage analytics.
+
+### Analytics
 
 The app uses Google Analytics. To get started, copy `GoogleAnalyticsConfiguration.plist.dist`, rename it to `GoogleAnalyticsConfiguration.plist`, and set your Google Analytics tracking ID. To run the app without analytics, remove the placeholder analytics ID. Analytics are not tracked in the Debug configuration.
 
