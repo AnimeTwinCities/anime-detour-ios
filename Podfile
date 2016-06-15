@@ -3,6 +3,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
+target 'Anime Detour'
+
 pod 'Aspects'
 pod 'GoogleAnalytics'
 pod 'FXForms', '~> 1.2.0'
