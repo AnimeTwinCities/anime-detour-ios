@@ -17,7 +17,7 @@ import AnimeDetourDataModel
 class GuestCollectionViewController: UICollectionViewController, CollectionViewFetchedResultsControllerCellCustomizer {
     // MARK: Images
 
-    lazy var imageSession: NSURLSession = NSURLSession.sharedSession()
+    lazy var imageSession: URLSession = URLSession.shared
     
     // MARK: Segues
 
@@ -32,32 +32,32 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
     
     // MARK: Handoff
     
-    private var handoffGuestID: String?
+    fileprivate var handoffGuestID: String?
 
     // MARK: Core Data
     
     /// Lazily created FRC. To use, first perform a fetch on it.
-    private lazy var fetchedResultsController: NSFetchedResultsController = {
+    fileprivate lazy var fetchedResultsController: NSFetchedResultsController<Guest> = { () -> NSFetchedResultsController<Guest> in
         let moc = self.managedObjectContext
-        let entity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: moc)
+        let entity = NSEntityDescription.entity(forEntityName: Guest.entityName, in: moc)
         let sort = NSSortDescriptor(key: Guest.Keys.firstName.rawValue, ascending: true)
-        let fetchRequest = NSFetchRequest()
+        let fetchRequest = NSFetchRequest<Guest>()
         fetchRequest.entity = entity
         fetchRequest.sortDescriptors = [sort]
-        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: Guest.Keys.category.rawValue, cacheName: nil)
+        let frc = NSFetchedResultsController<Guest>(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: Guest.Keys.category.rawValue, cacheName: nil)
         return frc
     }()
 
-    private lazy var managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
+    fileprivate lazy var managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
 
-    private lazy var fetchedResultsControllerDelegate = CollectionViewFetchedResultsControllerDelegate()
+    fileprivate lazy var fetchedResultsControllerDelegate = CollectionViewFetchedResultsControllerDelegate()
     
     // MARK: Face Detection
     
-    private let faceDetector = ImageFaceDetector()
+    fileprivate let faceDetector = ImageFaceDetector()
     
     // The detail view, so we can update it after we get a hi res photo or face.
-    private weak var detailViewController: GuestDetailViewController?
+    fileprivate weak var detailViewController: GuestDetailViewController?
 
     // MARK: View controller
 
@@ -85,47 +85,47 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         self.setFlowLayoutCellSizes(self.collectionView!)
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator.animateAlongsideTransition({ _ in
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { _ in
             self.view.setNeedsUpdateConstraints()
             }, completion: nil)
     }
     
     // MARK: - UIResponder
     
-    override func restoreUserActivityState(activity: NSUserActivity) {
+    override func restoreUserActivityState(_ activity: NSUserActivity) {
         guard let guestID = activity.userInfo?[GuestDetailViewController.guestActivityGuestIDKey] as? String else {
             return
         }
         
-        let fetchRequest = NSFetchRequest(entityName: Guest.entityName)
+        let fetchRequest = NSFetchRequest<Guest>(entityName: Guest.entityName)
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "%K == %@", Guest.Keys.guestID.rawValue, guestID)
-        let count = fetchedResultsController.managedObjectContext.countForFetchRequest(fetchRequest, error: nil)
+        let count = try? fetchedResultsController.managedObjectContext.count(for: fetchRequest)
         guard count == 1 else {
             // don't do anything, since we don't have the guest for the ID that we received
             return
         }
         
         handoffGuestID = guestID
-        performSegueWithIdentifier(detailIdentifier, sender: self)
+        performSegue(withIdentifier: detailIdentifier, sender: self)
     }
     
     // MARK: Data Display
 
-    private func guestAt(indexPath: NSIndexPath) -> Guest {
-        return fetchedResultsController.objectAtIndexPath(indexPath) as! Guest
+    fileprivate func guestAt(_ indexPath: IndexPath) -> Guest {
+        return fetchedResultsController.object(at: indexPath)
     }
 
     /// Update the sizes of our collection view cells based on the view's trait collection.
-    private func setFlowLayoutCellSizes(collectionView: UICollectionView) {
+    fileprivate func setFlowLayoutCellSizes(_ collectionView: UICollectionView) {
         let traitCollection = collectionView.traitCollection
         let viewWidth = collectionView.frame.width
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         var itemSize = layout.itemSize
 
-        if traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Compact {
+        if traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.compact {
             itemSize.width = viewWidth
         } else {
             // Assume .Regular
@@ -140,25 +140,25 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return fetchedResultsController.sections?.count ?? 0
     }
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         configure(cell, atIndexPath: indexPath)
         return cell
     }
 
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: headerIdentifier, forIndexPath: indexPath) as! TextHeaderCollectionReusableView
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerIdentifier, for: indexPath) as! TextHeaderCollectionReusableView
 
         // Assume that `indexPath` is for item 0 in whatever section to which the header belongs
-        let info = fetchedResultsController.sections?[indexPath.section]
+        let info = fetchedResultsController.sections?[(indexPath as NSIndexPath).section]
         header.titleLabel.text = info?.name
 
         return header
@@ -166,7 +166,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 
     // MARK: - Collection view cell customizer
 
-    func configure(cell: UICollectionViewCell, atIndexPath indexPath: NSIndexPath) {
+    func configure(_ cell: UICollectionViewCell, atIndexPath indexPath: IndexPath) {
         let cell = cell as! GuestCollectionViewCell
 
         let guest = guestAt(indexPath)
@@ -177,7 +177,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         // lol separation of concerns
         // Update the detail view controller's view model if that's the one
         // we're configuring.
-        guard let detailVC = detailViewController where detailVC.guestViewModel?.guestObjectID == guest.objectID else {
+        guard let detailVC = detailViewController , detailVC.guestViewModel?.guestObjectID == guest.objectID else {
             return
         }
         
@@ -186,7 +186,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch (segue.identifier) {
         case detailIdentifier?:
             let viewModel: GuestViewModel
@@ -195,11 +195,11 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
                 viewModel = cell.viewModel!
             case self as GuestCollectionViewController:
                 let guestID = handoffGuestID!
-                let fetchRequest = NSFetchRequest(entityName: Guest.entityName)
+                let fetchRequest = NSFetchRequest<Guest>(entityName: Guest.entityName)
                 fetchRequest.predicate = NSPredicate(format: "%K == %@", Guest.Keys.guestID.rawValue, guestID)
                 fetchRequest.fetchLimit = 1
-                let results = try? managedObjectContext.executeFetchRequest(fetchRequest)
-                let guest = results?.first as! Guest
+                let results = try! managedObjectContext.fetch(fetchRequest)
+                let guest = results.first!
                 
                 viewModel = GuestViewModel(guest: guest, imageSession: imageSession)
                 viewModel.delegate = self
@@ -207,7 +207,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
                 preconditionFailure("Unexpected segue sender.")
             }
             
-            let guestVC = segue.destinationViewController as! GuestDetailViewController
+            let guestVC = segue.destination as! GuestDetailViewController
             guestVC.guestViewModel = viewModel
             
             detailViewController = guestVC
@@ -219,12 +219,12 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 }
 
 private extension GuestCollectionViewController {
-    func findFaceFor(photo: UIImage, forGuestWithID guestObjectID: NSManagedObjectID, inContext context: NSManagedObjectContext) {
+    func findFaceFor(_ photo: UIImage, forGuestWithID guestObjectID: NSManagedObjectID, inContext context: NSManagedObjectContext) {
         faceDetector.findFace(photo) { [weak self, weak context] face in
             // Though we don't need `self`, skip doing any work if `self` no longer exists.
-            guard let _ = self, context = context else { return }
-            context.performBlock({ () -> Void in
-                guard let guest = context.objectWithID(guestObjectID) as? Guest else {
+            guard let _ = self, let context = context else { return }
+            context.perform({ () -> Void in
+                guard let guest = context.object(with: guestObjectID) as? Guest else {
                     return
                 }
                 
@@ -242,8 +242,8 @@ private extension GuestCollectionViewController {
 extension GuestCollectionViewController: GuestViewModelDelegate {
     // MARK: - Guest View Model Delegate
 
-    func didDownloadPhoto(viewModel: GuestViewModel, photo: UIImage, hiRes: Bool) {
-        dispatch_async(dispatch_get_main_queue()) { [weak self, guestObjectID = viewModel.guestObjectID] () -> Void in
+    func didDownloadPhoto(_ viewModel: GuestViewModel, photo: UIImage, hiRes: Bool) {
+        DispatchQueue.main.async { [weak self, guestObjectID = viewModel.guestObjectID] () -> Void in
             guard let strongSelf = self else {
                 return
             }
@@ -251,7 +251,7 @@ extension GuestCollectionViewController: GuestViewModelDelegate {
             // Skip face logic for low-res photos
             guard hiRes else { return }
             
-            if let guest = strongSelf.managedObjectContext.objectWithID(guestObjectID) as? Guest, faceLocation = guest.hiResPhotoFaceBoundsRect {
+            if let guest = strongSelf.managedObjectContext.object(with: guestObjectID) as? Guest, let faceLocation = guest.hiResPhotoFaceBoundsRect {
                 viewModel.photoFaceLocation = faceLocation
             } else {
                 strongSelf.findFaceFor(photo, forGuestWithID: guestObjectID, inContext: strongSelf.managedObjectContext)
@@ -259,7 +259,7 @@ extension GuestCollectionViewController: GuestViewModelDelegate {
         }
     }
 
-    func didFailDownloadingPhoto(viewModel: GuestViewModel, error: NSError) {
+    func didFailDownloadingPhoto(_ viewModel: GuestViewModel, error: NSError) {
         // empty
     }
 }

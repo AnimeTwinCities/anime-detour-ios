@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-public class Guest: NSManagedObject {
+open class Guest: NSManagedObject {
     public enum Keys: String {
         case guestID
         case category
@@ -18,18 +18,18 @@ public class Guest: NSManagedObject {
         case hiResPhotoData
     }
 
-    @NSManaged public var category: String
-    @NSManaged public var photoPath: String
-    @NSManaged public var hiResPhotoPath: String
-    @NSManaged public var photoData: NSData?
-    @NSManaged public var hiResPhotoData: NSData?
-    @NSManaged public var hiResPhotoFaceBounds: NSValue?
-    @NSManaged public var guestID: String
-    @NSManaged public var firstName: String
-    @NSManaged public var lastName: String
-    @NSManaged public var bio: String
+    @NSManaged open var category: String
+    @NSManaged open var photoPath: String
+    @NSManaged open var hiResPhotoPath: String
+    @NSManaged open var photoData: Data?
+    @NSManaged open var hiResPhotoData: Data?
+    @NSManaged open var hiResPhotoFaceBounds: NSValue?
+    @NSManaged open var guestID: String
+    @NSManaged open var firstName: String
+    @NSManaged open var lastName: String
+    @NSManaged open var bio: String
 
-    public var hiResPhoto: UIImage? {
+    open var hiResPhoto: UIImage? {
         get {
             return self.hiResPhotoData.map { UIImage(data: $0) } ?? nil
         }
@@ -38,7 +38,7 @@ public class Guest: NSManagedObject {
         }
     }
 
-    public var photo: UIImage? {
+    open var photo: UIImage? {
         get {
             return self.photoData.map { UIImage(data: $0) } ?? nil
         }
@@ -47,15 +47,15 @@ public class Guest: NSManagedObject {
         }
     }
 
-    class public var entityName: String {
+    class open var entityName: String {
         return "Guest"
     }
 
-    override public var description: String {
+    override open var description: String {
         return "Guest: \(firstName) \(lastName)"
     }
 
-    public override func awakeFromInsert() {
+    open override func awakeFromInsert() {
         super.awakeFromInsert()
 
         // set empty strings as default values
@@ -67,12 +67,12 @@ public class Guest: NSManagedObject {
         self.bio = ""
     }
 
-    public var hiResPhotoFaceBoundsRect: CGRect? {
+    open var hiResPhotoFaceBoundsRect: CGRect? {
         get {
-            return hiResPhotoFaceBounds?.CGRectValue()
+            return hiResPhotoFaceBounds?.cgRectValue
         }
         set {
-            hiResPhotoFaceBounds = newValue.map { NSValue(CGRect: $0) }
+            hiResPhotoFaceBounds = newValue.map { NSValue(cgRect: $0) }
         }
     }
 }

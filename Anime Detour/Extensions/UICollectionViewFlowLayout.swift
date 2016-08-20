@@ -11,13 +11,13 @@ import UIKit
 extension UICollectionViewFlowLayout {
     // Get the y-coordinate for the first item,
     // including section headers, in a section.
-    func yCoordinateForFirstItemInSection(section: Int) -> CGFloat {
-        let indexPath = NSIndexPath(forItem: 0, inSection: section)
+    func yCoordinateForFirstItemInSection(_ section: Int) -> CGFloat {
+        let indexPath = IndexPath(item: 0, section: section)
 
-        if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) {
+        if let headerAttributes = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: indexPath) {
             return headerAttributes.frame.minY
         }
-        if let itemAttributes = layoutAttributesForItemAtIndexPath(indexPath) {
+        if let itemAttributes = layoutAttributesForItem(at: indexPath) {
             return itemAttributes.frame.minY
         }
 
@@ -27,10 +27,10 @@ extension UICollectionViewFlowLayout {
 }
 
 extension StickyHeaderFlowLayout {
-    override func yCoordinateForFirstItemInSection(section: Int) -> CGFloat {
-        let indexPath = NSIndexPath(forItem: 0, inSection: section)
+    override func yCoordinateForFirstItemInSection(_ section: Int) -> CGFloat {
+        let indexPath = IndexPath(item: 0, section: section)
 
-        if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath) {
+        if let headerAttributes = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: indexPath) {
             var minY = headerAttributes.frame.minY
             if headerEnabled {
                 minY -= self.headerHeight
@@ -38,7 +38,7 @@ extension StickyHeaderFlowLayout {
 
             return minY
         }
-        if let itemAttributes = layoutAttributesForItemAtIndexPath(indexPath) {
+        if let itemAttributes = layoutAttributesForItem(at: indexPath) {
             var minY = itemAttributes.frame.minY
             if headerEnabled {
                 minY -= self.headerHeight

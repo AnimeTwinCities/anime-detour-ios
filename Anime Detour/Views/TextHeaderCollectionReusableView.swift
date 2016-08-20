@@ -17,12 +17,12 @@ class TextHeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet var titleLabel: UILabel!
 
     convenience init() {
-        self.init(frame: CGRectZero)
+        self.init(frame: CGRect.zero)
     }
 
     override init(frame: CGRect) {
         let titleLabel = UILabel()
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        titleLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel = titleLabel
 
@@ -32,8 +32,8 @@ class TextHeaderCollectionReusableView: UICollectionReusableView {
         addSubview(titleLabel)
 
         let bindings = ["titleLabel" : titleLabel]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[titleLabel]-|", options: [], metrics: nil, views: bindings)
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[titleLabel]-|", options: [], metrics: nil, views: bindings)
+        let hConstraints = NSLayoutConstraint.constraints(withVisualFormat: "|-[titleLabel]-|", options: [], metrics: nil, views: bindings)
+        let vConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-[titleLabel]-|", options: [], metrics: nil, views: bindings)
 
         let allConstraints = hConstraints + vConstraints
         addConstraints(allConstraints)

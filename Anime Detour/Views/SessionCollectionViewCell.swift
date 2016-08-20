@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol SessionCollectionViewCellDelegate {
-    func sessionCellBookmarkButtonTapped(cell: SessionCollectionViewCell)
+    func sessionCellBookmarkButtonTapped(_ cell: SessionCollectionViewCell)
 }
 
 class SessionCollectionViewCell: UICollectionViewCell, AgeRequirementDisplayingView, SessionViewModelDelegate {
@@ -28,7 +28,7 @@ class SessionCollectionViewCell: UICollectionViewCell, AgeRequirementDisplayingV
     var viewModel: SessionViewModel? {
         didSet {
             switch oldValue {
-            case let .Some(oldValue) where oldValue.delegate as? SessionTableViewCell == self:
+            case let .some(oldValue) where oldValue.delegate as? SessionTableViewCell == self:
                 oldValue.delegate = nil
             default:
                 break
@@ -46,28 +46,28 @@ class SessionCollectionViewCell: UICollectionViewCell, AgeRequirementDisplayingV
             self.locationLabel.text = viewModel.location
             self.timeLabel.text = viewModel.dateAndTime
             
-            self.bookmarkButton?.setImage(viewModel.bookmarkImage, forState: .Normal)
+            self.bookmarkButton?.setImage(viewModel.bookmarkImage, for: UIControlState())
             
             if let color = viewModel.categoryColor {
-                colorView?.hidden = false
+                colorView?.isHidden = false
                 colorView?.backgroundColor = color
             } else {
-                colorView?.hidden = true
+                colorView?.isHidden = true
             }
         }
     }
 
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet {
             let backgroundColor: UIColor
 
-            if self.highlighted {
+            if self.isHighlighted {
                 backgroundColor = highlightColor
             } else {
-                backgroundColor = UIColor.clearColor()
+                backgroundColor = UIColor.clear
             }
 
-            UIView.animateWithDuration(0.1, animations: { [contentView] () -> Void in
+            UIView.animate(withDuration: 0.1, animations: { [contentView] () -> Void in
                 contentView.backgroundColor = backgroundColor
             })
         }
@@ -83,7 +83,7 @@ class SessionCollectionViewCell: UICollectionViewCell, AgeRequirementDisplayingV
         // Without setting an `autoresizingMask`, the content view has a
         // mysterious 50pt width constraint that we don't want.
         // So just set it to autoresize.
-        contentView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         contentView.translatesAutoresizingMaskIntoConstraints = true
     }
 
@@ -93,14 +93,14 @@ class SessionCollectionViewCell: UICollectionViewCell, AgeRequirementDisplayingV
 
     // MARK: Bookmarking
 
-    @IBAction func toggleBookmark(sender: AnyObject) {
+    @IBAction func toggleBookmark(_ sender: AnyObject) {
         sessionCellDelegate?.sessionCellBookmarkButtonTapped(self)
     }
 
     // MARK: Session View Model Delegate
 
-    func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
-        bookmarkButton?.setImage(bookmarkImage, forState: .Normal)
+    func bookmarkImageChanged(_ bookmarkImage: UIImage, accessibilityLabel: String) {
+        bookmarkButton?.setImage(bookmarkImage, for: UIControlState())
         bookmarkButton?.accessibilityLabel = accessibilityLabel
     }
 }

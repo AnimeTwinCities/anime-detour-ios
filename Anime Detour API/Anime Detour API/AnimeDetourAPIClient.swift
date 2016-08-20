@@ -11,15 +11,15 @@ import Foundation
 import AnimeDetourDataModel
 
 enum APIEndpoint {
-    case GuestList
-    case SessionList
+    case guestList
+    case sessionList
     
     var relativeURL: String {
         var url: String
         switch self {
-        case .GuestList:
+        case .guestList:
             url = "/guest_list/2/"
-        case .SessionList:
+        case .sessionList:
             url = "/programming_events"
         }
         
@@ -27,84 +27,84 @@ enum APIEndpoint {
     }
 }
 
-public typealias APICompletionHandler = (result: AnyObject?, error: NSError?) -> ()
+public typealias APICompletionHandler = (_ result: Any?, _ error: NSError?) -> ()
 
-public class AnimeDetourAPIClient {
+open class AnimeDetourAPIClient {
     /// Formatter for use when parsing API dates.
     /// Do not modify.
-    public let dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
-        let formatter = NSDateFormatter()
+    open let dateFormatter: DateFormatter = { () -> DateFormatter in
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ" // 2016-04-22T09:00:00-06:00
-        formatter.timeZone = NSTimeZone(name: "America/Chicago")
+        formatter.timeZone = TimeZone(identifier: "America/Chicago")
         return formatter
     }()
     
-    internal let urlSession: NSURLSession
-    internal let baseURL: NSURL = NSURL(string: "http://animedetour.com")!
+    internal let urlSession: URLSession
+    internal let baseURL: URL = URL(string: "http://animedetour.com")!
     
-    required public init(urlSession: NSURLSession = NSURLSession.sharedSession()) {
+    required public init(urlSession: URLSession = URLSession.shared) {
         self.urlSession = urlSession
     }
     
     // MARK: - Endpoint Methods
     
-    public func guestList(completionHandler: APICompletionHandler) -> NSURLSessionDataTask? {
-        let url = self.url(fromEndpoint: .GuestList)
-        let request = NSURLRequest(URL: url)
-        let dataTask = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+    open func guestList(_ completionHandler: APICompletionHandler) -> URLSessionDataTask? {
+        let url = self.url(fromEndpoint: .guestList)
+        let request = URLRequest(url: url)
+        let dataTask = self.urlSession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error getting guest list: \(error)")
-                completionHandler(result: nil, error: error)
+                completionHandler(nil, error)
                 return
             }
             
             guard let data = data else {
-                completionHandler(result: nil, error: nil)
+                completionHandler(nil, nil)
                 return
             }
             
-            let json: AnyObject?
+            let json: Any?
             let jsonError: NSError?
             do {
-                json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                json = try JSONSerialization.jsonObject(with: data, options: [])
                 jsonError = nil
             } catch {
                 json = nil
                 jsonError = error as NSError
             }
-            completionHandler(result: json, error: jsonError)
-        })
+            completionHandler(json, jsonError)
+        } as! (Data?, URLResponse?, Error?) -> Void)
         
         dataTask.resume()
         return dataTask
     }
     
-    public func sessionList(completionHandler: APICompletionHandler) -> NSURLSessionDataTask? {
-        let url = self.url(fromEndpoint: .SessionList)
-        let request = NSURLRequest(URL: url)
-        let dataTask = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+    open func sessionList(_ completionHandler: APICompletionHandler) -> URLSessionDataTask? {
+        let url = self.url(fromEndpoint: .sessionList)
+        let request = URLRequest(url: url)
+        let dataTask = self.urlSession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: NSError?) -> Void in
             if let error = error {
                 NSLog("Error getting session list: \(error)")
-                completionHandler(result: nil, error: error)
+                completionHandler(nil, error)
                 return
             }
             
             guard let data = data else {
-                completionHandler(result: nil, error: nil)
+                completionHandler(nil, nil)
                 return
             }
             
-            let json: AnyObject?
+            let json: Any?
             let jsonError: NSError?
             do {
-                json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                json = try JSONSerialization.jsonObject(with: data, options: [])
                 jsonError = nil
             } catch {
                 json = nil
                 jsonError = error as NSError
             }
-            completionHandler(result: json, error: jsonError)
-        })
+            completionHandler(json, jsonError)
+        } as! (Data?, URLResponse?, Error?) -> Void)
         
         dataTask.resume()
         return dataTask
@@ -112,19 +112,19 @@ public class AnimeDetourAPIClient {
     
     // MARK: - Request Building Methods
     
-    private func url(fromEndpoint endpoint: APIEndpoint, queryParameters: [String : String] = [:]) -> NSURL {
+    fileprivate func url(fromEndpoint endpoint: APIEndpoint, queryParameters: [String : String] = [:]) -> URL {
         var relativeURL = endpoint.relativeURL
-        relativeURL.appendContentsOf(self.queryString(fromDictionary: queryParameters))
-        return NSURL(string: "\(self.baseURL)\(relativeURL)")!
+        relativeURL.append(self.queryString(fromDictionary: queryParameters))
+        return URL(string: "\(self.baseURL)\(relativeURL)")!
     }
     
-    private func queryString(fromDictionary parameters: [String:String]) -> String {
+    fileprivate func queryString(fromDictionary parameters: [String:String]) -> String {
         var urlVars = [String]()
         for (k, var v) in parameters {
-            v = v.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+            v = v.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
             urlVars += ["\(k)=\(v)"]
         }
-        return urlVars.isEmpty ? "" : ("?" + urlVars.joinWithSeparator("&"))
+        return urlVars.isEmpty ? "" : ("?" + urlVars.joined(separator: "&"))
     }
 }
 
@@ -176,7 +176,7 @@ public enum SessionJSONKeys: String {
 public extension Session {
     /// Update the session's stored properties with information from an API response.
     /// Does not save the object afterward.
-    public func update(jsonObject json: [String : AnyObject], jsonDateFormatter dateFormatter: NSDateFormatter) {
+    public func update(jsonObject json: [String : AnyObject], jsonDateFormatter dateFormatter: DateFormatter) {
         /**
         JSON like:
         {
@@ -204,12 +204,12 @@ public extension Session {
         }
         
         if let start = json[SessionJSONKeys.start.rawValue] as? String,
-            let date = dateFormatter.dateFromString(start) {
+            let date = dateFormatter.date(from: start) {
                 self.start = date
         }
         
         if let end = json[SessionJSONKeys.end.rawValue] as? String,
-            let date = dateFormatter.dateFromString(end) {
+            let date = dateFormatter.date(from: end) {
                 self.end = date
         }
         
@@ -236,7 +236,7 @@ public extension Session {
         }
         
         if let bannerURL = json[SessionJSONKeys.bannerURL.rawValue] as? String {
-            self.bannerURL = NSURL(string: bannerURL)
+            self.bannerURL = URL(string: bannerURL)
         }
     }
 }

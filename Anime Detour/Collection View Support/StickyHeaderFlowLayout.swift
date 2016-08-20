@@ -14,7 +14,7 @@ all other views.
 */
 class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
     static let StickyHeaderElementKind: String = "StickyHeaderElementKind"
-    static let stickyHeaderIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+    static let stickyHeaderIndexPath = IndexPath(item: 0, section: 0)
 
     @IBInspectable var headerEnabled: Bool = true
     @IBInspectable var headerHeight: CGFloat = 50
@@ -26,24 +26,24 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
                 return
             }
 
-            let invalidationContext = invalidationContextForBoundsChange(collectionView?.bounds ?? CGRect.zero)
+            let invalidationContext = self.invalidationContext(forBoundsChange: collectionView?.bounds ?? CGRect.zero)
             setStickyHeaderInvalid(invalidationContext)
-            invalidateLayoutWithContext(invalidationContext)
+            invalidateLayout(with: invalidationContext)
         }
     }
 
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let superAttributes = super.layoutAttributesForElementsInRect(rect) ?? []
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let superAttributes = super.layoutAttributesForElements(in: rect) ?? []
         var attributes = superAttributes.map(copy)
 
         // No sticky header if there are no sections
-        if headerEnabled && (collectionView?.numberOfSections() ?? 0) != 0 {
+        if headerEnabled && (collectionView?.numberOfSections ?? 0) != 0 {
             // Offset all non-sticky-header views by the sticky header's height
             for itemAttributes in attributes {
                 offsetForStickyHeader(itemAttributes)
             }
             
-            if let headerAttributes = layoutAttributesForSupplementaryViewOfKind(StickyHeaderFlowLayout.StickyHeaderElementKind, atIndexPath: StickyHeaderFlowLayout.stickyHeaderIndexPath) {
+            if let headerAttributes = layoutAttributesForSupplementaryView(ofKind: StickyHeaderFlowLayout.StickyHeaderElementKind, at: StickyHeaderFlowLayout.stickyHeaderIndexPath) {
                 attributes.append(headerAttributes)
             }
         }
@@ -51,8 +51,8 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 
-    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        guard let attributes = super.layoutAttributesForItemAtIndexPath(indexPath).map(copy) else {
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let attributes = super.layoutAttributesForItem(at: indexPath).map(copy) else {
             return nil
         }
 
@@ -62,7 +62,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 
-    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+    override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes: UICollectionViewLayoutAttributes?
 
         switch elementKind {
@@ -75,14 +75,14 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
             let stickyOrigin = CGPoint(x: 0, y: headerTopOffset + cvOffset.y)
             let stickyFrame = CGRect(origin: stickyOrigin, size: stickySize)
 
-            let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, withIndexPath: indexPath)
+            let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, with: indexPath)
             headerAttributes.frame = stickyFrame
             // The default `zIndex` for `UICollectionElementKindSectionHeader` attributes on iOS 9
             // is `10`. Set the sticky header's `zIndex` much higher.
             headerAttributes.zIndex = 100
             attributes = headerAttributes
         default:
-            attributes = super.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath).map(copy)
+            attributes = super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath).map(copy)
             
             // Offset all non-sticky-header views by the sticky header's height
             if let attributes = attributes {
@@ -92,9 +92,9 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
 
         return attributes
     }
-
-    override func collectionViewContentSize() -> CGSize {
-        var size = super.collectionViewContentSize()
+    
+    override var collectionViewContentSize: CGSize {
+        var size = super.collectionViewContentSize
 
         // All non-sticky-header views are offset by the sticky header's height,
         // so add that height to super's size
@@ -105,21 +105,21 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
         return size
     }
 
-    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         if headerEnabled {
-            invalidateLayoutWithContext(invalidationContextForBoundsChange(newBounds))
+            invalidateLayout(with: invalidationContext(forBoundsChange: newBounds))
         }
         
-        return super.shouldInvalidateLayoutForBoundsChange(newBounds)
+        return super.shouldInvalidateLayout(forBoundsChange: newBounds)
     }
     
-    override func invalidationContextForBoundsChange(newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
-        let context = super.invalidationContextForBoundsChange(newBounds)
+    override func invalidationContext(forBoundsChange newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
+        let context = super.invalidationContext(forBoundsChange: newBounds)
         setStickyHeaderInvalid(context)
         return context
     }
 
-    private func offsetForStickyHeader(attributes: UICollectionViewLayoutAttributes) {
+    fileprivate func offsetForStickyHeader(_ attributes: UICollectionViewLayoutAttributes) {
         if headerEnabled {
             let frame = attributes.frame
             let offsetFrame = frame.offsetBy(dx: 0, dy: headerHeight)
@@ -127,8 +127,8 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
         }
     }
 
-    private func setStickyHeaderInvalid(invalidationContext: UICollectionViewLayoutInvalidationContext) {
-        invalidationContext.invalidateSupplementaryElementsOfKind(StickyHeaderFlowLayout.StickyHeaderElementKind, atIndexPaths: [StickyHeaderFlowLayout.stickyHeaderIndexPath])
+    fileprivate func setStickyHeaderInvalid(_ invalidationContext: UICollectionViewLayoutInvalidationContext) {
+        invalidationContext.invalidateSupplementaryElements(ofKind: StickyHeaderFlowLayout.StickyHeaderElementKind, at: [StickyHeaderFlowLayout.stickyHeaderIndexPath])
     }
     
     /**
@@ -136,7 +136,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
     be modified, since UICollectionViewFlowLayout caches attributes but
     can't because we're possibly modifying their frames to offset for our header.
     */
-    private func copy(attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+    fileprivate func copy(_ attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         return attributes.copy() as! UICollectionViewLayoutAttributes
     }
 }

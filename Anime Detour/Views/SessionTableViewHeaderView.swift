@@ -9,7 +9,7 @@
 import UIKit
 
 class SessionTableViewHeaderView: UITableViewHeaderFooterView {
-    @IBOutlet private var nameLabel: UILabel!
+    @IBOutlet fileprivate var nameLabel: UILabel!
 
     var title: String? {
         didSet {
@@ -18,12 +18,12 @@ class SessionTableViewHeaderView: UITableViewHeaderFooterView {
     }
 
     convenience init() {
-        self.init(frame: CGRectZero)
+        self.init(frame: CGRect.zero)
     }
 
     init(frame: CGRect) {
         let nameLabel = UILabel()
-        nameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        nameLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         self.nameLabel = nameLabel
 
@@ -33,8 +33,8 @@ class SessionTableViewHeaderView: UITableViewHeaderFooterView {
         self.addSubview(nameLabel)
 
         let bindings = ["nameLabel" : nameLabel]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-[nameLabel]-|", options: [], metrics: nil, views: bindings)
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[nameLabel]-|", options: [], metrics: nil, views: bindings)
+        let hConstraints = NSLayoutConstraint.constraints(withVisualFormat: "|-[nameLabel]-|", options: [], metrics: nil, views: bindings)
+        let vConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-[nameLabel]-|", options: [], metrics: nil, views: bindings)
 
         let allConstraints = hConstraints + vConstraints
         self.addConstraints(allConstraints)

@@ -13,16 +13,16 @@ import CoreData
 import AnimeDetourDataModel
 
 class SessionViewController: UIViewController, SessionViewModelDelegate {
-    static let sessionActivitySessionIDKey = (NSBundle.mainBundle().bundleIdentifier ?? "") + ".sessionID"
-    private static let sessionActivityTypeSuffix = ".session"
-    static let activityType = (NSBundle.mainBundle().bundleIdentifier ?? "") + sessionActivityTypeSuffix
+    static let sessionActivitySessionIDKey = (Bundle.main.bundleIdentifier ?? "") + ".sessionID"
+    fileprivate static let sessionActivityTypeSuffix = ".session"
+    static let activityType = (Bundle.main.bundleIdentifier ?? "") + sessionActivityTypeSuffix
     
     @IBOutlet var sessionView: SessionView!
     
     /// The aspect ratio (width / height) of the photo image view.
     @IBInspectable var photoAspect: CGFloat = 2
     
-    let imagesURLSession = NSURLSession.sharedSession()
+    let imagesURLSession = URLSession.shared
     
     lazy var managedObjectContext: NSManagedObjectContext! = CoreDataController.sharedInstance.managedObjectContext
     var sessionID: String! {
@@ -32,11 +32,11 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
                 return
             }
             
-            let fetchRequest = NSFetchRequest(entityName: Session.entityName)
+            let fetchRequest = NSFetchRequest<Session>(entityName: Session.entityName)
             fetchRequest.predicate = NSPredicate(format: "%K == %@", Session.Keys.sessionID.rawValue, sessionID)
             fetchRequest.fetchLimit = 1
-            let results = try? managedObjectContext.executeFetchRequest(fetchRequest)
-            guard let session = results?.first as? Session else {
+            let results = try? managedObjectContext.fetch(fetchRequest)
+            guard let session = results?.first else {
                 NSLog("Received `sessionID` but couldn't find corresponding Session")
                 return
             }
@@ -51,19 +51,38 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         }
     }
     
-    private var viewModel: SessionViewModel?
+    fileprivate var viewModel: SessionViewModel?
     
-    private var shortDateFormat = "EEE – hh:mm a" // Fri – 12:30 PM
-    lazy private var dateFormatter: NSDateFormatter = { () -> NSDateFormatter in
-        let formatter = NSDateFormatter()
+    fileprivate var shortDateFormat = "EEE – hh:mm a" // Fri – 12:30 PM
+    lazy fileprivate var dateFormatter: DateFormatter = { () -> DateFormatter in
+        let formatter = DateFormatter()
         formatter.dateFormat = self.shortDateFormat
         return formatter
     }()
-    lazy private var timeOnlyDateFormatter: NSDateFormatter = { () -> NSDateFormatter in
-        let formatter = NSDateFormatter()
+    lazy fileprivate var timeOnlyDateFormatter: DateFormatter = { () -> DateFormatter in
+        let formatter = DateFormatter()
         formatter.dateFormat = "hh:mm a"
         return formatter
     }()
+    
+    // MARK: - Peek Preview Action Items
+    
+    override var previewActionItems: [UIPreviewActionItem] {
+        let changeBookmarkedAction: UIPreviewActionItem
+        if viewModel?.isBookmarked ?? false {
+            changeBookmarkedAction = UIPreviewAction(title: "Remove Favorite", style: UIPreviewActionStyle.default) { _, _ in
+                self.toggleBookmarked()
+            }
+        } else {
+            changeBookmarkedAction = UIPreviewAction(title: "Add Favorite", style: UIPreviewActionStyle.default) { _, _ in
+                self.toggleBookmarked()
+            }
+        }
+        
+        return [changeBookmarkedAction]
+    }
+    
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +100,7 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         sessionView.layoutIfNeeded()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         let viewSize = view.frame.size
@@ -90,7 +109,7 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         preferredContentSize = preferredSize
         
         let currentActivity: NSUserActivity
-        if let activity = userActivity where activity.activityType == SessionViewController.activityType {
+        if let activity = userActivity , activity.activityType == SessionViewController.activityType {
             currentActivity = activity
         } else {
             userActivity?.invalidate()
@@ -103,67 +122,50 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
         currentActivity.becomeCurrent()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         userActivity?.resignCurrent()
         userActivity = nil
     }
     
-    private func toggleBookmarked() {
+    fileprivate func toggleBookmarked() {
         do {
             try viewModel?.toggleBookmarked()
         } catch {
             NSLog("Couldn't save after toggling session bookmarked status: \((error as NSError).localizedDescription)")
             let actionString = (viewModel?.isBookmarked ?? false) ? "add favorite" : "remove favorite"
-            let alert = UIAlertController(title: "Uh Oh", message: "Couldn't \(actionString). Sorry :(", preferredStyle: .Alert)
-            presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Uh Oh", message: "Couldn't \(actionString). Sorry :(", preferredStyle: .alert)
+            present(alert, animated: true, completion: nil)
         }
     }
     
     // MARK: - NSUserActivity
     
-    override func restoreUserActivityState(activity: NSUserActivity) {
+    override func restoreUserActivityState(_ activity: NSUserActivity) {
         super.restoreUserActivityState(activity)
         sessionID = activity.userInfo?[SessionViewController.sessionActivitySessionIDKey] as? String
     }
     
-    override func updateUserActivityState(activity: NSUserActivity) {
+    override func updateUserActivityState(_ activity: NSUserActivity) {
         super.updateUserActivityState(activity)
         
         activity.title = viewModel?.name
         
-        var userInfo: [String:AnyObject] = [:]
+        var userInfo: [AnyHashable : Any] = [:]
         if let viewModel = viewModel {
             userInfo[SessionViewController.sessionActivitySessionIDKey] = viewModel.session.sessionID
-            activity.eligibleForSearch = true
+            activity.isEligibleForSearch = true
         } else {
-            activity.eligibleForSearch = false
+            activity.isEligibleForSearch = false
         }
         
-        activity.addUserInfoEntriesFromDictionary(userInfo)
-    }
-    
-    // MARK: - Peek Preview Action Items
-    
-    override func previewActionItems() -> [UIPreviewActionItem] {
-        let changeBookmarkedAction: UIPreviewActionItem
-        if viewModel?.isBookmarked ?? false {
-            changeBookmarkedAction = UIPreviewAction(title: "Remove Favorite", style: UIPreviewActionStyle.Default) { _, _ in
-                self.toggleBookmarked()
-            }
-        } else {
-            changeBookmarkedAction = UIPreviewAction(title: "Add Favorite", style: UIPreviewActionStyle.Default) { _, _ in
-                self.toggleBookmarked()
-            }
-        }
-        
-        return [changeBookmarkedAction]
+        activity.addUserInfoEntries(from: userInfo)
     }
 
     // MARK: - Session View Model Delegate
 
-    func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
-        sessionView.bookmarkButton.setImage(bookmarkImage, forState: .Normal)
+    func bookmarkImageChanged(_ bookmarkImage: UIImage, accessibilityLabel: String) {
+        sessionView.bookmarkButton.setImage(bookmarkImage, for: UIControlState())
         sessionView.bookmarkButton.accessibilityLabel = accessibilityLabel
     }
 }
@@ -175,7 +177,7 @@ extension SessionViewController: SessionViewDelegate {
 }
 
 extension SessionViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateHeaderImageTopConstraint(sessionView)
     }
 }

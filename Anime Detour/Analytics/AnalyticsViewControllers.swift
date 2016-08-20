@@ -11,8 +11,8 @@ import Foundation
 import Aspects
 
 extension UIViewController {
-    static func hookViewDidAppearForAnalytics(googleTracker: GAITracker) {
-        let block: @convention(block) (info: AspectInfo, animated: Bool) -> Void = {
+    static func hookViewDidAppearForAnalytics(_ googleTracker: GAITracker) {
+        let block: @convention(block) (_ info: AspectInfo, _ animated: Bool) -> Void = {
             (info: AspectInfo, animated: Bool) in
             guard let analyticsScreen = info.instance() as? AnalyticsScreen else {
                 return
@@ -23,12 +23,12 @@ extension UIViewController {
             googleTracker.send(dict)
         }
         // lol type-safety
-        let objBlock = unsafeBitCast(block, AnyObject.self)
+        let objBlock = unsafeBitCast(block, to: AnyObject.self)
         
         do {
-            try UIViewController.aspect_hookSelector(#selector(UIViewController.viewDidAppear(_:)), withOptions:AspectOptions.PositionAfter, usingBlock: objBlock)
+            try UIViewController.aspect_hook(#selector(UIViewController.viewDidAppear(_:)), with:AspectOptions(), usingBlock: objBlock)
         } catch {
-            let error = error as! NSError
+            let error = error as NSError
             NSLog("Error hooking viewDidAppear: for analytics %@", error)
         }
     }

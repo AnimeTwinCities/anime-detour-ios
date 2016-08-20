@@ -11,7 +11,7 @@ import UIKit
 import Aspects
 
 private let backgroundColor = UIColor.adr_colorFromHex(0xE53935)
-private let textColor = UIColor.whiteColor()
+private let textColor = UIColor.white
 
 protocol AgeRequirementDisplayingView {
     var ageRequirementLabel: InsettableLabel! { get }
@@ -27,7 +27,7 @@ extension AgeRequirementDisplayingView {
         setAgeRequirementLabelBackgroundColor()
         ageRequirementLabel.textColor = textColor
         let ageLayer = ageRequirementLabel.layer
-        ageLayer.borderColor = backgroundColor.CGColor
+        ageLayer.borderColor = backgroundColor.cgColor
         ageLayer.masksToBounds = true
     }
     
@@ -45,17 +45,17 @@ extension AgeRequirementDisplayingView {
             ageRequirementHidden = true
         }
         ageRequirementLabel.text = ageRequirement
-        ageRequirementLabel.hidden = ageRequirementHidden
+        ageRequirementLabel.isHidden = ageRequirementHidden
     }
     
-    private func setAgeRequirementLabelBackgroundColor() {
+    fileprivate func setAgeRequirementLabelBackgroundColor() {
         ageRequirementLabel.backgroundColor = backgroundColor
     }
 }
 
 class AgeRequirementAwakeFromNibHook {
     static func hookAwakeFromNibForAgeLabelAppearance() {
-        let block: @convention(block) (info: AspectInfo) -> Void = { info in
+        let block: @convention(block) (_ info: AspectInfo) -> Void = { info in
             guard let ageRequirementView = info.instance() as? AgeRequirementDisplayingView else {
                 return
             }
@@ -63,17 +63,17 @@ class AgeRequirementAwakeFromNibHook {
             ageRequirementView.updateAgeRequirementLabelAppearance()
         }
         // lol type-safety
-        let objBlock = unsafeBitCast(block, AnyObject.self)
+        let objBlock = unsafeBitCast(block, to: AnyObject.self)
         
         do {
-            try UIView.aspect_hookSelector(#selector(UIView.awakeFromNib), withOptions:AspectOptions.PositionAfter, usingBlock: objBlock)
+            try UIView.aspect_hook(#selector(UIView.awakeFromNib), with:AspectOptions(), usingBlock: objBlock)
         } catch {
             NSLog("Error hooking UIView.awakeFromNib for age displaying labels: %@", error as NSError)
         }
     }
     
     static func hookTableViewCellSetHighlightedForAgeLabelAppearance() {
-        let block: @convention(block) (info: AspectInfo, highlighted: Bool, animated: Bool) -> Void = { info, _, _ in
+        let block: @convention(block) (_ info: AspectInfo, _ highlighted: Bool, _ animated: Bool) -> Void = { info, _, _ in
             guard let ageRequirementView = info.instance() as? AgeRequirementDisplayingView else {
                 return
             }
@@ -81,17 +81,17 @@ class AgeRequirementAwakeFromNibHook {
             ageRequirementView.setAgeRequirementLabelBackgroundColor()
         }
         // lol type-safety
-        let objBlock = unsafeBitCast(block, AnyObject.self)
+        let objBlock = unsafeBitCast(block, to: AnyObject.self)
         
         do {
-            try UITableViewCell.aspect_hookSelector(#selector(UITableViewCell.setHighlighted(_:animated:)), withOptions:AspectOptions.PositionAfter, usingBlock: objBlock)
+            try UITableViewCell.aspect_hook(#selector(UITableViewCell.setHighlighted(_:animated:)), with:AspectOptions(), usingBlock: objBlock)
         } catch {
             NSLog("Error hooking UITableViewCell.setHighlighted:animated: for age displaying labels: %@", error as NSError)
         }
     }
     
     static func hookTableViewCellSetSelectedForAgeLabelAppearance() {
-        let block: @convention(block) (info: AspectInfo, selected: Bool, animated: Bool) -> Void = { info, _, _ in
+        let block: @convention(block) (_ info: AspectInfo, _ selected: Bool, _ animated: Bool) -> Void = { info, _, _ in
             guard let ageRequirementView = info.instance() as? AgeRequirementDisplayingView else {
                 return
             }
@@ -99,10 +99,10 @@ class AgeRequirementAwakeFromNibHook {
             ageRequirementView.setAgeRequirementLabelBackgroundColor()
         }
         // lol type-safety
-        let objBlock = unsafeBitCast(block, AnyObject.self)
+        let objBlock = unsafeBitCast(block, to: AnyObject.self)
         
         do {
-            try UITableViewCell.aspect_hookSelector(#selector(UITableViewCell.setSelected(_:animated:)), withOptions:AspectOptions.PositionAfter, usingBlock: objBlock)
+            try UITableViewCell.aspect_hook(#selector(UITableViewCell.setSelected(_:animated:)), with:AspectOptions(), usingBlock: objBlock)
         } catch {
             NSLog("Error hooking UITableViewCell.setSelected:animated: for age displaying labels: %@", error as NSError)
         }

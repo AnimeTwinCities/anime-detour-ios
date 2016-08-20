@@ -21,11 +21,11 @@ protocol StretchingImageHeaderContainer {
     
     /// Adjust the top constraint of the image header view's image,
     /// so more of the image is visible if the user over-scrolls the scroll view.
-    func updateHeaderImageTopConstraint(scrollView: UIScrollView)
+    func updateHeaderImageTopConstraint(_ scrollView: UIScrollView)
 }
 
 extension StretchingImageHeaderContainer {
-    func updateHeaderImageTopConstraint(scrollView: UIScrollView) {
+    func updateHeaderImageTopConstraint(_ scrollView: UIScrollView) {
         let verticalOffset = scrollView.contentOffset.y
         let verticalInset = scrollView.contentInset.top
         

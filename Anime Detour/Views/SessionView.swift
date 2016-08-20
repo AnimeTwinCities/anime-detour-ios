@@ -44,19 +44,19 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
     
     @IBOutlet weak var sessionDelegate: SessionViewDelegate?
     
-    private var ageRequirementDescriptionText: String?
+    fileprivate var ageRequirementDescriptionText: String?
     
-    private var originalCategoryLabelColor: UIColor = UIColor.blackColor()
+    fileprivate var originalCategoryLabelColor: UIColor = UIColor.black
 
-    private var image: UIImage? {
+    fileprivate var image: UIImage? {
         didSet {
             imageHeaderView.image = image
             
             switch image {
             case _?:
-                imageHeaderView.hidden = false
+                imageHeaderView.isHidden = false
             default:
-                imageHeaderView.hidden = true
+                imageHeaderView.isHidden = true
             }
         }
     }
@@ -72,42 +72,42 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
             }
             
             locationLabel.text = viewModel?.location
-            if let sessionDescription = viewModel?.sessionDescription where !sessionDescription.isEmpty {
-                descriptionView.hidden = false
+            if let sessionDescription = viewModel?.sessionDescription , !sessionDescription.isEmpty {
+                descriptionView.isHidden = false
                 descriptionLabel.text = sessionDescription
             } else {
-                descriptionView.hidden = true
+                descriptionView.isHidden = true
             }
             categoryLabel.text = viewModel?.category
             let categoryColor = viewModel?.categoryColor ?? originalCategoryLabelColor
             categoryLabel.textColor = categoryColor
             let categoryLabelLayer = categoryLabel.layer
-            categoryLabelLayer.borderColor = categoryColor.CGColor
+            categoryLabelLayer.borderColor = categoryColor.cgColor
             
-            if let panelists = viewModel?.panelists where !panelists.isEmpty {
-                panelistsView.hidden = false
+            if let panelists = viewModel?.panelists , !panelists.isEmpty {
+                panelistsView.isHidden = false
                 panelistsLabel.text = panelists
             } else {
-                panelistsView.hidden = true
+                panelistsView.isHidden = true
             }
 
-            bookmarkButton.setImage(viewModel?.bookmarkImage, forState: .Normal)
+            bookmarkButton.setImage(viewModel?.bookmarkImage, for: UIControlState())
             bookmarkButton.accessibilityLabel = viewModel?.bookmarkAccessibilityLabel
             
             if case true? = viewModel?.hasImage {
-                imageHeaderView.hidden = false
+                imageHeaderView.isHidden = false
                 imageHeaderView.image = nil
             } else {
-                imageHeaderView.hidden = true
+                imageHeaderView.isHidden = true
             }
             
             viewModel?.image({ [weak self] (image, error) -> Void in
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
                     switch image {
-                    case let .Some(image):
+                    case let .some(image):
                         self?.image = image
                     default:
-                        self?.imageHeaderView.hidden = true
+                        self?.imageHeaderView.isHidden = true
                     }
                 })
             })
@@ -120,11 +120,11 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
         originalCategoryLabelColor = categoryLabel.textColor
     }
     
-    @IBAction func bookmarkButtonTapped(sender: AnyObject) {
+    @IBAction func bookmarkButtonTapped(_ sender: AnyObject) {
         sessionDelegate?.didTapBookmarkButton()
     }
     
-    private func showAgeRequirementInfoOrHideViews(viewModel: SessionViewModel) {
+    fileprivate func showAgeRequirementInfoOrHideViews(_ viewModel: SessionViewModel) {
         let ageRequired: Int?
         if viewModel.is18Plus {
             ageRequired = 18
@@ -134,22 +134,22 @@ class SessionView: UIScrollView, AgeRequirementDisplayingView, SessionViewModelD
             ageRequired = nil
         }
         
-        if let ageRequired = ageRequired, ageRequirementDescriptionText = ageRequirementDescriptionText {
+        if let ageRequired = ageRequired, let ageRequirementDescriptionText = ageRequirementDescriptionText {
             ageRequirementInfoLabel.text = String(format: ageRequirementDescriptionText, ageRequired)
             for view in ageRequirementViews {
-                view.hidden = false
+                view.isHidden = false
             }
         } else {
             for view in ageRequirementViews {
-                view.hidden = true
+                view.isHidden = true
             }
         }
     }
 
     // MARK: - Session View Model Delegate
 
-    func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
-        bookmarkButton.setImage(bookmarkImage, forState: .Normal)
+    func bookmarkImageChanged(_ bookmarkImage: UIImage, accessibilityLabel: String) {
+        bookmarkButton.setImage(bookmarkImage, for: UIControlState())
         bookmarkButton.accessibilityLabel = accessibilityLabel
     }
 }

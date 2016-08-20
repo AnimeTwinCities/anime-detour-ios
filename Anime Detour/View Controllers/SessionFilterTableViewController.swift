@@ -19,19 +19,19 @@ class SessionFilterTableViewController: UITableViewController {
 
     /// The current selection on which to filter.
     /// Setting the selected type will update the table view.
-    var selectedType: SelectedSessionCategory = .All {
+    var selectedType: SelectedSessionCategory = .all {
         didSet {
             if sessionTypes == nil {
                 return
             }
 
             let oldIndexPath = indexPath(oldValue)
-            if let cell = tableView.cellForRowAtIndexPath(oldIndexPath) {
+            if let cell = tableView.cellForRow(at: oldIndexPath) {
                 configure(cell, atIndexPath: oldIndexPath)
             }
 
             let newIndexPath = indexPath(selectedType)
-            if let cell = tableView.cellForRowAtIndexPath(newIndexPath) {
+            if let cell = tableView.cellForRow(at: newIndexPath) {
                 configure(cell, atIndexPath: newIndexPath)
             }
         }
@@ -39,29 +39,29 @@ class SessionFilterTableViewController: UITableViewController {
 
     /// The index path corresponding to a session type.
     /// Depends on `sessionTypes`. Must only be called when `sessionTypes` is non-nil.
-    private func indexPath(type: SelectedSessionCategory) -> NSIndexPath {
-        var indexPath: NSIndexPath
+    fileprivate func indexPath(_ type: SelectedSessionCategory) -> IndexPath {
+        var indexPath: IndexPath
         switch type {
-        case .All:
-            indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        case let .Category(category):
-            if let index = self.sessionTypes.indexOf(category) {
-                indexPath = NSIndexPath(forRow: index, inSection: 1)
+        case .all:
+            indexPath = IndexPath(row: 0, section: 0)
+        case let .category(category):
+            if let index = self.sessionTypes.index(of: category) {
+                indexPath = IndexPath(row: index, section: 1)
             } else {
-                indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                indexPath = IndexPath(row: 0, section: 0)
             }
         }
 
         return indexPath
     }
 
-    private func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
+    fileprivate func configure(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         
-        switch indexPath.section {
+        switch (indexPath as NSIndexPath).section {
         case 0:
             cell.textLabel?.text = "All"
         case 1:
-            let category = self.sessionTypes[indexPath.row]
+            let category = self.sessionTypes[(indexPath as NSIndexPath).row]
             let categoryCell = cell as! FilterCategoryTableViewCell
             let color = category.color
             
@@ -70,37 +70,37 @@ class SessionFilterTableViewController: UITableViewController {
             label?.textColor = color
             
             let layer = label?.layer
-            layer?.borderColor = color?.CGColor
+            layer?.borderColor = color?.cgColor
         default:
-            fatalError("Unexpected section number: \(indexPath.section)")
+            fatalError("Unexpected section number: \((indexPath as NSIndexPath).section)")
         }
 
         let selectedIndexPath = self.indexPath(self.selectedType)
         if indexPath == selectedIndexPath {
-            cell.accessoryType = .Checkmark
+            cell.accessoryType = .checkmark
         } else {
-            cell.accessoryType = .None
+            cell.accessoryType = .none
         }
     }
 
     // MARK: - Table view delegate
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var selectedType: SelectedSessionCategory
-        switch (indexPath.section, indexPath.row) {
+        switch ((indexPath as NSIndexPath).section, (indexPath as NSIndexPath).row) {
         case (0, _):
-            selectedType = .All
+            selectedType = .all
         case let (_, row):
-            selectedType = .Category(self.sessionTypes[row])
+            selectedType = .category(self.sessionTypes[row])
         }
 
         self.selectedType = selectedType
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if sessionTypes.count > 0 {
             return 2
         } else {
@@ -108,7 +108,7 @@ class SessionFilterTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 1
@@ -119,15 +119,15 @@ class SessionFilterTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let reuseIdentifier = indexPath.section == 0 ? allReuseIdentifier : categoryReuseIdentifier
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as UITableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let reuseIdentifier = (indexPath as NSIndexPath).section == 0 ? allReuseIdentifier : categoryReuseIdentifier
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier!, for: indexPath) as UITableViewCell
         configure(cell, atIndexPath: indexPath)
 
         return cell
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
             return nil

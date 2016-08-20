@@ -9,35 +9,35 @@
 import CoreData
 import UIKit
 
-public class CoreDataController {
-    private class var storeFilename: String {
+open class CoreDataController {
+    fileprivate class var storeFilename: String {
         return "AnimeDetourDataModel.sqlite"
     }
     
-    public class var URLForDefaultStoreFile: NSURL {
+    open class var URLForDefaultStoreFile: URL {
         return URLForStoreWithFilename(storeFilename)
     }
 
     /// Main managed object context, suitable only for use on the main thread.
-    public let managedObjectContext: NSManagedObjectContext
-    private let persistentStoreCoordinator: NSPersistentStoreCoordinator
+    open let managedObjectContext: NSManagedObjectContext
+    fileprivate let persistentStoreCoordinator: NSPersistentStoreCoordinator
 
     public init() {
-        let mom = self.dynamicType.createManagedObjectModel()
+        let mom = type(of: self).createManagedObjectModel()
 
-        let psc = self.dynamicType.createPersistentStoreCoordinator(mom, storeFilename: CoreDataController.storeFilename)
+        let psc = type(of: self).createPersistentStoreCoordinator(mom, storeFilename: CoreDataController.storeFilename)
         self.persistentStoreCoordinator = psc
 
-        let moc = self.dynamicType.createManagedObjectContext(psc)
+        let moc = type(of: self).createManagedObjectContext(psc)
         self.managedObjectContext = moc
     }
 
     // MARK: - Core Data stack
 
-    private class var applicationDocumentsDirectory: NSURL {
+    fileprivate class var applicationDocumentsDirectory: URL {
         // The directory the application uses to store the Core Data store file. This code uses the application's documents directory.
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as NSURL
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return urls[urls.count-1] as URL
     }
 
     /**
@@ -45,15 +45,15 @@ public class CoreDataController {
     It is a fatal error for the application not to be able to find and load its model.
     */
     class func createManagedObjectModel() -> NSManagedObjectModel {
-        let modelURL = NSBundle(forClass: CoreDataController.self).URLForResource("AnimeDetourDataModel", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        let modelURL = Bundle(for: CoreDataController.self).url(forResource: "AnimeDetourDataModel", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
     }
 
     /**
     Create a persistent store coordinator for the application. This implementation creates and returns a coordinator,
     having added the store for the application to it. Returns `nil` if the creation of the store fails.
     */
-    private class func createPersistentStoreCoordinator(managedObjectModel: NSManagedObjectModel, storeFilename: String) -> NSPersistentStoreCoordinator {
+    fileprivate class func createPersistentStoreCoordinator(_ managedObjectModel: NSManagedObjectModel, storeFilename: String) -> NSPersistentStoreCoordinator {
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         let url = self.URLForStoreWithFilename(storeFilename)
@@ -71,26 +71,26 @@ public class CoreDataController {
         return coordinator
     }
 
-    private class func addPersistentStore(url: NSURL, coordinator: NSPersistentStoreCoordinator) throws {
-        let options = [ NSMigratePersistentStoresAutomaticallyOption : NSNumber(bool: true),
-            NSInferMappingModelAutomaticallyOption : NSNumber(bool: true)]
-        try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options)
+    fileprivate class func addPersistentStore(_ url: URL, coordinator: NSPersistentStoreCoordinator) throws {
+        let options = [ NSMigratePersistentStoresAutomaticallyOption : NSNumber(value: true),
+            NSInferMappingModelAutomaticallyOption : NSNumber(value: true)]
+        try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: options)
     }
 
     /// Creates a managed object context that uses the persistent store coordinator.
-    private class func createManagedObjectContext(persistentStoreCoordinator: NSPersistentStoreCoordinator) -> NSManagedObjectContext {
-        let managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+    fileprivate class func createManagedObjectContext(_ persistentStoreCoordinator: NSPersistentStoreCoordinator) -> NSManagedObjectContext {
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
         return managedObjectContext
     }
     
-    private class func URLForStoreWithFilename(filename: String) -> NSURL {
-        return self.applicationDocumentsDirectory.URLByAppendingPathComponent(storeFilename)
+    fileprivate class func URLForStoreWithFilename(_ filename: String) -> URL {
+        return self.applicationDocumentsDirectory.appendingPathComponent(storeFilename)
     }
 
     /// Create a new managed object context sharing the same store as our main context.
     /// Will be created on the calling thread.
-    public func createManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType) -> NSManagedObjectContext {
+    open func createManagedObjectContext(_ concurrencyType: NSManagedObjectContextConcurrencyType) -> NSManagedObjectContext {
         let coordinator = self.persistentStoreCoordinator
         let managedObjectContext = NSManagedObjectContext(concurrencyType: concurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
@@ -99,25 +99,25 @@ public class CoreDataController {
 
     /// Destroys and re-creates the persistent store. Not safe to use
     /// if any additional contexts have been created aside from our primary `managedObjectContext`.
-    public func clearPersistentStore() {
+    open func clearPersistentStore() {
         if let store = self.persistentStoreCoordinator.persistentStores.first {
-            let url = store.URL!
+            let url = store.url!
 
             do {
-                try self.persistentStoreCoordinator.removePersistentStore(store)
+                try self.persistentStoreCoordinator.remove(store)
             } catch {
                 let error = error as NSError
                 assertionFailure("Unexpected error removing existing persistent store: \(error)")
             }
             do {
-                try NSFileManager.defaultManager().removeItemAtURL(url)
+                try FileManager.default.removeItem(at: url)
             } catch {
                 let error = error as NSError
                 assertionFailure("Unexpected error removing existing persistent store file: \(error)")
             }
             
             do {
-                try self.dynamicType.addPersistentStore(url, coordinator: self.persistentStoreCoordinator)
+                try type(of: self).addPersistentStore(url, coordinator: self.persistentStoreCoordinator)
             } catch {
                 let error = error as NSError
                 assertionFailure("Error re-adding store to PSC: \(error)")
@@ -127,7 +127,7 @@ public class CoreDataController {
 
     // MARK: - Core Data Saving support
 
-    public func saveContext () {
+    open func saveContext () {
         let moc = self.managedObjectContext
         guard moc.hasChanges else { return }
         do {

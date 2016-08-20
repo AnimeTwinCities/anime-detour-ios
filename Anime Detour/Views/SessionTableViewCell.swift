@@ -18,7 +18,7 @@ class SessionTableViewCell: UITableViewCell, AgeRequirementDisplayingView, Sessi
     var viewModel: SessionViewModel? {
         didSet {
             switch oldValue {
-            case let .Some(oldValue) where oldValue.delegate as? SessionTableViewCell == self:
+            case let .some(oldValue) where oldValue.delegate as? SessionTableViewCell == self:
                 oldValue.delegate = nil
             default:
                 break
@@ -36,10 +36,10 @@ class SessionTableViewCell: UITableViewCell, AgeRequirementDisplayingView, Sessi
             timeLabel.text = viewModel.dateAndTime
             
             if let color = viewModel.categoryColor {
-                colorView?.hidden = false
+                colorView?.isHidden = false
                 colorView?.backgroundColor = color
             } else {
-                colorView?.hidden = true
+                colorView?.isHidden = true
             }
         }
     }
@@ -50,7 +50,7 @@ class SessionTableViewCell: UITableViewCell, AgeRequirementDisplayingView, Sessi
 
     // MARK: UITableViewCell
     
-    override func setHighlighted(highlighted: Bool, animated: Bool) {
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         let colorViewColor = colorView?.backgroundColor
         defer {
             colorView?.backgroundColor = colorViewColor
@@ -58,7 +58,7 @@ class SessionTableViewCell: UITableViewCell, AgeRequirementDisplayingView, Sessi
         super.setHighlighted(highlighted, animated: animated)
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         let colorViewColor = colorView?.backgroundColor
         defer {
             colorView?.backgroundColor = colorViewColor
@@ -72,7 +72,7 @@ class SessionTableViewCell: UITableViewCell, AgeRequirementDisplayingView, Sessi
     
     // MARK: Session View Model Delegate
     
-    func bookmarkImageChanged(bookmarkImage: UIImage, accessibilityLabel: String) {
+    func bookmarkImageChanged(_ bookmarkImage: UIImage, accessibilityLabel: String) {
         // empty
     }
 }

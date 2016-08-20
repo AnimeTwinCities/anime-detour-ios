@@ -13,9 +13,9 @@ import AnimeDetourAPI
 import CoreData
 
 extension AnimeDetourAPIClient {
-    func fetchGuests(dataStatusDefaultsController: DataStatusDefaultsController, managedObjectContext: NSManagedObjectContext) {
-        self.guestList { [weak self] (result, error) -> () in
-            guard let result = result where result.count > 0 else {
+    func fetchGuests(_ dataStatusDefaultsController: DataStatusDefaultsController, managedObjectContext: NSManagedObjectContext) {
+        _ = self.guestList { [weak self] (result, error) -> () in
+            guard let guestsJson = result as? [[String : Any]], guestsJson.count > 0 else {
                 if let error = error {
                     NSLog("Error fetching guest list from server: \(error)")
                 }
@@ -29,19 +29,18 @@ extension AnimeDetourAPIClient {
                 return
             }
             
-            guard let guestsJson = result as? [[String : AnyObject]] else { return }
             let context = managedObjectContext
-            context.performBlock { () -> Void in
-                let guestEntity = NSEntityDescription.entityForName(Guest.entityName, inManagedObjectContext: context)!
+            context.perform { () -> Void in
+                let guestEntity = NSEntityDescription.entity(forEntityName: Guest.entityName, in: context)!
                 
                 for category in guestsJson {
                     guard let categoryName = category["categoryname"] as? String,
-                        guests = category["guests"] as? [[String : String]] else {
+                        let guests = category["guests"] as? [[String : String]] else {
                             continue
                     }
                     
                     for json: [String : String] in guests {
-                        let guest = Guest(entity: guestEntity, insertIntoManagedObjectContext: context)
+                        let guest = Guest(entity: guestEntity, insertInto: context)
                         guest.update(categoryName: categoryName, jsonObject: json)
                     }
                 }
@@ -49,7 +48,7 @@ extension AnimeDetourAPIClient {
                 do {
                     try context.save()
                     dataStatusDefaultsController.guestsFetchRequired = false
-                    dataStatusDefaultsController.lastGuestsClearDate = NSDate()
+                    dataStatusDefaultsController.lastGuestsClearDate = Date()
                     
                     dataStatusDefaultsController.synchronizeDefaults()
                 } catch {

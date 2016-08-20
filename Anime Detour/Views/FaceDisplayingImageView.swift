@@ -42,13 +42,13 @@ class FaceDisplayingImageView: UIView {
         setNeedsDisplay()
     }
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         guard let image = image else { return }
         
         let drawingRect: CGRect
         
         defer {
-            image.drawInRect(drawingRect)
+            image.draw(in: drawingRect)
         }
         
         let noChangesImageBounds = rectForAspectFillFor(image)
@@ -61,7 +61,7 @@ class FaceDisplayingImageView: UIView {
         
         let imageSize = image.size
         let imageScalingFactor: CGFloat
-        if case let widthFactor = imageSize.width / noChangesImageBounds.width where abs(widthFactor - 1) > 0.01 {
+        if case let widthFactor = imageSize.width / noChangesImageBounds.width , abs(widthFactor - 1) > 0.01 {
             imageScalingFactor = 1 / widthFactor
         } else {
             let heightFactor = imageSize.height / noChangesImageBounds.height
@@ -78,7 +78,7 @@ class FaceDisplayingImageView: UIView {
         let isFaceCenterAboveImageCenter = scaledAndOffsetFaceRect.midY < (noChangesImageBounds.height / 2)
         let isFaceBiggerThanView = scaledAndOffsetFaceHeight > bounds.height
         
-        let viewAndImageBoundsIntersect = bounds.intersect(noChangesImageBounds)
+        let viewAndImageBoundsIntersect = bounds.intersection(noChangesImageBounds)
         
         let offsetForTargetFraction: CGFloat
         
@@ -102,7 +102,7 @@ class FaceDisplayingImageView: UIView {
             
             let containsTopTarget = viewAndImageBoundsIntersect.contains(faceTopTargetRect)
             
-            if containsTopTarget, case let targetTopYOffset = faceTopTargetRect.minY - scaledAndOffsetFaceRect.minY where targetTopYOffset > 0 {
+            if containsTopTarget, case let targetTopYOffset = faceTopTargetRect.minY - scaledAndOffsetFaceRect.minY , targetTopYOffset > 0 {
                 offsetForTargetFraction = targetTopYOffset
             } else {
                 offsetForTargetFraction = 0
@@ -122,7 +122,7 @@ class FaceDisplayingImageView: UIView {
             
             let containsBottomTarget = viewAndImageBoundsIntersect.contains(faceBottomTargetRect)
             
-            if containsBottomTarget, case let targetBottomYOffset = faceBottomTargetRect.minY - scaledAndOffsetFaceRect.minY where targetBottomYOffset < 0 {
+            if containsBottomTarget, case let targetBottomYOffset = faceBottomTargetRect.minY - scaledAndOffsetFaceRect.minY , targetBottomYOffset < 0 {
                 offsetForTargetFraction = targetBottomYOffset
             } else {
                 offsetForTargetFraction = 0
@@ -132,8 +132,8 @@ class FaceDisplayingImageView: UIView {
         let baseDrawingRect = noChangesImageBounds
         let drawingRectOffsetForTargetFraction = baseDrawingRect.offsetBy(dx: 0, dy: offsetForTargetFraction)
         
-        let displayedPartOfNoChangesImageBounds = bounds.intersect(noChangesImageBounds)
-        let displayedPartOfDrawingRectOffsetForTargetFraction = bounds.intersect(drawingRectOffsetForTargetFraction)
+        let displayedPartOfNoChangesImageBounds = bounds.intersection(noChangesImageBounds)
+        let displayedPartOfDrawingRectOffsetForTargetFraction = bounds.intersection(drawingRectOffsetForTargetFraction)
         let differenceInDisplayedHeight = displayedPartOfNoChangesImageBounds.height - displayedPartOfDrawingRectOffsetForTargetFraction.height
         if differenceInDisplayedHeight < 0.01 {
             drawingRect = drawingRectOffsetForTargetFraction
@@ -142,7 +142,7 @@ class FaceDisplayingImageView: UIView {
         }
     }
     
-    private func rectForAspectFillFor(image: UIImage) -> CGRect {
+    fileprivate func rectForAspectFillFor(_ image: UIImage) -> CGRect {
         let imageSize = image.size
         
         let imageWidth = imageSize.width

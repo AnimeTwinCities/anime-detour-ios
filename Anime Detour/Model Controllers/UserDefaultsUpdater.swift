@@ -9,25 +9,25 @@
 import Foundation
 
 protocol UserDefaultsUpdater {
-    var userDefaults: NSUserDefaults { get }
+    var userDefaults: UserDefaults { get }
     
     /// If `newValue` is different than the existing value corresponding to `userDefaultsKey`,
     /// update the value in `userDefaults` then call `delegateCallback`. Otherwise, do nothing.
-    func updateDefaultsAndNotifyForPropertyUpdated<T: protocol<AnyObject, Equatable>>(newValue: T, oldValue: T,
-        userDefaultsKey: String, delegateCallback: (T -> Void)?)
+    func updateDefaultsAndNotifyForPropertyUpdated<T: Hashable>(_ newValue: T, oldValue: T,
+        userDefaultsKey: String, delegateCallback: ((T) -> Void)?)
     
     // bool version
     /// If `newValue` is different than the existing value corresponding to `userDefaultsKey`,
     /// update the value in `userDefaults` then call `delegateCallback`. Otherwise, do nothing.
     /// - SeeAlso: updateDefaultsAndNotifyForPropertyUpdated
-    func updateDefaultsAndNotifyForPropertyUpdated(newValue: Bool, oldValue: Bool,
-        userDefaultsKey: String, delegateCallback: (Bool -> Void)?)
+    func updateDefaultsAndNotifyForPropertyUpdated(_ newValue: Bool, oldValue: Bool,
+        userDefaultsKey: String, delegateCallback: ((Bool) -> Void)?)
 }
 
 extension UserDefaultsUpdater {
-    func updateDefaultsAndNotifyForPropertyUpdated<T: protocol<AnyObject, Equatable>>(newValue: T, oldValue: T,
-        userDefaultsKey: String, delegateCallback: (T -> Void)?) {
-            if userDefaults.valueForKey(userDefaultsKey) as! T != newValue {
+    func updateDefaultsAndNotifyForPropertyUpdated<T: Hashable>(_ newValue: T, oldValue: T,
+        userDefaultsKey: String, delegateCallback: ((T) -> Void)?) {
+            if userDefaults.value(forKey: userDefaultsKey) as! T != newValue {
                 userDefaults.setValue(newValue, forKey: userDefaultsKey)
             }
             
@@ -36,10 +36,10 @@ extension UserDefaultsUpdater {
             }
     }
     
-    func updateDefaultsAndNotifyForPropertyUpdated(newValue: Bool, oldValue: Bool,
-        userDefaultsKey: String, delegateCallback: (Bool -> Void)?) {
-            if userDefaults.boolForKey(userDefaultsKey) != newValue {
-                userDefaults.setBool(newValue, forKey: userDefaultsKey)
+    func updateDefaultsAndNotifyForPropertyUpdated(_ newValue: Bool, oldValue: Bool,
+        userDefaultsKey: String, delegateCallback: ((Bool) -> Void)?) {
+            if userDefaults.bool(forKey: userDefaultsKey) != newValue {
+                userDefaults.set(newValue, forKey: userDefaultsKey)
             }
             
             if newValue != oldValue {

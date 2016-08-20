@@ -10,11 +10,11 @@ import UIKit
 import CoreData
 
 class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsControllerDelegate {
-    private enum FetchedResultsControllerChange {
+    fileprivate enum FetchedResultsControllerChange {
         // Use the index paths with caution, as they may not always be set.
         // Declared force-unwrapped for convenience.
-        case Object(anObject: AnyObject, indexPath: NSIndexPath!, type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath!)
-        case Section(sectionInfo: NSFetchedResultsSectionInfo, sectionIndex: Int, type: NSFetchedResultsChangeType)
+        case object(anObject: AnyObject, indexPath: IndexPath?, type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
+        case section(sectionInfo: NSFetchedResultsSectionInfo, sectionIndex: Int, type: NSFetchedResultsChangeType)
     }
 
     var collectionView: UICollectionView?
@@ -22,16 +22,16 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
     
     /// Track if any sections changed, and if any did, bail on attempting to apply updates,
     /// reloading the collection view instead.
-    private var sectionsChangedDuringUpdate: Bool = false
-    private var cumulativeChanges: [FetchedResultsControllerChange] = []
+    fileprivate var sectionsChangedDuringUpdate: Bool = false
+    fileprivate var cumulativeChanges: [FetchedResultsControllerChange] = []
 
     // MARK: Fetched Results Controller Delegate
 
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        cumulativeChanges.removeAll(keepCapacity: false)
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        cumulativeChanges.removeAll(keepingCapacity: false)
     }
 
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         defer {
             sectionsChangedDuringUpdate = false
         }
@@ -48,29 +48,29 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
         cv.performBatchUpdates({ () -> Void in
             for change in self.cumulativeChanges {
                 switch change {
-                case let .Object(_, indexPath, type, newIndexPath):
+                case let .object(_, indexPath, type, newIndexPath):
                     switch type {
-                    case .Insert:
-                        cv.insertItemsAtIndexPaths([newIndexPath])
-                    case .Delete:
-                        cv.deleteItemsAtIndexPaths([indexPath])
-                    case .Move:
-                        cv.deleteItemsAtIndexPaths([indexPath])
-                        cv.insertItemsAtIndexPaths([newIndexPath])
-                    case .Update:
-                        switch (self.collectionView?.cellForItemAtIndexPath(indexPath), self.customizer) {
-                        case let (.Some(cell), .Some(customizer)):
-                            customizer.configure(cell, atIndexPath: indexPath)
+                    case .insert:
+                        cv.insertItems(at: [newIndexPath!])
+                    case .delete:
+                        cv.deleteItems(at: [indexPath!])
+                    case .move:
+                        cv.deleteItems(at: [indexPath!])
+                        cv.insertItems(at: [newIndexPath!])
+                    case .update:
+                        switch (self.collectionView?.cellForItem(at: indexPath!), self.customizer) {
+                        case let (.some(cell), .some(customizer)):
+                            customizer.configure(cell, atIndexPath: indexPath!)
                         default:
                             break
                         }
                     }
-                case let .Section(_, sectionIndex, type):
-                    let indexSet = NSIndexSet(index: sectionIndex)
+                case let .section(_, sectionIndex, type):
+                    let indexSet = IndexSet(integer: sectionIndex)
                     switch type {
-                    case .Insert:
+                    case .insert:
                         cv.insertSections(indexSet)
-                    case .Delete:
+                    case .delete:
                         cv.deleteSections(indexSet)
                     default:
                         assertionFailure("Unexpected fetched results controller section change type: \(type)")
@@ -80,18 +80,18 @@ class CollectionViewFetchedResultsControllerDelegate: NSObject, NSFetchedResults
             }, completion: nil)
     }
 
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-        cumulativeChanges.append(.Section(sectionInfo: sectionInfo, sectionIndex: sectionIndex, type: type))
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        cumulativeChanges.append(.section(sectionInfo: sectionInfo, sectionIndex: sectionIndex, type: type))
         
         sectionsChangedDuringUpdate = true
     }
 
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {        
-        cumulativeChanges.append(.Object(anObject: anObject, indexPath: indexPath, type: type, newIndexPath: newIndexPath))
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {        
+        cumulativeChanges.append(.object(anObject: anObject as AnyObject, indexPath: indexPath, type: type, newIndexPath: newIndexPath))
     }
 }
 
 // Declared 'class' to allow weak references.
 protocol CollectionViewFetchedResultsControllerCellCustomizer: class {
-    func configure(cell: UICollectionViewCell, atIndexPath indexPath: NSIndexPath)
+    func configure(_ cell: UICollectionViewCell, atIndexPath indexPath: IndexPath)
 }

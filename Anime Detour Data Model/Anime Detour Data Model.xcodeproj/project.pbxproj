@@ -124,6 +124,7 @@
 				TargetAttributes = {
 					DAB2B6C91C430BDC00EFF3AA = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -271,6 +272,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.animedetour.Anime-Detour-Data-Model";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -287,6 +289,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.animedetour.Anime-Detour-Data-Model";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

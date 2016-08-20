@@ -9,12 +9,12 @@
 import UIKit
 
 class ImageFaceDetector {
-    private let detectionQueue: dispatch_queue_t
+    fileprivate let detectionQueue: DispatchQueue
     
-    private lazy var context = CIContext(options: [kCIContextUseSoftwareRenderer : NSNumber(bool: true)])
-    private lazy var detector: CIDetector = CIDetector(ofType: CIDetectorTypeFace, context: self.context, options: [:])
+    fileprivate lazy var context = CIContext(options: [kCIContextUseSoftwareRenderer : NSNumber(value: true)])
+    fileprivate lazy var detector: CIDetector = CIDetector(ofType: CIDetectorTypeFace, context: self.context, options: [:])!
     
-    init(detectionQueue: dispatch_queue_t = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) {
+    init(detectionQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.utility)) {
         self.detectionQueue = detectionQueue
     }
     
@@ -26,14 +26,14 @@ class ImageFaceDetector {
      - param: completion A completion block to accept the detected face's bounds,
      if a face was found. May be called on a different thread, or not at all.
      */
-    func findFace(image: UIImage, completion: (CGRect?) -> Void) {
-        guard let ciImage = image.CGImage.map({ CIImage(CGImage: $0) }) else {
+    func findFace(_ image: UIImage, completion: @escaping (CGRect?) -> Void) {
+        guard let ciImage = image.cgImage.map({ CIImage(cgImage: $0) }) else {
             completion(nil)
             return
         }
         
-        dispatch_async(detectionQueue) { [detector] () -> Void in
-            let features = detector.featuresInImage(ciImage)
+        detectionQueue.async { [detector] () -> Void in
+            let features = detector.features(in: ciImage)
             
             let face: CIFaceFeature?
             

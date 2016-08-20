@@ -22,10 +22,10 @@ final class Settings: NSObject, FXForm {
     }
     
     func acknowledgementsField() -> NSDictionary {
-        return [ FXFormFieldInline : NSNumber(bool: true) ]
+        return [ FXFormFieldInline : NSNumber(value: true) ]
     }
     
     func sessionsField() -> NSDictionary {
-        return [ FXFormFieldInline : NSNumber(bool: true) ]
+        return [ FXFormFieldInline : NSNumber(value: true) ]
     }
 }

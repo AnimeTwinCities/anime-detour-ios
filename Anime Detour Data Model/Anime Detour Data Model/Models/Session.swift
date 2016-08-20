@@ -11,8 +11,8 @@ import Foundation
 import CoreData
 import UIKit
 
-public class Session: NSManagedObject {
-    public static let entityName: String = "Session"
+open class Session: NSManagedObject {
+    open static let entityName: String = "Session"
     
     public enum Keys: String {
         case bannerURL
@@ -26,7 +26,7 @@ public class Session: NSManagedObject {
     }
     
     public struct Category {
-        private enum CategoryName: String {
+        fileprivate enum CategoryName: String {
             case cosplayPhotoshoot = "Cosplay Photoshoot"
             case electronicGaming = "Electronic Gaming"
             case event = "Event"
@@ -78,27 +78,27 @@ public class Session: NSManagedObject {
         }
     }
     
-    @NSManaged public var sessionID: String
-    @NSManaged public var name: String
-    @NSManaged public var sessionDescription: String?
-    @NSManaged public var start: NSDate
-    @NSManaged public var end: NSDate
-    @NSManaged public var room: String
-    @NSManaged public var bookmarked: Bool
+    @NSManaged open var sessionID: String
+    @NSManaged open var name: String
+    @NSManaged open var sessionDescription: String?
+    @NSManaged open var start: Date
+    @NSManaged open var end: Date
+    @NSManaged open var room: String
+    @NSManaged open var bookmarked: Bool
     
-    public var bannerURL: NSURL? {
+    open var bannerURL: URL? {
         get {
-            willAccessValueForKey(Keys.bannerURL.rawValue)
+            willAccessValue(forKey: Keys.bannerURL.rawValue)
             defer {
-                didAccessValueForKey(Keys.bannerURL.rawValue)
+                didAccessValue(forKey: Keys.bannerURL.rawValue)
             }
             
-            return primitiveBannerURL.flatMap { NSURL(string: $0) }
+            return primitiveBannerURL.flatMap { URL(string: $0) }
         }
         set {
-            willChangeValueForKey(Keys.bannerURL.rawValue)
+            willChangeValue(forKey: Keys.bannerURL.rawValue)
             defer {
-                didChangeValueForKey(Keys.bannerURL.rawValue)
+                didChangeValue(forKey: Keys.bannerURL.rawValue)
             }
             
             primitiveBannerURL = newValue?.absoluteString
@@ -106,14 +106,14 @@ public class Session: NSManagedObject {
     }
     @NSManaged var primitiveBannerURL: String?
     
-    public var category: Category {
+    open var category: Category {
         get {
             return Category(name: primitiveCategory)
         }
         set {
-            willChangeValueForKey(Keys.category.rawValue)
+            willChangeValue(forKey: Keys.category.rawValue)
             defer {
-                didChangeValueForKey(Keys.category.rawValue)
+                didChangeValue(forKey: Keys.category.rawValue)
             }
             
             primitiveCategory = newValue.name
@@ -121,48 +121,48 @@ public class Session: NSManagedObject {
     }
     @NSManaged var primitiveCategory: String
     
-    public var hosts: [String] {
+    open var hosts: [String] {
         get {
-            willAccessValueForKey(Keys.hosts.rawValue)
+            willAccessValue(forKey: Keys.hosts.rawValue)
             defer {
-                didAccessValueForKey(Keys.hosts.rawValue)
+                didAccessValue(forKey: Keys.hosts.rawValue)
             }
-            return primitiveHosts.componentsSeparatedByString("SPLIT, ")
+            return primitiveHosts.components(separatedBy: "SPLIT, ")
         }
         set {
-            willChangeValueForKey(Keys.hosts.rawValue)
+            willChangeValue(forKey: Keys.hosts.rawValue)
             defer {
-                didChangeValueForKey(Keys.hosts.rawValue)
+                didChangeValue(forKey: Keys.hosts.rawValue)
             }
             
-            primitiveHosts = newValue.joinWithSeparator("SPLIT, ")
+            primitiveHosts = newValue.joined(separator: "SPLIT, ")
         }
     }
     @NSManaged var primitiveHosts: String
     
-    public var tags: [String] {
+    open var tags: [String] {
         get {
-            willAccessValueForKey(Keys.tags.rawValue)
+            willAccessValue(forKey: Keys.tags.rawValue)
             defer {
-                didAccessValueForKey(Keys.tags.rawValue)
+                didAccessValue(forKey: Keys.tags.rawValue)
             }
-            return primitiveTags.componentsSeparatedByString("SPLIT, ")
+            return primitiveTags.components(separatedBy: "SPLIT, ")
         }
         set {
-            willChangeValueForKey(Keys.tags.rawValue)
+            willChangeValue(forKey: Keys.tags.rawValue)
             defer {
-                didChangeValueForKey(Keys.tags.rawValue)
+                didChangeValue(forKey: Keys.tags.rawValue)
             }
-            primitiveTags = newValue.joinWithSeparator("SPLIT, ")
+            primitiveTags = newValue.joined(separator: "SPLIT, ")
         }
     }
     @NSManaged var primitiveTags: String
     
-    override public var description: String {
+    override open var description: String {
         return "Session: \(name) - \(sessionDescription)"
     }
 
-    public override func awakeFromInsert() {
+    open override func awakeFromInsert() {
         super.awakeFromInsert()
 
         // set empty default strings for String properties

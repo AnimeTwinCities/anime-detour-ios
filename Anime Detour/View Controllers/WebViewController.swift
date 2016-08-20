@@ -10,19 +10,19 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController {
-    var url: NSURL!
+    var url: URL!
 
     /// Convenience String getter/setter that uses `url` internally
     @IBInspectable var urlString: String! {
         set {
-            url = NSURL(string: newValue)
+            url = URL(string: newValue)
         }
         get {
             return url.absoluteString
         }
     }
 
-    private var webView: WKWebView!
+    fileprivate var webView: WKWebView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class WebViewController: UIViewController {
         load(url)
     }
 
-    private func addWebView() {
+    fileprivate func addWebView() {
         // Create and add a web view to our view
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,14 +38,14 @@ class WebViewController: UIViewController {
         self.webView = webView
 
         let bindings = ["webView" : webView]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|[webView]|", options: [], metrics: nil, views: bindings)
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[webView]|", options: [], metrics: nil, views: bindings)
+        let hConstraints = NSLayoutConstraint.constraints(withVisualFormat: "|[webView]|", options: [], metrics: nil, views: bindings)
+        let vConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[webView]|", options: [], metrics: nil, views: bindings)
 
         view.addConstraints(hConstraints + vConstraints)
     }
 
-    private func load(url: NSURL) {
-        let request = NSURLRequest(URL: url)
-        webView.loadRequest(request)
+    fileprivate func load(_ url: URL) {
+        let request = URLRequest(url: url)
+        webView.load(request)
     }
 }

@@ -8,12 +8,12 @@
 
 import UIKit
 
-let ActivityTypeKey = (NSBundle.mainBundle().bundleIdentifier ?? "") + ".activityType"
+let ActivityTypeKey = (Bundle.main.bundleIdentifier ?? "") + ".activityType"
 
 class UserActivityController: UIResponder {
-    private let tabBarController: UITabBarController
-    private let guestCollectionViewController: GuestCollectionViewController?
-    private let sessionCollectionViewController: SessionCollectionViewController?
+    fileprivate let tabBarController: UITabBarController
+    fileprivate let guestCollectionViewController: GuestCollectionViewController?
+    fileprivate let sessionCollectionViewController: SessionCollectionViewController?
     
     init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
@@ -23,35 +23,35 @@ class UserActivityController: UIResponder {
         self.sessionCollectionViewController = firstVC?.viewControllers.first as? SessionCollectionViewController
     }
     
-    override func restoreUserActivityState(activity: NSUserActivity) {
+    override func restoreUserActivityState(_ activity: NSUserActivity) {
         switch KnownActivityTypes(activityType: activity.activityType) {
-        case .Guest?:
+        case .guest?:
             guard let guestCollectionViewController = self.guestCollectionViewController else {
                 return
             }
             
             let navController = guestCollectionViewController.navigationController!
             
-            guard let tabIndex = tabBarController.viewControllers?.indexOf(navController) else {
+            guard let tabIndex = tabBarController.viewControllers?.index(of: navController) else {
                 return
             }
             
             tabBarController.selectedIndex = tabIndex
-            guestCollectionViewController.navigationController?.popToViewController(guestCollectionViewController, animated: false)
+            _ = guestCollectionViewController.navigationController?.popToViewController(guestCollectionViewController, animated: false)
             guestCollectionViewController.restoreUserActivityState(activity)
-        case .Session?:
+        case .session?:
             guard let sessionCollectionViewController = self.sessionCollectionViewController else {
                 return
             }
             
             let navController = sessionCollectionViewController.navigationController!
             
-            guard let tabIndex = tabBarController.viewControllers?.indexOf(navController) else {
+            guard let tabIndex = tabBarController.viewControllers?.index(of: navController) else {
                 return
             }
             
             tabBarController.selectedIndex = tabIndex
-            sessionCollectionViewController.navigationController?.popToViewController(sessionCollectionViewController, animated: false)
+            _ = sessionCollectionViewController.navigationController?.popToViewController(sessionCollectionViewController, animated: false)
             sessionCollectionViewController.restoreUserActivityState(activity)
         default:
             return
@@ -61,15 +61,15 @@ class UserActivityController: UIResponder {
 }
 
 private enum KnownActivityTypes {
-    case Guest
-    case Session
+    case guest
+    case session
     
     init?(activityType: String) {
         switch activityType {
         case GuestDetailViewController.activityType:
-            self = .Guest
+            self = .guest
         case SessionViewController.activityType:
-            self = .Session
+            self = .session
         default:
             return nil
         }

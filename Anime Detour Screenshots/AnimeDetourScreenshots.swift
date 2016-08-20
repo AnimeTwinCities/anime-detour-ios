@@ -47,10 +47,10 @@ class AnimeDetourScreenshots: XCTestCase {
         let done = app.navigationBars["Search"].buttons["Done"]
         // For some reason, the `Done` button in the nav bar isn't `hittable`.
         // Get its coordinate on screen and tap there instead of using it directly.
-        if done.hittable {
+        if done.isHittable {
             done.tap()
         } else {
-            let coordinate: XCUICoordinate = done.coordinateWithNormalizedOffset(CGVectorMake(0.0, 0.0))
+            let coordinate: XCUICoordinate = done.coordinate(withNormalizedOffset: CGVector(dx: 0.0, dy: 0.0))
             coordinate.tap()
         }
 
@@ -60,7 +60,7 @@ class AnimeDetourScreenshots: XCTestCase {
         
         snapshot("04-Guests", waitForLoadingIndicator: false)
         
-        app.collectionViews.cells.otherElements.containingType(.StaticText, identifier:"Aya 'Dancing Fighter'").element.tap()
+        app.collectionViews.cells.otherElements.containing(.staticText, identifier:"Aya 'Dancing Fighter'").element.tap()
         
         snapshot("05-Single_Guest", waitForLoadingIndicator: false)
         

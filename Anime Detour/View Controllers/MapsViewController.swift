@@ -11,23 +11,23 @@ import UIKit
 import QuickLook
 
 class MapsViewController: UIViewController, QLPreviewControllerDataSource {
-    private var previewController: QLPreviewController!
-    private let mapFileNames = ["AnimeDetour2016-MapsOnly_1", "AnimeDetour2016-MapsOnly_2", "AnimeDetour2016-MapsOnly_3"]
-    lazy private var mapPaths: [String] = {
-        let mainBundle = NSBundle.mainBundle()
+    fileprivate var previewController: QLPreviewController!
+    fileprivate let mapFileNames = ["AnimeDetour2016-MapsOnly_1", "AnimeDetour2016-MapsOnly_2", "AnimeDetour2016-MapsOnly_3"]
+    lazy fileprivate var mapPaths: [String] = {
+        let mainBundle = Bundle.main
         let mapPaths = self.mapFileNames.map { (filename: String) -> String in
-            return mainBundle.pathForResource(filename, ofType: "pdf")!
+            return mainBundle.path(forResource: filename, ofType: "pdf")!
         }
 
         return mapPaths
     }()
-    private var activeMapIndex: Int = 0 {
+    fileprivate var activeMapIndex: Int = 0 {
         didSet {
             previewController.reloadData()
         }
     }
 
-    private var observingPreviewIndex = false
+    fileprivate var observingPreviewIndex = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
         previewController.automaticallyAdjustsScrollViewInsets = true
         self.previewController = previewController
         
-        previewController.view.backgroundColor = UIColor.clearColor()
+        previewController.view.backgroundColor = UIColor.clear
         previewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(previewController.view)
         let bindings: [String : AnyObject] = [
@@ -45,8 +45,8 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
             "top" : topLayoutGuide,
             "bottom" : bottomLayoutGuide
         ]
-        let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|[preview]|", options: [], metrics: nil, views: bindings)
-        let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[top][preview][bottom]", options: [], metrics: nil, views: bindings)
+        let hConstraints = NSLayoutConstraint.constraints(withVisualFormat: "|[preview]|", options: [], metrics: nil, views: bindings)
+        let vConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[top][preview][bottom]", options: [], metrics: nil, views: bindings)
         let previewConstraints = hConstraints + vConstraints
         view.addConstraints(previewConstraints)
         
@@ -57,20 +57,21 @@ class MapsViewController: UIViewController, QLPreviewControllerDataSource {
 
     // MARK: - Segmented Control
 
-    @IBAction func segmentedControlValueChanged(sender: UISegmentedControl?) {
+    @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl?) {
         activeMapIndex = sender?.selectedSegmentIndex ?? 0
     }
 
     // MARK: - Preview Controller Data Source
 
-    func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
         return 1
     }
 
-    func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
         // Assume that we only ever want to show one item, at `activeMapIndex`.
         // Change `activeMapIndex` to change the active item.
-        let item = NSURL(fileURLWithPath: mapPaths[activeMapIndex], isDirectory: false)
-        return item
+        let item = URL(fileURLWithPath: mapPaths[activeMapIndex], isDirectory: false)
+        // `URL` doesn't conform to `QLPreviewItem`, but `NSURL` does.
+        return item as NSURL
     }
 }

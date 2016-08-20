@@ -21,8 +21,8 @@ Other properties on two equal instances may differ.
 class GuestViewModel: Equatable {
     let guest: Guest
     let guestObjectID: NSManagedObjectID
-    private let managedObjectContext: NSManagedObjectContext
-    private let imageSession: NSURLSession
+    fileprivate let managedObjectContext: NSManagedObjectContext
+    fileprivate let imageSession: URLSession
 
     let name: String
     let bio: String
@@ -31,10 +31,10 @@ class GuestViewModel: Equatable {
 
     var delegate: GuestViewModelDelegate?
 
-    private let photoPath: String
-    private let hiResPhotoPath: String
-    private(set) lazy var htmlBio: NSAttributedString = {
-        let data = self.bio.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!
+    fileprivate let photoPath: String
+    fileprivate let hiResPhotoPath: String
+    fileprivate(set) lazy var htmlBio: NSAttributedString = {
+        let data = self.bio.data(using: String.Encoding.utf8, allowLossyConversion: true)!
         let string: NSAttributedString?
         do {
             string = try NSAttributedString(data: data,
@@ -46,14 +46,14 @@ class GuestViewModel: Equatable {
         return string!
     }()
 
-    private(set) var photo: UIImage?
-    private(set) var hiResPhoto: UIImage?
+    fileprivate(set) var photo: UIImage?
+    fileprivate(set) var hiResPhoto: UIImage?
     var photoFaceLocation: CGRect?
 
     // Store our download tasks to cancel them in deinit,
     // if they are still running at that time.
-    private var photoDataTask: NSURLSessionDataTask?
-    private var hiResPhotoDataTask: NSURLSessionDataTask?
+    fileprivate var photoDataTask: URLSessionDataTask?
+    fileprivate var hiResPhotoDataTask: URLSessionDataTask?
 
     /**
     Create an instance.
@@ -61,7 +61,7 @@ class GuestViewModel: Equatable {
     - parameter guest: The guest model which this object will represent. Its `managedObjectContext` must
     be a queue-based concurrency type context. `MainQueueConcurrencyType` is recommended.
     */
-    init(guest: Guest, imageSession: NSURLSession) {
+    init(guest: Guest, imageSession: URLSession) {
         self.guest = guest
         self.guestObjectID = guest.objectID
         self.managedObjectContext = guest.managedObjectContext!
@@ -86,7 +86,7 @@ class GuestViewModel: Equatable {
      guest's high resolution photo, update the `Guest` object passed into the constructor with the photo,
      then save guest object.
      */
-    func photo(downloadIfNecessary: Bool) -> UIImage? {
+    func photo(_ downloadIfNecessary: Bool) -> UIImage? {
         if let photo = self.photo {
             return photo
         }
@@ -95,8 +95,8 @@ class GuestViewModel: Equatable {
             return nil
         }
 
-        let url = NSURL(string: self.photoPath)!
-        let photoTask = self.imageSession.dataTaskWithURL(url, completionHandler: { [weak self] (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+        let url = URL(string: self.photoPath)!
+        let photoTask = self.imageSession.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: NSError?) -> Void in
             guard let strongSelf = self else {
                 return
             }
@@ -113,8 +113,8 @@ class GuestViewModel: Equatable {
             strongSelf.photo = image
             
             let moc = strongSelf.managedObjectContext
-            moc.performBlockAndWait {
-                guard let guest = moc.objectWithID(strongSelf.guestObjectID) as? Guest else {
+            moc.performAndWait {
+                guard let guest = moc.object(with: strongSelf.guestObjectID) as? Guest else {
                     NSLog("Couldn't find our guest object after downloading their photo. Maybe it was deleted?")
                     return
                 }
@@ -129,7 +129,7 @@ class GuestViewModel: Equatable {
             }
             
             strongSelf.delegate?.didDownloadPhoto(strongSelf, photo: image, hiRes: false)
-        })
+        } as! (Data?, URLResponse?, Error?) -> Void)
         self.photoDataTask = photoTask
         photoTask.resume()
 
@@ -146,7 +146,7 @@ class GuestViewModel: Equatable {
      - parameter lowResPhotoPlaceholder: If `true` and we have a low res image for the guest,
      that low res photo will be returned and the high res photo will not be downloaded.
      */
-    func hiResPhoto(downloadIfNecessary: Bool, lowResPhotoPlaceholder: Bool) -> UIImage? {
+    func hiResPhoto(_ downloadIfNecessary: Bool, lowResPhotoPlaceholder: Bool) -> UIImage? {
         if let photo = self.hiResPhoto {
             return photo
         }
@@ -163,11 +163,11 @@ class GuestViewModel: Equatable {
             return returnMethod()
         }
         
-        guard let url = NSURL(string: self.hiResPhotoPath) else {
+        guard let url = URL(string: self.hiResPhotoPath) else {
             return returnMethod()
         }
         
-        let hiResPhotoTask = self.imageSession.dataTaskWithURL(url, completionHandler: { [weak self] (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+        let hiResPhotoTask = self.imageSession.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: NSError?) -> Void in
             guard let strongSelf = self else {
                 return
             }
@@ -182,8 +182,8 @@ class GuestViewModel: Equatable {
             }
             
             let moc = strongSelf.managedObjectContext
-            moc.performBlockAndWait {
-                guard let guest = moc.objectWithID(strongSelf.guestObjectID) as? Guest else {
+            moc.performAndWait {
+                guard let guest = moc.object(with: strongSelf.guestObjectID) as? Guest else {
                     return
                 }
                 
@@ -197,7 +197,7 @@ class GuestViewModel: Equatable {
             }
             
             strongSelf.delegate?.didDownloadPhoto(strongSelf, photo: image, hiRes: true)
-            })
+            } as! (Data?, URLResponse?, Error?) -> Void)
         self.hiResPhotoDataTask = hiResPhotoTask
         hiResPhotoTask.resume()
         
@@ -215,6 +215,6 @@ func ==(obj1: GuestViewModel, obj2: GuestViewModel) -> Bool {
 }
 
 protocol GuestViewModelDelegate {
-    func didDownloadPhoto(viewModel: GuestViewModel, photo: UIImage, hiRes: Bool)
-    func didFailDownloadingPhoto(viewModel: GuestViewModel, error: NSError)
+    func didDownloadPhoto(_ viewModel: GuestViewModel, photo: UIImage, hiRes: Bool)
+    func didFailDownloadingPhoto(_ viewModel: GuestViewModel, error: NSError)
 }

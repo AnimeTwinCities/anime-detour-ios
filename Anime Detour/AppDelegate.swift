@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var apiClient = AnimeDetourAPIClient.sharedInstance
     lazy var coreDataController = CoreDataController.sharedInstance
     lazy var backgroundContext: NSManagedObjectContext = {
-        let context = self.coreDataController.createManagedObjectContext(.PrivateQueueConcurrencyType)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.updateMainContextFor(saveNotification:)), name: NSManagedObjectContextDidSaveNotification, object: context)
+        let context = self.coreDataController.createManagedObjectContext(.privateQueueConcurrencyType)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.updateMainContextFor(saveNotification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         return context
     }()
     lazy var primaryContext: NSManagedObjectContext = {
@@ -31,34 +31,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Notifications
     
     #if os(iOS)
-    private var appWideNotificationPermissionsEnabled: Bool {
-        let settings = UIApplication.sharedApplication().currentUserNotificationSettings()
-        return !(settings?.types == .None)
+    fileprivate var appWideNotificationPermissionsEnabled: Bool {
+        let settings = UIApplication.shared.currentUserNotificationSettings
+        return !(settings?.types == .none)
     }
     
-    private lazy var sessionNotificationScheduler: SessionNotificationScheduler = {
+    fileprivate lazy var sessionNotificationScheduler: SessionNotificationScheduler = {
         let context = self.primaryContext
         let scheduler = SessionNotificationScheduler(managedObjectContext: context)
         scheduler.delegate = self
         return scheduler
     }()
     
-    private lazy var notificationPermissionRequester: NotificationPermissionRequester = NotificationPermissionRequester(internalSettings: self.internalSettings, sessionSettings: self.userVisibleSessionSettings)
+    fileprivate lazy var notificationPermissionRequester: NotificationPermissionRequester = NotificationPermissionRequester(internalSettings: self.internalSettings, sessionSettings: self.userVisibleSessionSettings)
     #endif
     
     // MARK: - Settings
     
-    private let dataStatusDefaultsController: DataStatusDefaultsController = DataStatusDefaultsController()
-    private let internalSettings: InternalSettings = InternalSettings()
-    private let userVisibleSessionSettings: SessionSettings = SessionSettings()
+    fileprivate let dataStatusDefaultsController: DataStatusDefaultsController = DataStatusDefaultsController()
+    fileprivate let internalSettings: InternalSettings = InternalSettings()
+    fileprivate let userVisibleSessionSettings: SessionSettings = SessionSettings()
     
     // MARK: - Updates Cleanup
     
-    private lazy var previousDataCleaner: PreviousDataCleaner = PreviousDataCleaner()
+    fileprivate lazy var previousDataCleaner: PreviousDataCleaner = PreviousDataCleaner()
     
     // MARK: - Application Delegate
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         setColors(application)
         
         #if DEBUG
@@ -77,23 +77,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Latest must-be-cleared dates, e.g. if this version of the app points
         // at a different data set and must discard and re-download data.
-        let calendar = NSCalendar.currentCalendar()
-        let timezone = NSTimeZone(name: "America/Chicago")!
+        var calendar = Calendar.current
+        let timezone = TimeZone(identifier: "America/Chicago")!
         calendar.timeZone = timezone
-        let components = NSDateComponents()
+        var components = DateComponents()
         components.day = 21
         components.month = 3
         components.year = 2016
-        let guestsClearDate = calendar.dateFromComponents(components)!
-        let sessionsClearDate = calendar.dateFromComponents(components)!
+        let guestsClearDate = calendar.date(from: components)!
+        let sessionsClearDate = calendar.date(from: components)!
         
         checkAndHandleDatabase()
 
-        let guestsNeedClearing = guestsClearDate.timeIntervalSinceDate(dataStatusDefaultsController.lastGuestsClearDate) > 0
-        let sessionsNeedClearing = sessionsClearDate.timeIntervalSinceDate(dataStatusDefaultsController.lastSessionsClearDate) > 0
+        let guestsNeedClearing = guestsClearDate.timeIntervalSince(dataStatusDefaultsController.lastGuestsClearDate as Date) > 0
+        let sessionsNeedClearing = sessionsClearDate.timeIntervalSince(dataStatusDefaultsController.lastSessionsClearDate as Date) > 0
         if guestsNeedClearing || sessionsNeedClearing {
-            dataStatusDefaultsController.lastGuestsClearDate = NSDate()
-            dataStatusDefaultsController.lastSessionsClearDate = NSDate()
+            dataStatusDefaultsController.lastGuestsClearDate = Date()
+            dataStatusDefaultsController.lastSessionsClearDate = Date()
             coreDataController.clearPersistentStore()
 
             // Clearing the persistent store removes all sessions and guests, since they are both kept
@@ -114,9 +114,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     #if os(iOS)
-    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         let localNotificationsAllowed: Bool
-        if notificationSettings.types == .None {
+        if notificationSettings.types == UIUserNotificationType() {
             localNotificationsAllowed = false
         } else {
             localNotificationsAllowed = true
@@ -124,16 +124,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         localNotificationsAllowedChanged(localNotificationsAllowed)
     }
     
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        let alert = UIAlertController(title: notification.alertTitle ?? "Favorite Starting Soon", message: notification.alertBody, preferredStyle: .Alert)
-        let dismiss = UIAlertAction(title: "Got It", style: .Default, handler: { [weak alert] _ in alert?.dismissViewControllerAnimated(true, completion: nil) })
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        let alert = UIAlertController(title: notification.alertTitle ?? "Favorite Starting Soon", message: notification.alertBody, preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Got It", style: .default, handler: { [weak alert] _ in alert?.dismiss(animated: true, completion: nil) })
         alert.addAction(dismiss)
     
         show(alert)
     }
     #endif
     
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         #if os(iOS)
         checkAppAllowedToSendNotificationsAndUpdateSessionNotificationsEnabled()
         #endif
@@ -141,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Handoff
     
-    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
         let tabBarController = window?.rootViewController as? UITabBarController
         if let activityController = tabBarController.map({ UserActivityController(tabBarController: $0) }) {
             restorationHandler([activityController])
@@ -155,25 +155,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /**
      Setup analytics tracking.
      */
-    private func initAnalytics() {
+    fileprivate func initAnalytics() {
         let analytics = GAI.sharedInstance()
-        analytics.dispatchInterval = 30 // seconds
-        guard let file = NSBundle.mainBundle().pathForResource("GoogleAnalyticsConfiguration", ofType: "plist"),
+        analytics?.dispatchInterval = 30 // seconds
+        guard let file = Bundle.main.path(forResource: "GoogleAnalyticsConfiguration", ofType: "plist"),
             let analyticsDictionary = NSDictionary(contentsOfFile: file),
             let analyticsID = analyticsDictionary["analyticsID"] as? String else {
                 return
         }
         
-        let tracker = analytics.trackerWithTrackingId(analyticsID)
-        
-        UIViewController.hookViewDidAppearForAnalytics(tracker)
+        if let tracker = analytics?.tracker(withTrackingId: analyticsID) {
+            UIViewController.hookViewDidAppearForAnalytics(tracker)
+        }
     }
     
     // MARK: - Presenting Alerts
     
-    private func show(alertController: UIAlertController) {
+    fileprivate func show(_ alertController: UIAlertController) {
         let presenter = window?.rootViewController?.presentedViewController ?? window?.rootViewController
-        presenter?.presentViewController(alertController, animated: true, completion: nil)
+        presenter?.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: - Core Data
@@ -181,34 +181,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /**
     Merge changes from a save notification into the primary, main thread-only MOC.
     */
-    @objc(updateMainContextForSaveNotification:) private func updateMainContextFor(saveNotification notification: NSNotification) {
-        primaryContext.performBlock {
-            self.primaryContext.mergeChangesFromContextDidSaveNotification(notification)
+    @objc(updateMainContextForSaveNotification:) fileprivate func updateMainContextFor(saveNotification notification: Notification) {
+        primaryContext.perform {
+            self.primaryContext.mergeChanges(fromContextDidSave: notification)
         }
     }
     
-    private func checkAndHandleDatabase() {
+    fileprivate func checkAndHandleDatabase() {
         let twoDotOneDatabaseNeedsClearing: Bool
         
-        switch dataStatusDefaultsController.databaseCheckedVersionKey.compare("2.1", options: .NumericSearch, range: nil, locale: nil) {
-        case .OrderedAscending, .OrderedSame:
+        switch dataStatusDefaultsController.databaseCheckedVersionKey.compare("2.1", options: .numeric, range: nil, locale: nil) {
+        case .orderedAscending, .orderedSame:
             twoDotOneDatabaseNeedsClearing = true
-        case .OrderedDescending:
+        case .orderedDescending:
             twoDotOneDatabaseNeedsClearing = false
         }
         if twoDotOneDatabaseNeedsClearing {
             previousDataCleaner.cleanTwoDotOneDatabase()
         }
         
-        let currentVersionNumber = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
+        let currentVersionNumber = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
         dataStatusDefaultsController.databaseCheckedVersionKey = currentVersionNumber
     }
     
     // MARK: - Settings
     
-    @objc private func showSettings() {
-        let application = UIApplication.sharedApplication()
-        application.openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+    @objc fileprivate func showSettings() {
+        let application = UIApplication.shared
+        application.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
     
     // MARK: - Theming
@@ -216,7 +216,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /**
     Set basic color theme for the app.
     */
-    private func setColors(application: UIApplication) {
+    fileprivate func setColors(_ application: UIApplication) {
         let mainColor = UIColor.adr_orange
 
         window?.tintColor = mainColor
@@ -228,9 +228,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Make UISearchBars minimal style but with gray text fields by default
         let searchBar = UISearchBar.appearance()
-        searchBar.searchBarStyle = .Minimal
+        searchBar.searchBarStyle = .minimal
         searchBar.backgroundColor = UIColor.adr_lightGray
-        UITextField.appearanceWhenContainedInInstancesOfClasses([UISearchBar.self]).backgroundColor = UIColor.grayColor()
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.gray
                 
         let tableViewBackgroundView = UIView()
         tableViewBackgroundView.backgroundColor = UIColor.adr_lighterOrange
@@ -243,8 +243,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 private class PreviousDataCleaner {
     func cleanTwoDotOneDatabase() {
-        let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         guard let documentsURL = urls.first else {
             return
         }
@@ -252,9 +252,9 @@ private class PreviousDataCleaner {
         let storeFilename = "ConScheduleData"
         let storeExtensions = ["sqlite", "sqlite-shm", "sqlite-wal"]
         
-        let storeFileURLs = storeExtensions.map({ "\(storeFilename).\($0)" }).map(documentsURL.URLByAppendingPathComponent)
+        let storeFileURLs = storeExtensions.map({ "\(storeFilename).\($0)" }).map(documentsURL.appendingPathComponent(_:))
         for url in storeFileURLs {
-            _ = try? fileManager.removeItemAtURL(url)
+            _ = try? fileManager.removeItem(at: url)
         }
     }
 }
@@ -262,12 +262,12 @@ private class PreviousDataCleaner {
 // MARK: - Notifications
 #if os(iOS)
 extension AppDelegate {
-    private func checkAppAllowedToSendNotificationsAndUpdateSessionNotificationsEnabled() {
+    fileprivate func checkAppAllowedToSendNotificationsAndUpdateSessionNotificationsEnabled() {
         let localNotificationsAllowed = appWideNotificationPermissionsEnabled
         localNotificationsAllowedChanged(localNotificationsAllowed)
     }
     
-    private func localNotificationsAllowedChanged(localNotificationsAllowed: Bool) {
+    fileprivate func localNotificationsAllowedChanged(_ localNotificationsAllowed: Bool) {
         notificationPermissionRequester.localNotificationsAllowed = localNotificationsAllowed
         updateSessionNotificationsEnabled(localNotificationsAllowed)
     }
@@ -276,7 +276,7 @@ extension AppDelegate {
     Update the Session notification scheduler's notifications enabled setting
     based on our user visible settings' setting.
     */
-    private func updateSessionNotificationsEnabled(localNotificationsAllowed: Bool) {
+    fileprivate func updateSessionNotificationsEnabled(_ localNotificationsAllowed: Bool) {
         let enabledInUserPref = userVisibleSessionSettings.favoriteSessionAlerts
         sessionNotificationScheduler.notificationsEnabled = localNotificationsAllowed && enabledInUserPref
     }
@@ -284,14 +284,14 @@ extension AppDelegate {
 
 // MARK: - NotificationPermissionRequesterDelegate
 extension AppDelegate: NotificationPermissionRequesterDelegate {
-    func notificationPermissionRequester(requester: NotificationPermissionRequester, wantsToPresentAlertController alertController: UIAlertController) {
+    func notificationPermissionRequester(_ requester: NotificationPermissionRequester, wantsToPresentAlertController alertController: UIAlertController) {
         show(alertController)
     }
 }
 
 // MARK: - SessionFavoriteNotificationDelegate
 extension AppDelegate: SessionFavoriteNotificationDelegate {
-    func didChangeFavoriteSessions(count: Int) {
+    func didChangeFavoriteSessions(_ count: Int) {
         guard !internalSettings.askedToEnableNotifications && !userVisibleSessionSettings.favoriteSessionAlerts else {
             return
         }
@@ -303,7 +303,7 @@ extension AppDelegate: SessionFavoriteNotificationDelegate {
 
 // MARK: - SessionSettingsDelegate
 extension AppDelegate: SessionSettingsDelegate {
-    func didChangeSessionNotificationsSetting(enabled: Bool) {
+    func didChangeSessionNotificationsSetting(_ enabled: Bool) {
         guard enabled else {
             sessionNotificationScheduler.didChangeSessionNotificationsSetting(enabled)
             return
@@ -323,10 +323,10 @@ extension AppDelegate: SessionSettingsDelegate {
             // Disable the notification setting if notifications are not allowed
             userVisibleSessionSettings.favoriteSessionAlerts = false
             
-            let alertController = UIAlertController(title: "Enable Notifications", message: "Enable notifications in the Settings app before enabling session alerts.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: "Enable Notifications", message: "Enable notifications in the Settings app before enabling session alerts.", preferredStyle: UIAlertControllerStyle.alert)
             
-            let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-            let settings = UIAlertAction(title: "Open Settings", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction) -> Void in
+            let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+            let settings = UIAlertAction(title: "Open Settings", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction) -> Void in
                 self.showSettings()
                 return
             })

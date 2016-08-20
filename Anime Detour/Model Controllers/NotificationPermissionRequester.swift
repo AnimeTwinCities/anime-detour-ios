@@ -45,11 +45,11 @@ class NotificationPermissionRequester {
     func requestNotificationPermissions() {
         internalSettings.askedSystemToEnableNotifications = true
         
-        let application = UIApplication.sharedApplication()
+        let application = UIApplication.shared
         
         // Request all permissions
-        let noteTypes: UIUserNotificationType = [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge]
-        let noteSettings = UIUserNotificationSettings(forTypes: noteTypes, categories: nil)
+        let noteTypes: UIUserNotificationType = [UIUserNotificationType.sound, UIUserNotificationType.alert, UIUserNotificationType.badge]
+        let noteSettings = UIUserNotificationSettings(types: noteTypes, categories: nil)
         application.registerUserNotificationSettings(noteSettings)
     }
     
@@ -58,13 +58,13 @@ class NotificationPermissionRequester {
     Only requests push notification permissions if they agree.
     */
     func askEnableSessionNotifications() {
-        let alertController = UIAlertController(title: "Session Notifications", message: "Enable alerts for favorite sessions? You'll have to allow notifications from the app.", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: "Session Notifications", message: "Enable alerts for favorite sessions? You'll have to allow notifications from the app.", preferredStyle: UIAlertControllerStyle.alert)
         
-        let accept = UIAlertAction(title: "Enable", style: UIAlertActionStyle.Default) { (action: UIAlertAction) -> Void in
+        let accept = UIAlertAction(title: "Enable", style: UIAlertActionStyle.default) { (action: UIAlertAction) -> Void in
             self.internalSettings.askedToEnableNotifications = true
             self.requestNotificationPermissions()
         }
-        let cancel = UIAlertAction(title: "Not Now", style: UIAlertActionStyle.Cancel)  { (action: UIAlertAction) -> Void in
+        let cancel = UIAlertAction(title: "Not Now", style: UIAlertActionStyle.cancel)  { (action: UIAlertAction) -> Void in
             self.internalSettings.askedToEnableNotifications = true
             self.sessionSettings.favoriteSessionAlerts = false
             return
@@ -78,5 +78,5 @@ class NotificationPermissionRequester {
 }
 
 protocol NotificationPermissionRequesterDelegate {
-    func notificationPermissionRequester(requester: NotificationPermissionRequester, wantsToPresentAlertController: UIAlertController)
+    func notificationPermissionRequester(_ requester: NotificationPermissionRequester, wantsToPresentAlertController: UIAlertController)
 }

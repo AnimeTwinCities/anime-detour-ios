@@ -11,16 +11,16 @@ import UIKit
 import AnimeDetourDataModel
 import CoreData
 
-let photoContext = UnsafeMutablePointer<Void>.alloc(1)
+let photoContext = UnsafeMutableRawPointer.allocate(bytes: 1, alignedTo: 0)
 
 class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebViewDelegate, StretchingImageHeaderContainer {
-    static let guestActivityGuestIDKey = (NSBundle.mainBundle().bundleIdentifier ?? "") + ".guestID"
-    private static let guestActivityTypeSuffix = ".guest"
-    static let activityType = (NSBundle.mainBundle().bundleIdentifier ?? "") + guestActivityTypeSuffix
+    static let guestActivityGuestIDKey = (Bundle.main.bundleIdentifier ?? "") + ".guestID"
+    fileprivate static let guestActivityTypeSuffix = ".guest"
+    static let activityType = (Bundle.main.bundleIdentifier ?? "") + guestActivityTypeSuffix
 
     var guestViewModel: GuestViewModel? {
         didSet {
-            if isViewLoaded() {
+            if isViewLoaded {
                 updateImageHeader()
             }
         }
@@ -29,10 +29,10 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
     var photoAspect: CGFloat = 2
     
     @IBOutlet internal weak var imageHeaderView: ImageHeaderView!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var bioWebView: UIWebView!
-    @IBOutlet private weak var bioWebViewHeightConstraint: NSLayoutConstraint!
-    private var bioWebViewHeight: CGFloat = 400 {
+    @IBOutlet fileprivate weak var nameLabel: UILabel!
+    @IBOutlet fileprivate weak var bioWebView: UIWebView!
+    @IBOutlet fileprivate weak var bioWebViewHeightConstraint: NSLayoutConstraint!
+    fileprivate var bioWebViewHeight: CGFloat = 400 {
         didSet {
             bioWebViewHeightConstraint.constant = bioWebViewHeight
         }
@@ -42,7 +42,7 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
     
     // MARK: Images
 
-    lazy var imageSession: NSURLSession = NSURLSession.sharedSession()
+    lazy var imageSession: URLSession = URLSession.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
         
         nameLabel.text = guestViewModel?.name
         
-        bioWebView.scrollView.scrollEnabled = false
+        bioWebView.scrollView.isScrollEnabled = false
         bioWebView.loadHTMLString(guestViewModel?.bio ?? "", baseURL: nil)
         
         let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
@@ -61,11 +61,11 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
         analytics?.send(dict)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         let currentActivity: NSUserActivity
-        if let activity = userActivity where activity.activityType == GuestDetailViewController.activityType {
+        if let activity = userActivity , activity.activityType == GuestDetailViewController.activityType {
             currentActivity = activity
         } else {
             userActivity?.invalidate()
@@ -78,15 +78,15 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
         currentActivity.becomeCurrent()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         userActivity?.resignCurrent()
         userActivity = nil
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator.animateAlongsideTransition({ _ in
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { _ in
             self.updateWebViewHeightForWidth(size.width - 2 * self.bioWebViewSideMargin)
             }, completion: nil)
         
@@ -94,7 +94,7 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
     
     // MARK: Guest Display
     
-    private func updateImageHeader() {
+    fileprivate func updateImageHeader() {
         imageHeaderView.image = guestViewModel?.hiResPhoto(true, lowResPhotoPlaceholder: true)
         imageHeaderView.faceBounds = guestViewModel?.hiResFaceBounds
     }
@@ -103,7 +103,7 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
      Update `bioWebViewHeight` by asking our `bioWebView` for the height necessary
      to display its entire contents, if it its width were set to `width`.
      */
-    private func updateWebViewHeightForWidth(width: CGFloat) {
+    fileprivate func updateWebViewHeightForWidth(_ width: CGFloat) {
         guard let webView = bioWebView else {
             return
         }
@@ -112,40 +112,40 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
         let halfwaySize = CGSize(width: width, height: 1)
         frame.size = halfwaySize
         webView.frame = frame
-        let size = webView.sizeThatFits(CGSize(width: width, height: CGFloat.max))
+        let size = webView.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
         
         bioWebViewHeight = size.height
     }
     
     // MARK: - NSUserActivity
     
-    override func restoreUserActivityState(activity: NSUserActivity) {
+    override func restoreUserActivityState(_ activity: NSUserActivity) {
         super.restoreUserActivityState(activity)
         
         // we don't support restoring user activity state directly
     }
     
-    override func updateUserActivityState(activity: NSUserActivity) {
+    override func updateUserActivityState(_ activity: NSUserActivity) {
         super.updateUserActivityState(activity)
         
         activity.title = guestViewModel?.name
         
         var userInfo: [String:AnyObject] = [:]
         if let viewModel = guestViewModel {
-            userInfo[GuestDetailViewController.guestActivityGuestIDKey] = viewModel.guest.guestID
-            activity.eligibleForSearch = true
+            userInfo[GuestDetailViewController.guestActivityGuestIDKey] = viewModel.guest.guestID as NSString
+            activity.isEligibleForSearch = true
         } else {
-            activity.eligibleForSearch = false
+            activity.isEligibleForSearch = false
         }
         
-        activity.addUserInfoEntriesFromDictionary(userInfo)
+        activity.addUserInfoEntries(from: userInfo)
     }
     
     // MARK: - NSObject (KVO)
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard "hiResPhoto" == keyPath && photoContext == context else {
-            return super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+            return super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
         
         updateImageHeader()
@@ -153,23 +153,23 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
     
     // MARK: - Scroll view delegate
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateHeaderImageTopConstraint(scrollView)
     }
     
     // MARK: - Web view delegate
 
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         updateWebViewHeightForWidth(webView.frame.width)
     }
 
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         // Loading the guest's bio has a URL of about:blank.
         // Shunt other URLs to the app delegate, which will open them in the appropriate apps.
-        if request.URL == NSURL(string: "about:blank") {
+        if request.url == URL(string: "about:blank") {
             return true
         } else {
-            UIApplication.sharedApplication().openURL(request.URL!)
+            UIApplication.shared.openURL(request.url!)
             return false
         }
     }

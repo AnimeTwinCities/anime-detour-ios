@@ -16,49 +16,49 @@ class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsContr
 
     // MARK: Fetched Results Controller Delegate
 
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView?.beginUpdates()
     }
 
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView?.endUpdates()
     }
 
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         let tableView = self.tableView
-        let indexSet = NSIndexSet(index: sectionIndex)
+        let indexSet = IndexSet(integer: sectionIndex)
         switch type {
-        case .Insert:
-            tableView?.insertSections(indexSet, withRowAnimation: .Automatic)
-        case .Delete:
-            tableView?.deleteSections(indexSet, withRowAnimation: .Automatic)
-        case .Move:
+        case .insert:
+            tableView?.insertSections(indexSet, with: .automatic)
+        case .delete:
+            tableView?.deleteSections(indexSet, with: .automatic)
+        case .move:
             assertionFailure("Unexpected fetched results controller section change type: \(type)")
-        case .Update:
+        case .update:
             assertionFailure("Unexpected fetched results controller section change type: \(type)")
         }
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         // Use with caution
-        let (indexPath, newIndexPath): (NSIndexPath!, NSIndexPath!) = (indexPath, newIndexPath)
+        let (indexPath, newIndexPath): (IndexPath?, IndexPath?) = (indexPath, newIndexPath)
         guard let tableView = self.tableView else {
             return
         }
         
         switch type {
-        case .Insert:
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
-        case .Delete:
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        case .Move:
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+        case .move:
             // Likely to break for inserted or deleted sections.
             // Must fix later.
-            tableView.moveRowAtIndexPath(indexPath, toIndexPath: newIndexPath)
-        case .Update:
-            switch (tableView.cellForRowAtIndexPath(indexPath), customizer) {
-            case let (.Some(cell), .Some(customizer)):
-                customizer.configure(cell, atIndexPath: indexPath)
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        case .update:
+            switch (tableView.cellForRow(at: indexPath!), customizer) {
+            case let (.some(cell), .some(customizer)):
+                customizer.configure(cell, atIndexPath: indexPath!)
             default:
                 break
             }
@@ -68,5 +68,5 @@ class TableViewFetchedResultsControllerDelegate: NSObject, NSFetchedResultsContr
 
 // Declared 'class' to allow weak references.
 protocol TableViewFetchedResultsControllerCellCustomizer: class {
-    func configure(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath)
+    func configure(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
 }

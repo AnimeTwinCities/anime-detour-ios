@@ -9,12 +9,12 @@
 import Foundation
 
 extension GAIDictionaryBuilder {
-    static func createEventDictionary(category: String, action: AnalyticsConstants.Actions, label: String?, value: NSNumber?) -> [NSObject : AnyObject] {
-        let dict = GAIDictionaryBuilder.createEventWithCategory(category, action: action.rawValue, label: label, value: value).build() as NSDictionary as [NSObject : AnyObject]
+    static func createEventDictionary(_ category: String, action: AnalyticsConstants.Actions, label: String?, value: NSNumber?) -> [NSObject : AnyObject] {
+        let dict = GAIDictionaryBuilder.createEvent(withCategory: category, action: action.rawValue, label: label, value: value).build() as NSDictionary as [NSObject : AnyObject]
         return dict
     }
     
-    static func createEventDictionary(category: AnalyticsConstants.Category, action: AnalyticsConstants.Actions, label: String?, value: NSNumber?) -> [NSObject : AnyObject] {
+    static func createEventDictionary(_ category: AnalyticsConstants.Category, action: AnalyticsConstants.Actions, label: String?, value: NSNumber?) -> [NSObject : AnyObject] {
         let dict = GAIDictionaryBuilder.createEventDictionary(category.rawValue, action: action, label: label, value: value)
         return dict
     }

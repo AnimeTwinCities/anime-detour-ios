@@ -32,7 +32,7 @@ extension UIColor {
         return UIColor(white: 0.55, alpha: 1)
     }
 
-    class func adr_colorFromHex(hex: Int) -> UIColor {
+    class func adr_colorFromHex(_ hex: Int) -> UIColor {
         let red = (hex & 0xff0000) >> 16
         let green = (hex & 0xff00) >> 8
         let blue = (hex & 0xff)

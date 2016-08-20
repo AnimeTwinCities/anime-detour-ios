@@ -15,34 +15,34 @@ import UIKit
  */
 class ImageHeaderView: UIView {
     @IBOutlet var imageViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet private var imageView: FaceDisplayingImageView!
-    private lazy var noImageView: UIView = {
+    @IBOutlet fileprivate var imageView: FaceDisplayingImageView!
+    fileprivate lazy var noImageView: UIView = {
         let imageView = self.imageView
         
         let view = UIView()
         view.accessibilityLabel = "Placeholder Image"
         view.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(view)
-        view.topAnchor.constraintEqualToAnchor(imageView.topAnchor).active = true
-        view.leftAnchor.constraintEqualToAnchor(imageView.leftAnchor).active = true
-        view.bottomAnchor.constraintEqualToAnchor(imageView.bottomAnchor).active = true
-        view.rightAnchor.constraintEqualToAnchor(imageView.rightAnchor).active = true
+        view.topAnchor.constraint(equalTo: (imageView?.topAnchor)!).isActive = true
+        view.leftAnchor.constraint(equalTo: (imageView?.leftAnchor)!).isActive = true
+        view.bottomAnchor.constraint(equalTo: (imageView?.bottomAnchor)!).isActive = true
+        view.rightAnchor.constraint(equalTo: (imageView?.rightAnchor)!).isActive = true
         view.backgroundColor = UIColor.adr_mediumGray
         
         let noImageImageView = UIImageView()
         
         let image = UIImage(named: "compact_camera")
-        let template = image?.imageWithRenderingMode(.AlwaysTemplate)
+        let template = image?.withRenderingMode(.alwaysTemplate)
         noImageImageView.image = template
-        noImageImageView.tintColor = UIColor.whiteColor()
-        noImageImageView.contentMode = .Center
+        noImageImageView.tintColor = UIColor.white
+        noImageImageView.contentMode = .center
         
         noImageImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(noImageImageView)
-        noImageImageView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
-        noImageImageView.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
-        noImageImageView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
-        noImageImageView.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
+        noImageImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        noImageImageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        noImageImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        noImageImageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
         return view
     }()
@@ -54,9 +54,9 @@ class ImageHeaderView: UIView {
         set {
             imageView.image = newValue
             if let _ = newValue {
-                noImageView.hidden = true
+                noImageView.isHidden = true
             } else {
-                noImageView.hidden = false
+                noImageView.isHidden = false
             }
         }
     }

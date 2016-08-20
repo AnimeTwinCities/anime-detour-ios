@@ -9,10 +9,10 @@
 import UIKit
 
 class SegmentedControlCollectionReusableView: UICollectionReusableView {
-    @IBOutlet private(set) weak var segmentedControl: UISegmentedControl!
-    @IBOutlet private weak var blurView: UIVisualEffectView!
-    @IBOutlet private weak var bottomLine: UIView!
-    @IBOutlet private weak var bottomLineHeightConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate(set) weak var segmentedControl: UISegmentedControl!
+    @IBOutlet fileprivate weak var blurView: UIVisualEffectView!
+    @IBOutlet fileprivate weak var bottomLine: UIView!
+    @IBOutlet fileprivate weak var bottomLineHeightConstraint: NSLayoutConstraint!
 
     convenience init() {
         self.init(frame: CGRect.zero)
@@ -30,47 +30,47 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
         super.init(coder: aDecoder)
     }
 
-    private func addBlurView() {
-        let blurEffect = UIBlurEffect(style: .ExtraLight)
+    fileprivate func addBlurView() {
+        let blurEffect = UIBlurEffect(style: .extraLight)
         let blurView = UIVisualEffectView(effect: blurEffect)
         addSubview(blurView)
         blurView.translatesAutoresizingMaskIntoConstraints = false
-        blurView.topAnchor.constraintEqualToAnchor(topAnchor).active = true
-        blurView.leftAnchor.constraintEqualToAnchor(leftAnchor).active = true
-        blurView.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
-        blurView.rightAnchor.constraintEqualToAnchor(rightAnchor).active = true
+        blurView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        blurView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        blurView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        blurView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
         self.blurView = blurView
     }
     
-    private func addBottomLine() {
+    fileprivate func addBottomLine() {
         let bottomLine = UIView()
         addSubview(bottomLine)
         bottomLine.translatesAutoresizingMaskIntoConstraints = false
-        bottomLine.backgroundColor =  UIColor.lightGrayColor()
-        bottomLineHeightConstraint = NSLayoutConstraint(item: bottomLine, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 1.0)
+        bottomLine.backgroundColor =  UIColor.lightGray
+        bottomLineHeightConstraint = NSLayoutConstraint(item: bottomLine, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 1.0)
         bottomLine.addConstraint(bottomLineHeightConstraint)
-        bottomLine.leftAnchor.constraintEqualToAnchor(leftAnchor).active = true
-        bottomLine.bottomAnchor.constraintEqualToAnchor(bottomAnchor).active = true
-        bottomLine.rightAnchor.constraintEqualToAnchor(rightAnchor).active = true
+        bottomLine.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        bottomLine.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        bottomLine.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
         self.bottomLine = bottomLine
     }
     
-    private func addSegmentedControl() {
+    fileprivate func addSegmentedControl() {
         let segmentedControl = UISegmentedControl()
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         addSubview(segmentedControl)
         self.segmentedControl = segmentedControl
 
-        let hCenter = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0)
-        let vCenter = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0)
+        let hCenter = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0)
+        let vCenter = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0)
 
-        let width = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 350)
+        let width = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 350)
         width.priority = UILayoutPriorityDefaultLow
 
         // Greater priority than the width constraint, so it always has at least this margin.
-        let leftSide = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: self, attribute: NSLayoutAttribute.Left, multiplier: 1.0, constant: 10)
+        let leftSide = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 10)
         leftSide.priority = UILayoutPriorityRequired
 
         addConstraints([hCenter, vCenter, width, leftSide])

@@ -13,7 +13,7 @@ import UIKit
 import AnimeDetourDataModel
 
 class SessionTableViewController: UITableViewController, UISearchResultsUpdating {
-    private var imagesURLSession = NSURLSession.sharedSession()
+    fileprivate var imagesURLSession = URLSession.shared
     lazy var coreDataController = CoreDataController.sharedInstance
 
     @IBInspectable var bookmarkedOnly: Bool = false {
@@ -67,12 +67,12 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
 
     // MARK: Core Data
 
-    private var managedObjectContext: NSManagedObjectContext { return coreDataController.managedObjectContext }
+    fileprivate var managedObjectContext: NSManagedObjectContext { return coreDataController.managedObjectContext }
 
     /// Fetched results controller over `Session`s.
-    private var fetchedResultsController: NSFetchedResultsController?
+    fileprivate var fetchedResultsController: NSFetchedResultsController<Session>?
 
-    lazy private var fetchedResultsControllerDelegate: TableViewFetchedResultsControllerDelegate = {
+    lazy fileprivate var fetchedResultsControllerDelegate: TableViewFetchedResultsControllerDelegate = {
         let delegate = TableViewFetchedResultsControllerDelegate()
         delegate.tableView = self.tableView
         return delegate
@@ -81,11 +81,11 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     /**
     Fetch request for all SessionBookmarks, sorted by the `Session`'s ID. Creates a new fetch request on every access.
     */
-    private var sessionsFetchRequest: NSFetchRequest {
+    fileprivate var sessionsFetchRequest: NSFetchRequest<Session> {
         get {
             let predicate = completePredicate
             let sortDescriptors = [NSSortDescriptor(key: Session.Keys.startTime.rawValue, ascending: true), NSSortDescriptor(key: Session.Keys.name.rawValue, ascending: true)]
-            let sessionsFetchRequest = NSFetchRequest(entityName: Session.entityName)
+            let sessionsFetchRequest = NSFetchRequest<Session>(entityName: Session.entityName)
             sessionsFetchRequest.predicate = predicate
             sessionsFetchRequest.sortDescriptors = sortDescriptors
             return sessionsFetchRequest
@@ -104,7 +104,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
         return controller
     }()
 
-    private var lastSearchText: String?
+    fileprivate var lastSearchText: String?
 
     // MARK: Table view
 
@@ -114,11 +114,11 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
      
      Our cells don't allow adding or removing favorites, so we don't need to set a delegate.
      */
-    lazy private var dataSource: SessionDataSource! = SessionDataSource(fetchedResultsController: self.fetchedResultsController!, cellDelegate: nil, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
+    lazy fileprivate var dataSource: SessionDataSource! = SessionDataSource(fetchedResultsController: self.fetchedResultsController!, cellDelegate: nil, timeZone: self.timeZone, imagesURLSession: self.imagesURLSession)
 
-    private var timeZone: NSTimeZone = NSTimeZone(name: "America/Chicago")! // hard-coded for Anime-Detour
+    fileprivate var timeZone: TimeZone = TimeZone(identifier: "America/Chicago")! // hard-coded for Anime-Detour
 
-    private var selectedCellIndex: NSIndexPath?
+    fileprivate var selectedCellIndex: IndexPath?
     
     // MARK: Segue identifiers
 
@@ -151,29 +151,29 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
         tableView.tableHeaderView = searchBar
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchController.searchBar.text = lastSearchText
     }
 
     // MARK: - Table View Data Source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return dataSource.numberOfSectionsInTableView(tableView)
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return dataSource.numberOfSections(in: tableView)
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.tableView(tableView, numberOfRowsInSection: section)
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return dataSource.tableView(tableView, cellForRowAtIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return dataSource.tableView(tableView, cellForRowAt: indexPath)
     }
 
     // MARK: - Search Results Updating
 
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        guard searchController.active else {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard searchController.isActive else {
             return
         }
         
@@ -185,7 +185,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
             self.searchPredicate = searchPredicate
         }
         
-        if case let searchText? = searchText where searchText.characters.count > 0 {
+        if case let searchText? = searchText , searchText.characters.count > 0 {
             // Case- and diacritic-insensitive searching
             searchPredicate = NSPredicate(format: "name CONTAINS[cd] %@", searchText)
         }
@@ -193,28 +193,28 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
 
     // MARK: - Navigation
 
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         switch(identifier) {
         case detailIdentifier:
             // Get the selected index path
             let cell = sender as! UITableViewCell
-            selectedCellIndex = tableView.indexPathForCell(cell)
+            selectedCellIndex = tableView.indexPath(for: cell)
 
             // Block the detail segue while in editing mode
-            return !tableView.editing
+            return !tableView.isEditing
         default:
             // Always allow other segues
             return true
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        searchController.active = false
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        searchController.isActive = false
         let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
 
         switch (segue.identifier) {
         case detailIdentifier?:
-            let detailVC = segue.destinationViewController as! SessionViewController
+            let detailVC = segue.destination as! SessionViewController
             let selectedIndexPath = selectedCellIndex!
             let selectedSession = dataSource.sessionAt(selectedIndexPath)
             detailVC.sessionID = selectedSession.sessionID

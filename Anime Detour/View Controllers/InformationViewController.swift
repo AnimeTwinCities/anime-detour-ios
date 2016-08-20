@@ -32,30 +32,30 @@ class InformationViewController: UITableViewController {
     
     // MARK: Logo Image
     
-    private var afterTransitionSize: CGSize?
+    fileprivate var afterTransitionSize: CGSize?
     
     // MARK: - View Controller
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         afterTransitionSize = size
-        coordinator.animateAlongsideTransition({ _ in
+        coordinator.animate(alongsideTransition: { _ in
             let tableView = self.tableView
-            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-            tableView.beginUpdates()
-            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView?.beginUpdates()
+            if let cell = tableView?.cellForRow(at: indexPath) {
                 self.configure(cell, forRowAtIndexPath: indexPath)
             }
-            tableView.endUpdates()
+            tableView?.endUpdates()
         }, completion: nil)
     }
 
-    private func configure(cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    fileprivate func configure(_ cell: UITableViewCell, forRowAtIndexPath indexPath: IndexPath) {
         
         switch cell.reuseIdentifier {
         case logoIdentifier?:
             if let imageView = cell.contentView.subviews.filter({
-                return $0.isKindOfClass(UIImageView.self)
+                return $0.isKind(of: UIImageView.self)
             }).first as? UIImageView {
                 let image: UIImage
                 if let size = afterTransitionSize {
@@ -69,7 +69,7 @@ class InformationViewController: UITableViewController {
                     }
                 } else {
                     let horizontalSizeClass = traitCollection.horizontalSizeClass
-                    if horizontalSizeClass == .Regular {
+                    if horizontalSizeClass == .regular {
                         image = UIImage(named: "ADHeader1152")!
                     } else {
                         image = UIImage(named: "AD-Header-Logo-375")!
@@ -97,7 +97,7 @@ class InformationViewController: UITableViewController {
             break
         case let identifier?:
             fatalError("Unknown reuse identifier encountered: \(identifier)")
-        case .None:
+        case .none:
             // Cells without a reuse identifier are fine
             break
         }
@@ -105,46 +105,46 @@ class InformationViewController: UITableViewController {
     
     // MARK: - Table View Data Source
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         configure(cell, forRowAtIndexPath: indexPath)
         return cell
     }
     
     // MARK: - Table View Delegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = tableView.cellForRowAtIndexPath(indexPath) else {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else {
             return
         }
         
-        let url: NSURL
+        let url: URL
         switch (cell.reuseIdentifier) {
         case harassmentPolicyIdentifier?:
-            url = NSURL(string: "http://www.animedetour.com/policyharrassment")!
+            url = URL(string: "http://www.animedetour.com/policyharrassment")!
         case letterParentsIdentifier?:
-            url = NSURL(string: "http://www.animedetour.com/faqparents")!
+            url = URL(string: "http://www.animedetour.com/faqparents")!
         case weaponsPolicyIdentifier?:
-            url = NSURL(string: "http://www.animedetour.com/policyweapons")!
+            url = URL(string: "http://www.animedetour.com/policyweapons")!
         case websiteIdentifier?:
-            url = NSURL(string: "http://www.animedetour.com/")!
+            url = URL(string: "http://www.animedetour.com/")!
         default:
             return
         }
         
-        let safari = SFSafariViewController(URL: url)
-        presentViewController(safari, animated: true, completion: nil)
+        let safari = SFSafariViewController(url: url)
+        present(safari, animated: true, completion: nil)
     }
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch (segue.identifier) {
         case settingsSegue?:
             let acknowledgements = Acknowledgements()
             let sessionSettingsForm = SessionSettings()
             let settings = Settings(acknowledgements: acknowledgements, sessionSettingsForm: sessionSettingsForm)
-            let formVC = segue.destinationViewController as! FXFormViewController
+            let formVC = segue.destination as! FXFormViewController
             formVC.formController.form = settings
             break
         default:
@@ -154,9 +154,9 @@ class InformationViewController: UITableViewController {
 
     // MARK: - Received actions
 
-    @IBAction func showVenueOnMap(sender: AnyObject?) {
-        let query = "DoubleTree by Hilton, Bloomington, MN".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet())!
-        let googleMapsInstalled = UIApplication.sharedApplication().canOpenURL(NSURL(string:"comgooglemaps://")!)
+    @IBAction func showVenueOnMap(_ sender: AnyObject?) {
+        let query = "DoubleTree by Hilton, Bloomington, MN".addingPercentEncoding(withAllowedCharacters: CharacterSet())!
+        let googleMapsInstalled = UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)
 
         if googleMapsInstalled {
             // Google maps installed
@@ -165,6 +165,6 @@ class InformationViewController: UITableViewController {
         }
 
         let urlString = "http://maps.apple.com/?q=\(query)"
-        UIApplication.sharedApplication().openURL(NSURL(string: urlString)!)
+        UIApplication.shared.openURL(URL(string: urlString)!)
     }
 }

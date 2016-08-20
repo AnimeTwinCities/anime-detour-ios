@@ -9,16 +9,16 @@
 import Foundation
 
 class DataStatusDefaultsController {
-    private struct DataStatusDefaultsKeys {
-        private static let DatabaseCheckedVersionKey = "databaseCheckedVersionKey"
-        private static let GuestsFetchRequiredKey = "guestsFetchRequiredKey"
-        private static let SessionsFetchRequiredKey = "sessionsFetchRequiredKey"
-        private static let LastGuestsClearDateKey = "lastGuestsClearDateKey"
-        private static let LastSessionsClearDateKey = "lastSessionsClearDateKey"
+    fileprivate struct DataStatusDefaultsKeys {
+        fileprivate static let DatabaseCheckedVersionKey = "databaseCheckedVersionKey"
+        fileprivate static let GuestsFetchRequiredKey = "guestsFetchRequiredKey"
+        fileprivate static let SessionsFetchRequiredKey = "sessionsFetchRequiredKey"
+        fileprivate static let LastGuestsClearDateKey = "lastGuestsClearDateKey"
+        fileprivate static let LastSessionsClearDateKey = "lastSessionsClearDateKey"
     }
     
-    private let userDefaults: NSUserDefaults
-    private let defaultsUpdater: DataStatusDefaultsUpdater
+    fileprivate let userDefaults: UserDefaults
+    fileprivate let defaultsUpdater: DataStatusDefaultsUpdater
     
     /**
      Track the version of the app that last checked the database, in case it
@@ -27,15 +27,15 @@ class DataStatusDefaultsController {
      */
     var databaseCheckedVersionKey: String {
         get {
-            return userDefaults.stringForKey(DataStatusDefaultsKeys.DatabaseCheckedVersionKey)!
+            return userDefaults.string(forKey: DataStatusDefaultsKeys.DatabaseCheckedVersionKey)!
         }
         set {
-            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: databaseCheckedVersionKey as NSString, userDefaultsKey: DataStatusDefaultsKeys.DatabaseCheckedVersionKey, delegateCallback: nil)
+            defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: databaseCheckedVersionKey, userDefaultsKey: DataStatusDefaultsKeys.DatabaseCheckedVersionKey, delegateCallback: nil)
         }
     }
     var guestsFetchRequired: Bool {
         get {
-            return userDefaults.boolForKey(DataStatusDefaultsKeys.GuestsFetchRequiredKey)
+            return userDefaults.bool(forKey: DataStatusDefaultsKeys.GuestsFetchRequiredKey)
         }
         set {
             defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: guestsFetchRequired,
@@ -44,25 +44,25 @@ class DataStatusDefaultsController {
     }
     var sessionsFetchRequired: Bool {
         get {
-            return userDefaults.boolForKey(DataStatusDefaultsKeys.SessionsFetchRequiredKey)
+            return userDefaults.bool(forKey: DataStatusDefaultsKeys.SessionsFetchRequiredKey)
         }
         set {
             defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: sessionsFetchRequired,
                                                                       userDefaultsKey: DataStatusDefaultsKeys.SessionsFetchRequiredKey, delegateCallback: nil)
         }
     }
-    var lastGuestsClearDate: NSDate {
+    var lastGuestsClearDate: Date {
         get {
-            return userDefaults.valueForKey(DataStatusDefaultsKeys.LastGuestsClearDateKey) as! NSDate
+            return userDefaults.value(forKey: DataStatusDefaultsKeys.LastGuestsClearDateKey) as! Date
         }
         set {
             defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: lastGuestsClearDate,
                                                                       userDefaultsKey: DataStatusDefaultsKeys.LastGuestsClearDateKey, delegateCallback: nil)
         }
     }
-    var lastSessionsClearDate: NSDate {
+    var lastSessionsClearDate: Date {
         get {
-            return userDefaults.valueForKey(DataStatusDefaultsKeys.LastSessionsClearDateKey) as! NSDate
+            return userDefaults.value(forKey: DataStatusDefaultsKeys.LastSessionsClearDateKey) as! Date
         }
         set {
             defaultsUpdater.updateDefaultsAndNotifyForPropertyUpdated(newValue, oldValue: lastSessionsClearDate,
@@ -70,26 +70,26 @@ class DataStatusDefaultsController {
         }
     }
     
-    init(userDefaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()) {
+    init(userDefaults: UserDefaults = UserDefaults.standard) {
         self.userDefaults = userDefaults
         
         defaultsUpdater = DataStatusDefaultsUpdater(userDefaults: userDefaults)
         
         // Default last-must-be-cleared dates. Set to early on 3/25/2016 UTC.
-        let defaultGuestsClearDate: NSDate = NSDate(timeIntervalSince1970: 1458873747)
-        let defaultSessionsClearDate: NSDate = NSDate(timeIntervalSince1970: 1458873747)
+        let defaultGuestsClearDate: Date = Date(timeIntervalSince1970: 1458873747)
+        let defaultSessionsClearDate: Date = Date(timeIntervalSince1970: 1458873747)
         
         let defaultUserDefaults = [
             // 2.1 is the last version that used the "Anime Detour API" framework,
             // and thus the last version which did not need a database cleanup.
             DataStatusDefaultsKeys.DatabaseCheckedVersionKey : "2.1",
-            DataStatusDefaultsKeys.GuestsFetchRequiredKey : NSNumber(bool: true),
-            DataStatusDefaultsKeys.SessionsFetchRequiredKey : NSNumber(bool: true),
+            DataStatusDefaultsKeys.GuestsFetchRequiredKey : NSNumber(value: true),
+            DataStatusDefaultsKeys.SessionsFetchRequiredKey : NSNumber(value: true),
             DataStatusDefaultsKeys.LastGuestsClearDateKey : defaultGuestsClearDate,
             DataStatusDefaultsKeys.LastSessionsClearDateKey : defaultSessionsClearDate,
-        ]
+        ] as [String : Any]
         
-        userDefaults.registerDefaults(defaultUserDefaults)
+        userDefaults.register(defaults: defaultUserDefaults)
     }
     
     func synchronizeDefaults() {
@@ -100,9 +100,9 @@ class DataStatusDefaultsController {
 
 // Use the default implementations of `UserDefaultsUpdater` methods
 private class DataStatusDefaultsUpdater: UserDefaultsUpdater {
-    private let userDefaults: NSUserDefaults
+    fileprivate let userDefaults: UserDefaults
     
-    required init(userDefaults: NSUserDefaults) {
+    required init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
     }
 }

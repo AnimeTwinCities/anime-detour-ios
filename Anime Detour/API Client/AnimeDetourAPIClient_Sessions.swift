@@ -16,9 +16,9 @@ private typealias IndividualSessionJSONDataType = [String:AnyObject]
 private typealias SessionsJSONDataType = [IndividualSessionJSONDataType]
 
 extension AnimeDetourAPIClient {
-    func fetchSessions(dataStatusDefaultsController: DataStatusDefaultsController, managedObjectContext: NSManagedObjectContext) {
-        self.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
-            guard let result = result where result.count > 0 else {
+    func fetchSessions(_ dataStatusDefaultsController: DataStatusDefaultsController, managedObjectContext: NSManagedObjectContext) {
+        _ = self.sessionList { [weak self] (result: Any?, error: NSError?) -> () in
+            guard let jsonSessions = result as? SessionsJSONDataType, jsonSessions.count > 0 else {
                 if let error = error {
                     NSLog("Error fetching session list from server: \(error)")
                 }
@@ -29,19 +29,18 @@ extension AnimeDetourAPIClient {
                 return
             }
             
-            guard let jsonSessions = result as? SessionsJSONDataType else { return }
             let context = managedObjectContext
-            context.performBlock { () -> Void in
-                let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
+            context.perform { () -> Void in
+                let sessionEntity = NSEntityDescription.entity(forEntityName: Session.entityName, in: context)!
                 for json: [String : AnyObject] in jsonSessions {
-                    let session = Session(entity: sessionEntity, insertIntoManagedObjectContext: context)
+                    let session = Session(entity: sessionEntity, insertInto: context)
                     session.update(jsonObject: json, jsonDateFormatter: strongSelf.dateFormatter)
                 }
                 
                 do {
                     try context.save()
                     dataStatusDefaultsController.sessionsFetchRequired = false
-                    dataStatusDefaultsController.lastSessionsClearDate = NSDate()
+                    dataStatusDefaultsController.lastSessionsClearDate = Date()
                     
                     dataStatusDefaultsController.synchronizeDefaults()
                 } catch {
@@ -55,9 +54,9 @@ extension AnimeDetourAPIClient {
     /**
     Download Session information, saving into the passed in context.
     */
-    func refreshSessions(managedObjectContext: NSManagedObjectContext, completion: (() -> Void)?) {
-        self.sessionList { [weak self] (result: AnyObject?, error: NSError?) -> () in
-            guard let result = result where result.count > 0 else {
+    func refreshSessions(_ managedObjectContext: NSManagedObjectContext, completion: (() -> Void)?) {
+        _ = self.sessionList { [weak self] (result: Any?, error: NSError?) -> () in
+            guard let jsonSessions = result as? SessionsJSONDataType, jsonSessions.count > 0 else {
                 if let error = error {
                     NSLog("Error fetching session list: \(error)")
                 }
@@ -70,24 +69,19 @@ extension AnimeDetourAPIClient {
                 return
             }
             
-            guard let jsonSessions = result as? SessionsJSONDataType else {
-                completion?()
-                return
-            }
-            
             let context = managedObjectContext
-            context.performBlock { () -> Void in
+            context.perform { () -> Void in
                 let sessionsInResponse = jsonSessions.map { json in
                     return strongSelf.createOrUpdateSessionFor(json, context: context)
                 }
                 
                 let notInResponsePredicate = NSPredicate(format: "NOT (self in %@)", sessionsInResponse)
-                let notInResponseFetchRequest = NSFetchRequest(entityName: Session.entityName)
+                let notInResponseFetchRequest = NSFetchRequest<Session>(entityName: Session.entityName)
                 notInResponseFetchRequest.predicate = notInResponsePredicate
                 do {
-                    let notInResponseSessions = try context.executeFetchRequest(notInResponseFetchRequest)
-                    for session in notInResponseSessions as! [NSManagedObject] {
-                        context.deleteObject(session)
+                    let notInResponseSessions = try context.fetch(notInResponseFetchRequest)
+                    for session in notInResponseSessions {
+                        context.delete(session)
                     }
                 } catch {
                     let error = error as NSError
@@ -111,20 +105,20 @@ extension AnimeDetourAPIClient {
      
      Returns the object ID of the found or created `Session`.
      */
-    private func createOrUpdateSessionFor(json: IndividualSessionJSONDataType, context: NSManagedObjectContext) -> NSManagedObjectID {
+    fileprivate func createOrUpdateSessionFor(_ json: IndividualSessionJSONDataType, context: NSManagedObjectContext) -> NSManagedObjectID {
         var foundSession: Session?
         if let id = json[SessionJSONKeys.sessionID.rawValue] as? String {
             let existingPredicate = NSPredicate(format: "sessionID == %@", id)
-            let fetchRequest = NSFetchRequest(entityName: Session.entityName)
+            let fetchRequest = NSFetchRequest<Session>(entityName: Session.entityName)
             fetchRequest.predicate = existingPredicate
             fetchRequest.fetchLimit = 1
             
-            let results = try? context.executeFetchRequest(fetchRequest)
-            foundSession = results?.first as? Session
+            let results = try? context.fetch(fetchRequest)
+            foundSession = results?.first
         }
         
-        let sessionEntity = NSEntityDescription.entityForName(Session.entityName, inManagedObjectContext: context)!
-        let session = foundSession ?? Session(entity: sessionEntity, insertIntoManagedObjectContext: context)
+        let sessionEntity = NSEntityDescription.entity(forEntityName: Session.entityName, in: context)!
+        let session = foundSession ?? Session(entity: sessionEntity, insertInto: context)
         
         session.update(jsonObject: json, jsonDateFormatter: dateFormatter)
         return session.objectID

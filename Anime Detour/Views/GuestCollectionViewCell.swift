@@ -14,7 +14,7 @@ class GuestCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var photoImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
-    private var photoShadowView: UIView!
+    fileprivate var photoShadowView: UIView!
 
     var viewModel: GuestViewModel? {
         didSet {
@@ -29,17 +29,17 @@ class GuestCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet {
             let backgroundColor: UIColor
 
-            if self.highlighted {
+            if self.isHighlighted {
                 backgroundColor = highlightColor
             } else {
-                backgroundColor = UIColor.clearColor()
+                backgroundColor = UIColor.clear
             }
 
-            UIView.animateWithDuration(0.1, animations: { () -> Void in
+            UIView.animate(withDuration: 0.1, animations: { () -> Void in
                 self.contentView.backgroundColor = backgroundColor
             })
         }
@@ -56,8 +56,8 @@ class GuestCollectionViewCell: UICollectionViewCell {
         shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
         shadowLayer.shadowRadius = 2
         shadowLayer.shadowOpacity = 0.25
-        shadowLayer.shadowColor = UIColor(white: 0.0, alpha: 1).CGColor // black
-        shadowLayer.shadowPath = UIBezierPath(ovalInRect: photoImageView.bounds).CGPath
+        shadowLayer.shadowColor = UIColor(white: 0.0, alpha: 1).cgColor // black
+        shadowLayer.shadowPath = UIBezierPath(ovalIn: photoImageView.bounds).cgPath
         shadowLayer.shouldRasterize = true
         
         let imageLayer = self.photoImageView.layer
