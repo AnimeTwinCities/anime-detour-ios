@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DAB2B6CE1C430BDC00EFF3AA /* Anime Detour Data Model.h in Headers */ = {isa = PBXBuildFile; fileRef = DAB2B6CD1C430BDC00EFF3AA /* Anime Detour Data Model.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DAB2B6ED1C430C0500EFF3AA /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2B6E71C430C0500EFF3AA /* CoreDataController.swift */; };
 		DAB2B6EE1C430C0500EFF3AA /* AnimeDetourDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAB2B6E91C430C0500EFF3AA /* AnimeDetourDataModel.xcdatamodeld */; };
 		DAB2B6EF1C430C0500EFF3AA /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2B6EB1C430C0500EFF3AA /* Guest.swift */; };
 		DAB2B6F01C430C0500EFF3AA /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2B6EC1C430C0500EFF3AA /* Session.swift */; };
@@ -18,7 +17,6 @@
 		DAB2B6CA1C430BDC00EFF3AA /* AnimeDetourDataModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimeDetourDataModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB2B6CD1C430BDC00EFF3AA /* Anime Detour Data Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anime Detour Data Model.h"; sourceTree = "<group>"; };
 		DAB2B6CF1C430BDC00EFF3AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DAB2B6E71C430C0500EFF3AA /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		DAB2B6EA1C430C0500EFF3AA /* AnimeDetourDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AnimeDetourDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DAB2B6EB1C430C0500EFF3AA /* Guest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
 		DAB2B6EC1C430C0500EFF3AA /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -55,20 +53,11 @@
 		DAB2B6CC1C430BDC00EFF3AA /* Anime Detour Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				DAB2B6E61C430C0500EFF3AA /* Model Controllers */,
 				DAB2B6E81C430C0500EFF3AA /* Models */,
 				DAB2B6CD1C430BDC00EFF3AA /* Anime Detour Data Model.h */,
 				DAB2B6CF1C430BDC00EFF3AA /* Info.plist */,
 			);
 			path = "Anime Detour Data Model";
-			sourceTree = "<group>";
-		};
-		DAB2B6E61C430C0500EFF3AA /* Model Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				DAB2B6E71C430C0500EFF3AA /* CoreDataController.swift */,
-			);
-			path = "Model Controllers";
 			sourceTree = "<group>";
 		};
 		DAB2B6E81C430C0500EFF3AA /* Models */ = {
@@ -162,7 +151,6 @@
 			files = (
 				DAB2B6F01C430C0500EFF3AA /* Session.swift in Sources */,
 				DAB2B6EE1C430C0500EFF3AA /* AnimeDetourDataModel.xcdatamodeld in Sources */,
-				DAB2B6ED1C430C0500EFF3AA /* CoreDataController.swift in Sources */,
 				DAB2B6EF1C430C0500EFF3AA /* Guest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

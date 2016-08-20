@@ -31,7 +31,6 @@
 		DA90BDB61CA23E07006A5ACD /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD7C1CA23E07006A5ACD /* UIColor.swift */; };
 		DA90BDB71CA23E07006A5ACD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA90BD7D1CA23E07006A5ACD /* Images.xcassets */; };
 		DA90BDB81CA23E07006A5ACD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA90BD7E1CA23E07006A5ACD /* LaunchScreen.storyboard */; };
-		DA90BDB91CA23E07006A5ACD /* CoreDataController_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD801CA23E07006A5ACD /* CoreDataController_Singleton.swift */; };
 		DA90BDBA1CA23E07006A5ACD /* DataStatusDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD811CA23E07006A5ACD /* DataStatusDefaultsController.swift */; };
 		DA90BDBB1CA23E07006A5ACD /* ImageFaceDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD821CA23E07006A5ACD /* ImageFaceDetector.swift */; };
 		DA90BDBC1CA23E07006A5ACD /* NotificationPermissionRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD831CA23E07006A5ACD /* NotificationPermissionRequester.swift */; };
@@ -156,7 +155,6 @@
 		DA90BD7C1CA23E07006A5ACD /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		DA90BD7D1CA23E07006A5ACD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DA90BD7E1CA23E07006A5ACD /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		DA90BD801CA23E07006A5ACD /* CoreDataController_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController_Singleton.swift; sourceTree = "<group>"; };
 		DA90BD811CA23E07006A5ACD /* DataStatusDefaultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStatusDefaultsController.swift; sourceTree = "<group>"; };
 		DA90BD821CA23E07006A5ACD /* ImageFaceDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFaceDetector.swift; sourceTree = "<group>"; };
 		DA90BD831CA23E07006A5ACD /* NotificationPermissionRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPermissionRequester.swift; sourceTree = "<group>"; };
@@ -352,7 +350,6 @@
 		DA90BD7F1CA23E07006A5ACD /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				DA90BD801CA23E07006A5ACD /* CoreDataController_Singleton.swift */,
 				DA90BD811CA23E07006A5ACD /* DataStatusDefaultsController.swift */,
 				DA90BD821CA23E07006A5ACD /* ImageFaceDetector.swift */,
 				DA90BD831CA23E07006A5ACD /* NotificationPermissionRequester.swift */,
@@ -751,7 +748,6 @@
 				DA90BDB51CA23E07006A5ACD /* UICollectionViewFlowLayout.swift in Sources */,
 				DA90BDD11CA23E07006A5ACD /* FaceDisplayingImageView.swift in Sources */,
 				DA90BDDA1CA23E07006A5ACD /* TextHeaderCollectionReusableView.swift in Sources */,
-				DA90BDB91CA23E07006A5ACD /* CoreDataController_Singleton.swift in Sources */,
 				DA90BDC61CA23E07006A5ACD /* GuestDetailViewController.swift in Sources */,
 				DA90BDD61CA23E07006A5ACD /* SessionTableViewCell.swift in Sources */,
 				DA90BDD31CA23E07006A5ACD /* ImageHeaderView.swift in Sources */,
@@ -848,7 +844,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -890,7 +885,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

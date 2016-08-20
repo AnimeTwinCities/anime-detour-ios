@@ -38,13 +38,10 @@ class SessionCollectionViewController: UICollectionViewController {
     
     // MARK: Core Data
     
-    lazy fileprivate var coreDataController: CoreDataController = CoreDataController.sharedInstance
-    lazy fileprivate var managedObjectContext: NSManagedObjectContext = self.coreDataController.managedObjectContext
-    
     /// Fetched results controller over `Session`s.
     lazy fileprivate var fetchedResultsController: NSFetchedResultsController<Session> = { () -> NSFetchedResultsController<Session> in
         let sessionsFetchRequest = self.sessionsFetchRequest
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: Session.Keys.startTime.rawValue, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: AppDelegate.persistentContainer.viewContext, sectionNameKeyPath: Session.Keys.startTime.rawValue, cacheName: nil)
         fetchedResultsController.delegate = self.fetchedResultsControllerDelegate
         return fetchedResultsController
     }()
@@ -377,11 +374,11 @@ class SessionCollectionViewController: UICollectionViewController {
         }
         
         refreshing = true
-        let moc = (UIApplication.shared.delegate as! AppDelegate).backgroundContext
-        
-        apiClient.refreshSessions(moc) {
-            DispatchQueue.main.async {
-                self.refreshing = false
+        AppDelegate.persistentContainer.performBackgroundTask { [apiClient] moc in
+            apiClient.refreshSessions(moc) {
+                DispatchQueue.main.async {
+                    self.refreshing = false
+                }
             }
         }
     }
@@ -419,7 +416,7 @@ class SessionCollectionViewController: UICollectionViewController {
                 request.returnsDistinctResults = true
                 
                 do {
-                    let results = try managedObjectContext.fetch(request)
+                    let results = try AppDelegate.persistentContainer.viewContext.fetch(request)
                     guard let stringly = results as? [[String:String]] else {
                         assertionFailure("Expected [[String:String]] result from fetch request.")
                         return []

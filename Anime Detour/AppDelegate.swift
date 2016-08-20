@@ -14,19 +14,14 @@ import AnimeDetourAPI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    static var persistentContainer: NSPersistentContainer {
+        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+    }
 
     var window: UIWindow?
 
     lazy var apiClient = AnimeDetourAPIClient.sharedInstance
-    lazy var coreDataController = CoreDataController.sharedInstance
-    lazy var backgroundContext: NSManagedObjectContext = {
-        let context = self.coreDataController.createManagedObjectContext(.privateQueueConcurrencyType)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.updateMainContextFor(saveNotification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
-        return context
-    }()
-    lazy var primaryContext: NSManagedObjectContext = {
-        return self.coreDataController.managedObjectContext
-    }()
+    lazy var persistentContainer = AppDelegate.createPersistentContainer()
     
     // MARK: - Notifications
     
@@ -37,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate lazy var sessionNotificationScheduler: SessionNotificationScheduler = {
-        let context = self.primaryContext
+        let context = self.persistentContainer.viewContext
         let scheduler = SessionNotificationScheduler(managedObjectContext: context)
         scheduler.delegate = self
         return scheduler
@@ -73,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         // Force initialization of our database before doing anything with data
-        _ = coreDataController
+        _ = persistentContainer
 
         // Latest must-be-cleared dates, e.g. if this version of the app points
         // at a different data set and must discard and re-download data.
@@ -94,7 +89,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if guestsNeedClearing || sessionsNeedClearing {
             dataStatusDefaultsController.lastGuestsClearDate = Date()
             dataStatusDefaultsController.lastSessionsClearDate = Date()
-            coreDataController.clearPersistentStore()
+            // clear the database
+            persistentContainer.performBackgroundTask { context in
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+                let batchRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                _ = try? context.execute(batchRequest)
+            }
 
             // Clearing the persistent store removes all sessions and guests, since they are both kept
             // in the same store, so we need to fetch them again.
@@ -102,14 +102,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dataStatusDefaultsController.sessionsFetchRequired = true
         }
 
-        if dataStatusDefaultsController.sessionsFetchRequired {
-            apiClient.fetchSessions(dataStatusDefaultsController, managedObjectContext: backgroundContext)
+        persistentContainer.performBackgroundTask { [apiClient, dataStatusDefaultsController] backgroundContext in
+            if dataStatusDefaultsController.sessionsFetchRequired {
+                apiClient.fetchSessions(dataStatusDefaultsController, managedObjectContext: backgroundContext)
+            }
+            
+            if dataStatusDefaultsController.guestsFetchRequired {
+                apiClient.fetchGuests(dataStatusDefaultsController, managedObjectContext: backgroundContext)
+            }
         }
-
-        if dataStatusDefaultsController.guestsFetchRequired {
-            apiClient.fetchGuests(dataStatusDefaultsController, managedObjectContext: backgroundContext)
-        }
-
+        
         return true
     }
     
@@ -177,15 +179,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // MARK: - Core Data
-    
-    /**
-    Merge changes from a save notification into the primary, main thread-only MOC.
-    */
-    @objc(updateMainContextForSaveNotification:) fileprivate func updateMainContextFor(saveNotification notification: Notification) {
-        primaryContext.perform {
-            self.primaryContext.mergeChanges(fromContextDidSave: notification)
-        }
-    }
     
     fileprivate func checkAndHandleDatabase() {
         let twoDotOneDatabaseNeedsClearing: Bool
@@ -256,6 +249,41 @@ private class PreviousDataCleaner {
         for url in storeFileURLs {
             _ = try? fileManager.removeItem(at: url)
         }
+    }
+}
+
+fileprivate extension AppDelegate {
+    static func createPersistentContainer() -> NSPersistentContainer {
+        guard let momLocation = Bundle(for: Session.self).url(forResource: "AnimeDetourDataModel", withExtension: "momd"),
+            let mom = NSManagedObjectModel(contentsOf: momLocation) else {
+                fatalError("Couldn't find CoreData model.")
+        }
+        
+        let container = NSPersistentContainer(name: "AnimeDetour", managedObjectModel: mom)
+        if let seedDataURL = Bundle.main.url(forResource: "AnimeDetourDataModel", withExtension: "sqlite") {
+            let defaultLocation = NSPersistentContainer.defaultDirectoryURL()
+            let destination = URL(fileURLWithPath: "AnimeDetour.sqlite", relativeTo: defaultLocation)
+            let fileManager = FileManager.default
+            
+            if !fileManager.fileExists(atPath: destination.path) {
+                do {
+                    try fileManager.copyItem(at: seedDataURL, to: destination)
+                    let dataStatusDefaultsController = DataStatusDefaultsController()
+                    dataStatusDefaultsController.guestsFetchRequired = false
+                    dataStatusDefaultsController.sessionsFetchRequired = false
+                } catch {
+                    NSLog("Error copying seed data: %@", error as NSError)
+                }
+            }
+        }
+        
+        container.loadPersistentStores { (storeDescription, error) in
+            if let error = error {
+                fatalError("Unresolved error \(error)")
+            }
+        }
+        
+        return container
     }
 }
 

@@ -24,7 +24,8 @@ class SessionViewController: UIViewController, SessionViewModelDelegate {
     
     let imagesURLSession = URLSession.shared
     
-    lazy var managedObjectContext: NSManagedObjectContext! = CoreDataController.sharedInstance.managedObjectContext
+    private lazy var managedObjectContext = AppDelegate.persistentContainer.viewContext
+    
     var sessionID: String! {
         didSet {
             guard let sessionID = sessionID else {

@@ -36,6 +36,8 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
 
     // MARK: Core Data
     
+    fileprivate lazy var managedObjectContext = AppDelegate.persistentContainer.viewContext
+    
     /// Lazily created FRC. To use, first perform a fetch on it.
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<Guest> = { () -> NSFetchedResultsController<Guest> in
         let moc = self.managedObjectContext
@@ -47,8 +49,6 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         let frc = NSFetchedResultsController<Guest>(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: Guest.Keys.category.rawValue, cacheName: nil)
         return frc
     }()
-
-    fileprivate lazy var managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
 
     fileprivate lazy var fetchedResultsControllerDelegate = CollectionViewFetchedResultsControllerDelegate()
     
@@ -251,10 +251,11 @@ extension GuestCollectionViewController: GuestViewModelDelegate {
             // Skip face logic for low-res photos
             guard hiRes else { return }
             
-            if let guest = strongSelf.managedObjectContext.object(with: guestObjectID) as? Guest, let faceLocation = guest.hiResPhotoFaceBoundsRect {
+            let context = strongSelf.managedObjectContext
+            if let guest = context.object(with: guestObjectID) as? Guest, let faceLocation = guest.hiResPhotoFaceBoundsRect {
                 viewModel.photoFaceLocation = faceLocation
             } else {
-                strongSelf.findFaceFor(photo, forGuestWithID: guestObjectID, inContext: strongSelf.managedObjectContext)
+                strongSelf.findFaceFor(photo, forGuestWithID: guestObjectID, inContext: context)
             }
         }
     }

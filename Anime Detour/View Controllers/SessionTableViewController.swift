@@ -14,7 +14,6 @@ import AnimeDetourDataModel
 
 class SessionTableViewController: UITableViewController, UISearchResultsUpdating {
     fileprivate var imagesURLSession = URLSession.shared
-    lazy var coreDataController = CoreDataController.sharedInstance
 
     @IBInspectable var bookmarkedOnly: Bool = false {
         didSet {
@@ -66,8 +65,6 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     }
 
     // MARK: Core Data
-
-    fileprivate var managedObjectContext: NSManagedObjectContext { return coreDataController.managedObjectContext }
 
     /// Fetched results controller over `Session`s.
     fileprivate var fetchedResultsController: NSFetchedResultsController<Session>?
@@ -129,7 +126,7 @@ class SessionTableViewController: UITableViewController, UISearchResultsUpdating
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let frc = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "start", cacheName: nil)
+        let frc = NSFetchedResultsController(fetchRequest: sessionsFetchRequest, managedObjectContext: AppDelegate.persistentContainer.viewContext, sectionNameKeyPath: "start", cacheName: nil)
         frc.delegate = fetchedResultsControllerDelegate
         fetchedResultsController = frc
 
