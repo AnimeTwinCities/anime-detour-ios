@@ -165,6 +165,6 @@ class InformationViewController: UITableViewController {
         }
 
         let urlString = "http://maps.apple.com/?q=\(query)"
-        UIApplication.shared.openURL(URL(string: urlString)!)
+        UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
     }
 }

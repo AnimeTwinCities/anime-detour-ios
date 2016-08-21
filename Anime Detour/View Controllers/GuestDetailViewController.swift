@@ -169,7 +169,7 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
         if request.url == URL(string: "about:blank") {
             return true
         } else {
-            UIApplication.shared.openURL(request.url!)
+            UIApplication.shared.open(request.url!, options: [:], completionHandler: nil)
             return false
         }
     }
