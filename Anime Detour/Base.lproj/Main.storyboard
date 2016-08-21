@@ -412,7 +412,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TitleReuseIdentifier" id="Alo-Ic-uM4">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DateReuseIdentifier" id="Alo-Ic-uM4">
                                         <rect key="frame" x="0.0" y="264" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Alo-Ic-uM4" id="0WA-bS-mx7">
@@ -438,7 +438,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DateReuseIdentifier" id="KJC-gi-SQ2">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapLinkReuseIdentifier" id="KJC-gi-SQ2" customClass="MapLinkCell" customModule="Anime_Detour" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="308" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KJC-gi-SQ2" id="xaT-U9-w9j">
@@ -466,6 +466,9 @@
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="linkButton" destination="anM-ug-uru" id="Zf0-ru-CdH"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -574,7 +577,6 @@
                     <navigationItem key="navigationItem" title="Anime Detour 2016" id="nMS-Wl-yAg"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="logoIdentifier" value="LogoReuseIdentifier"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="titleIdentifier" value="TitleReuseIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="dateIdentifier" value="DateReuseIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="mapLinkIdentifier" value="MapLinkReuseIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="weaponsPolicyIdentifier" value="WeaponsPolicyReuseIdentifier"/>

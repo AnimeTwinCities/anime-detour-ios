@@ -16,7 +16,6 @@ class InformationViewController: UITableViewController {
     // MARK: - Cell reuse identifiers
 
     @IBInspectable var logoIdentifier: String!
-    @IBInspectable var titleIdentifier: String!
     @IBInspectable var dateIdentifier: String!
     @IBInspectable var mapLinkIdentifier: String!
     @IBInspectable var harassmentPolicyIdentifier: String!
@@ -78,8 +77,6 @@ class InformationViewController: UITableViewController {
                 
                 imageView.image = image
             }
-            break
-        case titleIdentifier?:
             break
         case dateIdentifier?:
             break
@@ -166,5 +163,35 @@ class InformationViewController: UITableViewController {
 
         let urlString = "http://maps.apple.com/?q=\(query)"
         UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
+    }
+}
+
+class MapLinkCell: UITableViewCell {
+    @IBOutlet var linkButton: UIButton!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let title = linkButton.title(for: .normal)!
+        
+        let font: UIFont = (linkButton.titleLabel?.font)!
+        let fontHeight = font.capHeight + abs(font.descender)
+        
+        let markerImage = #imageLiteral(resourceName: "map_marker")
+        let imageHeight = 20 as CGFloat
+        
+        let iconAttachment = NSTextAttachment()
+        iconAttachment.image = markerImage
+        iconAttachment.bounds = CGRect(x: -3, y: (fontHeight - imageHeight) / 2, width: imageHeight, height: imageHeight)
+        
+        let iconString = NSAttributedString(attachment: iconAttachment)
+        let textString = NSAttributedString(string: " " + title)
+        
+        // Need a space before the image attachment for the image to use the tint color
+        let attributedLink = NSMutableAttributedString(string: " ")
+        attributedLink.append(iconString)
+        attributedLink.append(textString)
+        
+        linkButton.setAttributedTitle(attributedLink, for: .normal)
     }
 }
