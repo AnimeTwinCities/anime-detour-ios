@@ -1,0 +1,6 @@
+framework module Pods_Anime_Detour {
+  umbrella header "Pods-Anime Detour-umbrella.h"
+
+  export *
+  module * { export * }
+}

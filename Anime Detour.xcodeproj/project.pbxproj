@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		131E853CBE8DA6A3B7E54D2B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB42EA03A5C9F3E6AA640554 /* Pods.framework */; };
+		174BD80F9AFA4016A579F4E8 /* Pods-Anime Detour-metadata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F1DC284ACDBFFC178E68293 /* Pods-Anime Detour-metadata.plist */; };
+		99C56289BA1E49DBB82753A0 /* Pods-Anime Detour-settings-metadata.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD12C81899996795612C922F /* Pods-Anime Detour-settings-metadata.plist */; };
+		AC8A1E32BBA4BEBBEFD1EC60 /* Pods_Anime_Detour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB4102D50A27880DD5B334A4 /* Pods_Anime_Detour.framework */; };
 		DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DA0E971F1CA23CFA00043A30 /* Settings.bundle */; };
 		DA2F3C3F1CA7926B00939929 /* InsettableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2F3C3E1CA7926B00939929 /* InsettableLabel.swift */; };
 		DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */; };
@@ -128,8 +130,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0EDC32C1F49B201EDB48C6C7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		89845D4298D7D6831C8AF0FC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		42DA6BF0139218A3CD58635B /* Pods-Anime Detour.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Anime Detour.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Anime Detour/Pods-Anime Detour.debug.xcconfig"; sourceTree = "<group>"; };
+		5A8B79499DEC7841F2E2B6FD /* Pods-Anime Detour.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Anime Detour.release.xcconfig"; path = "Pods/Target Support Files/Pods-Anime Detour/Pods-Anime Detour.release.xcconfig"; sourceTree = "<group>"; };
+		7F1DC284ACDBFFC178E68293 /* Pods-Anime Detour-metadata.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "Pods-Anime Detour-metadata.plist"; path = "Pods/Pods-Anime Detour-metadata.plist"; sourceTree = "<group>"; };
+		AB4102D50A27880DD5B334A4 /* Pods_Anime_Detour.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Anime_Detour.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD12C81899996795612C922F /* Pods-Anime Detour-settings-metadata.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "Pods-Anime Detour-settings-metadata.plist"; path = "Anime Detour/Resources/Settings.bundle/Pods-Anime Detour-settings-metadata.plist"; sourceTree = "<group>"; };
 		DA0E971F1CA23CFA00043A30 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		DA2F3C3E1CA7926B00939929 /* InsettableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsettableLabel.swift; sourceTree = "<group>"; };
 		DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_1.pdf"; sourceTree = "<group>"; };
@@ -209,7 +214,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				131E853CBE8DA6A3B7E54D2B /* Pods.framework in Frameworks */,
+				AC8A1E32BBA4BEBBEFD1EC60 /* Pods_Anime_Detour.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,19 +228,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5C1A20F1181952C60234AEEB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				89845D4298D7D6831C8AF0FC /* Pods.debug.xcconfig */,
-				0EDC32C1F49B201EDB48C6C7 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		BBA15183FEF1DA24167747C7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				FB42EA03A5C9F3E6AA640554 /* Pods.framework */,
+				AB4102D50A27880DD5B334A4 /* Pods_Anime_Detour.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -454,10 +451,10 @@
 				DA96520F1CA23BBB00EA4112 /* Anime Detour */,
 				DAFCAF591CACAA0200100BB8 /* Anime Detour Screenshots */,
 				DA96520E1CA23BBB00EA4112 /* Products */,
-				5C1A20F1181952C60234AEEB /* Pods */,
 				BBA15183FEF1DA24167747C7 /* Frameworks */,
 				DA90BDE81CA23F17006A5ACD /* Anime Detour API.xcodeproj */,
 				DA90BDEE1CA23F1F006A5ACD /* Anime Detour Data Model.xcodeproj */,
+				E2F4643D5F77E216F522729A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -511,6 +508,17 @@
 			path = "Anime Detour Screenshots";
 			sourceTree = "<group>";
 		};
+		E2F4643D5F77E216F522729A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				42DA6BF0139218A3CD58635B /* Pods-Anime Detour.debug.xcconfig */,
+				5A8B79499DEC7841F2E2B6FD /* Pods-Anime Detour.release.xcconfig */,
+				7F1DC284ACDBFFC178E68293 /* Pods-Anime Detour-metadata.plist */,
+				CD12C81899996795612C922F /* Pods-Anime Detour-settings-metadata.plist */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -518,13 +526,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA96521F1CA23BBB00EA4112 /* Build configuration list for PBXNativeTarget "Anime Detour" */;
 			buildPhases = (
-				2C7D70240DFB5B6AA0412A26 /* Check Pods Manifest.lock */,
+				5FBD6F4E38409E22ABE6AEBE /* [CP] Check Pods Manifest.lock */,
 				DA9652091CA23BBB00EA4112 /* Sources */,
 				DA96520A1CA23BBB00EA4112 /* Frameworks */,
 				DA96520B1CA23BBB00EA4112 /* Resources */,
-				AB53C9251037F00B1A0F364F /* Embed Pods Frameworks */,
-				523DAB4062575C338C7ADAB5 /* Copy Pods Resources */,
 				DA90BDF81CA23F33006A5ACD /* Copy Frameworks */,
+				9BD9C23A055233993F4F85CD /* [CP] Embed Pods Frameworks */,
+				7016CF5C3354DACCA9675462 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -639,6 +647,8 @@
 				DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */,
 				DA53F2911CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite in Resources */,
 				DAA05C771CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist in Resources */,
+				174BD80F9AFA4016A579F4E8 /* Pods-Anime Detour-metadata.plist in Resources */,
+				99C56289BA1E49DBB82753A0 /* Pods-Anime Detour-settings-metadata.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,14 +662,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2C7D70240DFB5B6AA0412A26 /* Check Pods Manifest.lock */ = {
+		5FBD6F4E38409E22ABE6AEBE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -667,34 +677,34 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		523DAB4062575C338C7ADAB5 /* Copy Pods Resources */ = {
+		7016CF5C3354DACCA9675462 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Anime Detour/Pods-Anime Detour-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AB53C9251037F00B1A0F364F /* Embed Pods Frameworks */ = {
+		9BD9C23A055233993F4F85CD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Anime Detour/Pods-Anime Detour-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -895,7 +905,7 @@
 		};
 		DA9652201CA23BBB00EA4112 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89845D4298D7D6831C8AF0FC /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 42DA6BF0139218A3CD58635B /* Pods-Anime Detour.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -911,7 +921,7 @@
 		};
 		DA9652211CA23BBB00EA4112 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EDC32C1F49B201EDB48C6C7 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 5A8B79499DEC7841F2E2B6FD /* Pods-Anime Detour.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

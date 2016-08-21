@@ -13,4 +13,6 @@ SPEC CHECKSUMS:
   FXForms: 724500c0c3f3eb3ba1004b3b83abcee55d3daf18
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 550d241ac9eedacd6c8c0421cd1fbca50aa589db
+
+COCOAPODS: 1.0.1

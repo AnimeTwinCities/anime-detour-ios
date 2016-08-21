@@ -9,7 +9,8 @@ pod 'Aspects'
 pod 'GoogleAnalytics'
 pod 'FXForms', '~> 1.2.0'
 
-post_install do | installer |
-  require 'fileutils'
-  FileUtils.cp_r('Pods/Target Support Files/Pods/Pods-Acknowledgements.plist', 'Anime Detour/Resources/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
-end
+plugin 'cocoapods-acknowledgements', :settings_bundle => true , :settings_post_process => Proc.new { |settings_plist_path, umbrella_target|
+  puts settings_plist_path
+  puts umbrella_target.cocoapods_target_label
+}
+

@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>PreferenceSpecifiers</key>
-    <array>
-        <dict>
-            <key>Type</key>
-            <string>PSChildPaneSpecifier</string>
-            <key>Title</key>
-            <string>Asset Acknowledgements</string>
-            <key>File</key>
-            <string>AssetAcknowledgements</string>
-        </dict>
-        <dict>
-            <key>Type</key>
-            <string>PSChildPaneSpecifier</string>
-            <key>Title</key>
-            <string>Code Acknowledgements</string>
-            <key>File</key>
-            <string>Acknowledgements</string>
-        </dict>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Asset Acknowledgements</string>
+			<key>File</key>
+			<string>AssetAcknowledgements</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Code Acknowledgements</string>
+			<key>File</key>
+			<string>Pods-Anime Detour-settings-metadata</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
