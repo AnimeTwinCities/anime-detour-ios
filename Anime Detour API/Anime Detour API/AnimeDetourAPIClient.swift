@@ -48,7 +48,7 @@ open class AnimeDetourAPIClient {
     
     // MARK: - Endpoint Methods
     
-    open func guestList(_ completionHandler: APICompletionHandler) -> URLSessionDataTask? {
+    open func guestList(_ completionHandler: @escaping APICompletionHandler) -> URLSessionDataTask? {
         let url = self.url(fromEndpoint: .guestList)
         let request = URLRequest(url: url)
         let dataTask = self.urlSession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: NSError?) -> Void in
@@ -79,7 +79,7 @@ open class AnimeDetourAPIClient {
         return dataTask
     }
     
-    open func sessionList(_ completionHandler: APICompletionHandler) -> URLSessionDataTask? {
+    open func sessionList(_ completionHandler: @escaping APICompletionHandler) -> URLSessionDataTask? {
         let url = self.url(fromEndpoint: .sessionList)
         let request = URLRequest(url: url)
         let dataTask = self.urlSession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: NSError?) -> Void in
