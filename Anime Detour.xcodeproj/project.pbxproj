@@ -20,7 +20,6 @@
 		DA90BDA91CA23E07006A5ACD /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */; };
 		DA90BDAA1CA23E07006A5ACD /* AnalyticsViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD661CA23E07006A5ACD /* AnalyticsViewControllers.swift */; };
 		DA90BDAB1CA23E07006A5ACD /* GAIDictionaryBuilder_AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD671CA23E07006A5ACD /* GAIDictionaryBuilder_AnalyticsConstants.swift */; };
-		DA90BDAC1CA23E07006A5ACD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA90BD6B1CA23E07006A5ACD /* Info.plist */; };
 		DA90BDAD1CA23E07006A5ACD /* AnimeDetourAPIClient_Guests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD6D1CA23E07006A5ACD /* AnimeDetourAPIClient_Guests.swift */; };
 		DA90BDAE1CA23E07006A5ACD /* AnimeDetourAPIClient_Sessions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD6E1CA23E07006A5ACD /* AnimeDetourAPIClient_Sessions.swift */; };
 		DA90BDAF1CA23E07006A5ACD /* AnimeDetourAPIClient_Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD6F1CA23E07006A5ACD /* AnimeDetourAPIClient_Singleton.swift */; };
@@ -146,8 +145,6 @@
 		DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
 		DA90BD661CA23E07006A5ACD /* AnalyticsViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsViewControllers.swift; sourceTree = "<group>"; };
 		DA90BD671CA23E07006A5ACD /* GAIDictionaryBuilder_AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAIDictionaryBuilder_AnalyticsConstants.swift; sourceTree = "<group>"; };
-		DA90BD6A1CA23E07006A5ACD /* Anime Detour Data Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Anime Detour Data Model.h"; sourceTree = "<group>"; };
-		DA90BD6B1CA23E07006A5ACD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA90BD6D1CA23E07006A5ACD /* AnimeDetourAPIClient_Guests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetourAPIClient_Guests.swift; sourceTree = "<group>"; };
 		DA90BD6E1CA23E07006A5ACD /* AnimeDetourAPIClient_Sessions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetourAPIClient_Sessions.swift; sourceTree = "<group>"; };
 		DA90BD6F1CA23E07006A5ACD /* AnimeDetourAPIClient_Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetourAPIClient_Singleton.swift; sourceTree = "<group>"; };
@@ -273,23 +270,6 @@
 				DA90BD671CA23E07006A5ACD /* GAIDictionaryBuilder_AnalyticsConstants.swift */,
 			);
 			path = Analytics;
-			sourceTree = "<group>";
-		};
-		DA90BD681CA23E07006A5ACD /* Anime Detour Data Model */ = {
-			isa = PBXGroup;
-			children = (
-				DA90BD691CA23E07006A5ACD /* Anime Detour Data Model */,
-			);
-			path = "Anime Detour Data Model";
-			sourceTree = "<group>";
-		};
-		DA90BD691CA23E07006A5ACD /* Anime Detour Data Model */ = {
-			isa = PBXGroup;
-			children = (
-				DA90BD6A1CA23E07006A5ACD /* Anime Detour Data Model.h */,
-				DA90BD6B1CA23E07006A5ACD /* Info.plist */,
-			);
-			path = "Anime Detour Data Model";
 			sourceTree = "<group>";
 		};
 		DA90BD6C1CA23E07006A5ACD /* API Client */ = {
@@ -472,7 +452,6 @@
 			children = (
 				DA90BD621CA23E07006A5ACD /* 3D Touch */,
 				DA90BD631CA23E07006A5ACD /* Analytics */,
-				DA90BD681CA23E07006A5ACD /* Anime Detour Data Model */,
 				DA90BD6C1CA23E07006A5ACD /* API Client */,
 				DA90BD701CA23E07006A5ACD /* Base.lproj */,
 				DA90BD731CA23E07006A5ACD /* Collection View Support */,
@@ -641,7 +620,6 @@
 				DA5342001CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf in Resources */,
 				DA90BDB01CA23E07006A5ACD /* Main.storyboard in Resources */,
 				DA90BDB71CA23E07006A5ACD /* Images.xcassets in Resources */,
-				DA90BDAC1CA23E07006A5ACD /* Info.plist in Resources */,
 				DA9652161CA23BBB00EA4112 /* Main.storyboard in Resources */,
 				DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */,
 				DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */,
