@@ -17,7 +17,7 @@ import AnimeDetourDataModel
 class GuestCollectionViewController: UICollectionViewController, CollectionViewFetchedResultsControllerCellCustomizer {
     // MARK: Images
 
-    lazy var imageSession: URLSession = URLSession.shared
+    lazy var photoDownloader: PhotoDownloader = PhotoDownloader()
     
     // MARK: Segues
 
@@ -170,8 +170,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         let cell = cell as! GuestCollectionViewCell
 
         let guest = guestAt(indexPath)
-        let viewModel =  GuestViewModel(guest: guest, imageSession: imageSession)
-        viewModel.delegate = self
+        let viewModel =  GuestViewModel(guest: guest, photoDownloader: photoDownloader)
         cell.viewModel = viewModel
 
         // lol separation of concerns
@@ -201,8 +200,7 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
                 let results = try! managedObjectContext.fetch(fetchRequest)
                 let guest = results.first!
                 
-                viewModel = GuestViewModel(guest: guest, imageSession: imageSession)
-                viewModel.delegate = self
+                viewModel = GuestViewModel(guest: guest, photoDownloader: photoDownloader)
             default:
                 preconditionFailure("Unexpected segue sender.")
             }
@@ -214,53 +212,5 @@ class GuestCollectionViewController: UICollectionViewController, CollectionViewF
         default:
             fatalError("Unexpected segue encountered.")
         }
-    }
-
-}
-
-private extension GuestCollectionViewController {
-    func findFaceFor(_ photo: UIImage, forGuestWithID guestObjectID: NSManagedObjectID, inContext context: NSManagedObjectContext) {
-        faceDetector.findFace(photo) { [weak self, weak context] face in
-            // Though we don't need `self`, skip doing any work if `self` no longer exists.
-            guard let _ = self, let context = context else { return }
-            context.perform({ () -> Void in
-                guard let guest = context.object(with: guestObjectID) as? Guest else {
-                    return
-                }
-                
-                guest.hiResPhotoFaceBoundsRect = face
-                do {
-                    try context.save()
-                } catch {
-                    NSLog("Error saving after finding a face in a guest image: %@", error as NSError)
-                }
-            })
-        }
-    }
-}
-
-extension GuestCollectionViewController: GuestViewModelDelegate {
-    // MARK: - Guest View Model Delegate
-
-    func didDownloadPhoto(_ viewModel: GuestViewModel, photo: UIImage, hiRes: Bool) {
-        DispatchQueue.main.async { [weak self, guestObjectID = viewModel.guestObjectID] () -> Void in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            // Skip face logic for low-res photos
-            guard hiRes else { return }
-            
-            let context = strongSelf.managedObjectContext
-            if let guest = context.object(with: guestObjectID) as? Guest, let faceLocation = guest.hiResPhotoFaceBoundsRect {
-                viewModel.photoFaceLocation = faceLocation
-            } else {
-                strongSelf.findFaceFor(photo, forGuestWithID: guestObjectID, inContext: context)
-            }
-        }
-    }
-
-    func didFailDownloadingPhoto(_ viewModel: GuestViewModel, error: NSError) {
-        // empty
     }
 }

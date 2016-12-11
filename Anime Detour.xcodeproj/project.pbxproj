@@ -10,6 +10,9 @@
 		174BD80F9AFA4016A579F4E8 /* Pods-Anime Detour-metadata.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F1DC284ACDBFFC178E68293 /* Pods-Anime Detour-metadata.plist */; };
 		99C56289BA1E49DBB82753A0 /* Pods-Anime Detour-settings-metadata.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD12C81899996795612C922F /* Pods-Anime Detour-settings-metadata.plist */; };
 		AC8A1E32BBA4BEBBEFD1EC60 /* Pods_Anime_Detour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB4102D50A27880DD5B334A4 /* Pods_Anime_Detour.framework */; };
+		DA0C2AC91DFDD8CF00A2F979 /* GuestFaceFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C2AC81DFDD8CF00A2F979 /* GuestFaceFinder.swift */; };
+		DA0C2ACB1DFDD8FA00A2F979 /* PhotoDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C2ACA1DFDD8FA00A2F979 /* PhotoDownloader.swift */; };
+		DA0C2ACD1DFDDDD500A2F979 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C2ACC1DFDDDD500A2F979 /* Result.swift */; };
 		DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DA0E971F1CA23CFA00043A30 /* Settings.bundle */; };
 		DA2F3C3F1CA7926B00939929 /* InsettableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2F3C3E1CA7926B00939929 /* InsettableLabel.swift */; };
 		DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */; };
@@ -134,6 +137,9 @@
 		7F1DC284ACDBFFC178E68293 /* Pods-Anime Detour-metadata.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "Pods-Anime Detour-metadata.plist"; path = "Pods/Pods-Anime Detour-metadata.plist"; sourceTree = "<group>"; };
 		AB4102D50A27880DD5B334A4 /* Pods_Anime_Detour.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Anime_Detour.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD12C81899996795612C922F /* Pods-Anime Detour-settings-metadata.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "Pods-Anime Detour-settings-metadata.plist"; path = "Anime Detour/Resources/Settings.bundle/Pods-Anime Detour-settings-metadata.plist"; sourceTree = "<group>"; };
+		DA0C2AC81DFDD8CF00A2F979 /* GuestFaceFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestFaceFinder.swift; sourceTree = "<group>"; };
+		DA0C2ACA1DFDD8FA00A2F979 /* PhotoDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDownloader.swift; sourceTree = "<group>"; };
+		DA0C2ACC1DFDDDD500A2F979 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		DA0E971F1CA23CFA00043A30 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		DA2F3C3E1CA7926B00939929 /* InsettableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsettableLabel.swift; sourceTree = "<group>"; };
 		DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_1.pdf"; sourceTree = "<group>"; };
@@ -328,8 +334,10 @@
 			isa = PBXGroup;
 			children = (
 				DA90BD811CA23E07006A5ACD /* DataStatusDefaultsController.swift */,
+				DA0C2AC81DFDD8CF00A2F979 /* GuestFaceFinder.swift */,
 				DA90BD821CA23E07006A5ACD /* ImageFaceDetector.swift */,
 				DA90BD831CA23E07006A5ACD /* NotificationPermissionRequester.swift */,
+				DA0C2ACA1DFDD8FA00A2F979 /* PhotoDownloader.swift */,
 				DA90BD841CA23E07006A5ACD /* SessionNotificationScheduler.swift */,
 				DA90BD851CA23E07006A5ACD /* UserDefaultsUpdater.swift */,
 			);
@@ -339,6 +347,7 @@
 		DA90BD861CA23E07006A5ACD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DA0C2ACC1DFDDDD500A2F979 /* Result.swift */,
 				DA90BD871CA23E07006A5ACD /* SelectedSessionCategory.swift */,
 				DA90BD881CA23E07006A5ACD /* Settings */,
 			);
@@ -706,6 +715,7 @@
 				DA90BDBE1CA23E07006A5ACD /* UserDefaultsUpdater.swift in Sources */,
 				DA90BDC51CA23E07006A5ACD /* GuestCollectionViewController.swift in Sources */,
 				DA90BDC91CA23E07006A5ACD /* SessionCollectionViewController.swift in Sources */,
+				DA0C2ACD1DFDDDD500A2F979 /* Result.swift in Sources */,
 				DA90BDB41CA23E07006A5ACD /* TableViewFetchedResultsControllerDelegate.swift in Sources */,
 				DA90BDC41CA23E07006A5ACD /* UserActivityController.swift in Sources */,
 				DA90BDD91CA23E07006A5ACD /* StretchingImageHeaderContainer.swift in Sources */,
@@ -715,6 +725,7 @@
 				DA90BDB21CA23E07006A5ACD /* SessionDataSource.swift in Sources */,
 				DA90BDD41CA23E07006A5ACD /* SegmentedControlCollectionReusableView.swift in Sources */,
 				DABABF051CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift in Sources */,
+				DA0C2AC91DFDD8CF00A2F979 /* GuestFaceFinder.swift in Sources */,
 				DA90BDBB1CA23E07006A5ACD /* ImageFaceDetector.swift in Sources */,
 				DA90BDC81CA23E07006A5ACD /* MapsViewController.swift in Sources */,
 				DA90BDB31CA23E07006A5ACD /* CollectionViewFetchedResultsControllerDelegate.swift in Sources */,
@@ -734,6 +745,7 @@
 				DA2F3C3F1CA7926B00939929 /* InsettableLabel.swift in Sources */,
 				DA90BDCF1CA23E07006A5ACD /* GuestViewModel.swift in Sources */,
 				DA90BDB51CA23E07006A5ACD /* UICollectionViewFlowLayout.swift in Sources */,
+				DA0C2ACB1DFDD8FA00A2F979 /* PhotoDownloader.swift in Sources */,
 				DA90BDD11CA23E07006A5ACD /* FaceDisplayingImageView.swift in Sources */,
 				DA90BDDA1CA23E07006A5ACD /* TextHeaderCollectionReusableView.swift in Sources */,
 				DA90BDC61CA23E07006A5ACD /* GuestDetailViewController.swift in Sources */,

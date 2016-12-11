@@ -22,14 +22,12 @@ class GuestViewModel: Equatable {
     let guest: Guest
     let guestObjectID: NSManagedObjectID
     fileprivate let managedObjectContext: NSManagedObjectContext
-    fileprivate let imageSession: URLSession
+    fileprivate let photoDownloader: PhotoDownloader
 
     let name: String
     let bio: String
     let category: String
     let hiResFaceBounds: CGRect?
-
-    var delegate: GuestViewModelDelegate?
 
     fileprivate let photoPath: String
     fileprivate let hiResPhotoPath: String
@@ -50,22 +48,17 @@ class GuestViewModel: Equatable {
     fileprivate(set) var hiResPhoto: UIImage?
     var photoFaceLocation: CGRect?
 
-    // Store our download tasks to cancel them in deinit,
-    // if they are still running at that time.
-    fileprivate var photoDataTask: URLSessionDataTask?
-    fileprivate var hiResPhotoDataTask: URLSessionDataTask?
-
     /**
     Create an instance.
     
     - parameter guest: The guest model which this object will represent. Its `managedObjectContext` must
     be a queue-based concurrency type context. `MainQueueConcurrencyType` is recommended.
     */
-    init(guest: Guest, imageSession: URLSession) {
+    init(guest: Guest, photoDownloader: PhotoDownloader) {
         self.guest = guest
         self.guestObjectID = guest.objectID
         self.managedObjectContext = guest.managedObjectContext!
-        self.imageSession = imageSession
+        self.photoDownloader = photoDownloader
 
         self.name = "\(guest.firstName) \(guest.lastName)"
         self.bio = guest.bio
@@ -96,30 +89,20 @@ class GuestViewModel: Equatable {
         }
 
         let url = URL(string: self.photoPath)!
-        let photoTask = self.imageSession.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: NSError?) -> Void in
-            guard let strongSelf = self else {
+        photoDownloader.downloadPhoto(at: url) { [weak self, guestObjectID, moc = managedObjectContext] result in
+            guard case let .success(photo) = result else {
                 return
             }
             
-            if let error = error {
-                strongSelf.delegate?.didFailDownloadingPhoto(strongSelf, error: error)
-                return
-            }
+            self?.photo = photo
             
-            guard let image = data.flatMap(UIImage.init) else {
-                return
-            }
-            
-            strongSelf.photo = image
-            
-            let moc = strongSelf.managedObjectContext
-            moc.performAndWait {
-                guard let guest = moc.object(with: strongSelf.guestObjectID) as? Guest else {
+            moc.perform {
+                guard let guest = moc.object(with: guestObjectID) as? Guest else {
                     NSLog("Couldn't find our guest object after downloading their photo. Maybe it was deleted?")
                     return
                 }
                 
-                guest.photo = image
+                guest.photo = photo
                 do {
                     try moc.save()
                 } catch {
@@ -127,11 +110,7 @@ class GuestViewModel: Equatable {
                     NSLog("Error saving after downloading regular resolution image: \(error)")
                 }
             }
-            
-            strongSelf.delegate?.didDownloadPhoto(strongSelf, photo: image, hiRes: false)
-        } as! (Data?, URLResponse?, Error?) -> Void)
-        self.photoDataTask = photoTask
-        photoTask.resume()
+        }
 
         return nil
     }
@@ -167,27 +146,19 @@ class GuestViewModel: Equatable {
             return returnMethod()
         }
         
-        let hiResPhotoTask = self.imageSession.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: NSError?) -> Void in
-            guard let strongSelf = self else {
+        photoDownloader.downloadPhoto(at: url) { [weak self, guestObjectID, moc = managedObjectContext] result in
+            guard case let .success(photo) = result else {
                 return
             }
             
-            if let error = error {
-                strongSelf.delegate?.didFailDownloadingPhoto(strongSelf, error: error)
-                return
-            }
+            self?.hiResPhoto = photo
             
-            guard let image = data.flatMap({ UIImage(data: $0) }) else {
-                return
-            }
-            
-            let moc = strongSelf.managedObjectContext
-            moc.performAndWait {
-                guard let guest = moc.object(with: strongSelf.guestObjectID) as? Guest else {
+            moc.perform {
+                guard let guest = moc.object(with: guestObjectID) as? Guest else {
                     return
                 }
                 
-                guest.hiResPhoto = image
+                guest.hiResPhoto = photo
                 do {
                     try moc.save()
                 } catch {
@@ -195,26 +166,12 @@ class GuestViewModel: Equatable {
                     NSLog("Error saving after downloading high resolution image: \(error)")
                 }
             }
-            
-            strongSelf.delegate?.didDownloadPhoto(strongSelf, photo: image, hiRes: true)
-            } as! (Data?, URLResponse?, Error?) -> Void)
-        self.hiResPhotoDataTask = hiResPhotoTask
-        hiResPhotoTask.resume()
+        }
         
         return returnMethod()
-    }
-    
-    deinit {
-        self.photoDataTask?.cancel()
-        self.hiResPhotoDataTask?.cancel()
     }
 }
 
 func ==(obj1: GuestViewModel, obj2: GuestViewModel) -> Bool {
     return obj1.guest.objectID.isEqual(obj2.guest.objectID)
-}
-
-protocol GuestViewModelDelegate {
-    func didDownloadPhoto(_ viewModel: GuestViewModel, photo: UIImage, hiRes: Bool)
-    func didFailDownloadingPhoto(_ viewModel: GuestViewModel, error: NSError)
 }

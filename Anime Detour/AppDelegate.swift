@@ -15,13 +15,17 @@ import AnimeDetourAPI
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     static var persistentContainer: NSPersistentContainer {
-        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+        return shared.persistentContainer
+    }
+    
+    static var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
     }
 
     var window: UIWindow?
 
-    lazy var apiClient = AnimeDetourAPIClient.sharedInstance
-    lazy var persistentContainer = AppDelegate.createPersistentContainer()
+    lazy private(set) var apiClient = AnimeDetourAPIClient.sharedInstance
+    lazy private(set) var persistentContainer = AppDelegate.createPersistentContainer()
     
     // MARK: - Notifications
     
