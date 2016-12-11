@@ -144,7 +144,7 @@ class GuestDetailViewController: UIViewController, UIScrollViewDelegate, UIWebVi
     // MARK: - NSObject (KVO)
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard "hiResPhoto" == keyPath && photoContext == context else {
+        guard #keyPath(Guest.hiResPhoto) == keyPath && photoContext == context else {
             return super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
         
