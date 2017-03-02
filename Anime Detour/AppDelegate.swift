@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    lazy private(set) var apiClient = AnimeDetourAPIClient.sharedInstance
     lazy private(set) var persistentContainer = AppDelegate.createPersistentContainer()
     
     private let firebaseCoordinator = FirebaseCoordinator()
@@ -108,13 +107,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dataStatusDefaultsController.sessionsFetchRequired = true
         }
 
-        persistentContainer.performBackgroundTask { [apiClient, dataStatusDefaultsController] backgroundContext in
+        persistentContainer.performBackgroundTask { [dataStatusDefaultsController] backgroundContext in
             if dataStatusDefaultsController.sessionsFetchRequired {
-                apiClient.fetchSessions(dataStatusDefaultsController, managedObjectContext: backgroundContext)
+                // empty
             }
             
             if dataStatusDefaultsController.guestsFetchRequired {
-                apiClient.fetchGuests(dataStatusDefaultsController, managedObjectContext: backgroundContext)
+                // empty
             }
         }
         

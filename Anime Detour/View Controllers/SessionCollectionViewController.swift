@@ -15,7 +15,6 @@ import AnimeDetourAPI
 class SessionCollectionViewController: UICollectionViewController {
     fileprivate var imagesURLSession = URLSession.shared
     lazy fileprivate var refreshingTableViewController: UITableViewController = UITableViewController()
-    lazy fileprivate var apiClient = AnimeDetourAPIClient.sharedInstance
     fileprivate var refreshing: Bool = false {
         didSet {
             if refreshing {
@@ -369,18 +368,7 @@ class SessionCollectionViewController: UICollectionViewController {
     }
     
     @objc fileprivate func refreshSessions(_ sender: AnyObject?) {
-        guard !refreshing else {
-            return
-        }
-        
-        refreshing = true
-        AppDelegate.persistentContainer.performBackgroundTask { [apiClient] moc in
-            apiClient.refreshSessions(moc) {
-                DispatchQueue.main.async {
-                    self.refreshing = false
-                }
-            }
-        }
+        // empty
     }
     
     // MARK: - Navigation
