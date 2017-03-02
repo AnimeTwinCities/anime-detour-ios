@@ -34,21 +34,11 @@ extension UIViewController {
     }
 }
 
-extension SessionCollectionViewController: AnalyticsScreen {
+extension SessionsViewController: AnalyticsScreen {
     var screenName: String { return "Schedule" }
 }
 
-extension SessionTableViewController: AnalyticsScreen {
-    var screenName: String {
-        if self.bookmarkedOnly {
-            return "Favorites"
-        } else {
-            return "Schedule Search"
-        }
-    }
-}
-
-extension SessionViewController: AnalyticsScreen {
+extension SessionDetailViewController: AnalyticsScreen {
     var screenName: String { return "Event" }
 }
 
@@ -56,11 +46,11 @@ extension SessionFilterTableViewController: AnalyticsScreen {
     var screenName: String { return "Schedule Filter" }
 }
 
-extension GuestCollectionViewController: AnalyticsScreen {
+extension SpeakersViewController: AnalyticsScreen {
     var screenName: String { return "Guests" }
 }
 
-extension GuestDetailViewController: AnalyticsScreen {
+extension SpeakerDetailViewController: AnalyticsScreen {
     var screenName: String { return "Guest Detail" }
 }
 
@@ -68,6 +58,6 @@ extension MapsViewController: AnalyticsScreen {
     var screenName: String { return "Map" }
 }
 
-extension SettingsViewController: AnalyticsScreen {
+extension InformationViewController: AnalyticsScreen {
     var screenName: String { return "Settings" }
 }

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pX8-fX-g2G">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12084"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Google Sign In View Controller-->
+        <scene sceneID="Dd8-ij-FTB">
+            <objects>
+                <viewController id="9Rg-iE-zyK" customClass="GoogleSignInViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LzL-a9-Rtl"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rf2-Ff-d4Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HaJ-Jb-TQK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="iqi-1G-svm">
+                                <rect key="frame" x="16" y="64" width="343" height="149"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Google to sync your agenda with the DevFestMN web site." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i03-Q8-dee">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="50" translatesAutoresizingMaskIntoConstraints="NO" id="tLa-vg-UdK" customClass="GIDSignInButton">
+                                        <rect key="frame" x="171.5" y="53" width="0.0" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhN-5A-8kV" customClass="PillButtonContainerView" customModule="Anime_Detour" customModuleProvider="target">
+                                        <rect key="frame" x="121.5" y="115" width="100" height="34"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dif-7Q-Qs9">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="34"/>
+                                                <state key="normal" title="Sign Out"/>
+                                                <connections>
+                                                    <action selector="signOut:" destination="9Rg-iE-zyK" eventType="touchUpInside" id="H9U-pe-euD"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Dif-7Q-Qs9" secondAttribute="trailing" id="6dx-V3-Stc"/>
+                                            <constraint firstItem="Dif-7Q-Qs9" firstAttribute="top" secondItem="fhN-5A-8kV" secondAttribute="top" id="E4D-mR-6CB"/>
+                                            <constraint firstItem="Dif-7Q-Qs9" firstAttribute="leading" secondItem="fhN-5A-8kV" secondAttribute="leading" id="QIO-8F-blq"/>
+                                            <constraint firstAttribute="bottom" secondItem="Dif-7Q-Qs9" secondAttribute="bottom" id="oQh-Q8-LS4"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="button" destination="Dif-7Q-Qs9" id="HEI-aS-n6r"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="iqi-1G-svm" secondAttribute="trailing" id="Cow-mA-9Vf"/>
+                            <constraint firstItem="iqi-1G-svm" firstAttribute="top" secondItem="LzL-a9-Rtl" secondAttribute="bottom" id="eH0-YE-QcK"/>
+                            <constraint firstItem="iqi-1G-svm" firstAttribute="leading" secondItem="HaJ-Jb-TQK" secondAttribute="leadingMargin" id="f5k-Fe-EXk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="descriptionLabel" destination="i03-Q8-dee" id="7wL-5u-1WV"/>
+                        <outlet property="signInButton" destination="tLa-vg-UdK" id="Wca-io-XkC"/>
+                        <outlet property="signOutButton" destination="Dif-7Q-Qs9" id="GfP-ac-2jO"/>
+                        <outlet property="topConstraint" destination="eH0-YE-QcK" id="DiS-3e-NsG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jrt-P3-FUn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2388" y="2087"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="rT3-Ev-X51">
+            <objects>
+                <viewController id="MeJ-hJ-ajG" customClass="MapViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7Kx-fC-eeV"/>
+                        <viewControllerLayoutGuide type="bottom" id="UXB-Iw-xSB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Via-kY-V5Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nYz-vs-m9z">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m4J-Wy-cE4" customClass="MapOverlayButton" customModule="Anime_Detour" customModuleProvider="target">
+                                <rect key="frame" x="274" y="617" width="85" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nYz-vs-m9z" firstAttribute="top" secondItem="Via-kY-V5Y" secondAttribute="top" id="OCh-Tt-JY9"/>
+                            <constraint firstItem="m4J-Wy-cE4" firstAttribute="trailing" secondItem="Via-kY-V5Y" secondAttribute="trailingMargin" id="SX8-2c-HGF"/>
+                            <constraint firstAttribute="trailing" secondItem="nYz-vs-m9z" secondAttribute="trailing" id="VGk-ck-7Zi"/>
+                            <constraint firstAttribute="bottom" secondItem="nYz-vs-m9z" secondAttribute="bottom" id="aEg-kf-5am"/>
+                            <constraint firstItem="UXB-Iw-xSB" firstAttribute="top" secondItem="m4J-Wy-cE4" secondAttribute="bottom" constant="16" id="jDW-zr-UPF"/>
+                            <constraint firstItem="nYz-vs-m9z" firstAttribute="leading" secondItem="Via-kY-V5Y" secondAttribute="leading" id="lno-Dc-wvn"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Map" image="map-icons8" selectedImage="map-filled-icons8" id="TgW-n4-1JQ"/>
+                    <connections>
+                        <outlet property="centerButton" destination="m4J-Wy-cE4" id="CcN-FJ-Lhn"/>
+                        <outlet property="mapView" destination="nYz-vs-m9z" id="3P7-9O-9ho"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lcc-E1-Ccc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3178" y="2458"/>
+        </scene>
+        <!--Anime Detour 2016-->
+        <scene sceneID="Ge5-Xw-52j">
+            <objects>
+                <tableViewController id="pX8-fX-g2G" customClass="InformationViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="UpP-eM-AZU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <sections>
+                            <tableViewSection id="kFN-FL-ZOO">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LogoReuseIdentifier" rowHeight="200" id="6X5-Z2-ZFt">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6X5-Z2-ZFt" id="N5a-ZY-bgb">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AD-Header-Logo-375" translatesAutoresizingMaskIntoConstraints="NO" id="PA7-Cf-iRt">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                                    <accessibility key="accessibilityConfiguration" label="Anime Detour">
+                                                        <bool key="isElement" value="YES"/>
+                                                    </accessibility>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="PA7-Cf-iRt" firstAttribute="leading" secondItem="N5a-ZY-bgb" secondAttribute="leading" id="U64-od-ZK1"/>
+                                                <constraint firstAttribute="centerY" secondItem="PA7-Cf-iRt" secondAttribute="centerY" id="aEl-op-AWr"/>
+                                                <constraint firstItem="PA7-Cf-iRt" firstAttribute="top" secondItem="N5a-ZY-bgb" secondAttribute="top" id="gnV-zW-Q5k"/>
+                                                <constraint firstAttribute="trailing" secondItem="PA7-Cf-iRt" secondAttribute="trailing" id="ilf-eB-Vu6"/>
+                                                <constraint firstAttribute="bottom" secondItem="PA7-Cf-iRt" secondAttribute="bottom" id="zcZ-zr-NXX"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DateReuseIdentifier" id="YI4-0t-AoV">
+                                        <rect key="frame" x="0.0" y="200" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YI4-0t-AoV" id="JfU-k3-UiM">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apri 22nd-24th, 2016" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9RK-bb-w4F">
+                                                    <rect key="frame" x="104.5" y="11" width="166" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="9RK-bb-w4F" secondAttribute="bottom" constant="12" id="Pw2-oZ-ZN7"/>
+                                                <constraint firstAttribute="centerX" secondItem="9RK-bb-w4F" secondAttribute="centerX" id="ZaI-Uv-9UN"/>
+                                                <constraint firstAttribute="centerY" secondItem="9RK-bb-w4F" secondAttribute="centerY" id="sBI-Vm-8Ia"/>
+                                                <constraint firstItem="9RK-bb-w4F" firstAttribute="top" secondItem="JfU-k3-UiM" secondAttribute="top" constant="11" id="vY4-lc-O3D"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Pw2-oZ-ZN7"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapLinkReuseIdentifier" id="4Pu-bp-QcT" customClass="MapLinkCell" customModule="Anime_Detour" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="244" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Pu-bp-QcT" id="UwC-cA-z2h">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpd-JK-fW0">
+                                                    <rect key="frame" x="52.5" y="7" width="270" height="30"/>
+                                                    <state key="normal" title="DoubleTree by Hilton, Bloomington, MN">
+                                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="showVenueOnMap:" destination="pX8-fX-g2G" eventType="touchUpInside" id="A8L-cN-gRR"/>
+                                                        <segue destination="MeJ-hJ-ajG" kind="show" id="64z-o5-VQO"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="zpd-JK-fW0" firstAttribute="top" secondItem="UwC-cA-z2h" secondAttribute="top" constant="7" id="AgY-KL-1jE"/>
+                                                <constraint firstAttribute="centerY" secondItem="zpd-JK-fW0" secondAttribute="centerY" id="LzY-wt-Lwp"/>
+                                                <constraint firstAttribute="bottom" secondItem="zpd-JK-fW0" secondAttribute="bottom" constant="7" id="mAU-hg-yFO"/>
+                                                <constraint firstAttribute="centerX" secondItem="zpd-JK-fW0" secondAttribute="centerX" id="rta-sj-Z2e"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="mAU-hg-yFO"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="linkButton" destination="zpd-JK-fW0" id="3fE-UA-pXj"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Information and Policies" id="5wn-3x-nhz">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WebsiteReuseIdentifier" textLabel="yOF-7R-mvd" style="IBUITableViewCellStyleDefault" id="lBw-YG-EOZ">
+                                        <rect key="frame" x="0.0" y="310" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lBw-YG-EOZ" id="CTm-x9-dGB">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Anime Detour Website" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yOF-7R-mvd">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WeaponsPolicyReuseIdentifier" textLabel="ePe-oh-oDC" style="IBUITableViewCellStyleDefault" id="k5S-XU-CtZ">
+                                        <rect key="frame" x="0.0" y="354" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k5S-XU-CtZ" id="C8e-uO-i4G">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Costume &amp; Weapons Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ePe-oh-oDC">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="HarassmentPolicyReuseIdentifier" textLabel="VXA-xt-Ddr" style="IBUITableViewCellStyleDefault" id="VjY-Wd-4gD">
+                                        <rect key="frame" x="0.0" y="398" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VjY-Wd-4gD" id="Oll-cd-YKo">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Harassment Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VXA-xt-Ddr">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LetterParentsReuseIdentifier" textLabel="i0U-z4-RsX" style="IBUITableViewCellStyleDefault" id="Szl-gM-Ynm">
+                                        <rect key="frame" x="0.0" y="442" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Szl-gM-Ynm" id="4gJ-DT-5gf">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Letter to Parents" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i0U-z4-RsX">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="App" id="Frk-P9-AF6">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsReuseIdentifier" textLabel="Mb4-gi-hyl" style="IBUITableViewCellStyleDefault" id="Gd4-bo-9mt">
+                                        <rect key="frame" x="0.0" y="508" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gd4-bo-9mt" id="IGZ-tN-rDk">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mb4-gi-hyl">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="FL4-qb-2Hy" kind="show" identifier="SettingsSegueIdentifier" id="6qA-HI-v3G">
+                                                <nil key="action"/>
+                                            </segue>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsReuseIdentifier" textLabel="iRy-Ev-jbl" style="IBUITableViewCellStyleDefault" id="m2E-2L-OcS">
+                                        <rect key="frame" x="0.0" y="552" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m2E-2L-OcS" id="LZS-fZ-s4e">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Sync" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iRy-Ev-jbl">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="9Rg-iE-zyK" kind="show" identifier="SignInSegueIdentifier" id="SOv-dZ-u8o"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="pX8-fX-g2G" id="lOT-dw-S3y"/>
+                            <outlet property="delegate" destination="pX8-fX-g2G" id="jGa-VR-9OT"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Anime Detour 2016" id="4He-HM-EC0"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="logoIdentifier" value="LogoReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dateIdentifier" value="DateReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="mapLinkIdentifier" value="MapLinkReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="weaponsPolicyIdentifier" value="WeaponsPolicyReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="letterParentsIdentifier" value="LetterParentsReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="harassmentPolicyIdentifier" value="HarassmentPolicyReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="websiteIdentifier" value="WebsiteReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="settingsSegue" value="SettingsSegueIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="settingsIdentifier" value="SettingsReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="googleSignInIdentifier" value="SignInSegueIdentifier"/>
+                    </userDefinedRuntimeAttributes>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zCR-Wu-H9N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1570" y="2457"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="d02-gm-fgl">
+            <objects>
+                <viewController title="Settings" id="FL4-qb-2Hy" customClass="SettingsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aGJ-J8-910"/>
+                        <viewControllerLayoutGuide type="bottom" id="bRB-K0-wLZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xNh-Q1-kOt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2mj-IA-XxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2388" y="2857"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="AD-Header-Logo-375" width="375" height="197"/>
+        <image name="map-filled-icons8" width="25" height="25"/>
+        <image name="map-icons8" width="25" height="25"/>
+    </resources>
+</document>
