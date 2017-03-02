@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Anime Twin Cities, Inc. All rights reserved.
 //
 
-import CoreData
 import UIKit
 
+import CoreData
 import AnimeDetourDataModel
 import AnimeDetourAPI
 
@@ -189,19 +189,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data
     
     fileprivate func checkAndHandleDatabase() {
-        let twoDotOneDatabaseNeedsClearing: Bool
+        let twentysixteenOrOlderDatabaseNeedsClearing: Bool
         
-        switch dataStatusDefaultsController.databaseCheckedVersionKey.compare("2.1", options: .numeric, range: nil, locale: nil) {
-        case .orderedAscending, .orderedSame:
-            twoDotOneDatabaseNeedsClearing = true
-        case .orderedDescending:
-            twoDotOneDatabaseNeedsClearing = false
-        }
-        if twoDotOneDatabaseNeedsClearing {
-            previousDataCleaner.cleanTwoDotOneDatabase()
+        let lastCheckedVersion = dataStatusDefaultsController.databaseCheckedVersionKey
+        switch "2017".compare(lastCheckedVersion, options: .numeric, range: nil, locale: nil) {
+        case ComparisonResult.orderedDescending:
+            twentysixteenOrOlderDatabaseNeedsClearing = true
+        default:
+            twentysixteenOrOlderDatabaseNeedsClearing = false
         }
         
-        let currentVersionNumber = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
+        if twentysixteenOrOlderDatabaseNeedsClearing {
+            previousDataCleaner.clean2Dot1And2016Dot1Databases()
+        }
+        
+        let currentVersionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         dataStatusDefaultsController.databaseCheckedVersionKey = currentVersionNumber
     }
     
@@ -243,17 +245,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 private class PreviousDataCleaner {
-    func cleanTwoDotOneDatabase() {
+    func clean2Dot1And2016Dot1Databases() {
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         guard let documentsURL = urls.first else {
             return
         }
         
-        let storeFilename = "ConScheduleData"
+        let storeFilenames = ["ConScheduleData", "AnimeDetour"]
         let storeExtensions = ["sqlite", "sqlite-shm", "sqlite-wal"]
         
-        let storeFileURLs = storeExtensions.map({ "\(storeFilename).\($0)" }).map(documentsURL.appendingPathComponent(_:))
+        let storeFileURLs = storeFilenames.flatMap { filename in
+            storeExtensions.map({ "\(filename).\($0)" }).map(documentsURL.appendingPathComponent(_:))
+        }
         for url in storeFileURLs {
             _ = try? fileManager.removeItem(at: url)
         }
