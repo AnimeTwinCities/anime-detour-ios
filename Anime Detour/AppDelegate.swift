@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy private(set) var apiClient = AnimeDetourAPIClient.sharedInstance
     lazy private(set) var persistentContainer = AppDelegate.createPersistentContainer()
     
+    private let firebaseCoordinator = FirebaseCoordinator()
+    
     // MARK: - Notifications
     
     #if os(iOS)
@@ -115,6 +117,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 apiClient.fetchGuests(dataStatusDefaultsController, managedObjectContext: backgroundContext)
             }
         }
+        
+        firebaseCoordinator.start()
         
         return true
     }

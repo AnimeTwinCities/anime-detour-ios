@@ -68,14 +68,16 @@
 		DA90BDD81CA23E07006A5ACD /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BDA51CA23E07006A5ACD /* SessionView.swift */; };
 		DA90BDD91CA23E07006A5ACD /* StretchingImageHeaderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BDA61CA23E07006A5ACD /* StretchingImageHeaderContainer.swift */; };
 		DA90BDDA1CA23E07006A5ACD /* TextHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BDA71CA23E07006A5ACD /* TextHeaderCollectionReusableView.swift */; };
-		DA90BDF91CA23F70006A5ACD /* ReferenceProxy in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA90BDED1CA23F17006A5ACD /* AnimeDetourAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DA90BDFA1CA23F71006A5ACD /* ReferenceProxy in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA90BDF31CA23F1F006A5ACD /* AnimeDetourDataModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA90BDF91CA23F70006A5ACD /* AnimeDetourAPI.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA90BDED1CA23F17006A5ACD /* AnimeDetourAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA90BDFA1CA23F71006A5ACD /* AnimeDetourDataModel.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA90BDF31CA23F1F006A5ACD /* AnimeDetourDataModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA9652111CA23BBB00EA4112 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9652101CA23BBB00EA4112 /* AppDelegate.swift */; };
 		DA9652161CA23BBB00EA4112 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA9652141CA23BBB00EA4112 /* Main.storyboard */; };
 		DAA05C771CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAA05C761CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist */; };
 		DABABF051CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABABF041CAA2AA4004EAEF6 /* AgeRequirementDisplayingView.swift */; };
 		DAFCAF5B1CACAA0200100BB8 /* AnimeDetourScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCAF5A1CACAA0200100BB8 /* AnimeDetourScreenshots.swift */; };
 		DAFCAF631CACAA7D00100BB8 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCAF621CACAA7D00100BB8 /* SnapshotHelper.swift */; };
+		DAFD7F781E679E7100F3A47D /* FirebaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFD7F771E679E7100F3A47D /* FirebaseCoordinator.swift */; };
+		DAFD7F7A1E679EA500F3A47D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAFD7F791E679EA500F3A47D /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,8 +125,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DA90BDF91CA23F70006A5ACD /* ReferenceProxy in Copy Frameworks */,
-				DA90BDFA1CA23F71006A5ACD /* ReferenceProxy in Copy Frameworks */,
+				DA90BDF91CA23F70006A5ACD /* AnimeDetourAPI.framework in Copy Frameworks */,
+				DA90BDFA1CA23F71006A5ACD /* AnimeDetourDataModel.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,6 +211,8 @@
 		DAFCAF5A1CACAA0200100BB8 /* AnimeDetourScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetourScreenshots.swift; sourceTree = "<group>"; };
 		DAFCAF5C1CACAA0200100BB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAFCAF621CACAA7D00100BB8 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		DAFD7F771E679E7100F3A47D /* FirebaseCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseCoordinator.swift; sourceTree = "<group>"; };
+		DAFD7F791E679EA500F3A47D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB42EA03A5C9F3E6AA640554 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -467,6 +471,7 @@
 				DA90BD751CA23E07006A5ACD /* Data Sources */,
 				DA90BD771CA23E07006A5ACD /* Delegates */,
 				DA90BD7A1CA23E07006A5ACD /* Extensions */,
+				DAFD7F761E679E1800F3A47D /* Firebase */,
 				DA90BD7D1CA23E07006A5ACD /* Images.xcassets */,
 				DA90BD7E1CA23E07006A5ACD /* LaunchScreen.storyboard */,
 				DA90BD7F1CA23E07006A5ACD /* Model Controllers */,
@@ -479,6 +484,7 @@
 				DA9652101CA23BBB00EA4112 /* AppDelegate.swift */,
 				DA9652141CA23BBB00EA4112 /* Main.storyboard */,
 				DA96521C1CA23BBB00EA4112 /* Info.plist */,
+				DAFD7F791E679EA500F3A47D /* GoogleService-Info.plist */,
 				DAA05C761CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist */,
 				DA53F28D1CAC883500526BD9 /* AnimeDetourStaleData.xcappdata */,
 				DA0E971A1CA23CFA00043A30 /* Resources */,
@@ -494,6 +500,14 @@
 				DAFCAF5C1CACAA0200100BB8 /* Info.plist */,
 			);
 			path = "Anime Detour Screenshots";
+			sourceTree = "<group>";
+		};
+		DAFD7F761E679E1800F3A47D /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				DAFD7F771E679E7100F3A47D /* FirebaseCoordinator.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		E2F4643D5F77E216F522729A /* Pods */ = {
@@ -624,6 +638,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAFD7F7A1E679EA500F3A47D /* GoogleService-Info.plist in Resources */,
 				DA5341FF1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf in Resources */,
 				DA90BDB81CA23E07006A5ACD /* LaunchScreen.storyboard in Resources */,
 				DA5342001CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf in Resources */,
@@ -707,6 +722,7 @@
 				DA90BDBD1CA23E07006A5ACD /* SessionNotificationScheduler.swift in Sources */,
 				DA90BDBF1CA23E07006A5ACD /* SelectedSessionCategory.swift in Sources */,
 				DA90BDD71CA23E07006A5ACD /* SessionTableViewHeaderView.swift in Sources */,
+				DAFD7F781E679E7100F3A47D /* FirebaseCoordinator.swift in Sources */,
 				DA90BDC01CA23E07006A5ACD /* Acknowledgements.swift in Sources */,
 				DA90BDCC1CA23E07006A5ACD /* SessionViewController.swift in Sources */,
 				DA90BDC21CA23E07006A5ACD /* SessionSettings.swift in Sources */,
