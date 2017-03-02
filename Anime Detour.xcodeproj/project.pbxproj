@@ -68,8 +68,8 @@
 		DA90BDD81CA23E07006A5ACD /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BDA51CA23E07006A5ACD /* SessionView.swift */; };
 		DA90BDD91CA23E07006A5ACD /* StretchingImageHeaderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BDA61CA23E07006A5ACD /* StretchingImageHeaderContainer.swift */; };
 		DA90BDDA1CA23E07006A5ACD /* TextHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BDA71CA23E07006A5ACD /* TextHeaderCollectionReusableView.swift */; };
-		DA90BDF91CA23F70006A5ACD /* AnimeDetourAPI.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA90BDED1CA23F17006A5ACD /* AnimeDetourAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DA90BDFA1CA23F71006A5ACD /* AnimeDetourDataModel.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA90BDF31CA23F1F006A5ACD /* AnimeDetourDataModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA90BDF91CA23F70006A5ACD /* ReferenceProxy in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA90BDED1CA23F17006A5ACD /* AnimeDetourAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA90BDFA1CA23F71006A5ACD /* ReferenceProxy in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DA90BDF31CA23F1F006A5ACD /* AnimeDetourDataModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA9652111CA23BBB00EA4112 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9652101CA23BBB00EA4112 /* AppDelegate.swift */; };
 		DA9652161CA23BBB00EA4112 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA9652141CA23BBB00EA4112 /* Main.storyboard */; };
 		DAA05C771CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAA05C761CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist */; };
@@ -123,8 +123,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DA90BDF91CA23F70006A5ACD /* AnimeDetourAPI.framework in Copy Frameworks */,
-				DA90BDFA1CA23F71006A5ACD /* AnimeDetourDataModel.framework in Copy Frameworks */,
+				DA90BDF91CA23F70006A5ACD /* ReferenceProxy in Copy Frameworks */,
+				DA90BDFA1CA23F71006A5ACD /* ReferenceProxy in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -661,7 +661,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7016CF5C3354DACCA9675462 /* [CP] Copy Pods Resources */ = {

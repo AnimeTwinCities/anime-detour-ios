@@ -1,13 +1,17 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '9.0'
+platform :ios, '10.0'
 use_frameworks!
 
 target 'Anime Detour'
 
 pod 'Aspects'
 pod 'GoogleAnalytics'
+pod 'Firebase/Core'
+pod "Firebase/Auth"
+pod "Firebase/Database"
 pod 'FXForms', '~> 1.2.0'
+pod "GoogleSignIn"
 
 plugin 'cocoapods-acknowledgements', :settings_bundle => true , :settings_post_process => Proc.new { |settings_plist_path, umbrella_target|
   puts settings_plist_path
