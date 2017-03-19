@@ -108,7 +108,8 @@ class AppCoordinator {
         }()
         self.imageRepository = ImageRepository(urlSession: urlSession, cacheDirectory: cacheDirectory, faceDetector: self.faceDetector)
         
-        firebaseDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mmZ"
+        firebaseDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+        firebaseDateFormatter.timeZone = TimeZone(identifier: "America/Chicago")
         sectionHeaderDateFormatter.dateFormat = "hh:mm a"
     }
     

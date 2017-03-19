@@ -107,8 +107,8 @@ class SessionTitleView: UIView {
             addImage = UIImage(named: "favorite-icons8", in: bundle, compatibleWith: nil)!
             removeImage = UIImage(named: "favorite-filled-icons8", in: bundle, compatibleWith: nil)!
         } else {
-            addImage = #imageLiteral(resourceName: "favorite-icons8")
-            removeImage = #imageLiteral(resourceName: "favorite-filled-icons8")
+            addImage = #imageLiteral(resourceName: "star")
+            removeImage = #imageLiteral(resourceName: "star_filled")
         }
         addButton.setImage(addImage, for: .normal)
         removeButton.setImage(removeImage, for: .normal)

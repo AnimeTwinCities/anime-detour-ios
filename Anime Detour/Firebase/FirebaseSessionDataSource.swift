@@ -25,19 +25,14 @@ class FirebaseSessionDataSource: SessionDataSource {
         return sessionsByStart.keys.count
     }
     
-    private var sessions: [SessionViewModel] = []
+    private var sessions: [SessionViewModel] = [] {
+        didSet {
+            self.sessionsByStart = generateSessionsByStart()
+        }
+    }
     
     /// `workingSessions` grouped by each session's startTime
-    private var sessionsByStart: [Date:[SessionViewModel]] {
-        var collected: [Date:[SessionViewModel]] = [:]
-        for session in sessions {
-            let startTime = session.start ?? .distantPast
-            
-            collected[startTime, defaulting: []].append(session)
-        }
-        
-        return collected
-    }
+    private var sessionsByStart: [Date:[SessionViewModel]] = [:]
     
     init(databaseReference: FIRDatabaseReference = FIRDatabase.database().reference(), firebaseDateFormatter: DateFormatter, sectionHeaderDateFormatter: DateFormatter) {
         self.databaseReference = databaseReference
@@ -113,6 +108,17 @@ class FirebaseSessionDataSource: SessionDataSource {
     func unstarSession(for viewModel: SessionViewModel) -> SessionViewModel {
         return viewModel
     }
+    
+    private func generateSessionsByStart() -> [Date:[SessionViewModel]] {
+        var collected: [Date:[SessionViewModel]] = [:]
+        for session in sessions {
+            let startTime = session.start ?? .distantPast
+            
+            collected[startTime, defaulting: []].append(session)
+        }
+        
+        return collected
+    }
 }
 
 extension SessionViewModel {
@@ -127,9 +133,9 @@ extension SessionViewModel {
         let room = dict["room"] as? String
         
         // start/end times
-        let startString = dict["startTime"] as? String
+        let startString = dict["start"] as? String ?? dict["startTime"] as? String
         let start: Date? = startString.flatMap { $0.nonEmptyString }.flatMap(firebaseDateFormatter.date)
-        let endString = dict["endTime"] as? String
+        let endString = dict["end"] as? String ?? dict["endTime"] as? String
         let end: Date? = endString.flatMap { $0.nonEmptyString }.flatMap(firebaseDateFormatter.date)
         
         let tags = dict["tags"] as? [String]

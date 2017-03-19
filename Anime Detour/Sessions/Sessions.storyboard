@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="07Z-Wh-z82">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="07Z-Wh-z82">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12084"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
@@ -15,7 +15,7 @@
         <!--Sessions View Controller-->
         <scene sceneID="4Wd-CL-mf9">
             <objects>
-                <collectionViewController id="07Z-Wh-z82" customClass="SessionsViewController" customModule="DevFest" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="07Z-Wh-z82" customClass="SessionsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="jeC-6g-rdz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -27,7 +27,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SessionCell" id="lDa-kF-u3c" customClass="SessionCell" customModule="DevFest" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SessionCell" id="lDa-kF-u3c" customClass="SessionCell" customModule="Anime_Detour" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="320" height="96"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -70,7 +70,7 @@
                                                 <constraint firstAttribute="width" constant="44" id="2Fd-sI-wJR"/>
                                                 <constraint firstAttribute="width" secondItem="DNJ-Me-If6" secondAttribute="height" multiplier="1:1" id="chQ-MR-Isq"/>
                                             </constraints>
-                                            <state key="normal" image="star-icons8"/>
+                                            <state key="normal" image="star"/>
                                             <connections>
                                                 <action selector="toggleStarredWithSender:" destination="lDa-kF-u3c" eventType="touchUpInside" id="hFy-mz-UQN"/>
                                             </connections>
@@ -104,7 +104,7 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SessionHeaderCollectionReusableView" id="NfY-M7-W2I" customClass="SessionHeaderCollectionReusableView" customModule="DevFest" customModuleProvider="target">
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SessionHeaderCollectionReusableView" id="NfY-M7-W2I" customClass="SessionHeaderCollectionReusableView" customModule="Anime_Detour" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -144,7 +144,7 @@
         <!--Session Detail View Controller-->
         <scene sceneID="B0g-BO-Tfb">
             <objects>
-                <viewController id="Gbw-G4-ZX8" customClass="SessionDetailViewController" customModule="DevFest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Gbw-G4-ZX8" customClass="SessionDetailViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KpT-oA-duL"/>
                         <viewControllerLayoutGuide type="bottom" id="BK0-dH-Eit"/>
@@ -157,30 +157,30 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F23-lm-gfv">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F23-lm-gfv">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DO4-Rd-yev" userLabel="Speakers Section Background View">
-                                        <rect key="frame" x="40" y="163" width="240" height="128"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DO4-Rd-yev" userLabel="Speakers Section Background View">
+                                        <rect key="frame" x="0.0" y="163" width="320" height="128"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9La-lj-KFc">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9La-lj-KFc">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="283.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3OL-DF-VYv" customClass="SessionTitleView" customModule="DevFest" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3OL-DF-VYv" customClass="SessionTitleView" customModule="Anime_Detour" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Description goes here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-lW-c7K">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Description goes here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-lW-c7K">
                                                 <rect key="frame" x="0.0" y="130" width="320" height="33"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ngM-hM-K31">
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ngM-hM-K31">
                                                 <rect key="frame" x="0.0" y="163" width="320" height="20.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speakers:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lw-Vs-NeA">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Speakers:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lw-Vs-NeA">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -188,13 +188,13 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PNh-Vd-zBa" userLabel="Layout Helper View">
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PNh-Vd-zBa" userLabel="Layout Helper View">
                                                 <rect key="frame" x="0.0" y="183.5" width="320" height="100"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BkQ-qy-zJ7" customClass="PillButtonContainerView" customModule="DevFest" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BkQ-qy-zJ7" customClass="PillButtonContainerView" customModule="Anime_Detour" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plX-3G-vqa" userLabel="Rate Button">
+                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plX-3G-vqa" userLabel="Rate Button">
                                                                 <rect key="frame" x="134.5" y="0.0" width="51" height="100"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <state key="normal" title="Button"/>
@@ -269,7 +269,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="star-icons8" width="25" height="25"/>
+        <image name="star" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="zFX-ur-O9B"/>
