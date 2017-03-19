@@ -31,6 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return appCoordinator.open(url, options: options)
+    }
+    
     #if os(iOS)
     func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         appCoordinator.didRegister(with: notificationSettings)

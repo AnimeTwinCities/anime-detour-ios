@@ -105,18 +105,18 @@ final class FirebaseStarsDataSource: SessionStarsDataSource {
 
 private extension FirebaseStarsDataSource {
     func updateStarsInFirebase(userID: String) {
-        var starsDict: [String:[String:Any]] = [:]
+        var starsDict: [String:Any] = [:]
         for sessionID in starredSessionIDs {
-            starsDict[sessionID] = ["value":true]
+            starsDict[sessionID] = true
         }
         
-        databaseReference.child("devfest2017").child("agendas").child(userID).setValue(starsDict)
+        databaseReference.child("favorites").child("ad-2017").child(userID).setValue(starsDict)
     }
     
     func registerForObservingAgenda(forUserWithID userID: String, shouldMergeLocalAndRemoteStartsOnce: Bool) {
         var shouldMerge = shouldMergeLocalAndRemoteStartsOnce
         
-        firebaseObservingHandle = databaseReference.child("devfest2017").child("agendas").child(userID).observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
+        firebaseObservingHandle = databaseReference.child("favorites").child("ad-2017").child(userID).observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
             // Assume a format like [{ "sessionIDGoesHere" : { "value" : true} }, { "anotherSessionID" : { "value" : true } }]
             guard let strongSelf = self, let sessionIDsDicts = snapshot.value as? [String:[String:Any]] else {
                 return

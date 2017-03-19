@@ -32,7 +32,7 @@ class GoogleSignInViewController: UIViewController, GIDSignInUIDelegate {
         super.viewDidLoad()
         
         title = NSLocalizedString("Sign In", comment: "Google sign in view controller title")
-        descriptionLabel.text = NSLocalizedString("Sign in with Google to sync your agenda with the DevFestMN web site.", comment: "Describe why one would sign in with Google.")
+        descriptionLabel.text = NSLocalizedString("Sign in with Google to sync your agenda with the Anime Detour schedule web site.", comment: "Describe why one would sign in with Google.")
         signOutButton.setTitle(NSLocalizedString("Sign Out", comment: "Sign out button for the Google sign in view"), for: .normal)
         
         signInButton.isEnabled = !isSignedIn

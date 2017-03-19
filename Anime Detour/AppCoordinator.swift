@@ -258,6 +258,14 @@ class AppCoordinator {
         speakersViewController.imageRepository = imageRepository
     }
     
+    // MARK: - URLs
+    
+    func open(_ url: URL, options: [AnyHashable: Any]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url,
+                                                 sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+                                                 annotation: [:])
+    }
+    
     // MARK: - Notifications
     
     func didRegister(with settings: UIUserNotificationSettings) {
