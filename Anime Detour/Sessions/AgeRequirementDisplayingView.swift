@@ -14,10 +14,11 @@ private let backgroundColor = UIColor.adr_colorFromHex(0xE53935)
 private let textColor = UIColor.white
 
 protocol AgeRequirementDisplayingView {
-    var ageRequirementLabel: InsettableLabel! { get }
+    var ageRequirementLabel: InsettableLabel? { get }
     
     /// Any `UIView` subclass conforming to this protocol will be made to call this method
-    /// in `awakeFromNib` via Aspects if , so storyboard-created views need not call it.
+    /// in `awakeFromNib` via Aspects if the AgeRequirementAwakeFromNibHook methods are used,
+    /// so storyboard-created views need not call it.
     func updateAgeRequirementLabelAppearance()
     func showAgeRequirementOrHideLabel(forViewModel viewModel: SessionViewModel?)
 }
@@ -25,10 +26,12 @@ protocol AgeRequirementDisplayingView {
 extension AgeRequirementDisplayingView {
     func updateAgeRequirementLabelAppearance() {
         setAgeRequirementLabelBackgroundColor()
-        ageRequirementLabel.textColor = textColor
-        let ageLayer = ageRequirementLabel.layer
-        ageLayer.borderColor = backgroundColor.cgColor
-        ageLayer.masksToBounds = true
+        if let ageRequirementLabel = ageRequirementLabel {
+            ageRequirementLabel.textColor = textColor
+            let ageLayer = ageRequirementLabel.layer
+            ageLayer.borderColor = backgroundColor.cgColor
+            ageLayer.masksToBounds = true
+        }
     }
     
     func showAgeRequirementOrHideLabel(forViewModel viewModel: SessionViewModel?) {
@@ -44,12 +47,12 @@ extension AgeRequirementDisplayingView {
             ageRequirement = ""
             ageRequirementHidden = true
         }
-        ageRequirementLabel.text = ageRequirement
-        ageRequirementLabel.isHidden = ageRequirementHidden
+        ageRequirementLabel?.text = ageRequirement
+        ageRequirementLabel?.isHidden = ageRequirementHidden
     }
     
     fileprivate func setAgeRequirementLabelBackgroundColor() {
-        ageRequirementLabel.backgroundColor = backgroundColor
+        ageRequirementLabel?.backgroundColor = backgroundColor
     }
 }
 

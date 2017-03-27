@@ -12,10 +12,13 @@ import UIKit
  Display data from a `SessionViewModel`. Star toggle events are passed up the responder chain
  using `UIResponder.adr_toggleStarred(forSessionID:)`.
  */
-class SessionCell: UICollectionViewCell {
+class SessionCell: UICollectionViewCell, AgeRequirementDisplayingView {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subtitleLabel: UILabel!
+    
+    @IBOutlet var ageRequirementLabel: InsettableLabel?
     @IBOutlet var trackLabel: UILabel!
+    
     @IBOutlet var colorView: UIView!
     @IBOutlet var starButton: UIButton!
     
@@ -60,7 +63,15 @@ class SessionCell: UICollectionViewCell {
                 image = #imageLiteral(resourceName: "star")
             }
             starButton.setImage(image, for: .normal)
+            
+            showAgeRequirementOrHideLabel(forViewModel: viewModel)
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        dev_registerForAppearanceUpdates()
+        dev_updateAppearance()
     }
     
     @IBAction func toggleStarred(sender: AnyObject?) {
