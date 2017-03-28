@@ -115,7 +115,9 @@ class CombinedSessionDataSource: SessionDataSource, SessionStarsDataSource {
             }
         }
         
-        if let ourSection = ourSectionsToDataSourceSections[dataSourceSection] {
+        if let ourSection = ourSectionsToDataSourceSections.first(where: { (key, value) -> Bool in
+            return value == dataSourceSection
+        })?.key {
             let foundIndexPath = IndexPath(item: starredSoFar - 1, section: ourSection)
             return foundIndexPath
         } else {
