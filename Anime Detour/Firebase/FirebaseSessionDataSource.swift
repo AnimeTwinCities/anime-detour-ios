@@ -101,6 +101,30 @@ class FirebaseSessionDataSource: SessionDataSource {
         return indexPath
     }
     
+    func firstSection(atOrAfter threshold: Date) -> Int? {
+        let sectionAndSessionDate = sessionsByStart.keys.sorted().enumerated().first {
+            return $0.1 >= threshold
+        }
+        
+        if let sectionAndSessionDate = sectionAndSessionDate {
+            return sectionAndSessionDate.0
+        }
+        
+        return nil
+    }
+    
+    func lastSection(atOrBefore threshold: Date) -> Int? {
+        let sectionAndSessionDate = sessionsByStart.keys.sorted().reversed().enumerated().first {
+            return $0.1 <= threshold
+        }
+        
+        if let sectionAndSessionDate = sectionAndSessionDate {
+            return sectionAndSessionDate.0
+        }
+        
+        return nil
+    }
+    
     func starSession(for viewModel: SessionViewModel) -> SessionViewModel {
         return viewModel
     }

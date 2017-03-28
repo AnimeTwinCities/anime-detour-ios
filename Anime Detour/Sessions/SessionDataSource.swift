@@ -8,11 +8,26 @@
 
 import Foundation
 
+/**
+ Data source that provides SessionViewModels. Sectioned by the `start` time of the SessionViewModel.
+ */
 protocol SessionDataSource: DataSource {
     var sessionDataSourceDelegate: SessionDataSourceDelegate? { get set }
     
     func viewModel(at indexPath: IndexPath) -> SessionViewModel
     func indexPathOfSession(withSessionID sessionID: String) -> IndexPath?
+    
+    /**
+     The section of the first section which contains any sessions starting
+     at or after `threshold`.
+     */
+    func firstSection(atOrAfter threshold: Date) -> Int?
+    
+    /**
+     The section of the last section which contains any sessions starting
+     before or at `threshold`.
+     */
+    func lastSection(atOrBefore threshold: Date) -> Int?
 }
 
 enum SessionSectionInfo {
@@ -21,11 +36,76 @@ enum SessionSectionInfo {
 }
 
 extension SessionDataSource {
+    func firstSection(atOrAfter threshold: Date) -> Int? {
+        for sectionNumber in 0..<numberOfSections {
+            let numberOfItemsInSection = numberOfItems(inSection: sectionNumber)
+            guard numberOfItemsInSection > 0 else {
+                continue
+            }
+            
+            let firstIndexPath = IndexPath(item: 0, section: sectionNumber)
+            let firstItem = viewModel(at: firstIndexPath)
+            guard let start = firstItem.start, start >= threshold else {
+                continue
+            }
+            
+            return sectionNumber
+        }
+        
+        return nil
+    }
+    
+    func lastSection(atOrBefore threshold: Date) -> Int? {
+        for sectionNumber in (0..<numberOfSections).reversed() {
+            let numberOfItemsInSection = numberOfItems(inSection: sectionNumber)
+            guard numberOfItemsInSection > 0 else {
+                continue
+            }
+            
+            let firstIndexPath = IndexPath(item: 0, section: sectionNumber)
+            let firstItem = viewModel(at: firstIndexPath)
+            guard let start = firstItem.start, start <= threshold else {
+                continue
+            }
+            
+            return sectionNumber
+        }
+        
+        return nil
+    }
+    
+    func daysForAllSessions() -> [Date] {
+        var days: [Date] = []
+        
+        let calendar = Calendar.current
+        
+        for sectionNumber in 0..<numberOfSections {
+            let numberOfItemsInSection = numberOfItems(inSection: sectionNumber)
+            guard numberOfItemsInSection > 0 else {
+                continue
+            }
+            
+            let firstIndexPath = IndexPath(item: 0, section: sectionNumber)
+            let firstItem = viewModel(at: firstIndexPath)
+            guard let start = firstItem.start else {
+                continue
+            }
+            
+            let startAtMidnight = calendar.startOfDay(for: start)
+            days.append(startAtMidnight)
+        }
+        
+        return days
+    }
     
     func sections(startingAfter threshold: Date) -> [Date: SessionSectionInfo] {
         var returnValues: [Date: SessionSectionInfo] = [:]
         
-        for sectionNumber in 0..<numberOfSections {
+        guard let sectionAtOrAfter = firstSection(atOrAfter: threshold) else {
+            return returnValues
+        }
+        
+        for sectionNumber in sectionAtOrAfter..<numberOfSections {
             let numberOfItemsInSection = numberOfItems(inSection: sectionNumber)
             guard numberOfItemsInSection > 0 else {
                 continue
