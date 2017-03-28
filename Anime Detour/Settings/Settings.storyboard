@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pX8-fX-g2G">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pX8-fX-g2G">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -77,46 +77,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jrt-P3-FUn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2388" y="2087"/>
-        </scene>
-        <!--Map-->
-        <scene sceneID="rT3-Ev-X51">
-            <objects>
-                <viewController id="MeJ-hJ-ajG" customClass="MapViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7Kx-fC-eeV"/>
-                        <viewControllerLayoutGuide type="bottom" id="UXB-Iw-xSB"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Via-kY-V5Y">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nYz-vs-m9z">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m4J-Wy-cE4" customClass="MapOverlayButton" customModule="Anime_Detour" customModuleProvider="target">
-                                <rect key="frame" x="274" y="617" width="85" height="34"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="nYz-vs-m9z" firstAttribute="top" secondItem="Via-kY-V5Y" secondAttribute="top" id="OCh-Tt-JY9"/>
-                            <constraint firstItem="m4J-Wy-cE4" firstAttribute="trailing" secondItem="Via-kY-V5Y" secondAttribute="trailingMargin" id="SX8-2c-HGF"/>
-                            <constraint firstAttribute="trailing" secondItem="nYz-vs-m9z" secondAttribute="trailing" id="VGk-ck-7Zi"/>
-                            <constraint firstAttribute="bottom" secondItem="nYz-vs-m9z" secondAttribute="bottom" id="aEg-kf-5am"/>
-                            <constraint firstItem="UXB-Iw-xSB" firstAttribute="top" secondItem="m4J-Wy-cE4" secondAttribute="bottom" constant="16" id="jDW-zr-UPF"/>
-                            <constraint firstItem="nYz-vs-m9z" firstAttribute="leading" secondItem="Via-kY-V5Y" secondAttribute="leading" id="lno-Dc-wvn"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="map-icons8" selectedImage="map-filled-icons8" id="TgW-n4-1JQ"/>
-                    <connections>
-                        <outlet property="centerButton" destination="m4J-Wy-cE4" id="CcN-FJ-Lhn"/>
-                        <outlet property="mapView" destination="nYz-vs-m9z" id="3P7-9O-9ho"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Lcc-E1-Ccc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3178" y="2458"/>
         </scene>
         <!--Anime Detour 2016-->
         <scene sceneID="Ge5-Xw-52j">
@@ -193,7 +153,6 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="showVenueOnMap:" destination="pX8-fX-g2G" eventType="touchUpInside" id="A8L-cN-gRR"/>
-                                                        <segue destination="MeJ-hJ-ajG" kind="show" id="64z-o5-VQO"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -351,7 +310,8 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="websiteIdentifier" value="WebsiteReuseIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="settingsSegue" value="SettingsSegueIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="settingsIdentifier" value="SettingsReuseIdentifier"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="googleSignInIdentifier" value="SignInSegueIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="googleSignInSegue" value="SignInSegueIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="mapSegue" value="MapSegueIdentifier"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zCR-Wu-H9N" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -379,7 +339,5 @@
     </scenes>
     <resources>
         <image name="AD-Header-Logo-375" width="375" height="197"/>
-        <image name="map-filled-icons8" width="25" height="25"/>
-        <image name="map-icons8" width="25" height="25"/>
     </resources>
 </document>

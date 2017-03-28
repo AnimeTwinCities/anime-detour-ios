@@ -24,7 +24,8 @@ class InformationViewController: UITableViewController {
     @IBInspectable var weaponsPolicyIdentifier: String!
     @IBInspectable var websiteIdentifier: String!
     
-    @IBInspectable var googleSignInIdentifier: String!
+    @IBInspectable var mapSegue: String!
+    @IBInspectable var googleSignInSegue: String!
     @IBInspectable var settingsIdentifier: String!
 
     // MARK: - Segue identifiers
@@ -81,9 +82,11 @@ class InformationViewController: UITableViewController {
             }
             break
         case dateIdentifier?:
-            break
+            // Don't show selection of the date cell
+            cell.selectionStyle = .none
         case mapLinkIdentifier?:
-            break
+            // Don't show selection of the map cell
+            cell.selectionStyle = .none
         case harassmentPolicyIdentifier?:
             break
         case letterParentsIdentifier?:
@@ -139,6 +142,8 @@ class InformationViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch (segue.identifier) {
+        case mapSegue?:
+            break
         case settingsSegue?:
             let acknowledgements = Acknowledgements()
             let sessionSettingsForm = SessionSettings()
@@ -146,11 +151,11 @@ class InformationViewController: UITableViewController {
             let formVC = segue.destination as! FXFormViewController
             formVC.formController.form = settings
             break
-        case googleSignInIdentifier?:
+        case googleSignInSegue?:
             let signInVC = segue.destination as! GoogleSignInViewController
             delegate?.prepareGoogleSignInViewController(signInVC)
         default:
-            fatalError("Unrecognized segue with identifier: \(segue.identifier)")
+            fatalError("Unrecognized segue with identifier: \(segue.identifier ?? "(no identifier)")")
         }
     }
 
@@ -158,14 +163,6 @@ class InformationViewController: UITableViewController {
 
     @IBAction func showVenueOnMap(_ sender: AnyObject?) {
         let query = "DoubleTree by Hilton, Bloomington, MN".addingPercentEncoding(withAllowedCharacters: CharacterSet())!
-        let googleMapsInstalled = UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)
-
-        if googleMapsInstalled {
-            // Google maps installed
-        } else {
-            // use Apple maps
-        }
-
         let urlString = "http://maps.apple.com/?q=\(query)"
         UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
     }
