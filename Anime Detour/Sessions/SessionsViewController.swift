@@ -11,9 +11,16 @@ import UIKit
 class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
     @IBInspectable fileprivate var detailSegueIdentifier: String = "sessionDetail"
     @IBOutlet var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet var stickyHeaderFlowLayout: StickyHeaderFlowLayout!
     
+    /**
+     A bar button item that allows jumping to approximately the current time in the session list.
+     */
     @IBOutlet var nowButton: UIBarButtonItem!
     
+    /**
+     The source of data displayed in this view.
+     */
     var dataSource: (SessionDataSource & SessionStarsDataSource)? {
         didSet {
             dataSource?.sessionDataSourceDelegate = self
@@ -25,14 +32,43 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         }
     }
     
+    var enableDayControl: Bool = true {
+        didSet {
+            guard isViewLoaded else {
+                return
+            }
+            
+            stickyHeaderFlowLayout.headerEnabled = enableDayControl
+        }
+    }
+    
+    /**
+     Scrolls to sessions near specified times, if there are such sessions. Also works with our `daySegmentedControl`.
+     */
     fileprivate var dayScroller: SessionDayScroller?
     
-    fileprivate let daySegmentedControl = UISegmentedControl()
+    /**
+     A segmented control to allow jumping to the sessions for a particular day. Allows up to three days.
+     */
+    fileprivate var daySegmentedControl: UISegmentedControl? {
+        didSet {
+            dayScroller?.daySegmentedControl = daySegmentedControl
+        }
+    }
     
+    /**
+     The source of speaker information, to show in session detail views.
+     */
     var speakerDataSource: SpeakerDataSource?
     
+    /**
+     The repository to supply images for session detail views.
+     */
     var imageRepository: ImageRepository?
     
+    /**
+     The currently displayed session detail view, if the user viewed a particular session from this view controller.
+     */
     weak var currentDetailViewController: SessionDetailViewController?
     
     override func viewDidLoad() {
@@ -45,6 +81,15 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         
         dayScroller = SessionDayScroller(dataSource: dataSource, targetView: .collectionView(collectionView!))
         
+        stickyHeaderFlowLayout.headerEnabled = enableDayControl
+        updateStickyHeaderLayoutTopOffset()
+        collectionView?.register(SegmentedControlCollectionReusableView.self,
+                                 forSupplementaryViewOfKind: StickyHeaderFlowLayout.StickyHeaderElementKind,
+                                 withReuseIdentifier: SegmentedControlCollectionReusableView.reuseID)
+        
+        let days = dataSource.daysForAllSessions()
+        dayScroller?.days = days
+        
         nowButton.accessibilityLabel = NSLocalizedString("Now", comment: "Now button title")
         nowButton.accessibilityHint = NSLocalizedString("Jump to the current time", comment: "")
         updateFlowLayoutItemWidth()
@@ -53,6 +98,10 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         updateLayoutOnTransition(toViewSize: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: { (context) in
+            self.updateStickyHeaderLayoutTopOffset()
+        }, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -75,6 +124,16 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
             currentDetailViewController = destination
         default:
             break
+        }
+    }
+    
+    /// Update the top offset for our sticky header layout.
+    fileprivate func updateStickyHeaderLayoutTopOffset() {
+        // topLayoutGuide doesn't work for our purposes with a translucent navigation bar
+        if let navBar = navigationController?.navigationBar, navBar.isTranslucent {
+            stickyHeaderFlowLayout.headerTopOffset = navBar.frame.maxY
+        } else {
+            stickyHeaderFlowLayout.headerTopOffset = topLayoutGuide.length
         }
     }
     
@@ -106,7 +165,7 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         } else {
             // Since we just started a scroll, update the day selector for the target date.
             if let idx = dayScroller.dayIndex(for: now) {
-                daySegmentedControl.selectedSegmentIndex = idx
+                daySegmentedControl?.selectedSegmentIndex = idx
             }
         }
     }
@@ -129,6 +188,12 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == StickyHeaderFlowLayout.StickyHeaderElementKind {
+            let view = collectionView.dequeueSupplementaryView(ofKind: kind, for: indexPath) as SegmentedControlCollectionReusableView
+            daySegmentedControl = view.segmentedControl
+            return view
+        }
+        
         let view = collectionView.dequeueSupplementaryView(ofKind: kind, for: indexPath) as SessionHeaderCollectionReusableView
         view.timeLabel.text = dataSource!.title(forSection: indexPath.section)
         return view
@@ -240,13 +305,15 @@ private class SessionDayScroller {
     
     private let dataSource: SessionDataSource
     private let targetView: TargetView
-    weak private var daySegmentedControl: UISegmentedControl? {
+    weak var daySegmentedControl: UISegmentedControl? {
         didSet {
             guard let daysControl = daySegmentedControl else {
+                oldValue?.removeTarget(self, action: nil, for: .valueChanged)
                 return
             }
             
             daysControl.addTarget(self, action: #selector(SessionDayScroller.goToDay(_:)), for: UIControlEvents.valueChanged)
+            updateSegmentedControlDays()
         }
     }
     
@@ -255,22 +322,7 @@ private class SessionDayScroller {
      */
     var days: [Date] = [] {
         didSet {
-            // Set the names of the days on the day chooser segmented control
-            guard let daysControl = daySegmentedControl else {
-                return
-            }
-            
-            let formatter = DateFormatter()
-            // The full name of the day of the week, e.g. Monday
-            formatter.dateFormat = "EEEE"
-            
-            daysControl.removeAllSegments()
-            for (idx, date) in days.enumerated() {
-                let title = formatter.string(from: date)
-                daysControl.insertSegment(withTitle: title, at: idx, animated: false)
-            }
-            
-            daysControl.selectedSegmentIndex = 0
+            updateSegmentedControlDays()
         }
     }
     
@@ -333,6 +385,25 @@ private class SessionDayScroller {
         } else {
             return nil
         }
+    }
+    
+    private func updateSegmentedControlDays() {
+        // Set the names of the days on the day chooser segmented control
+        guard let daysControl = daySegmentedControl else {
+            return
+        }
+        
+        let formatter = DateFormatter()
+        // The full name of the day of the week, e.g. Monday
+        formatter.dateFormat = "EEEE"
+        
+        daysControl.removeAllSegments()
+        for (idx, date) in days.enumerated() {
+            let title = formatter.string(from: date)
+            daysControl.insertSegment(withTitle: title, at: idx, animated: false)
+        }
+        
+        daysControl.selectedSegmentIndex = 0
     }
     
     /**

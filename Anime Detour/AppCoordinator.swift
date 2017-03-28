@@ -210,17 +210,6 @@ class AppCoordinator {
         
         // introduce new scopes to avoid similar-sounding variables being available to cause confusion later
         do {
-            
-            let firebaseSessionsDataSource = FirebaseSessionDataSource(firebaseDateFormatter: firebaseDateFormatter, sectionHeaderDateFormatter: sectionHeaderDateFormatter)
-            
-            let sessionDataSource = CombinedSessionDataSource(dataSource: firebaseSessionsDataSource, starsDataSource: firebaseStarsDataSource)
-            firebaseSessionsDataSource.sessionDataSourceDelegate = sessionDataSource
-            multiSessionStarsDataSourceDelegate.broadcastDelegates.append(sessionDataSource)
-            
-            
-        }
-        
-        do {
             let firebaseSessionsDataSource = FirebaseSessionDataSource(firebaseDateFormatter: firebaseDateFormatter, sectionHeaderDateFormatter: sectionHeaderDateFormatter)
             
             let sessionDataSource = CombinedSessionDataSource(dataSource: firebaseSessionsDataSource, starsDataSource: firebaseStarsDataSource)
@@ -239,6 +228,7 @@ class AppCoordinator {
             starredSessionsDataSource.shouldIncludeOnlyStarred = true
             multiSessionStarsDataSourceDelegate.broadcastDelegates.append(starredSessionsDataSource)
             
+            starredSessionsViewController.enableDayControl = false
             starredSessionsViewController.dataSource = starredSessionsDataSource
             starredSessionsViewController.speakerDataSource = speakerDataSource
         }

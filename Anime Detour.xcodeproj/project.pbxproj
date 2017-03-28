@@ -65,6 +65,7 @@
 		DA5341FF1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */; };
 		DA5342001CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */; };
 		DA53F2911CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DA53F2901CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite */; };
+		DA7C001F1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C001E1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift */; };
 		DA90BDA81CA23E07006A5ACD /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */; };
 		DA90BDA91CA23E07006A5ACD /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */; };
 		DA90BDAA1CA23E07006A5ACD /* AnalyticsViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD661CA23E07006A5ACD /* AnalyticsViewControllers.swift */; };
@@ -175,6 +176,7 @@
 		DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_2.pdf"; sourceTree = "<group>"; };
 		DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_3.pdf"; sourceTree = "<group>"; };
 		DA53F2901CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnimeDetourDataModel.sqlite; sourceTree = "<group>"; };
+		DA7C001E1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlCollectionReusableView.swift; sourceTree = "<group>"; };
 		DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
 		DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
 		DA90BD661CA23E07006A5ACD /* AnalyticsViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsViewControllers.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 		DA90BD731CA23E07006A5ACD /* Collection View Support */ = {
 			isa = PBXGroup;
 			children = (
+				DA7C001E1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift */,
 				DA90BD741CA23E07006A5ACD /* StickyHeaderFlowLayout.swift */,
 			);
 			path = "Collection View Support";
@@ -707,6 +710,7 @@
 				5C8A85271E749142008B4808 /* UIButton+DevFest.swift in Sources */,
 				5C8A84FC1E748F3C008B4808 /* SessionCell.swift in Sources */,
 				DA90BDA91CA23E07006A5ACD /* AnalyticsScreen.swift in Sources */,
+				DA7C001F1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift in Sources */,
 				5C8A84DC1E748D09008B4808 /* InformationViewController.swift in Sources */,
 				DA9652111CA23BBB00EA4112 /* AppDelegate.swift in Sources */,
 				5C8A850F1E7490BA008B4808 /* NotificationPermissionRequester.swift in Sources */,

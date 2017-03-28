@@ -65,7 +65,7 @@ class SessionNotificationScheduler: NSObject, SessionDataSourceDelegate, Session
                 }
                 
                 let location = viewModel.room
-                alertBody = "\(displayName) starting in \(timeToStart) at \(location)."
+                alertBody = "\(displayName) starting in \(timeToStart) at \(location ?? "(no location)")."
                 onlySession = viewModel
             }
             

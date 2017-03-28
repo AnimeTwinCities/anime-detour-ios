@@ -75,7 +75,7 @@ extension SessionDataSource {
     }
     
     func daysForAllSessions() -> [Date] {
-        var days: [Date] = []
+        var days: Set<Date> = []
         
         let calendar = Calendar.current
         
@@ -92,10 +92,10 @@ extension SessionDataSource {
             }
             
             let startAtMidnight = calendar.startOfDay(for: start)
-            days.append(startAtMidnight)
+            days.insert(startAtMidnight)
         }
         
-        return days
+        return days.sorted()
     }
     
     func sections(startingAfter threshold: Date) -> [Date: SessionSectionInfo] {
