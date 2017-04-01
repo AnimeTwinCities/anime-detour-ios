@@ -143,9 +143,9 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
     }
     
     @IBAction private func showUpcomingSessions() {
-//        let now = Date()
+        let now = Date()
         // 1491620400 is 4/8/17 at 3AM UTC, which is 4/8/17 at 10 PM CDT
-        let now = Date(timeIntervalSince1970: 1491620400)
+//        let now = Date(timeIntervalSince1970: 1491620400)
         
         guard let dayScroller = dayScroller else {
             assertionFailure("Expected to have a day scroller")
