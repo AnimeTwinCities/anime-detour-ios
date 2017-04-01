@@ -12,7 +12,7 @@ import QuickLook
 
 class MapsViewController: UIViewController, QLPreviewControllerDataSource {
     fileprivate var previewController: QLPreviewController!
-    fileprivate let mapFileNames = ["AnimeDetour2016-MapsOnly_1", "AnimeDetour2016-MapsOnly_2", "AnimeDetour2016-MapsOnly_3"]
+    fileprivate let mapFileNames = ["DoubleTree_Floor1", "DoubleTree_Floor2", "DoubleTree_Floor22"]
     lazy fileprivate var mapPaths: [String] = {
         let mainBundle = Bundle.main
         let mapPaths = self.mapFileNames.map { (filename: String) -> String in

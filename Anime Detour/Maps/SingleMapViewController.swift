@@ -12,7 +12,11 @@ import QuickLook
 
 class SingleMapViewController: UIViewController, QLPreviewControllerDataSource {
     fileprivate var previewController: QLPreviewController!
-    let mapFilePath: String
+    var mapFilePath: String {
+        didSet {
+            previewController?.reloadData()
+        }
+    }
     
     init() {
         mapFilePath = Bundle.main.path(forResource: "AnimeDetour2017DealersMap", ofType: "pdf")!
