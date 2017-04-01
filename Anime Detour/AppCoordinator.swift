@@ -216,6 +216,17 @@ class AppCoordinator {
             firebaseSessionsDataSource.sessionDataSourceDelegate = sessionDataSource
             multiSessionStarsDataSourceDelegate.broadcastDelegates.append(sessionDataSource)
             
+            notificationsCoordinator.sessionDataSource = sessionDataSource
+        }
+        
+        
+        do {
+            let firebaseSessionsDataSource = FirebaseSessionDataSource(firebaseDateFormatter: firebaseDateFormatter, sectionHeaderDateFormatter: sectionHeaderDateFormatter)
+            
+            let sessionDataSource = CombinedSessionDataSource(dataSource: firebaseSessionsDataSource, starsDataSource: firebaseStarsDataSource)
+            firebaseSessionsDataSource.sessionDataSourceDelegate = sessionDataSource
+            multiSessionStarsDataSourceDelegate.broadcastDelegates.append(sessionDataSource)
+            
             sessionsViewController.dataSource = sessionDataSource
             sessionsViewController.speakerDataSource = speakerDataSource
         }

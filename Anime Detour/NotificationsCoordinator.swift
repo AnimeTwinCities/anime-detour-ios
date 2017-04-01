@@ -13,7 +13,6 @@ protocol NotificationsCoordinatorDelegate: class {
     func showSettings()
 }
 
-@available(iOS 10.0, *)
 class NotificationsCoordinator {
     let internalSettings: InternalSettings
     let sessionSettings: SessionSettings
