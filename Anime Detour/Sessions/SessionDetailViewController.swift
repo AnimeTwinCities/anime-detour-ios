@@ -36,6 +36,9 @@ class SessionDetailViewController: UIViewController {
     // Rate the session.
     @IBOutlet var rateButton: UIButton!
     
+    // A view that can be hidden to hide the rate button in our `stackView`.
+    @IBOutlet var rateButtonContainer: UIView!
+    
     weak var delegate: SessionDetailViewControllerDelegate?
     
     /// Most of the session details. The `speakerIDs` are not used.
@@ -84,6 +87,8 @@ class SessionDetailViewController: UIViewController {
         speakersSectionLabel.text = NSLocalizedString("SPEAKERS", comment: "Speakers section delineator in the session detail view")
         
         speakersStackView.isLayoutMarginsRelativeArrangement = true
+        
+        rateButtonContainer.isHidden = true
         
         dev_updateAppearance()
         dev_registerForAppearanceUpdates()

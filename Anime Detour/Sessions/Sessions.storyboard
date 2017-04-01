@@ -16,7 +16,7 @@
         <scene sceneID="4Wd-CL-mf9">
             <objects>
                 <collectionViewController id="07Z-Wh-z82" customClass="SessionsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="jeC-6g-rdz">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="jeC-6g-rdz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -92,7 +92,7 @@
                                     <constraint firstAttribute="bottom" secondItem="kuR-zs-oP1" secondAttribute="bottom" id="VTK-3E-bNo"/>
                                     <constraint firstItem="P4f-sG-ztW" firstAttribute="top" secondItem="lDa-kF-u3c" secondAttribute="top" constant="2" id="WWb-x6-gti"/>
                                     <constraint firstItem="DNJ-Me-If6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yqz-oT-CdC" secondAttribute="trailing" constant="8" id="fgJ-Vf-N3m"/>
-                                    <constraint firstItem="yqz-oT-CdC" firstAttribute="centerY" secondItem="lDa-kF-u3c" secondAttribute="centerY" priority="999" id="gCP-HN-bbm"/>
+                                    <constraint firstItem="yqz-oT-CdC" firstAttribute="centerY" secondItem="lDa-kF-u3c" secondAttribute="centerY" priority="749" id="gCP-HN-bbm"/>
                                     <constraint firstItem="12g-T2-yyl" firstAttribute="top" secondItem="DNJ-Me-If6" secondAttribute="bottom" id="jBM-Lo-3A6"/>
                                     <constraint firstItem="DNJ-Me-If6" firstAttribute="centerY" secondItem="TTT-e9-Z3d" secondAttribute="centerY" id="jLI-fu-zZQ"/>
                                     <constraint firstItem="12g-T2-yyl" firstAttribute="centerX" secondItem="DNJ-Me-If6" secondAttribute="centerX" id="jPG-Ys-Rcd"/>
@@ -174,30 +174,30 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F23-lm-gfv">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F23-lm-gfv">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DO4-Rd-yev" userLabel="Speakers Section Background View">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DO4-Rd-yev" userLabel="Speakers Section Background View">
                                         <rect key="frame" x="0.0" y="163" width="320" height="128"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9La-lj-KFc">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9La-lj-KFc">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="283.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3OL-DF-VYv" customClass="SessionTitleView" customModule="Anime_Detour" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3OL-DF-VYv" customClass="SessionTitleView" customModule="Anime_Detour" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Description goes here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-lW-c7K">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Description goes here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-lW-c7K">
                                                 <rect key="frame" x="0.0" y="130" width="320" height="33"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ngM-hM-K31">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ngM-hM-K31">
                                                 <rect key="frame" x="0.0" y="163" width="320" height="20.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Speakers:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lw-Vs-NeA">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speakers:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lw-Vs-NeA">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -205,13 +205,13 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PNh-Vd-zBa" userLabel="Layout Helper View">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PNh-Vd-zBa" userLabel="Layout Helper View">
                                                 <rect key="frame" x="0.0" y="183.5" width="320" height="100"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BkQ-qy-zJ7" customClass="PillButtonContainerView" customModule="Anime_Detour" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BkQ-qy-zJ7" customClass="PillButtonContainerView" customModule="Anime_Detour" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plX-3G-vqa" userLabel="Rate Button">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plX-3G-vqa" userLabel="Rate Button">
                                                                 <rect key="frame" x="134.5" y="0.0" width="51" height="100"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <state key="normal" title="Button"/>
@@ -272,6 +272,7 @@
                     <connections>
                         <outlet property="descriptionTextView" destination="C1i-lW-c7K" id="g6s-vg-e6l"/>
                         <outlet property="rateButton" destination="plX-3G-vqa" id="iNY-mp-SgI"/>
+                        <outlet property="rateButtonContainer" destination="PNh-Vd-zBa" id="reT-rT-WP8"/>
                         <outlet property="scrollView" destination="F23-lm-gfv" id="mW9-ph-H7P"/>
                         <outlet property="sessionTitleView" destination="3OL-DF-VYv" id="j5x-Ow-k6W"/>
                         <outlet property="speakersSectionBackgroundView" destination="DO4-Rd-yev" id="LPe-j5-XSq"/>
