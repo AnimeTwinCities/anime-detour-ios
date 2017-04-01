@@ -404,10 +404,10 @@ private class SessionDayScroller {
             daysControl.insertSegment(withTitle: title, at: idx, animated: false)
         }
         
-        if previousSelectedIndex < days.count {
+        if previousSelectedIndex != -1, previousSelectedIndex < days.count {
             daysControl.selectedSegmentIndex = previousSelectedIndex
         } else {
-            daysControl.selectedSegmentIndex = previousSelectedIndex
+            daysControl.selectedSegmentIndex = 0
         }
     }
     
