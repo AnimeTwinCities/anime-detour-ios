@@ -61,6 +61,7 @@
 		99C56289BA1E49DBB82753A0 /* Pods-Anime Detour-settings-metadata.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD12C81899996795612C922F /* Pods-Anime Detour-settings-metadata.plist */; };
 		AC8A1E32BBA4BEBBEFD1EC60 /* Pods_Anime_Detour.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB4102D50A27880DD5B334A4 /* Pods_Anime_Detour.framework */; };
 		DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DA0E971F1CA23CFA00043A30 /* Settings.bundle */; };
+		DA50F8B71E901ACF0049244B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA50F8B61E901ACF0049244B /* SettingsViewController.swift */; };
 		DA5341FE1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */; };
 		DA5341FF1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */; };
 		DA5342001CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */; };
@@ -172,6 +173,7 @@
 		AB4102D50A27880DD5B334A4 /* Pods_Anime_Detour.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Anime_Detour.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD12C81899996795612C922F /* Pods-Anime Detour-settings-metadata.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "Pods-Anime Detour-settings-metadata.plist"; path = "Anime Detour/Resources/Settings.bundle/Pods-Anime Detour-settings-metadata.plist"; sourceTree = "<group>"; };
 		DA0E971F1CA23CFA00043A30 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		DA50F8B61E901ACF0049244B /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DA5341FB1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_1.pdf"; sourceTree = "<group>"; };
 		DA5341FC1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_2.pdf"; sourceTree = "<group>"; };
 		DA5341FD1CA4B99000480A49 /* AnimeDetour2016-MapsOnly_3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AnimeDetour2016-MapsOnly_3.pdf"; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				5C8A853B1E74AA0F008B4808 /* Settings.storyboard */,
 				5C8A852C1E7492DA008B4808 /* SettingsCoordinator.swift */,
 				5C8A84DB1E748D09008B4808 /* WebViewController.swift */,
+				DA50F8B61E901ACF0049244B /* SettingsViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 				DA90BDBF1CA23E07006A5ACD /* SelectedSessionCategory.swift in Sources */,
 				5C8A85001E748F3C008B4808 /* SessionStarsDataSource.swift in Sources */,
 				5C8A85291E7491E6008B4808 /* NotificationsCoordinator.swift in Sources */,
+				DA50F8B71E901ACF0049244B /* SettingsViewController.swift in Sources */,
 				5C8A84FF1E748F3C008B4808 /* SessionHeaderCollectionReusableView.swift in Sources */,
 				5C8A84FD1E748F3C008B4808 /* SessionDataSource.swift in Sources */,
 				5C8A850B1E748FC8008B4808 /* AppCoordinator.swift in Sources */,
