@@ -27,6 +27,10 @@ extension FlowLayoutContaining where Self: UIViewController {
     
     func updateFlowLayoutItemWidth(viewSize size: CGSize? = nil) {
         let width = size?.width ?? view.frame.width
+        if let oldWidth = flowLayout?.itemSize.width, width == oldWidth {
+            return
+        }
+        
         flowLayout?.itemSize.width = width
         
         // Having just updated our item sizes, our collection view layout object's layout is now invalid.
