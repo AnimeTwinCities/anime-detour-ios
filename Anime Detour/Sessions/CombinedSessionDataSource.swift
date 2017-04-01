@@ -10,11 +10,12 @@ import Foundation
 
 /**
  A pass-through Session data source that persists Session starred status.
+ Only really implements `FilterableSessionDataSource` if `dataSource` implements it.
  
  It is recommended that instances of this class be the `sessionDataSourceDelegate`s
  of their `dataSource` property.
  */
-class CombinedSessionDataSource: SessionDataSource, SessionStarsDataSource {
+class CombinedSessionDataSource: SessionDataSource, SessionStarsDataSource, FilterableSessionDataSource {
     /// The data source that we will get our sessions from.
     let dataSource: SessionDataSource
     /// The data source that we will get our session starred statuses from.
@@ -22,6 +23,14 @@ class CombinedSessionDataSource: SessionDataSource, SessionStarsDataSource {
     
     weak var sessionDataSourceDelegate: SessionDataSourceDelegate?
     weak var sessionStarsDataSourceDelegate: SessionStarsDataSourceDelegate?
+    
+    var filteringPredicate: ((SessionViewModel) -> Bool)? {
+        didSet {
+            if let filterable = dataSource as? FilterableSessionDataSource {
+                filterable.filteringPredicate = filteringPredicate
+            }
+        }
+    }
     
     /**
      `false` by default. Changing this value requires any consumers to reload all data

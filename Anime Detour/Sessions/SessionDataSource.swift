@@ -30,6 +30,14 @@ protocol SessionDataSource: DataSource {
     func lastSection(atOrBefore threshold: Date) -> Int?
 }
 
+protocol FilterableSessionDataSource: class, SessionDataSource {
+    /**
+     A predicate against which all sessions will be checked, and only those that pass
+     will ever be returned.
+     */
+    var filteringPredicate: ((SessionViewModel) -> Bool)? { get set }
+}
+
 enum SessionSectionInfo {
     case count(Int)
     case first(SessionViewModel)

@@ -14,25 +14,42 @@ import FirebaseDatabase
  
  The `star`/`unstar` methods do nothing.
  */
-class FirebaseSessionDataSource: SessionDataSource {
+class FirebaseSessionDataSource: SessionDataSource, FilterableSessionDataSource {
     private let databaseReference: FIRDatabaseReference
     private let firebaseDateFormatter: DateFormatter
     private let sectionHeaderDateFormatter: DateFormatter
     
     weak var sessionDataSourceDelegate: SessionDataSourceDelegate?
     
+    var filteringPredicate: ((SessionViewModel) -> Bool)? {
+        didSet {
+            if oldValue == nil, filteringPredicate == nil {
+                return
+            }
+            
+            updateFilteredSessions()
+            sessionDataSourceDelegate?.sessionDataSourceDidUpdate()
+        }
+    }
+    
     var numberOfSections: Int {
         return sessionsByStart.keys.count
     }
     
-    private var sessions: [SessionViewModel] = [] {
+    fileprivate var sessions: [SessionViewModel] = [] {
         didSet {
             self.sessionsByStart = generateSessionsByStart()
         }
     }
     
+    fileprivate var filteredSessionsByStart: [Date:[SessionViewModel]] = [:]
+    
     /// `workingSessions` grouped by each session's startTime
-    private var sessionsByStart: [Date:[SessionViewModel]] = [:]
+    fileprivate var sessionsByStart: [Date:[SessionViewModel]] = [:] {
+        didSet {
+            updateFilteredSessions()
+        }
+    }
     
     init(databaseReference: FIRDatabaseReference = FIRDatabase.database().reference(), firebaseDateFormatter: DateFormatter, sectionHeaderDateFormatter: DateFormatter) {
         self.databaseReference = databaseReference
@@ -62,7 +79,7 @@ class FirebaseSessionDataSource: SessionDataSource {
     }
     
     private func date(forSection section: Int) -> Date {
-        let dateForSection = sessionsByStart.keys.sorted()[section]
+        let dateForSection = filteredSessionsByStart.keys.sorted()[section]
         return dateForSection
     }
     
@@ -89,7 +106,7 @@ class FirebaseSessionDataSource: SessionDataSource {
         
         for section in 0..<numberOfSections {
             let date = self.date(forSection: section)
-            let sessionsForStart = sessionsByStart[date]!
+            let sessionsForStart = filteredSessionsByStart[date]!
             
             guard let foundSessionIdx = sessionsForStart.index(where: { vm in vm.sessionID == sessionID }) else {
                 continue
@@ -102,7 +119,7 @@ class FirebaseSessionDataSource: SessionDataSource {
     }
     
     func firstSection(atOrAfter threshold: Date) -> Int? {
-        let sectionAndSessionDate = sessionsByStart.keys.sorted().enumerated().first {
+        let sectionAndSessionDate = filteredSessionsByStart.keys.sorted().enumerated().first {
             return $0.1 >= threshold
         }
         
@@ -114,7 +131,7 @@ class FirebaseSessionDataSource: SessionDataSource {
     }
     
     func lastSection(atOrBefore threshold: Date) -> Int? {
-        let sectionAndSessionDate = sessionsByStart.keys.sorted().reversed().enumerated().first {
+        let sectionAndSessionDate = filteredSessionsByStart.keys.sorted().reversed().enumerated().first {
             return $0.1 <= threshold
         }
         
@@ -133,7 +150,10 @@ class FirebaseSessionDataSource: SessionDataSource {
         return viewModel
     }
     
-    private func generateSessionsByStart() -> [Date:[SessionViewModel]] {
+}
+
+private extension FirebaseSessionDataSource {
+    func generateSessionsByStart() -> [Date:[SessionViewModel]] {
         var collected: [Date:[SessionViewModel]] = [:]
         for session in sessions {
             let startTime = session.start ?? .distantPast
@@ -142,6 +162,26 @@ class FirebaseSessionDataSource: SessionDataSource {
         }
         
         return collected
+    }
+    
+    func updateFilteredSessions() {
+        let filteredSessionsByStart: [Date:[SessionViewModel]]
+        defer {
+            self.filteredSessionsByStart = filteredSessionsByStart
+        }
+        
+        guard let filteringPredicate = filteringPredicate else {
+            filteredSessionsByStart = sessionsByStart
+            return
+        }
+        
+        var filtered: [Date:[SessionViewModel]] = [:]
+        for (date, sessionsForDate) in sessionsByStart {
+            let passingSessions = sessionsForDate.filter(filteringPredicate)
+            filtered[date] = passingSessions
+        }
+        
+        filteredSessionsByStart = filtered
     }
 }
 

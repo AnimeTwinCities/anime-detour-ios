@@ -8,10 +8,17 @@
 
 import UIKit
 
+/**
+ Display SessionViewModels in a collection view.
+ 
+ - seealso: `dataSource`
+ */
 class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
     @IBInspectable fileprivate var detailSegueIdentifier: String = "sessionDetail"
     @IBOutlet var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet var stickyHeaderFlowLayout: StickyHeaderFlowLayout!
+    
+    @IBOutlet var searchBarButtonItem: UIBarButtonItem?
     
     /**
      A bar button item that allows jumping to approximately the current time in the session list.
@@ -20,6 +27,8 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
     
     /**
      The source of data displayed in this view.
+     
+     If `dataSource` conforms to `FitlerableSessionDataSource`, we allow the user to search sessions.
      */
     var dataSource: (SessionDataSource & SessionStarsDataSource)? {
         didSet {
@@ -39,6 +48,27 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
             }
             
             stickyHeaderFlowLayout.headerEnabled = enableDayControl
+        }
+    }
+    
+    fileprivate var filterString: String? {
+        didSet {
+            guard let filterString = filterString else {
+                filteringPredicate = nil
+                return
+            }
+            
+            filteringPredicate = { session in
+                session.title.localizedCaseInsensitiveContains(filterString)
+            }
+        }
+    }
+    
+    fileprivate var filteringPredicate: ((SessionViewModel) -> Bool)? {
+        didSet {
+            if let filterable = dataSource as? FilterableSessionDataSource {
+                filterable.filteringPredicate = filteringPredicate
+            }
         }
     }
     
@@ -260,6 +290,18 @@ private extension SessionsViewController {
         if let detailVC = currentDetailViewController, detailVC.viewModel?.sessionID == viewModel.sessionID {
             detailVC.viewModel = updatedViewModel
         }
+    }
+    
+    func updateSearchBarButtonVisibility() {
+        guard let searchBarButtonItem = searchBarButtonItem else {
+            return
+        }
+        
+        var rightItems = navigationItem.rightBarButtonItems ?? []
+        if let _ = dataSource as? FilterableSessionDataSource {
+            rightItems.append(searchBarButtonItem)
+        }
+        navigationItem.rightBarButtonItems = rightItems
     }
 }
 
