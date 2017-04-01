@@ -360,13 +360,11 @@ private class SessionDayScroller {
      - returns: An index, or `nil` if no matching date was found.
      */
     func dayIndex(for date: Date) -> Int? {
-        var previousDate: Date?
+        let calendar = Calendar.current
         for (idx, day) in days.enumerated() {
-            if let previousDate = previousDate, previousDate <= date, date < day {
+            if calendar.isDate(date, inSameDayAs: day) {
                 return idx
             }
-            
-            previousDate = day
         }
         
         return nil
