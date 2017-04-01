@@ -10,16 +10,16 @@ import Foundation
 
 struct AnalyticsConstants {
     enum Actions: String {
-        case Favorite = "Favorite"
-        case Unfavorite = "Unfavorite"
-        case Notifications = "Notifications"
-        case ViewDetails = "View Details"
+        case favorite = "Favorite"
+        case unfavorite = "Unfavorite"
+        case notifications = "Notifications"
+        case viewDetails = "View Details"
     }
 
     enum Category: String {
-        case Guest = "Guest"
-        case Home = "Home"
-        case Session = "Event"
-        case Settings = "Settings"
+        case guest = "Guest"
+        case home = "Home"
+        case session = "Event"
+        case settings = "Settings"
     }
 }

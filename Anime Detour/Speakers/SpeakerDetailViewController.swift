@@ -56,6 +56,10 @@ class SpeakerDetailViewController: UIViewController, StretchingImageHeaderContai
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
+        let dict = GAIDictionaryBuilder.createEventDictionary(.guest, action: .viewDetails, label: viewModel?.name, value: nil)
+        analytics?.send(dict)
+        
         imageHeaderView.image = .speakerPlaceholder
         
         nonImageStackView.isLayoutMarginsRelativeArrangement = true

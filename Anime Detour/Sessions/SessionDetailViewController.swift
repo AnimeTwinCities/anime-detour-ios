@@ -69,6 +69,10 @@ class SessionDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
+        let dict = GAIDictionaryBuilder.createEventDictionary(.session, action: .viewDetails, label: viewModel?.title, value: nil)
+        analytics?.send(dict)
+        
         scrollView.preservesSuperviewLayoutMargins = true
         
         stackView.isLayoutMarginsRelativeArrangement = true

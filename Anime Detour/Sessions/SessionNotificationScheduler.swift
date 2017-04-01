@@ -146,7 +146,7 @@ class SessionNotificationScheduler: NSObject, SessionDataSourceDelegate, Session
         
         // Track notifications getting enabled/disabled
         if let analytics = GAI.sharedInstance().defaultTracker {
-            let dict = GAIDictionaryBuilder.createEventDictionary(.Settings, action: .Notifications, label: nil, value: NSNumber(value: enabled ? 1 : 0))
+            let dict = GAIDictionaryBuilder.createEventDictionary(.settings, action: .notifications, label: nil, value: NSNumber(value: enabled ? 1 : 0))
             analytics.send(dict)
         }
     }
