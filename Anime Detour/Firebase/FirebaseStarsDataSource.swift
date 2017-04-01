@@ -117,8 +117,8 @@ private extension FirebaseStarsDataSource {
         var shouldMerge = shouldMergeLocalAndRemoteStartsOnce
         
         firebaseObservingHandle = databaseReference.child("favorites").child("ad-2017").child(userID).observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
-            // Assume a format like [{ "sessionIDGoesHere" : { "value" : true} }, { "anotherSessionID" : { "value" : true } }]
-            guard let strongSelf = self, let sessionIDsDicts = snapshot.value as? [String:[String:Any]] else {
+            // Assume a format like [{ "sessionIDGoesHere" : true }, { "anotherSessionID" : true }]
+            guard let strongSelf = self, let sessionIDsDicts = snapshot.value as? [String:Any] else {
                 return
             }
             
