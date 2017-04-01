@@ -209,7 +209,16 @@ class SessionTitleView: UIView {
         trackLabel.backgroundColor = categoryColor
         // Assume that category colors are relatively dark, so always use white text.
         trackLabel.textColor = .white
-        trackLabel.text = viewModel.category?.name
+        
+        var trackLabelText = viewModel.category?.name
+        if let trackText = trackLabelText {
+            if viewModel.is18Plus {
+                trackLabelText = String(format: NSLocalizedString("%@ · 18+", comment: "18+ indicator with session track"), trackText)
+            } else if viewModel.is21Plus {
+                trackLabelText = String(format: NSLocalizedString("%@ · 21+", comment: "21+ indicator with session track"), trackText)
+            }
+        }
+        trackLabel.text = trackLabelText
     }
     
     /**
