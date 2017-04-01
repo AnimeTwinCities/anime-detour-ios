@@ -485,11 +485,11 @@ Copyright 2016 Google
    limitations under the License.
 
 
+## Google
+
+Copyright 2016 Google Inc.
+
 ## GoogleAnalytics
-
-Copyright 2015 Google Inc.
-
-## GoogleAppUtilities
 
 Copyright 2016 Google
 
@@ -499,7 +499,7 @@ Copyright 2016 Google
 
 ## GoogleSignIn
 
-Copyright 2016 Google
+Copyright 2017 Google
 
 ## GoogleSymbolUtilities
 

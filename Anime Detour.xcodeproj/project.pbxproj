@@ -86,7 +86,6 @@
 		DA90BDC21CA23E07006A5ACD /* SessionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD8B1CA23E07006A5ACD /* SessionSettings.swift */; };
 		DA90BDC31CA23E07006A5ACD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD8C1CA23E07006A5ACD /* Settings.swift */; };
 		DA9652111CA23BBB00EA4112 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9652101CA23BBB00EA4112 /* AppDelegate.swift */; };
-		DAA05C771CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAA05C761CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist */; };
 		DAFCAF5B1CACAA0200100BB8 /* AnimeDetourScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCAF5A1CACAA0200100BB8 /* AnimeDetourScreenshots.swift */; };
 		DAFCAF631CACAA7D00100BB8 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCAF621CACAA7D00100BB8 /* SnapshotHelper.swift */; };
 		DAFD7F781E679E7100F3A47D /* FirebaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFD7F771E679E7100F3A47D /* FirebaseCoordinator.swift */; };
@@ -204,7 +203,6 @@
 		DA96520D1CA23BBB00EA4112 /* Anime Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Detour.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9652101CA23BBB00EA4112 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA96521C1CA23BBB00EA4112 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DAA05C761CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GoogleAnalyticsConfiguration.plist; sourceTree = "<group>"; };
 		DAFCAF581CACAA0200100BB8 /* Anime Detour Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Anime Detour Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFCAF5A1CACAA0200100BB8 /* AnimeDetourScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetourScreenshots.swift; sourceTree = "<group>"; };
 		DAFCAF5C1CACAA0200100BB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -465,7 +463,6 @@
 				5C8A84D81E748CD7008B4808 /* Settings */,
 				5C8A84EF1E748F3C008B4808 /* Speakers */,
 				DA90BDDB1CA23E25006A5ACD /* Anime Detour-Bridging-Header.h */,
-				DAA05C761CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist */,
 				DAFD7F791E679EA500F3A47D /* GoogleService-Info.plist */,
 				DA96521C1CA23BBB00EA4112 /* Info.plist */,
 				5C8A85351E74A994008B4808 /* Main.storyboard */,
@@ -615,7 +612,6 @@
 				DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */,
 				DA50F8BD1E906CF00049244B /* AnimeDetour2017DealersMap.pdf in Resources */,
 				DA53F2911CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite in Resources */,
-				DAA05C771CBC67D6000E9DAF /* GoogleAnalyticsConfiguration.plist in Resources */,
 				DA50F8C11E906D090049244B /* DoubleTree_Floor1.pdf in Resources */,
 				174BD80F9AFA4016A579F4E8 /* Pods-Anime Detour-metadata.plist in Resources */,
 				99C56289BA1E49DBB82753A0 /* Pods-Anime Detour-settings-metadata.plist in Resources */,
@@ -881,6 +877,7 @@
 				INFOPLIST_FILE = "Anime Detour/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LLVM_LTO = YES;
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.animedetour.mobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime Detour-Bridging-Header.h";
@@ -897,6 +894,7 @@
 				INFOPLIST_FILE = "Anime Detour/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LLVM_LTO = YES;
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.animedetour.mobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Anime Detour/Anime Detour-Bridging-Header.h";

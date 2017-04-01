@@ -696,16 +696,40 @@ and uses operating-system settings on iOS and Mac OS X.&lt;/p&gt;
 		<dict>
 			<key>authors</key>
 			<dict>
+				<key>Google Inc.</key>
+				<string></string>
+			</dict>
+			<key>description</key>
+			<string>&lt;p&gt;Simplify your iOS development, grow your user base, and monetize more effectively with Google services.&lt;/p&gt;
+</string>
+			<key>homepage</key>
+			<string>https://developers.google.com/ios</string>
+			<key>licenseText</key>
+			<string>Copyright 2016 Google Inc.</string>
+			<key>licenseType</key>
+			<string>Copyright</string>
+			<key>name</key>
+			<string>Google</string>
+			<key>socialMediaURL</key>
+			<string></string>
+			<key>summary</key>
+			<string>Google APIs for iOS</string>
+			<key>version</key>
+			<string>3.0.3</string>
+		</dict>
+		<dict>
+			<key>authors</key>
+			<dict>
 				<key>Google, Inc.</key>
 				<string></string>
 			</dict>
 			<key>description</key>
-			<string>&lt;p&gt;Google Analytics lets you track application events you care about and gain insights from discovery and installation to conversion and engagement&lt;/p&gt;
+			<string>&lt;p&gt;Google Analytics lets you track application events you care about and gain insights from discovery and installation to conversion and engagement.&lt;/p&gt;
 </string>
 			<key>homepage</key>
 			<string>https://www.google.com/analytics</string>
 			<key>licenseText</key>
-			<string>Copyright 2015 Google Inc.</string>
+			<string>Copyright 2016 Google</string>
 			<key>licenseType</key>
 			<string>Copyright</string>
 			<key>name</key>
@@ -715,31 +739,7 @@ and uses operating-system settings on iOS and Mac OS X.&lt;/p&gt;
 			<key>summary</key>
 			<string>Google Analytics - measure your app performance</string>
 			<key>version</key>
-			<string>3.14.0</string>
-		</dict>
-		<dict>
-			<key>authors</key>
-			<dict>
-				<key>Google, Inc.</key>
-				<string></string>
-			</dict>
-			<key>description</key>
-			<string>&lt;p&gt;Application utility methods that are shared between Google libraries. This pod does not expose any headers and isn&amp;#39;t intended for direct use, but rather as a dependency of some Google libraries.&lt;/p&gt;
-</string>
-			<key>homepage</key>
-			<string>https://developers.google.com/ios</string>
-			<key>licenseText</key>
-			<string>Copyright 2016 Google</string>
-			<key>licenseType</key>
-			<string>Copyright</string>
-			<key>name</key>
-			<string>GoogleAppUtilities</string>
-			<key>socialMediaURL</key>
-			<string></string>
-			<key>summary</key>
-			<string>Shared networking utility methods for Google libraries. Not intended for direct use.</string>
-			<key>version</key>
-			<string>1.1.2</string>
+			<string>3.17.0</string>
 		</dict>
 		<dict>
 			<key>authors</key>
@@ -777,7 +777,7 @@ and uses operating-system settings on iOS and Mac OS X.&lt;/p&gt;
 			<key>homepage</key>
 			<string>https://developers.google.com/identity/sign-in/ios/</string>
 			<key>licenseText</key>
-			<string>Copyright 2016 Google</string>
+			<string>Copyright 2017 Google</string>
 			<key>licenseType</key>
 			<string>Copyright</string>
 			<key>name</key>
@@ -787,7 +787,7 @@ and uses operating-system settings on iOS and Mac OS X.&lt;/p&gt;
 			<key>summary</key>
 			<string>Enables iOS apps to sign in with Google.</string>
 			<key>version</key>
-			<string>4.0.1</string>
+			<string>4.0.2</string>
 		</dict>
 		<dict>
 			<key>authors</key>

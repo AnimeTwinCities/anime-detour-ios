@@ -558,11 +558,11 @@ freely, subject to the following restrictions:
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright 2015 Google Inc.</string>
+			<string>Copyright 2016 Google Inc.</string>
 			<key>License</key>
 			<string>Copyright</string>
 			<key>Title</key>
-			<string>GoogleAnalytics</string>
+			<string>Google</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -572,7 +572,7 @@ freely, subject to the following restrictions:
 			<key>License</key>
 			<string>Copyright</string>
 			<key>Title</key>
-			<string>GoogleAppUtilities</string>
+			<string>GoogleAnalytics</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -588,7 +588,7 @@ freely, subject to the following restrictions:
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright 2016 Google</string>
+			<string>Copyright 2017 Google</string>
 			<key>License</key>
 			<string>Copyright</string>
 			<key>Title</key>

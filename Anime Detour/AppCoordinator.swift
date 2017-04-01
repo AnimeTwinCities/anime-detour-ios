@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Google
 import GoogleSignIn
 
 class AppCoordinator {
@@ -304,17 +305,20 @@ private extension AppCoordinator {
      Setup analytics tracking.
      */
     func initAnalytics() {
-        let analytics = GAI.sharedInstance()
-        analytics?.dispatchInterval = 30 // seconds
-        guard let file = Bundle.main.path(forResource: "GoogleAnalyticsConfiguration", ofType: "plist"),
-            let analyticsDictionary = NSDictionary(contentsOfFile: file),
-            let analyticsID = analyticsDictionary["analyticsID"] as? String else {
-                return
+        // Configure tracker from GoogleService-Info.plist.
+        var configureError: NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        if let configureError = configureError {
+            assertionFailure("Error configuring Google services: \(configureError)")
         }
         
-        if let tracker = analytics?.tracker(withTrackingId: analyticsID) {
-            UIViewController.hookViewDidAppearForAnalytics(tracker)
+        // Optional: configure GAI options.
+        guard let gai = GAI.sharedInstance() else {
+            assert(false, "Google Analytics not configured correctly")
         }
+        gai.trackUncaughtExceptions = true  // report uncaught exceptions
+        
+        UIViewController.hookViewDidAppearForAnalytics(gai.defaultTracker)
     }
     
     // MARK: - Google sign in
