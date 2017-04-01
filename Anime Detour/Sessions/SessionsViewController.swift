@@ -395,13 +395,20 @@ private class SessionDayScroller {
         // The full name of the day of the week, e.g. Monday
         formatter.dateFormat = "EEEE"
         
+        // Try to preserve the selected segment index
+        let previousSelectedIndex = daysControl.selectedSegmentIndex
+        
         daysControl.removeAllSegments()
         for (idx, date) in days.enumerated() {
             let title = formatter.string(from: date)
             daysControl.insertSegment(withTitle: title, at: idx, animated: false)
         }
         
-        daysControl.selectedSegmentIndex = 0
+        if previousSelectedIndex < days.count {
+            daysControl.selectedSegmentIndex = previousSelectedIndex
+        } else {
+            daysControl.selectedSegmentIndex = previousSelectedIndex
+        }
     }
     
     /**
