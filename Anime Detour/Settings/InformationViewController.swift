@@ -16,7 +16,7 @@ class InformationViewController: UITableViewController {
 
     // MARK: - Cell reuse identifiers
 
-    @IBInspectable var logoIdentifier: String!
+    @IBInspectable var titleIdentifier: String!
     @IBInspectable var dateIdentifier: String!
     @IBInspectable var mapLinkIdentifier: String!
     @IBInspectable var harassmentPolicyIdentifier: String!
@@ -38,6 +38,14 @@ class InformationViewController: UITableViewController {
     
     // MARK: - View Controller
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Use automatic table cell heights
+        tableView!.estimatedRowHeight = 44
+        tableView!.rowHeight = UITableViewAutomaticDimension
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         afterTransitionSize = size
@@ -55,32 +63,9 @@ class InformationViewController: UITableViewController {
     fileprivate func configure(_ cell: UITableViewCell, forRowAtIndexPath indexPath: IndexPath) {
         
         switch cell.reuseIdentifier {
-        case logoIdentifier?:
-            if let imageView = cell.contentView.subviews.filter({
-                return $0.isKind(of: UIImageView.self)
-            }).first as? UIImageView {
-                let image: UIImage
-                if let size = afterTransitionSize {
-                    switch Int(size.width) {
-                    case 0..<415: // Portrait on known iphones
-                        image = UIImage(named: "AD-Header-Logo-375")!
-                    case 415..<Int.max: // Landscape
-                        image = UIImage(named: "ADHeader1152")!
-                    default:
-                        image = UIImage(named: "ADHeader1152")!
-                    }
-                } else {
-                    let horizontalSizeClass = traitCollection.horizontalSizeClass
-                    if horizontalSizeClass == .regular {
-                        image = UIImage(named: "ADHeader1152")!
-                    } else {
-                        image = UIImage(named: "AD-Header-Logo-375")!
-                    }
-                }
-                
-                imageView.image = image
-            }
-            break
+        case titleIdentifier?:
+            // Don't show selection of the title cell
+            cell.selectionStyle = .none
         case dateIdentifier?:
             // Don't show selection of the date cell
             cell.selectionStyle = .none
