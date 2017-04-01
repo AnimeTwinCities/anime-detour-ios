@@ -20,9 +20,29 @@ class SpeakersViewController: UICollectionViewController, FlowLayoutContaining {
         updateFlowLayoutItemWidth()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateFlowLayoutItemWidth(viewSize: view?.frame.size)
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         updateLayoutOnTransition(toViewSize: size, with: coordinator)
+    }
+    
+    func updateFlowLayoutItemWidth(viewSize size: CGSize?) {
+        guard let flowLayout = flowLayout, let size = size else {
+            return
+        }
+        
+        let height = flowLayout.itemSize.height
+        // 384 == 768 / 2, giving us more than one column only when our view is 768 wide or wider.
+        let numberOfColumns = floor(size.width / 384)
+        let impreciseWidth = size.width / numberOfColumns
+        let width = floor(impreciseWidth)
+        let cellSize = CGSize(width: width, height: height)
+        flowLayout.itemSize = cellSize
+        flowLayout.invalidateLayout()
     }
 
     // MARK: UICollectionViewDataSource

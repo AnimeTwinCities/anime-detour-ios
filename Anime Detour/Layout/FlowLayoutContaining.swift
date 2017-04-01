@@ -28,6 +28,10 @@ extension FlowLayoutContaining where Self: UIViewController {
     func updateFlowLayoutItemWidth(viewSize size: CGSize? = nil) {
         let width = size?.width ?? view.frame.width
         flowLayout?.itemSize.width = width
+        
+        // Having just updated our item sizes, our collection view layout object's layout is now invalid.
+        // Let it know that this is the case.
+        self.flowLayout?.invalidateLayout()
     }
     
     // MARK: - Statically dispatched methods
@@ -36,10 +40,6 @@ extension FlowLayoutContaining where Self: UIViewController {
         updateFlowLayoutItemWidth(viewSize: size)
         
         coordinator.animate(alongsideTransition: { context in
-            // Having just updated our item sizes, our collection view layout object's layout is now invalid.
-            // Let it know that this is the case.
-            self.flowLayout?.invalidateLayout()
-            
             // Ask for a layout. If we don't ask for a layout, and we transition to a different size while
             // we're not visible, the size transition will animate the next time we become visible.
             // Asking for a layout now ensures that the animation happens alongside the size transition,
