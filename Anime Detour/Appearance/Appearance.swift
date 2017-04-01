@@ -10,16 +10,23 @@ import CoreGraphics
 import UIKit
 
 struct Appearance {
-    /// Setup default appearances via appearance proxies
-    static func setupAppearanceProxies() {
+    /// Setup default appearances directly and via appearance proxies
+    static func setupAppearance(window: UIWindow) {
         let mainColor = UIColor.adr_orange
         
-        UIApplication.shared.keyWindow?.tintColor = mainColor
+        window.tintColor = mainColor
         
         // Setup the appearance of age requirement labels
         AgeRequirementAwakeFromNibHook.hookAwakeFromNibForAgeLabelAppearance()
         AgeRequirementAwakeFromNibHook.hookTableViewCellSetHighlightedForAgeLabelAppearance()
         AgeRequirementAwakeFromNibHook.hookTableViewCellSetSelectedForAgeLabelAppearance()
+        
+        // Use a colored navigation bar with white text
+        let navBar = UINavigationBar.appearance()
+        navBar.barTintColor = mainColor
+        navBar.tintColor = UIColor.white
+        navBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navBar.isTranslucent = false
         
         // Make UISearchBars minimal style but with gray text fields by default
         let searchBar = UISearchBar.appearance()

@@ -136,7 +136,7 @@ class AppCoordinator {
         // Make sure the AppearanceNotifier singleton has been created by now.
         _ = AppearanceNotifier.shared
         
-        Appearance.setupAppearanceProxies()
+        Appearance.setupAppearance(window: window)
         
         // Set up Google auth using the client ID that Firebase made when we created this app
         // in the Firebase console.
