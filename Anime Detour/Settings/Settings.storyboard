@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="iqi-1G-svm">
-                                <rect key="frame" x="16" y="64" width="343" height="165"/>
+                                <rect key="frame" x="16" y="64" width="343" height="149"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with Google to sync your agenda with the Anime Detour schedule web site." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i03-Q8-dee">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="41"/>
@@ -36,10 +36,10 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhN-5A-8kV" customClass="PillButtonContainerView" customModule="Anime_Detour" customModuleProvider="target">
-                                        <rect key="frame" x="121.5" y="115" width="100" height="50"/>
+                                        <rect key="frame" x="121.5" y="115" width="100" height="34"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dif-7Q-Qs9">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="34"/>
                                                 <state key="normal" title="Sign Out"/>
                                                 <connections>
                                                     <action selector="signOut:" destination="9Rg-iE-zyK" eventType="touchUpInside" id="H9U-pe-euD"/>
@@ -77,6 +77,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jrt-P3-FUn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2388" y="2087"/>
+        </scene>
+        <!--Single Map View Controller-->
+        <scene sceneID="8VM-MY-eF6">
+            <objects>
+                <viewController id="rpo-lT-sW7" customClass="SingleMapViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TvP-vZ-XG4"/>
+                        <viewControllerLayoutGuide type="bottom" id="Q5w-xu-mXu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="e0x-Sn-K2Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8C6-g5-SxA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3156" y="2456"/>
         </scene>
         <!--Information View Controller-->
         <scene sceneID="Ge5-Xw-52j">
@@ -170,14 +188,34 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Information and Policies" id="5wn-3x-nhz">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WebsiteReuseIdentifier" textLabel="yOF-7R-mvd" style="IBUITableViewCellStyleDefault" id="lBw-YG-EOZ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DealersMapReuseIdentifier" textLabel="yOF-7R-mvd" style="IBUITableViewCellStyleDefault" id="lBw-YG-EOZ">
                                         <rect key="frame" x="0.0" y="154" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lBw-YG-EOZ" id="CTm-x9-dGB">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Anime Detour Website" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yOF-7R-mvd">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Dealer's Room Map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yOF-7R-mvd">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="rpo-lT-sW7" kind="show" identifier="DealersMapSegue" id="fWf-UQ-CaB"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WebsiteReuseIdentifier" textLabel="OQ6-WT-4c4" style="IBUITableViewCellStyleDefault" id="Ze5-Z8-h3F">
+                                        <rect key="frame" x="0.0" y="198" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ze5-Z8-h3F" id="nMy-bd-8TU">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Anime Detour Website" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OQ6-WT-4c4">
                                                     <rect key="frame" x="15" y="0.0" width="325" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -188,7 +226,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WeaponsPolicyReuseIdentifier" textLabel="ePe-oh-oDC" style="IBUITableViewCellStyleDefault" id="k5S-XU-CtZ">
-                                        <rect key="frame" x="0.0" y="198" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="242" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k5S-XU-CtZ" id="C8e-uO-i4G">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
@@ -205,7 +243,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="HarassmentPolicyReuseIdentifier" textLabel="VXA-xt-Ddr" style="IBUITableViewCellStyleDefault" id="VjY-Wd-4gD">
-                                        <rect key="frame" x="0.0" y="242" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="286" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VjY-Wd-4gD" id="Oll-cd-YKo">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
@@ -222,7 +260,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LetterParentsReuseIdentifier" textLabel="i0U-z4-RsX" style="IBUITableViewCellStyleDefault" id="Szl-gM-Ynm">
-                                        <rect key="frame" x="0.0" y="286" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="330" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Szl-gM-Ynm" id="4gJ-DT-5gf">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
@@ -243,7 +281,7 @@
                             <tableViewSection headerTitle="App" id="Frk-P9-AF6">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsReuseIdentifier" textLabel="Mb4-gi-hyl" style="IBUITableViewCellStyleDefault" id="Gd4-bo-9mt">
-                                        <rect key="frame" x="0.0" y="352" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="396" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gd4-bo-9mt" id="IGZ-tN-rDk">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
@@ -265,7 +303,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsReuseIdentifier" textLabel="iRy-Ev-jbl" style="IBUITableViewCellStyleDefault" id="m2E-2L-OcS">
-                                        <rect key="frame" x="0.0" y="396" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="440" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m2E-2L-OcS" id="LZS-fZ-s4e">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
@@ -303,18 +341,19 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="settingsSegue" value="SettingsSegueIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="settingsIdentifier" value="SettingsReuseIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="googleSignInSegue" value="SignInSegueIdentifier"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="mapSegue" value="MapSegueIdentifier"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="titleIdentifier" value="TitleReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dealersMapIdentifier" value="DealersMapReuseIdentifier"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dealersMapSegue" value="DealersMapSegue"/>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zCR-Wu-H9N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1570" y="2457"/>
         </scene>
-        <!--Settings-->
+        <!--Settings View Controller-->
         <scene sceneID="d02-gm-fgl">
             <objects>
-                <viewController title="Settings" id="FL4-qb-2Hy" customClass="SettingsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="FL4-qb-2Hy" customClass="SettingsViewController" customModule="Anime_Detour" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aGJ-J8-910"/>
                         <viewControllerLayoutGuide type="bottom" id="bRB-K0-wLZ"/>

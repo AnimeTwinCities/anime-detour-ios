@@ -19,12 +19,13 @@ class InformationViewController: UITableViewController {
     @IBInspectable var titleIdentifier: String!
     @IBInspectable var dateIdentifier: String!
     @IBInspectable var mapLinkIdentifier: String!
+    @IBInspectable var dealersMapIdentifier: String!
     @IBInspectable var harassmentPolicyIdentifier: String!
     @IBInspectable var letterParentsIdentifier: String!
     @IBInspectable var weaponsPolicyIdentifier: String!
     @IBInspectable var websiteIdentifier: String!
     
-    @IBInspectable var mapSegue: String!
+    @IBInspectable var dealersMapSegue: String!
     @IBInspectable var googleSignInSegue: String!
     @IBInspectable var settingsIdentifier: String!
 
@@ -72,6 +73,8 @@ class InformationViewController: UITableViewController {
         case mapLinkIdentifier?:
             // Don't show selection of the map cell
             cell.selectionStyle = .none
+        case dealersMapIdentifier?:
+            break
         case harassmentPolicyIdentifier?:
             break
         case letterParentsIdentifier?:
@@ -127,8 +130,9 @@ class InformationViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch (segue.identifier) {
-        case mapSegue?:
-            break
+        case dealersMapSegue?:
+            let destination = segue.destination
+            destination.title = NSLocalizedString("Dealer's Room", comment: "Dealer's room view controller title")
         case settingsSegue?:
             let acknowledgements = Acknowledgements()
             let sessionSettingsForm = SessionSettings()

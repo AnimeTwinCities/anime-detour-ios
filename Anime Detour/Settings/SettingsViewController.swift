@@ -10,6 +10,12 @@ import UIKit
 import FXForms
 
 class SettingsViewController: FXFormViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = NSLocalizedString("Settings", comment: "Settings view controller title")
+    }
+    
     @objc fileprivate func showSettings() {
         let application = UIApplication.shared
         application.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
