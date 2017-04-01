@@ -27,7 +27,7 @@ class FirebaseSpeakerDataSource: SpeakerDataSource {
     init(databaseReference: FIRDatabaseReference = FIRDatabase.database().reference()) {
         self.databaseReference = databaseReference
         
-        databaseReference.child("devfest2017").child("speakers").observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
+        databaseReference.child("guests").child("ad-2017").observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
             guard let dict = snapshot.value as? [String:Any], let strongSelf = self else {
                 return
             }
@@ -87,7 +87,7 @@ extension SpeakerViewModel {
         let company: String? = dict["company"] as? String
         let twitter: String? = dict["twitter"] as? String
         let websiteString: String? = dict["website"] as? String
-        let imageURLString: String? = dict["imageUrl"] as? String
+        let imageURLString: String? = dict["image"] as? String
         
         let website = websiteString.flatMap { return URL(string: $0) }
         let imageURL = imageURLString.flatMap { return URL(string: $0) }

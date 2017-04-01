@@ -158,6 +158,7 @@ final class SpeakerTitleView: UIView {
 
 fileprivate extension SpeakerTitleView {
     func subviewsInit() {
+        backgroundColor = .clear
         titleSubtitleStackView.axis = .vertical
         horizontalStackView.alignment = .center
         
