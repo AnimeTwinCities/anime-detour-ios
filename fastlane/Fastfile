@@ -28,7 +28,7 @@ platform :ios do
   end
 
   desc "Deploy a new version to the App Store"
-  lane :appstore do
+  lane :release do
     snapshot
     gym(scheme: "Anime Detour")
     deliver(force: true)
