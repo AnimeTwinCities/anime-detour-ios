@@ -68,6 +68,7 @@
 		DA50F8C21E906D090049244B /* DoubleTree_Floor2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA50F8BF1E906D090049244B /* DoubleTree_Floor2.pdf */; };
 		DA50F8C31E906D090049244B /* DoubleTree_Floor22.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA50F8C01E906D090049244B /* DoubleTree_Floor22.pdf */; };
 		DA50F8C51E906DEC0049244B /* AD2017-AreaMap.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA50F8C41E906DEC0049244B /* AD2017-AreaMap.pdf */; };
+		DA50F8C91E909D480049244B /* SessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA50F8C81E909D480049244B /* SessionsTableViewController.swift */; };
 		DA53F2911CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DA53F2901CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite */; };
 		DA7C001F1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C001E1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift */; };
 		DA90BDA81CA23E07006A5ACD /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */; };
@@ -182,6 +183,7 @@
 		DA50F8BF1E906D090049244B /* DoubleTree_Floor2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DoubleTree_Floor2.pdf; sourceTree = "<group>"; };
 		DA50F8C01E906D090049244B /* DoubleTree_Floor22.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DoubleTree_Floor22.pdf; sourceTree = "<group>"; };
 		DA50F8C41E906DEC0049244B /* AD2017-AreaMap.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AD2017-AreaMap.pdf"; sourceTree = "<group>"; };
+		DA50F8C81E909D480049244B /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
 		DA53F2901CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnimeDetourDataModel.sqlite; sourceTree = "<group>"; };
 		DA7C001E1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlCollectionReusableView.swift; sourceTree = "<group>"; };
 		DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				5C8A84EB1E748F3C008B4808 /* SessionStarsDataSource.swift */,
 				5C8A84EC1E748F3C008B4808 /* SessionsViewController.swift */,
 				5C8A84EE1E748F3C008B4808 /* SessionViewModel.swift */,
+				DA50F8C81E909D480049244B /* SessionsTableViewController.swift */,
 				5C8A84ED1E748F3C008B4808 /* SessionTitleView.swift */,
 			);
 			path = Sessions;
@@ -695,6 +698,7 @@
 				5C8A84F81E748F3C008B4808 /* ImageFaceDetector.swift in Sources */,
 				5C8A84FB1E748F3C008B4808 /* CombinedSessionDataSource.swift in Sources */,
 				5C8A84FE1E748F3C008B4808 /* SessionDetailViewController.swift in Sources */,
+				DA50F8C91E909D480049244B /* SessionsTableViewController.swift in Sources */,
 				DAFD7F781E679E7100F3A47D /* FirebaseCoordinator.swift in Sources */,
 				5C8A852D1E7492DA008B4808 /* SettingsCoordinator.swift in Sources */,
 				5C8A85011E748F3C008B4808 /* SessionsViewController.swift in Sources */,

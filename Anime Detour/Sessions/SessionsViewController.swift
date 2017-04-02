@@ -14,7 +14,8 @@ import UIKit
  - seealso: `dataSource`
  */
 class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
-    @IBInspectable fileprivate var detailSegueIdentifier: String = "sessionDetail"
+    @IBInspectable var detailSegueIdentifier: String!
+    @IBInspectable var tableViewControllerIdentifier: String!
     @IBOutlet var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet var stickyHeaderFlowLayout: StickyHeaderFlowLayout!
     
@@ -37,6 +38,7 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
             
             if isViewLoaded, let collectionView = collectionView, let dataSource = dataSource {
                 dayScroller = SessionDayScroller(dataSource: dataSource, targetView: .collectionView(collectionView))
+                updateSearchBarButtonVisibility()
             }
         }
     }
@@ -72,10 +74,18 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         }
     }
     
+    fileprivate var searchController: UISearchController?
+    
     /**
      Scrolls to sessions near specified times, if there are such sessions. Also works with our `daySegmentedControl`.
      */
     fileprivate var dayScroller: SessionDayScroller?
+    
+    fileprivate var segmentedControlHeaderView: SegmentedControlCollectionReusableView? {
+        didSet {
+            daySegmentedControl = segmentedControlHeaderView?.segmentedControl
+        }
+    }
     
     /**
      A segmented control to allow jumping to the sessions for a particular day. Allows up to three days.
@@ -123,6 +133,8 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         nowButton.accessibilityLabel = NSLocalizedString("Now", comment: "Now button title")
         nowButton.accessibilityHint = NSLocalizedString("Jump to the current time", comment: "")
         updateFlowLayoutItemWidth()
+        
+        updateSearchBarButtonVisibility()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -192,6 +204,18 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         return viewModel
     }
     
+    @IBAction private func search() {
+        let tableVC = storyboard?.instantiateViewController(withIdentifier: tableViewControllerIdentifier) as? SessionsTableViewController ?? SessionsTableViewController(style: .plain)
+        let searchController = UISearchController(searchResultsController: tableVC)
+        searchController.delegate = self
+        searchController.searchResultsUpdater = self
+        let searchBar = searchController.searchBar
+        self.searchController = searchController
+        
+        segmentedControlHeaderView?.searchBar = searchBar
+        searchBar.becomeFirstResponder()
+    }
+    
     @IBAction private func showUpcomingSessions() {
         let now = Date()
         // 1491620400 is 4/8/17 at 3AM UTC, which is 4/8/17 at 10 PM CDT
@@ -240,7 +264,7 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == StickyHeaderFlowLayout.StickyHeaderElementKind {
             let view = collectionView.dequeueSupplementaryView(ofKind: kind, for: indexPath) as SegmentedControlCollectionReusableView
-            daySegmentedControl = view.segmentedControl
+            segmentedControlHeaderView = view
             return view
         }
         
@@ -318,15 +342,50 @@ private extension SessionsViewController {
         }
         
         var rightItems = navigationItem.rightBarButtonItems ?? []
-        if let _ = dataSource as? FilterableSessionDataSource {
-            rightItems.append(searchBarButtonItem)
-        }
+        #if DEBUG
+            if let _ = dataSource as? FilterableSessionDataSource {
+                if !rightItems.contains(searchBarButtonItem) {
+                    rightItems.append(searchBarButtonItem)
+                }
+            } else {
+                if let searchIdx = rightItems.index(of: searchBarButtonItem) {
+                    rightItems.remove(at: searchIdx)
+                }
+            }
+        #else
+            // Always remove the search button in non-debug builds
+            if let searchIdx = rightItems.index(of: searchBarButtonItem) {
+                rightItems.remove(at: searchIdx)
+            }
+        #endif
         navigationItem.rightBarButtonItems = rightItems
+    }
+}
+
+extension SessionsViewController: UISearchControllerDelegate, UISearchResultsUpdating {
+    func didDismissSearchController(_ searchController: UISearchController) {
+        segmentedControlHeaderView?.searchBar = nil
+        self.searchController = nil
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let navController = searchController.searchResultsController as? UINavigationController, let resultsController = navController.viewControllers[0] as? SessionsTableViewController else {
+            return
+        }
+        
+        let searchTerm = searchController.searchBar.text
+        filterString = searchTerm
+        resultsController.sessions = dataSource?.allSessions(limit: 25) ?? []
     }
 }
 
 extension SessionsViewController: SessionDataSourceDelegate {
     func sessionDataSourceDidUpdate() {
+        // Ignore updates while searching
+        if let _ = searchController {
+            return
+        }
+        
         // TODO: animate updates
         collectionView?.reloadData()
         

@@ -18,6 +18,12 @@ protocol SessionDataSource: DataSource {
     func indexPathOfSession(withSessionID sessionID: String) -> IndexPath?
     
     /**
+     Get all of the sessions in the data source, up to some soft limit.
+     More results than `limit` may be returned.
+     */
+    func allSessions(limit: Int) -> [SessionViewModel]
+    
+    /**
      The section of the first section which contains any sessions starting
      at or after `threshold`.
      */
@@ -176,6 +182,10 @@ final class SessionFixture: SessionDataSource, SessionStarsDataSource {
         let idx = SessionFixture.items.index(where: { return $0.sessionID == sessionID })
         let indexPath = idx.map { return IndexPath(item: $0, section: 0) }
         return indexPath
+    }
+    
+    func allSessions(limit: Int) -> [SessionViewModel] {
+        return SessionFixture.items
     }
     
     func isStarred(viewModel: SessionViewModel) -> Bool {

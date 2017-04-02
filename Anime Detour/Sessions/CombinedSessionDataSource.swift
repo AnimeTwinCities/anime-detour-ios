@@ -185,6 +185,23 @@ class CombinedSessionDataSource: SessionDataSource, SessionStarsDataSource, Filt
     
     // MARK: - SessionStarsDataSource
     
+    func allSessions(limit: Int) -> [SessionViewModel] {
+        var returnSessions: [SessionViewModel] = []
+        for section in 0..<numberOfSections {
+            for idx in 0..<numberOfItems(inSection: section) {
+                let indexPath = IndexPath(item: idx, section: section)
+                let session = viewModel(at: indexPath)
+                returnSessions.append(session)
+            }
+            
+            guard returnSessions.count < limit else {
+                break
+            }
+        }
+        
+        return returnSessions
+    }
+    
     func isStarred(viewModel: SessionViewModel) -> Bool {
         // Ignore the `viewModel`s `isStarred`, checking our data store instead.
         return starsDataSource.isStarred(viewModel: viewModel)

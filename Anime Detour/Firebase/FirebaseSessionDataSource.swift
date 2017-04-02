@@ -118,6 +118,24 @@ class FirebaseSessionDataSource: SessionDataSource, FilterableSessionDataSource 
         return indexPath
     }
     
+    func allSessions(limit: Int) -> [SessionViewModel] {
+        guard limit > 0 else {
+            return []
+        }
+        
+        var returnSessions: [SessionViewModel] = []
+        
+        for (_, sessions) in sessionsByStart {
+            returnSessions.append(contentsOf: sessions)
+            
+            guard returnSessions.count > limit else {
+                break
+            }
+        }
+        
+        return returnSessions
+    }
+    
     func firstSection(atOrAfter threshold: Date) -> Int? {
         let sectionAndSessionDate = filteredSessionsByStart.keys.sorted().enumerated().first {
             return $0.1 >= threshold

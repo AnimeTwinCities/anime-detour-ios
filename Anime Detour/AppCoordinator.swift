@@ -315,6 +315,7 @@ private extension AppCoordinator {
         // Optional: configure GAI options.
         guard let gai = GAI.sharedInstance() else {
             assert(false, "Google Analytics not configured correctly")
+            return
         }
         gai.trackUncaughtExceptions = true  // report uncaught exceptions
         
