@@ -337,27 +337,28 @@ private extension SessionsViewController {
     }
     
     func updateSearchBarButtonVisibility() {
+        var rightItems = navigationItem.rightBarButtonItems ?? []
+        
+        // Always remove the search button
+        if let searchIdx = rightItems.index(where: { (item) -> Bool in
+            item.tag == 1
+        }) {
+            rightItems.remove(at: searchIdx)
+        }
+        
         guard let searchBarButtonItem = searchBarButtonItem else {
             return
         }
         
-        var rightItems = navigationItem.rightBarButtonItems ?? []
-        #if DEBUG
-            if let _ = dataSource as? FilterableSessionDataSource {
-                if !rightItems.contains(searchBarButtonItem) {
-                    rightItems.append(searchBarButtonItem)
-                }
-            } else {
-                if let searchIdx = rightItems.index(of: searchBarButtonItem) {
-                    rightItems.remove(at: searchIdx)
-                }
-            }
-        #else
-            // Always remove the search button in non-debug builds
-            if let searchIdx = rightItems.index(of: searchBarButtonItem) {
-                rightItems.remove(at: searchIdx)
-            }
-        #endif
+//        if let _ = dataSource as? FilterableSessionDataSource {
+//            if !rightItems.contains(searchBarButtonItem) {
+//                rightItems.append(searchBarButtonItem)
+//            }
+//        } else {
+//            if let searchIdx = rightItems.index(of: searchBarButtonItem) {
+//                rightItems.remove(at: searchIdx)
+//            }
+//        }
         navigationItem.rightBarButtonItems = rightItems
     }
 }

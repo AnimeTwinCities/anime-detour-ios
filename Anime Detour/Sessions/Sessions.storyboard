@@ -142,7 +142,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="9QB-4a-09o">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="search" id="5ec-xm-fKY">
+                            <barButtonItem tag="1" systemItem="search" id="5ec-xm-fKY">
                                 <connections>
                                     <action selector="search" destination="07Z-Wh-z82" id="ASu-OF-79U"/>
                                 </connections>
