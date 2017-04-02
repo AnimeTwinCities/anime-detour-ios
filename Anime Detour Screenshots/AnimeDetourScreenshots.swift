@@ -21,7 +21,8 @@ class AnimeDetourScreenshots: XCTestCase {
         let app = XCUIApplication()
         
         let collectionViewsQuery = app.collectionViews
-        while !collectionViewsQuery.staticTexts["The Pokémon Center"].exists {
+        let sessionTitleToFind = "Anime Scavenger Hunt"
+        while !collectionViewsQuery.staticTexts[sessionTitleToFind].exists {
             let allBoundByIndex = collectionViewsQuery.cells.allElementsBoundByIndex
             // The middle item is very likely to be in the middle of the view,
             // making it a safe choice to scroll as far as necessary.
@@ -30,29 +31,29 @@ class AnimeDetourScreenshots: XCTestCase {
         
         snapshot("01-Sessions", waitForLoadingIndicator: false)
         
-        collectionViewsQuery.staticTexts["The Pokémon Center"].tap()
+        collectionViewsQuery.staticTexts[sessionTitleToFind].tap()
         
         snapshot("02-Single_Session", waitForLoadingIndicator: false)
         
-        app.tabBars.buttons["Schedule"].tap()
-        
-        app.navigationBars["Sessions"].buttons["Search"].tap()
-        app.searchFields["Search Sessions"].tap()
-        app.typeText("Pokemon")
-        
-        app.keyboards.buttons["Search"].tap()
-        
-        snapshot("03-Search", waitForLoadingIndicator: false)
-        
-        let done = app.navigationBars["Search"].buttons["Done"]
-        // For some reason, the `Done` button in the nav bar isn't `hittable`.
-        // Get its coordinate on screen and tap there instead of using it directly.
-        if done.isHittable {
-            done.tap()
-        } else {
-            let coordinate: XCUICoordinate = done.coordinate(withNormalizedOffset: CGVector(dx: 0.0, dy: 0.0))
-            coordinate.tap()
-        }
+//        app.tabBars.buttons["Schedule"].tap()
+//        
+//        app.navigationBars["Sessions"].buttons["Search"].tap()
+//        app.searchFields["Search Sessions"].tap()
+//        app.typeText("Pokemon")
+//        
+//        app.keyboards.buttons["Search"].tap()
+//        
+//        snapshot("03-Search", waitForLoadingIndicator: false)
+//        
+//        let done = app.navigationBars["Search"].buttons["Done"]
+//        // For some reason, the `Done` button in the nav bar isn't `hittable`.
+//        // Get its coordinate on screen and tap there instead of using it directly.
+//        if done.isHittable {
+//            done.tap()
+//        } else {
+//            let coordinate: XCUICoordinate = done.coordinate(withNormalizedOffset: CGVector(dx: 0.0, dy: 0.0))
+//            coordinate.tap()
+//        }
 
         let tabBarsQuery = app.tabBars
         let guestsButton = tabBarsQuery.buttons["Guests"]
@@ -60,7 +61,7 @@ class AnimeDetourScreenshots: XCTestCase {
         
         snapshot("04-Guests", waitForLoadingIndicator: false)
         
-        app.collectionViews.cells.otherElements.containing(.staticText, identifier:"Aya 'Dancing Fighter'").element.tap()
+        app.collectionViews.cells.otherElements.containing(.staticText, identifier:"Clarine Harp").element.tap()
         
         snapshot("05-Single_Guest", waitForLoadingIndicator: false)
         
