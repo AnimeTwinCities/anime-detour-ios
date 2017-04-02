@@ -21,7 +21,7 @@ class AnimeDetourScreenshots: XCTestCase {
         let app = XCUIApplication()
         
         let collectionViewsQuery = app.collectionViews
-        let sessionTitleToFind = "Anime Scavenger Hunt"
+        let sessionTitleToFind = "Anime in 2040"
         while !collectionViewsQuery.staticTexts[sessionTitleToFind].exists {
             let allBoundByIndex = collectionViewsQuery.cells.allElementsBoundByIndex
             // The middle item is very likely to be in the middle of the view,
@@ -61,12 +61,12 @@ class AnimeDetourScreenshots: XCTestCase {
         
         snapshot("04-Guests", waitForLoadingIndicator: false)
         
-        app.collectionViews.cells.otherElements.containing(.staticText, identifier:"Clarine Harp").element.tap()
+        app.collectionViews.cells.otherElements.containing(.staticText, identifier: "Greg Ayres").element.tap()
         
         snapshot("05-Single_Guest", waitForLoadingIndicator: false)
         
         guestsButton.tap()
-        tabBarsQuery.buttons["Maps"].tap()
+        tabBarsQuery.buttons["Map"].tap()
         
         snapshot("06-Maps", waitForLoadingIndicator: false)
         
