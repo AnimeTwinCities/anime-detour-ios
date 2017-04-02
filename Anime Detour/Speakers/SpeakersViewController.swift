@@ -37,7 +37,7 @@ class SpeakersViewController: UICollectionViewController, FlowLayoutContaining {
         
         let height = flowLayout.itemSize.height
         // 384 == 768 / 2, giving us more than one column only when our view is 768 wide or wider.
-        let numberOfColumns = floor(size.width / 384)
+        let numberOfColumns = ceil(size.width / 384)
         let impreciseWidth = size.width / numberOfColumns
         let width = floor(impreciseWidth)
         let cellSize = CGSize(width: width, height: height)
