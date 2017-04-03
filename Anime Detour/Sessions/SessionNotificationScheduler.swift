@@ -11,7 +11,7 @@ import Foundation
 /**
  Schedules local notifications for SessionsViewModels.
  */
-class SessionNotificationScheduler: NSObject, SessionDataSourceDelegate, SessionSettingsDelegate {
+class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
     let dataSource: SessionDataSource
     
     /// Enable/disable the setting of notifications.
@@ -20,8 +20,6 @@ class SessionNotificationScheduler: NSObject, SessionDataSourceDelegate, Session
             updateScheduledNotifications()
         }
     }
-    
-    weak var delegate: SessionFavoriteNotificationDelegate?
     
     /**
      Designated initializer.
@@ -123,20 +121,6 @@ class SessionNotificationScheduler: NSObject, SessionDataSourceDelegate, Session
         for note in sessionNotifications {
             application.cancelLocalNotification(note)
         }
-    }
-    
-    // MARK: - Session Data Source Delegate
-    
-    func sessionDataSourceDidUpdate() {
-        let sectionsCount = dataSource.numberOfSections
-        var count = 0
-        for sectionNumber in 0..<sectionsCount {
-            let itemCount = dataSource.numberOfItems(inSection: sectionNumber)
-            count += itemCount
-        }
-        
-        delegate?.didChangeFavoriteSessions(count)
-        updateScheduledNotifications()
     }
     
     // MARK: - User Visible Settings Delegate

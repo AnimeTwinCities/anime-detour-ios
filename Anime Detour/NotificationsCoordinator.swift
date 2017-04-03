@@ -28,7 +28,6 @@ class NotificationsCoordinator {
             }
             
             sessionNotificationScheduler = SessionNotificationScheduler(dataSource: dataSource)
-            sessionNotificationScheduler?.delegate = self
         }
     }
     
@@ -124,6 +123,15 @@ private extension NotificationsCoordinator {
         updateSessionNotificationsEnabled(localNotificationsAllowed)
     }
     
+    func didChangeFavoriteSessions() {
+        guard !internalSettings.askedToEnableNotifications && !sessionSettings.favoriteSessionAlerts else {
+            return
+        }
+        
+        permissionRequester.enableSessionNotificationsOnNotificationsEnabled = true
+        permissionRequester.askEnableSessionNotifications()
+    }
+    
     /**
      Update the Session notification scheduler's notifications enabled setting
      based on our user visible settings' setting.
@@ -136,10 +144,12 @@ private extension NotificationsCoordinator {
 
 extension NotificationsCoordinator: SessionDataSourceDelegate, SessionStarsDataSourceDelegate {
     func sessionDataSourceDidUpdate() {
+        didChangeFavoriteSessions()
         sessionNotificationScheduler?.updateScheduledNotifications()
     }
     
     func sessionStarsDidUpdate(dataSource: SessionStarsDataSource) {
+        didChangeFavoriteSessions()
         sessionNotificationScheduler?.updateScheduledNotifications()
     }
 }
@@ -148,17 +158,5 @@ extension NotificationsCoordinator: SessionDataSourceDelegate, SessionStarsDataS
 extension NotificationsCoordinator: NotificationPermissionRequesterDelegate {
     func notificationPermissionRequester(_ requester: NotificationPermissionRequester, wantsToPresentAlertController alertController: UIAlertController) {
         delegate?.show(alertController)
-    }
-}
-
-// MARK: - SessionFavoriteNotificationDelegate
-extension NotificationsCoordinator: SessionFavoriteNotificationDelegate {
-    func didChangeFavoriteSessions(_ count: Int) {
-        guard !internalSettings.askedToEnableNotifications && !sessionSettings.favoriteSessionAlerts else {
-            return
-        }
-        
-        permissionRequester.enableSessionNotificationsOnNotificationsEnabled = true
-        permissionRequester.askEnableSessionNotifications()
     }
 }
