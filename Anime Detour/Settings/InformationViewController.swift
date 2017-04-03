@@ -20,6 +20,7 @@ class InformationViewController: UITableViewController {
     @IBInspectable var dateIdentifier: String!
     @IBInspectable var mapLinkIdentifier: String!
     @IBInspectable var areaMapIdentifier: String!
+    @IBInspectable var costumePolicyIdentifier: String!
     @IBInspectable var dealersMapIdentifier: String!
     @IBInspectable var harassmentPolicyIdentifier: String!
     @IBInspectable var letterParentsIdentifier: String!
@@ -83,6 +84,8 @@ class InformationViewController: UITableViewController {
             break
         case letterParentsIdentifier?:
             break
+        case costumePolicyIdentifier?:
+            break
         case weaponsPolicyIdentifier?:
             break
         case websiteIdentifier?:
@@ -120,6 +123,8 @@ class InformationViewController: UITableViewController {
             url = URL(string: "http://www.animedetour.com/faqparents")!
         case weaponsPolicyIdentifier?:
             url = URL(string: "http://www.animedetour.com/policyweapons")!
+        case costumePolicyIdentifier?:
+            url = URL(string: "http://www.animedetour.com/policycostume")!
         case websiteIdentifier?:
             url = URL(string: "http://www.animedetour.com/")!
         default:
