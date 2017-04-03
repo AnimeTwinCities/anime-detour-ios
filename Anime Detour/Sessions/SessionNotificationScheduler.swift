@@ -38,6 +38,10 @@ class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
         // Always remove any existing notifications that we scheduled
         unscheduleNotifications()
         
+        guard !dataSource.allSessions(limit: 1).isEmpty else {
+            return
+        }
+        
         if notificationsEnabled {
             scheduleNotifications(dataSource)
         }

@@ -124,6 +124,10 @@ private extension NotificationsCoordinator {
     }
     
     func didChangeFavoriteSessions() {
+        guard !(sessionDataSource?.allSessions(limit: 1).isEmpty ?? true) else {
+            return
+        }
+        
         guard !internalSettings.askedToEnableNotifications && !sessionSettings.favoriteSessionAlerts else {
             return
         }
