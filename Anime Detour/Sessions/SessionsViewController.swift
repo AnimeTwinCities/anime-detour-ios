@@ -180,8 +180,9 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         }
         
         let height = flowLayout.itemSize.height
-        // 384 == 768 / 2, giving us more than one column only when our view is 768 wide or wider.
-        let numberOfColumns = ceil(size.width / 384)
+        // 368 == 736 / 2, giving us more than one column only when our view is 736 wide or wider.
+        // The iPhone 7 Plus screen is 736 pts tall
+        let numberOfColumns = max(1, floor(size.width / 368))
         let impreciseWidth = size.width / numberOfColumns
         let width = floor(impreciseWidth)
         let cellSize = CGSize(width: width, height: height)
