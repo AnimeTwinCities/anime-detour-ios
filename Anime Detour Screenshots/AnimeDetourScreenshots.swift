@@ -61,12 +61,15 @@ class AnimeDetourScreenshots: XCTestCase {
         
         snapshot("04-Guests", waitForLoadingIndicator: false)
         
-        app.collectionViews.cells.otherElements.containing(.staticText, identifier: "Greg Ayres").element.tap()
+        app.collectionViews.cells.otherElements.containing(.staticText, identifier: "Greg Ayres").element(boundBy: 0).tap()
         
         snapshot("05-Single_Guest", waitForLoadingIndicator: false)
         
         guestsButton.tap()
         tabBarsQuery.buttons["Map"].tap()
+        
+        // Wait a few seconds for the maps to load
+        sleep(3)
         
         snapshot("06-Maps", waitForLoadingIndicator: false)
         
