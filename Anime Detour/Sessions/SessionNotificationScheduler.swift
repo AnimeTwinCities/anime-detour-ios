@@ -35,6 +35,16 @@ class SessionNotificationScheduler: NSObject, SessionDataSourceDelegate, Session
         updateScheduledNotifications()
     }
     
+    /// Update all scheduled local notifications to match the current set of favorite Sessions.
+    func updateScheduledNotifications() {
+        // Always remove any existing notifications that we scheduled
+        unscheduleNotifications()
+        
+        if notificationsEnabled {
+            scheduleNotifications(dataSource)
+        }
+    }
+    
     /// Schedule local notifications, one per time for which a Session starts.
     fileprivate func scheduleNotifications(_ dataSource: SessionDataSource) {
         let application = UIApplication.shared
@@ -82,7 +92,7 @@ class SessionNotificationScheduler: NSObject, SessionDataSourceDelegate, Session
     }
     
     /// Create a local notification with our standard fire time, for a session.
-    private func notification(forSessionAt date: Date) -> UILocalNotification {
+    fileprivate func notification(forSessionAt date: Date) -> UILocalNotification {
         let notification = UILocalNotification()
         
         let tenMinutes: TimeInterval = 10 * 60 // 10 minutes * 60 seconds
@@ -112,16 +122,6 @@ class SessionNotificationScheduler: NSObject, SessionDataSourceDelegate, Session
         
         for note in sessionNotifications {
             application.cancelLocalNotification(note)
-        }
-    }
-    
-    /// Update all scheduled local notifications to match the current set of favorite Sessions.
-    fileprivate func updateScheduledNotifications() {
-        // Always remove any existing notifications that we scheduled
-        unscheduleNotifications()
-        
-        if notificationsEnabled {
-            scheduleNotifications(dataSource)
         }
     }
     

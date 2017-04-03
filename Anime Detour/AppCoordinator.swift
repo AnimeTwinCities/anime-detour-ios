@@ -213,11 +213,12 @@ class AppCoordinator {
         do {
             let firebaseSessionsDataSource = FirebaseSessionDataSource(firebaseDateFormatter: firebaseDateFormatter, sectionHeaderDateFormatter: sectionHeaderDateFormatter)
             
-            let sessionDataSource = CombinedSessionDataSource(dataSource: firebaseSessionsDataSource, starsDataSource: firebaseStarsDataSource)
-            firebaseSessionsDataSource.sessionDataSourceDelegate = sessionDataSource
-            multiSessionStarsDataSourceDelegate.broadcastDelegates.append(sessionDataSource)
+            let starredSessionsDataSource = CombinedSessionDataSource(dataSource: firebaseSessionsDataSource, starsDataSource: firebaseStarsDataSource)
+            starredSessionsDataSource.shouldIncludeOnlyStarred = true
+            firebaseSessionsDataSource.sessionDataSourceDelegate = starredSessionsDataSource
+            multiSessionStarsDataSourceDelegate.broadcastDelegates.append(starredSessionsDataSource)
             
-            notificationsCoordinator.sessionDataSource = sessionDataSource
+            notificationsCoordinator.sessionDataSource = starredSessionsDataSource
         }
         
         

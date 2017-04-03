@@ -17,8 +17,11 @@ class NotificationsCoordinator {
     let internalSettings: InternalSettings
     let sessionSettings: SessionSettings
     
-    var sessionDataSource: SessionDataSource? {
-        didSet {
+    var sessionDataSource: (SessionDataSource & SessionStarsDataSource)? {
+        didSet {            
+            sessionDataSource?.sessionDataSourceDelegate = self
+            sessionDataSource?.sessionStarsDataSourceDelegate = self
+            
             guard let dataSource = sessionDataSource else {
                 sessionNotificationScheduler = nil
                 return
@@ -128,6 +131,16 @@ private extension NotificationsCoordinator {
     func updateSessionNotificationsEnabled(_ localNotificationsAllowed: Bool) {
         let enabledInUserPref = sessionSettings.favoriteSessionAlerts
         sessionNotificationScheduler?.notificationsEnabled = localNotificationsAllowed && enabledInUserPref
+    }
+}
+
+extension NotificationsCoordinator: SessionDataSourceDelegate, SessionStarsDataSourceDelegate {
+    func sessionDataSourceDidUpdate() {
+        sessionNotificationScheduler?.updateScheduledNotifications()
+    }
+    
+    func sessionStarsDidUpdate(dataSource: SessionStarsDataSource) {
+        sessionNotificationScheduler?.updateScheduledNotifications()
     }
 }
 
