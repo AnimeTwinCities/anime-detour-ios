@@ -57,24 +57,29 @@ class FirebaseSessionDataSource: SessionDataSource, FilterableSessionDataSource 
         self.sectionHeaderDateFormatter = sectionHeaderDateFormatter
         
         databaseReference.child("events").child("ad-2017").observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
-            guard let dict = snapshot.value as? [String:Any], let strongSelf = self else {
+            guard let dict = snapshot.value as? [String:Any], let _ = self else {
                 return
             }
             
-            var newSessions: [SessionViewModel] = []
-            
-            for (key, value) in dict {
-                if let dictValue = value as? [String:Any],
-                    let viewModel = SessionViewModel(id: key, firebaseData: dictValue, firebaseDateFormatter: firebaseDateFormatter) {
-                    newSessions.append(viewModel)
+            DispatchQueue.global(qos: .default).async {
+                var newSessions: [SessionViewModel] = []
+                
+                for (key, value) in dict {
+                    if let dictValue = value as? [String:Any],
+                        let viewModel = SessionViewModel(id: key, firebaseData: dictValue, firebaseDateFormatter: firebaseDateFormatter) {
+                        newSessions.append(viewModel)
+                    }
+                }
+                
+                let sortedSessions = newSessions.sorted(by: { (vmOne, vmTwo) -> Bool in
+                    return vmOne.sessionID < vmTwo.sessionID
+                })
+                
+                DispatchQueue.main.async {
+                    self?.sessions = sortedSessions
+                    self?.sessionDataSourceDelegate?.sessionDataSourceDidUpdate()
                 }
             }
-            
-            let sortedSessions = newSessions.sorted(by: { (vmOne, vmTwo) -> Bool in
-                return vmOne.sessionID < vmTwo.sessionID
-            })
-            strongSelf.sessions = sortedSessions
-            strongSelf.sessionDataSourceDelegate?.sessionDataSourceDidUpdate()
         }
     }
     
