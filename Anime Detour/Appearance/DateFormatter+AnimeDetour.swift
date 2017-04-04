@@ -11,7 +11,7 @@ import Foundation
 extension DateFormatter {
     static let adr_startAndEndFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mma"
+        formatter.dateFormat = "EEE hh:mma"
         return formatter
     }()
 }
