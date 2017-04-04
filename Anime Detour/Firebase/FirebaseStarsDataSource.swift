@@ -122,15 +122,18 @@ private extension FirebaseStarsDataSource {
                 return
             }
             
+            
             let sessionIDs = sessionIDsDicts.keys
             let firebaseStarredSessionIDs = Set(sessionIDs)
             let starredSessionIDs: Set<String>
+            
             if shouldMerge {
                 shouldMerge = false
                 starredSessionIDs = strongSelf.starredSessionIDs.union(firebaseStarredSessionIDs)
             } else {
                 starredSessionIDs = firebaseStarredSessionIDs
             }
+            
             strongSelf.starredSessionIDs = starredSessionIDs
         }
     }
