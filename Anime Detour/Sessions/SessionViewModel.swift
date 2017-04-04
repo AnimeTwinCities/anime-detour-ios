@@ -9,6 +9,8 @@
 import UIKit
 
 struct SessionViewModel {
+    fileprivate static let calendar: Calendar = Calendar.autoupdatingCurrent
+    
     let sessionID: String
     let title: String
     let description: String?
@@ -92,22 +94,29 @@ struct SessionViewModel {
         return hasEnded
     }
     
-    func durationString(using dateFormatter: DateFormatter) -> String? {
+    func durationString(usingStartFormatter startFormatter: DateFormatter, endFormatter: DateFormatter? = nil, differentDateEndFormatter: DateFormatter? = nil) -> String? {
+        let endFormatter = endFormatter ?? startFormatter
+        let differentDateEndFormatter = differentDateEndFormatter ?? endFormatter
         switch (start, end) {
         case let (start?, end?):
             let format = NSLocalizedString("%@ - %@", comment: "Time range, e.g. for session start and end")
-            let stringStart = dateFormatter.string(from: start)
-            let stringEnd = dateFormatter.string(from: end)
+            let stringStart = startFormatter.string(from: start)
+            let stringEnd: String
+            if SessionViewModel.calendar.isDate(end, inSameDayAs: start) {
+                stringEnd = endFormatter.string(from: end)
+            } else {
+                stringEnd = differentDateEndFormatter.string(from: end)
+            }
             let formatted = String(format: format, stringStart, stringEnd)
             return formatted
         case let (start?, nil):
             let format = NSLocalizedString("Starts %@", comment: "Start time, e.g. for session start")
-            let stringDate = dateFormatter.string(from: start)
+            let stringDate = startFormatter.string(from: start)
             let formatted = String(format: format, stringDate)
             return formatted
         case let (nil, end?):
             let format = NSLocalizedString("Ends %@", comment: "Start time, e.g. for session start")
-            let stringDate = dateFormatter.string(from: end)
+            let stringDate = differentDateEndFormatter.string(from: end)
             let formatted = String(format: format, stringDate)
             return formatted
         case (nil, nil):

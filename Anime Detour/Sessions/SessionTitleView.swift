@@ -187,9 +187,9 @@ class SessionTitleView: UIView {
                 timeAndLocationLabel.accessibilityLabel = accessibilityLabel
             }
             
-            switch (viewModel.room, viewModel.durationString(using: .adr_startAndEndFormatter)) {
+            switch (viewModel.room, viewModel.durationString(usingStartFormatter: .adr_startFormatter, endFormatter: .adr_endFormatter, differentDateEndFormatter: .adr_differentDateEndFormatter)) {
             case let (room?, duration?):
-                timeAndLocation = String.init(format: NSLocalizedString("%@ · %@", comment: "Format string for a session's time and location"), duration, room)
+                timeAndLocation = String(format: NSLocalizedString("%@ · %@", comment: "Format string for a session's time and location"), duration, room)
                 accessibilityLabel = NSLocalizedString("Time: \(duration). In room: \(room).", comment: "Accessible version of a session's time and location")
             case let (room?, nil):
                 timeAndLocation = room
