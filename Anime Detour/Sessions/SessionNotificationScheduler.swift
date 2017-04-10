@@ -12,6 +12,9 @@ import Foundation
  Schedules local notifications for SessionsViewModels.
  */
 class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
+    /// How much time before a session should its notification fire
+    private static let timeBeforeSession: TimeInterval = 10 * 60
+    
     let dataSource: SessionDataSource
     
     /// Enable/disable the setting of notifications.
@@ -60,8 +63,13 @@ class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
         
         let futureSessions = dataSource.sections(startingAfter: Date())
         
-        let notifications = futureSessions.map { (start, sectionInfo) -> UILocalNotification in
-            let notification = self.notification(forSessionAt: start)
+        let notifications = futureSessions.flatMap { (start, sectionInfo) -> UILocalNotification? in
+            let notification = UILocalNotification()
+            guard let fireDate = self.fireDate(forSessionAt: start) else {
+                return nil
+            }
+            notification.fireDate = fireDate
+            
             let alertBody: String
             let onlySession: SessionViewModel?
             switch sectionInfo {
@@ -94,14 +102,14 @@ class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
     }
     
     /// Create a local notification with our standard fire time, for a session.
-    fileprivate func notification(forSessionAt date: Date) -> UILocalNotification {
-        let notification = UILocalNotification()
+    /// `nil` indicates that no notification should be scheduled.
+    fileprivate func fireDate(forSessionAt date: Date) -> Date? {
+        guard date.timeIntervalSinceNow < -SessionNotificationScheduler.timeBeforeSession else {
+            return nil
+        }
         
-        let tenMinutes: TimeInterval = 10 * 60 // 10 minutes * 60 seconds
-        let tenMinutesBefore = date.addingTimeInterval(-tenMinutes)
-        notification.fireDate = tenMinutesBefore
-        
-        return notification
+        let fireDate = date.addingTimeInterval(-SessionNotificationScheduler.timeBeforeSession)
+        return fireDate
     }
     
     /// Unschedule all of the local notifications that any instances of this class may have created.
