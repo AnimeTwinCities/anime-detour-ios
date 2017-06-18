@@ -4,7 +4,7 @@ The official Anime Detour iOS application.
 
 ## Requirements
 
-The app is written in Swift 3.1. Xcode 8.3 or later is required to compile it.
+The app is written in Swift 3.2. Xcode 9 beta 1 or later is required to compile it. To run the app using Xcode 8.3 or an earlier version, use a tag such as v2017.0.
 
 ## Building
 
