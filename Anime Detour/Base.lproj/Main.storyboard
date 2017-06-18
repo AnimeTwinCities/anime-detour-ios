@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -36,7 +35,7 @@
             <objects>
                 <navigationController id="YHR-sl-PBL" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Sessions" image="tab_bar_list" selectedImage="tab_bar_list_filled" id="HyL-71-rXe"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TKV-De-Jg0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="TKV-De-Jg0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -53,7 +52,7 @@
             <objects>
                 <navigationController id="g9H-Vn-GPL" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Starred" image="tab_bar_star" selectedImage="tab_bar_star_filled" id="fR1-ga-isy"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8MD-Om-e1A">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="8MD-Om-e1A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -70,7 +69,7 @@
             <objects>
                 <navigationController id="wvO-5S-x47" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="tab_bar_info" selectedImage="tab_bar_info_filled" id="1fR-D0-Vvc"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dyI-6o-k8M">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="dyI-6o-k8M">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -87,7 +86,7 @@
             <objects>
                 <navigationController id="d1j-lq-Xwv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Speakers" image="tab_bar_user_female_circle" selectedImage="tab_bar_user_female_circle_filled" id="Ls3-ft-5wB"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5t8-7l-pmo">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="5t8-7l-pmo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -170,6 +169,6 @@
         <image name="tab_bar_user_female_circle_filled" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zEa-fF-g2e"/>
+        <segue reference="DDo-CF-dcv"/>
     </inferredMetricsTieBreakers>
 </document>
