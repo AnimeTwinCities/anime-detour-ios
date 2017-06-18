@@ -24,7 +24,7 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
     /**
      A bar button item that allows jumping to approximately the current time in the session list.
      */
-    @IBOutlet var nowButton: UIBarButtonItem!
+    @IBOutlet var nowButton: UIBarButtonItem?
     
     /**
      The source of data displayed in this view.
@@ -130,8 +130,11 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         let days = dataSource.daysForAllSessions()
         dayScroller?.days = days
         
-        nowButton.accessibilityLabel = NSLocalizedString("Now", comment: "Now button title")
-        nowButton.accessibilityHint = NSLocalizedString("Jump to the current time", comment: "")
+        if let nowButton = nowButton {
+            let nowTitle = NSLocalizedString("Now", comment: "Now button title")
+            nowButton.accessibilityLabel = nowTitle
+            nowButton.accessibilityHint = NSLocalizedString("Jump to the current time", comment: "")
+        }
         updateFlowLayoutItemWidth()
         
         updateSearchBarButtonVisibility()
