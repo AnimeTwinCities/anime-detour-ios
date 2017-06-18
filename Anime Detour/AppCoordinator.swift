@@ -295,7 +295,7 @@ extension AppCoordinator: NotificationsCoordinatorDelegate {
     
     func showSettings() {
         let application = UIApplication.shared
-        application.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+        application.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
     }
 }
 
