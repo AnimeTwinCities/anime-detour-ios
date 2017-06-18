@@ -42,10 +42,6 @@ extension SessionDetailViewController: AnalyticsScreen {
     var screenName: String { return "Event" }
 }
 
-extension SessionFilterTableViewController: AnalyticsScreen {
-    var screenName: String { return "Schedule Filter" }
-}
-
 extension SpeakersViewController: AnalyticsScreen {
     var screenName: String { return "Guests" }
 }
