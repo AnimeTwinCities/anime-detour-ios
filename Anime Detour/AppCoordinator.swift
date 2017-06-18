@@ -241,7 +241,7 @@ class AppCoordinator {
             starredSessionsDataSource.shouldIncludeOnlyStarred = true
             multiSessionStarsDataSourceDelegate.broadcastDelegates.append(starredSessionsDataSource)
             
-            starredSessionsViewController.enableDayControl = false
+            starredSessionsViewController.isDayControlVisible = false
             starredSessionsViewController.dataSource = starredSessionsDataSource
             starredSessionsViewController.speakerDataSource = speakerDataSource
         }

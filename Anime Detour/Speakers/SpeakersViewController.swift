@@ -37,7 +37,7 @@ class SpeakersViewController: UICollectionViewController, FlowLayoutContaining {
         
         let height = flowLayout.itemSize.height
         // 368 == 736 / 2, giving us more than one column only when our view is 736 wide or wider.
-        // The iPhone 7 Plus screen is 736 pts tall
+        // The iPhone 7 Plus screen is 736 pts tall, so in landscape, it will show two columns.
         let numberOfColumns = max(1, floor(size.width / 368))
         let impreciseWidth = size.width / numberOfColumns
         let width = floor(impreciseWidth)

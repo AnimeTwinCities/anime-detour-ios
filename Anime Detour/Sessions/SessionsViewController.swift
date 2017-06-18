@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os
 
 /**
  Display SessionViewModels in a collection view.
@@ -36,59 +37,8 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
             
             if isViewLoaded, let collectionView = collectionView, let dataSource = dataSource {
                 dayScroller = SessionDayScroller(dataSource: dataSource, targetView: .collectionView(collectionView))
-                updateSearchViewsVisibility()
+                addOrRemoveSearchController()
             }
-        }
-    }
-    
-    var enableDayControl: Bool = true {
-        didSet {
-            guard isViewLoaded else {
-                return
-            }
-            
-            stickyHeaderFlowLayout.headerEnabled = enableDayControl
-        }
-    }
-    
-    fileprivate var filterString: String? {
-        didSet {
-            guard let filterString = filterString, !filterString.isEmpty else {
-                filteringPredicates = []
-                return
-            }
-            
-            filteringPredicates = [.nameContains(filterString)]
-        }
-    }
-    
-    fileprivate var filteringPredicates: Set<FilterableSessionDataSourcePredicate> = [] {
-        didSet {
-            if let filterable = dataSource as? FilterableSessionDataSource {
-                filterable.filteringPredicates = filteringPredicates
-            }
-        }
-    }
-    
-    /**
-     Scrolls to sessions near specified times, if there are such sessions. Also works with our `daySegmentedControl`.
-     */
-    fileprivate var dayScroller: SessionDayScroller?
-    
-    fileprivate let searchController: UISearchController = UISearchController(searchResultsController: nil)
-    
-    fileprivate var segmentedControlHeaderView: SegmentedControlCollectionReusableView? {
-        didSet {
-            daySegmentedControl = segmentedControlHeaderView?.segmentedControl
-        }
-    }
-    
-    /**
-     A segmented control to allow jumping to the sessions for a particular day. Allows up to three days.
-     */
-    fileprivate var daySegmentedControl: UISegmentedControl? {
-        didSet {
-            dayScroller?.daySegmentedControl = daySegmentedControl
         }
     }
     
@@ -101,6 +51,78 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
      The repository to supply images for session detail views.
      */
     var imageRepository: ImageRepository?
+    
+    // MARK: - Day Segmented Control
+    
+    /**
+     Show or hide the day display/selection header.
+     */
+    var isDayControlVisible: Bool = true {
+        didSet {
+            guard isViewLoaded else {
+                return
+            }
+            
+            stickyHeaderFlowLayout.headerEnabled = isDayControlVisible
+        }
+    }
+    
+    /**
+     Scrolls to sessions near specified times, if there are such sessions. Also works with our `daySegmentedControl`.
+     */
+    fileprivate var dayScroller: SessionDayScroller?
+    
+    /**
+     A segmented control to allow jumping to the sessions for a particular day. Allows up to three days.
+     */
+    fileprivate var daySegmentedControl: UISegmentedControl? {
+        didSet {
+            dayScroller?.daySegmentedControl = daySegmentedControl
+        }
+    }
+    
+    /**
+     The header view that shows the `daySegmentedControl`.
+     */
+    fileprivate var segmentedControlHeaderView: SegmentedControlCollectionReusableView? {
+        didSet {
+            daySegmentedControl = segmentedControlHeaderView?.segmentedControl
+        }
+    }
+    
+    // MARK: - Filtering/Searching
+    
+    /**
+     Allow searching sessions via user-input strings.
+     */
+    fileprivate var filterString: String? {
+        didSet {
+            guard let filterString = filterString, !filterString.isEmpty else {
+                filteringPredicates = []
+                return
+            }
+            
+            filteringPredicates = [.nameContains(filterString)]
+        }
+    }
+    
+    /**
+     All of the filters that are active on the displayed sessions right now.
+     */
+    fileprivate var filteringPredicates: Set<FilterableSessionDataSourcePredicate> = [] {
+        didSet {
+            if let filterable = dataSource as? FilterableSessionDataSource {
+                filterable.filteringPredicates = filteringPredicates
+            }
+        }
+    }
+    
+    /**
+     The search controller is the mechanism that allows users to input a string for searching sessions.
+     */
+    fileprivate let searchController: UISearchController = UISearchController(searchResultsController: nil)
+    
+    // MARK: - Detail Presentation
     
     /**
      The currently displayed session detail view, if the user viewed a particular session from this view controller.
@@ -117,7 +139,7 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         
         dayScroller = SessionDayScroller(dataSource: dataSource, targetView: .collectionView(collectionView!))
         
-        stickyHeaderFlowLayout.headerEnabled = enableDayControl
+        stickyHeaderFlowLayout.headerEnabled = isDayControlVisible
         updateStickyHeaderLayoutTopOffset()
         collectionView?.register(SegmentedControlCollectionReusableView.self,
                                  forSupplementaryViewOfKind: StickyHeaderFlowLayout.StickyHeaderElementKind,
@@ -182,7 +204,7 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         
         let height = flowLayout.itemSize.height
         // 368 == 736 / 2, giving us more than one column only when our view is 736 wide or wider.
-        // The iPhone 7 Plus screen is 736 pts tall
+        // The iPhone 7 Plus screen is 736 pts tall, so in landscape, it will show two columns.
         let numberOfColumns = max(1, floor(size.width / 368))
         let impreciseWidth = size.width / numberOfColumns
         let width = floor(impreciseWidth)
@@ -259,8 +281,12 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
 }
 
 private extension SessionsViewController {
+    /**
+     Toggle the `isStarred` status of the session for `viewModel`, using our `dataSource`.
+     */
     func toggleStarred(for viewModel: SessionViewModel) {
         guard let dataSource = dataSource else {
+            os_log("Trying to star or unstar a session, but we don't have a data source.")
             return
         }
         
@@ -403,6 +429,9 @@ extension SessionsViewController: SessionDetailViewControllerDelegate {
         toggleStarred(for: viewModel)
     }
 }
+
+
+// MARK: - SessionDayScroller
 
 /**
  Manages scrolling to days, and indicating the day of a displayed item, using a `UISegmentedControl`.
