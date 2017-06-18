@@ -7,13 +7,18 @@
 //
 
 import Foundation
+import UserNotifications
+import os
 
 /**
  Schedules local notifications for SessionsViewModels.
  */
 class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
+    /// Identifier for all session starting notifications that we create
+    private static let SessionNotificationIdentifier = "SessionNotificationSchedulerNotificationIdentifier"
+    
     /// How much time before a session should its notification fire
-    private static let timeBeforeSession: TimeInterval = 10 * 60
+    private static let NotificationTimeBeforeSession: TimeInterval = 10 * 60
     
     let dataSource: SessionDataSource
     
@@ -52,9 +57,7 @@ class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
     
     /// Schedule local notifications, one per time for which a Session starts.
     fileprivate func scheduleNotifications(_ dataSource: SessionDataSource) {
-        let application = UIApplication.shared
-        
-        let timeToStart = "10 minutes"
+        let timeToStart = NSLocalizedString("10 minutes", comment: "User-visible time before a session to present a notification")
         
         guard notificationsEnabled else {
             unscheduleNotifications()
@@ -63,18 +66,21 @@ class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
         
         let futureSessions = dataSource.sections(startingAfter: Date())
         
-        let notifications = futureSessions.flatMap { (start, sectionInfo) -> UILocalNotification? in
-            let notification = UILocalNotification()
+        let notificationRequests = futureSessions.flatMap { (start, sectionInfo) -> UNNotificationRequest? in
             guard let fireDate = self.fireDate(forSessionAt: start) else {
                 return nil
             }
-            notification.fireDate = fireDate
+            
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.minute, .hour, .day, .month, .year], from: fireDate)
+            let notificationTrigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
             
             let alertBody: String
             let onlySession: SessionViewModel?
             switch sectionInfo {
             case .count(let count):
-                alertBody = "\(count) favorite sessions starting in \(timeToStart)."
+                let multipleSessionsFormat = NSLocalizedString("%d favorite sessions starting in %@", comment: "")
+                alertBody = String(format: multipleSessionsFormat, count, timeToStart)
                 onlySession = nil
             case .first(let viewModel):
                 let sessionName = viewModel.title
@@ -84,55 +90,50 @@ class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
                     displayName = sessionName.substring(to: displayName.index(displayName.startIndex, offsetBy: maxNameLength)) + "..."
                 }
                 
-                let location = viewModel.room
-                alertBody = "\(displayName) starting in \(timeToStart) at \(location ?? "(no location)")."
+                let singleSessionFormatWithLocation = NSLocalizedString("%@ starting in %@ at %@", comment: "")
+                let singleSessionFormatWithoutLocation = NSLocalizedString("%@ starting in %@", comment: "")
+                if let location = viewModel.room {
+                    alertBody = String(format: singleSessionFormatWithLocation, displayName, timeToStart, location)
+                } else {
+                    alertBody = String(format: singleSessionFormatWithoutLocation, displayName, timeToStart)
+                }
                 onlySession = viewModel
             }
             
-            notification.alertBody = alertBody
+            let notificationContent = UNMutableNotificationContent()
+            notificationContent.body = alertBody
             
             let noteInfo = SessionNotificationInfo(startTime: start, onlySession: onlySession)
-            notification.userInfo = noteInfo.toUserInfo()
-            return notification
+            notificationContent.userInfo = noteInfo.toUserInfo()
+            
+            let request = UNNotificationRequest(identifier: SessionNotificationScheduler.SessionNotificationIdentifier, content: notificationContent, trigger: notificationTrigger)
+            return request
         }
         
-        for note in notifications {
-            application.scheduleLocalNotification(note)
+        let center = UNUserNotificationCenter.current()
+        for request in notificationRequests {
+            center.add(request) { maybeError in
+                if let _ = maybeError {
+                    os_log("Error trying to schedule a session notification.")
+                }
+            }
         }
     }
     
     /// Create a local notification with our standard fire time, for a session.
     /// `nil` indicates that no notification should be scheduled.
     fileprivate func fireDate(forSessionAt date: Date) -> Date? {
-        guard date.timeIntervalSinceNow < -SessionNotificationScheduler.timeBeforeSession else {
+        guard date.timeIntervalSinceNow < -SessionNotificationScheduler.NotificationTimeBeforeSession else {
             return nil
         }
         
-        let fireDate = date.addingTimeInterval(-SessionNotificationScheduler.timeBeforeSession)
+        let fireDate = date.addingTimeInterval(-SessionNotificationScheduler.NotificationTimeBeforeSession)
         return fireDate
     }
     
     /// Unschedule all of the local notifications that any instances of this class may have created.
     fileprivate func unscheduleNotifications() {
-        let application = UIApplication.shared
-        
-        guard let allLocalNotifications = application.scheduledLocalNotifications else {
-            return
-        }
-        
-        let sessionNotifications = allLocalNotifications.filter { note in
-            guard let userInfo = note.userInfo else { return false }
-            
-            if let _ = SessionNotificationInfo(userInfo: userInfo as [NSObject : AnyObject]) {
-                return true
-            } else {
-                return false
-            }
-        }
-        
-        for note in sessionNotifications {
-            application.cancelLocalNotification(note)
-        }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [SessionNotificationScheduler.SessionNotificationIdentifier])
     }
     
     // MARK: - User Visible Settings Delegate

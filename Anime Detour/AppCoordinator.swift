@@ -269,16 +269,6 @@ class AppCoordinator {
                                                  annotation: [:])
     }
     
-    // MARK: - Notifications
-    
-    func didRegister(with settings: UIUserNotificationSettings) {
-        notificationsCoordinator.didRegister(with: settings)
-    }
-    
-    func didReceive(notification: UILocalNotification) {
-        notificationsCoordinator.didReceive(notification: notification)
-    }
-    
     func didBecomeActive() {
         #if os(iOS)
             notificationsCoordinator.didBecomeActive()

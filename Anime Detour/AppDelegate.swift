@@ -10,10 +10,6 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    static var shared: AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
-
     var window: UIWindow?
     
     // Main logic
@@ -34,16 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return appCoordinator.open(url, options: options)
     }
-    
-    #if os(iOS)
-    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-        appCoordinator.didRegister(with: notificationSettings)
-    }
-    
-    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
-        appCoordinator.didReceive(notification: notification)
-    }
-    #endif
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         #if os(iOS)

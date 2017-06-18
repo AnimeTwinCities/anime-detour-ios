@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import UserNotifications
 
 protocol NotificationsCoordinatorDelegate: class {
     func show(_ alert: UIAlertController)
     func showSettings()
 }
 
-class NotificationsCoordinator {
+final class NotificationsCoordinator {
     let internalSettings: InternalSettings
     let sessionSettings: SessionSettings
     
@@ -33,14 +34,20 @@ class NotificationsCoordinator {
     
     weak var delegate: NotificationsCoordinatorDelegate?
     
-    fileprivate var appWideNotificationPermissionsEnabled: Bool {
-        let settings = UIApplication.shared.currentUserNotificationSettings
-        return !(settings?.types == .none)
-    }
+    /**
+     An NSObject subclass we use to receive messages from UNUserNotificationCenter.
+     */
+    fileprivate let notificationCenterDelegate = NotificationCenterDelegate()
     
-    fileprivate var sessionNotificationScheduler: SessionNotificationScheduler?
-    
+    /**
+     The object we use to ask the user for permission to use notifications.
+     */
     fileprivate lazy var permissionRequester: NotificationPermissionRequester = NotificationPermissionRequester(internalSettings: self.internalSettings, sessionSettings: self.sessionSettings)
+    
+    /**
+     Scheduler that monitors for starred sessions and schedules notifications for those sessions.
+     */
+    fileprivate var sessionNotificationScheduler: SessionNotificationScheduler?
     
     init(internalSettings: InternalSettings, sessionSettings: SessionSettings) {
         self.internalSettings = internalSettings
@@ -48,25 +55,8 @@ class NotificationsCoordinator {
     }
     
     func start() {
+        UNUserNotificationCenter.current().delegate = notificationCenterDelegate
         permissionRequester.delegate = self
-    }
-    
-    func didRegister(with settings: UIUserNotificationSettings) {
-        let localNotificationsAllowed: Bool
-        if settings.types == UIUserNotificationType() {
-            localNotificationsAllowed = false
-        } else {
-            localNotificationsAllowed = true
-        }
-        localNotificationsAllowedChanged(localNotificationsAllowed)
-    }
-    
-    func didReceive(notification: UILocalNotification) {
-        let alert = UIAlertController(title: notification.alertTitle ?? "Favorite Starting Soon", message: notification.alertBody, preferredStyle: .alert)
-        let dismiss = UIAlertAction(title: "Got It", style: .default, handler: { [weak alert] _ in alert?.dismiss(animated: true, completion: nil) })
-        alert.addAction(dismiss)
-        
-        delegate?.show(alert)
     }
     
     func didBecomeActive() {
@@ -80,12 +70,12 @@ class NotificationsCoordinator {
         }
         
         guard internalSettings.askedToEnableNotifications else {
-            permissionRequester.askEnableSessionNotifications()
+            permissionRequester.askEnableSessionNotifications(completionHandler: permissionRequestCompletionHandler)
             return
         }
         
         guard internalSettings.askedSystemToEnableNotifications else {
-            permissionRequester.requestNotificationPermissions()
+            permissionRequester.requestNotificationPermissions(completionHandler: permissionRequestCompletionHandler)
             return
         }
         
@@ -114,8 +104,10 @@ class NotificationsCoordinator {
 
 private extension NotificationsCoordinator {
     func checkAppAllowedToSendNotificationsAndUpdateSessionNotificationsEnabled() {
-        let localNotificationsAllowed = appWideNotificationPermissionsEnabled
-        localNotificationsAllowedChanged(localNotificationsAllowed)
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            let localNotificationsAllowed = settings.authorizationStatus == .authorized
+            self.localNotificationsAllowedChanged(localNotificationsAllowed)
+        }
     }
     
     func localNotificationsAllowedChanged(_ localNotificationsAllowed: Bool) {
@@ -133,7 +125,7 @@ private extension NotificationsCoordinator {
         }
         
         permissionRequester.enableSessionNotificationsOnNotificationsEnabled = true
-        permissionRequester.askEnableSessionNotifications()
+        permissionRequester.askEnableSessionNotifications(completionHandler: permissionRequestCompletionHandler)
     }
     
     /**
@@ -143,6 +135,10 @@ private extension NotificationsCoordinator {
     func updateSessionNotificationsEnabled(_ localNotificationsAllowed: Bool) {
         let enabledInUserPref = sessionSettings.favoriteSessionAlerts
         sessionNotificationScheduler?.notificationsEnabled = localNotificationsAllowed && enabledInUserPref
+    }
+    
+    func permissionRequestCompletionHandler(isGranted: Bool, error: Error?) {
+        localNotificationsAllowedChanged(isGranted)
     }
 }
 
@@ -162,5 +158,13 @@ extension NotificationsCoordinator: SessionDataSourceDelegate, SessionStarsDataS
 extension NotificationsCoordinator: NotificationPermissionRequesterDelegate {
     func notificationPermissionRequester(_ requester: NotificationPermissionRequester, wantsToPresentAlertController alertController: UIAlertController) {
         delegate?.show(alertController)
+    }
+}
+
+private extension NotificationsCoordinator {
+    final class NotificationCenterDelegate: NSObject, UNUserNotificationCenterDelegate {
+        func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            completionHandler([.alert, .sound])
+        }
     }
 }
