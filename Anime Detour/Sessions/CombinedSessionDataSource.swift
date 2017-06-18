@@ -24,10 +24,10 @@ class CombinedSessionDataSource: SessionDataSource, SessionStarsDataSource, Filt
     weak var sessionDataSourceDelegate: SessionDataSourceDelegate?
     weak var sessionStarsDataSourceDelegate: SessionStarsDataSourceDelegate?
     
-    var filteringPredicate: ((SessionViewModel) -> Bool)? {
+    var filteringPredicates: Set<FilterableSessionDataSourcePredicate> = [] {
         didSet {
             if let filterable = dataSource as? FilterableSessionDataSource {
-                filterable.filteringPredicate = filteringPredicate
+                filterable.filteringPredicates = filteringPredicates
             }
         }
     }
@@ -217,9 +217,9 @@ class CombinedSessionDataSource: SessionDataSource, SessionStarsDataSource, Filt
 }
 
 extension CombinedSessionDataSource: SessionDataSourceDelegate, SessionStarsDataSourceDelegate {
-    func sessionDataSourceDidUpdate() {
+    func sessionDataSourceDidUpdate(filtering: Bool) {
         // do something here?
-        sessionDataSourceDelegate?.sessionDataSourceDidUpdate()
+        sessionDataSourceDelegate?.sessionDataSourceDidUpdate(filtering: filtering)
     }
     
     internal func sessionStarsDidUpdate(dataSource: SessionStarsDataSource) {

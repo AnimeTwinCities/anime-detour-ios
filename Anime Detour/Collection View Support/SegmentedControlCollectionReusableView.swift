@@ -17,21 +17,6 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
     @IBOutlet fileprivate weak var blurView: UIVisualEffectView!
     @IBOutlet fileprivate weak var bottomLine: UIView!
     @IBOutlet fileprivate weak var bottomLineHeightConstraint: NSLayoutConstraint!
-    
-    var searchBar: UISearchBar? {
-        didSet {
-            oldValue?.removeFromSuperview()
-            
-            guard let searchBar = searchBar else {
-                segmentedControl.isHidden = false
-                return
-            }
-            
-            segmentedControl.isHidden = true
-            dev_addSubview(searchBar)
-            searchBar.dev_constrainToSuperEdges()
-        }
-    }
 
     convenience init() {
         self.init(frame: CGRect.zero)

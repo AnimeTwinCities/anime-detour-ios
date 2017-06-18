@@ -19,8 +19,6 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
     @IBOutlet var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet var stickyHeaderFlowLayout: StickyHeaderFlowLayout!
     
-    @IBOutlet var searchBarButtonItem: UIBarButtonItem?
-    
     /**
      A bar button item that allows jumping to approximately the current time in the session list.
      */
@@ -38,7 +36,7 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
             
             if isViewLoaded, let collectionView = collectionView, let dataSource = dataSource {
                 dayScroller = SessionDayScroller(dataSource: dataSource, targetView: .collectionView(collectionView))
-                updateSearchBarButtonVisibility()
+                updateSearchViewsVisibility()
             }
         }
     }
@@ -55,31 +53,29 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
     
     fileprivate var filterString: String? {
         didSet {
-            guard let filterString = filterString else {
-                filteringPredicate = nil
+            guard let filterString = filterString, !filterString.isEmpty else {
+                filteringPredicates = []
                 return
             }
             
-            filteringPredicate = { session in
-                session.title.localizedCaseInsensitiveContains(filterString)
-            }
+            filteringPredicates = [.nameContains(filterString)]
         }
     }
     
-    fileprivate var filteringPredicate: ((SessionViewModel) -> Bool)? {
+    fileprivate var filteringPredicates: Set<FilterableSessionDataSourcePredicate> = [] {
         didSet {
             if let filterable = dataSource as? FilterableSessionDataSource {
-                filterable.filteringPredicate = filteringPredicate
+                filterable.filteringPredicates = filteringPredicates
             }
         }
     }
-    
-    fileprivate var searchController: UISearchController?
     
     /**
      Scrolls to sessions near specified times, if there are such sessions. Also works with our `daySegmentedControl`.
      */
     fileprivate var dayScroller: SessionDayScroller?
+    
+    fileprivate let searchController: UISearchController = UISearchController(searchResultsController: nil)
     
     fileprivate var segmentedControlHeaderView: SegmentedControlCollectionReusableView? {
         didSet {
@@ -137,7 +133,9 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         }
         updateFlowLayoutItemWidth()
         
-        updateSearchBarButtonVisibility()
+        setupSearchController()
+        
+        addOrRemoveSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -191,61 +189,6 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         let cellSize = CGSize(width: width, height: height)
         flowLayout.itemSize = cellSize
         flowLayout.invalidateLayout()
-    }
-    
-    /// Update the top offset for our sticky header layout.
-    fileprivate func updateStickyHeaderLayoutTopOffset() {
-        // topLayoutGuide doesn't work for our purposes with a translucent navigation bar
-        if let navBar = navigationController?.navigationBar, navBar.isTranslucent {
-            stickyHeaderFlowLayout.headerTopOffset = navBar.frame.maxY
-        } else {
-            stickyHeaderFlowLayout.headerTopOffset = topLayoutGuide.length
-        }
-    }
-    
-    private func viewModel(at indexPath: IndexPath) -> SessionViewModel {
-        let viewModel = dataSource!.viewModel(at: indexPath)
-        return viewModel
-    }
-    
-    @IBAction private func search() {
-        let tableVC = storyboard?.instantiateViewController(withIdentifier: tableViewControllerIdentifier) as? SessionsTableViewController ?? SessionsTableViewController(style: .plain)
-        let searchController = UISearchController(searchResultsController: tableVC)
-        searchController.delegate = self
-        searchController.searchResultsUpdater = self
-        let searchBar = searchController.searchBar
-        self.searchController = searchController
-        
-        segmentedControlHeaderView?.searchBar = searchBar
-        searchBar.becomeFirstResponder()
-    }
-    
-    @IBAction private func showUpcomingSessions() {
-        let now = Date()
-        // 1491620400 is 4/8/17 at 3AM UTC, which is 4/8/17 at 10 PM CDT
-//        let now = Date(timeIntervalSince1970: 1491620400)
-        
-        guard let dayScroller = dayScroller else {
-            assertionFailure("Expected to have a day scroller")
-            return
-        }
-        
-        if !dayScroller.scroll(date: now, after: false) {
-            // Show an alert saying what we'll do once the con starts
-            let title = NSLocalizedString("‘Now’ Button", comment: "")
-            let message = NSLocalizedString("During Anime Detour, use the ‘Now’ button to scroll the schedule to the current time.", comment: "")
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let ok = UIAlertAction(title: NSLocalizedString("Got It", comment: ""), style: .cancel, handler: { _ in
-                alert.dismiss(animated: true, completion: nil)
-            })
-            alert.addAction(ok)
-            present(alert, animated: true, completion: nil)
-        } else {
-            // Since we just started a scroll, update the day selector for the target date.
-            if let idx = dayScroller.dayIndex(for: now) {
-                daySegmentedControl?.selectedSegmentIndex = idx
-            }
-        }
     }
     
     // MARK: UICollectionViewDataSource
@@ -340,62 +283,105 @@ private extension SessionsViewController {
         }
     }
     
-    func updateSearchBarButtonVisibility() {
-        var rightItems = navigationItem.rightBarButtonItems ?? []
+    /**
+     Perform initial setup of the search controller, setting its delegate, appearance, etc.
+     */
+    func setupSearchController() {
+        navigationItem.hidesSearchBarWhenScrolling = false
         
-        // Always remove the search button
-        if let searchIdx = rightItems.index(where: { (item) -> Bool in
-            item.tag == 1
-        }) {
-            rightItems.remove(at: searchIdx)
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchResultsUpdater = self
+    }
+    
+    /**
+     Add or remove the search controller, based on whether our data source supports filtering.
+     */
+    func addOrRemoveSearchController() {
+        let allowsSearching: Bool
+        
+        if let _ = dataSource as? FilterableSessionDataSource {
+            allowsSearching = true
+        } else {
+            allowsSearching = false
         }
         
-        guard let searchBarButtonItem = searchBarButtonItem else {
+        if allowsSearching {
+            navigationItem.searchController = searchController
+        } else {
+            navigationItem.searchController = nil
+        }
+    }
+    
+    /// Update the top offset for our sticky header layout.
+    func updateStickyHeaderLayoutTopOffset() {
+        // topLayoutGuide doesn't work for our purposes with a translucent navigation bar
+        if let navBar = navigationController?.navigationBar, navBar.isTranslucent {
+            stickyHeaderFlowLayout.headerTopOffset = navBar.frame.maxY
+        } else {
+            stickyHeaderFlowLayout.headerTopOffset = topLayoutGuide.length
+        }
+    }
+    
+    /**
+     Convenience method to get the view model at a given index path.
+     */
+    func viewModel(at indexPath: IndexPath) -> SessionViewModel {
+        let viewModel = dataSource!.viewModel(at: indexPath)
+        return viewModel
+    }
+    
+    /**
+     Using the day scroller, scroll to the first session which is currently in progress.
+     */
+    @IBAction func showUpcomingSessions() {
+        let now = Date()
+        // 1491620400 is 4/8/17 at 3AM UTC, which is 4/8/17 at 10 PM CDT
+//        let now = Date(timeIntervalSince1970: 1491620400)
+        
+        guard let dayScroller = dayScroller else {
+            assertionFailure("Expected to have a day scroller")
             return
         }
         
-//        if let _ = dataSource as? FilterableSessionDataSource {
-//            if !rightItems.contains(searchBarButtonItem) {
-//                rightItems.append(searchBarButtonItem)
-//            }
-//        } else {
-//            if let searchIdx = rightItems.index(of: searchBarButtonItem) {
-//                rightItems.remove(at: searchIdx)
-//            }
-//        }
-        navigationItem.rightBarButtonItems = rightItems
+        if !dayScroller.scrollToFirstSession(atOrAfter: now, after: false) {
+            // Show an alert saying what we'll do once the con starts
+            let title = NSLocalizedString("‘Now’ Button", comment: "")
+            let message = NSLocalizedString("During Anime Detour, use the ‘Now’ button to scroll the schedule to the current time.", comment: "")
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let ok = UIAlertAction(title: NSLocalizedString("Got It", comment: ""), style: .cancel, handler: { _ in
+                alert.dismiss(animated: true, completion: nil)
+            })
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
+        } else {
+            // Since we just started a scroll, update the day selector for the target date.
+            if let idx = dayScroller.dayIndex(for: now) {
+                daySegmentedControl?.selectedSegmentIndex = idx
+            }
+        }
     }
 }
 
-extension SessionsViewController: UISearchControllerDelegate, UISearchResultsUpdating {
-    func didDismissSearchController(_ searchController: UISearchController) {
-        segmentedControlHeaderView?.searchBar = nil
-        self.searchController = nil
-    }
-    
+extension SessionsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let navController = searchController.searchResultsController as? UINavigationController, let resultsController = navController.viewControllers[0] as? SessionsTableViewController else {
-            return
-        }
-        
         let searchTerm = searchController.searchBar.text
         filterString = searchTerm
-        resultsController.sessions = dataSource?.allSessions(limit: 25) ?? []
     }
 }
 
 extension SessionsViewController: SessionDataSourceDelegate {
-    func sessionDataSourceDidUpdate() {
-        // Ignore updates while searching
-        if let _ = searchController {
-            return
-        }
-        
+    func sessionDataSourceDidUpdate(filtering: Bool) {
         // TODO: animate updates
         collectionView?.reloadData()
         
-        let days = dataSource?.daysForAllSessions()
-        dayScroller?.days = days ?? []
+        if filtering {
+            daySegmentedControl?.isEnabled = false
+        } else {
+            let days = dataSource?.daysForAllSessions()
+            dayScroller?.days = days ?? []
+            daySegmentedControl?.isEnabled = true
+        }
     }
 }
 
@@ -559,7 +545,7 @@ private class SessionDayScroller {
      - returns: `true` if scrolling was done, `false` if not.
      */
     @discardableResult
-    func scroll(date: Date, after: Bool = true) -> Bool {
+    func scrollToFirstSession(atOrAfter date: Date, after: Bool = true) -> Bool {
         guard let indexPath = indexPathOfSection(for: date, after: after) else {
             return false
         }
@@ -619,6 +605,6 @@ private class SessionDayScroller {
         var components = calendar.dateComponents([.year, .month, .day], from: day)
         components.hour = 9
         let dayAt9AM = calendar.date(from: components)!
-        scroll(date: dayAt9AM)
+        scrollToFirstSession(atOrAfter: dayAt9AM)
     }
 }

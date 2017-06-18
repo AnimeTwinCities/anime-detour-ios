@@ -38,10 +38,28 @@ protocol SessionDataSource: DataSource {
 
 protocol FilterableSessionDataSource: class, SessionDataSource {
     /**
-     A predicate against which all sessions will be checked, and only those that pass
+     Predicates against which all sessions will be checked, and only those that pass
      will ever be returned.
      */
-    var filteringPredicate: ((SessionViewModel) -> Bool)? { get set }
+    var filteringPredicates: Set<FilterableSessionDataSourcePredicate> { get set }
+}
+
+enum FilterableSessionDataSourcePredicate: Hashable {
+    case nameContains(String)
+    
+    var hashValue: Int {
+        switch self {
+        case .nameContains(let namePart):
+            return namePart.hashValue
+        }
+    }
+    
+    static func ==(lhs: FilterableSessionDataSourcePredicate, rhs: FilterableSessionDataSourcePredicate) -> Bool {
+        switch (lhs, rhs) {
+        case (.nameContains(let leftPart), .nameContains(let rightPart)):
+            return leftPart == rightPart
+        }
+    }
 }
 
 enum SessionSectionInfo {
@@ -147,7 +165,7 @@ extension SessionDataSource {
 }
 
 protocol SessionDataSourceDelegate: class {
-    func sessionDataSourceDidUpdate()
+    func sessionDataSourceDidUpdate(filtering: Bool)
 }
 
 final class SessionFixture: SessionDataSource, SessionStarsDataSource {

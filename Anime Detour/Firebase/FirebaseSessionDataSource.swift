@@ -21,19 +21,19 @@ class FirebaseSessionDataSource: SessionDataSource, FilterableSessionDataSource 
     
     weak var sessionDataSourceDelegate: SessionDataSourceDelegate?
     
-    var filteringPredicate: ((SessionViewModel) -> Bool)? {
+    var filteringPredicates: Set<FilterableSessionDataSourcePredicate> = [] {
         didSet {
-            if oldValue == nil, filteringPredicate == nil {
+            if oldValue == [], filteringPredicates == [] {
                 return
             }
             
-            updateFilteredSessions()
-            sessionDataSourceDelegate?.sessionDataSourceDidUpdate()
+            updateFilteredSessions(oldFilteringPredicates: oldValue)
+            sessionDataSourceDelegate?.sessionDataSourceDidUpdate(filtering: !filteringPredicates.isEmpty)
         }
     }
     
     var numberOfSections: Int {
-        return sessionsByStart.keys.count
+        return filteredSessionsByStart.keys.count
     }
     
     fileprivate var sessions: [SessionViewModel] = [] {
@@ -77,7 +77,7 @@ class FirebaseSessionDataSource: SessionDataSource, FilterableSessionDataSource 
                 
                 DispatchQueue.main.async {
                     self?.sessions = sortedSessions
-                    self?.sessionDataSourceDelegate?.sessionDataSourceDidUpdate()
+                    self?.sessionDataSourceDelegate?.sessionDataSourceDidUpdate(filtering: false)
                 }
             }
         }
@@ -98,11 +98,11 @@ class FirebaseSessionDataSource: SessionDataSource, FilterableSessionDataSource 
     }
     
     func numberOfItems(inSection section: Int) -> Int {
-        return sessionsByStart[date(forSection: section)]!.count
+        return filteredSessionsByStart[date(forSection: section)]!.count
     }
     
     func viewModel(at indexPath: IndexPath) -> SessionViewModel {
-        let vm = sessionsByStart[date(forSection: indexPath.section)]![indexPath.item]
+        let vm = filteredSessionsByStart[date(forSection: indexPath.section)]![indexPath.item]
         return vm
     }
     
@@ -187,24 +187,69 @@ private extension FirebaseSessionDataSource {
         return collected
     }
     
-    func updateFilteredSessions() {
-        let filteredSessionsByStart: [Date:[SessionViewModel]]
-        defer {
-            self.filteredSessionsByStart = filteredSessionsByStart
-        }
-        
-        guard let filteringPredicate = filteringPredicate else {
+    func updateFilteredSessions(oldFilteringPredicates: Set<FilterableSessionDataSourcePredicate>? = nil) {
+        guard !filteringPredicates.isEmpty else {
             filteredSessionsByStart = sessionsByStart
             return
         }
         
-        var filtered: [Date:[SessionViewModel]] = [:]
-        for (date, sessionsForDate) in sessionsByStart {
-            let passingSessions = sessionsForDate.filter(filteringPredicate)
-            filtered[date] = passingSessions
+        let filterUsingBaseSessions: ([Date:[SessionViewModel]]) -> Void = { baseSessions in
+            var filtered: [Date:[SessionViewModel]] = [:]
+            
+            for (date, sessionsForDate) in baseSessions {
+                let passingSessions = sessionsForDate.filter { session in
+                    for predicate in self.filteringPredicates {
+                        switch predicate {
+                        case .nameContains(let namePart):
+                            let containsPart = session.title.localizedCaseInsensitiveContains(namePart)
+                            if !containsPart {
+                                return false
+                            }
+                        }
+                    }
+                    
+                    return true
+                }
+                
+                if !passingSessions.isEmpty {
+                    filtered[date] = passingSessions
+                }
+            }
+            
+            self.filteredSessionsByStart = filtered
         }
         
-        filteredSessionsByStart = filtered
+        guard let oldFilteringPredicates = oldFilteringPredicates else {
+            filterUsingBaseSessions(sessionsByStart)
+            return
+        }
+        
+        var newPredicatesIncludeOldAsPrefix = true
+        
+        for oldPredicate in oldFilteringPredicates {
+            var isPrefixOfANewPredicate = false
+            
+            for newPredicate in filteringPredicates {
+                switch (oldPredicate, newPredicate) {
+                case (.nameContains(let oldNameContains), .nameContains(let newNameContains)):
+                    if newNameContains.hasPrefix(oldNameContains) {
+                        isPrefixOfANewPredicate = true
+                        break
+                    }
+                }
+            }
+            
+            if !isPrefixOfANewPredicate {
+                newPredicatesIncludeOldAsPrefix = false
+                break
+            }
+        }
+        
+        if !newPredicatesIncludeOldAsPrefix {
+            filterUsingBaseSessions(sessionsByStart)
+        } else {
+            filterUsingBaseSessions(self.filteredSessionsByStart)
+        }
     }
 }
 

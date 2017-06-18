@@ -147,7 +147,7 @@ private extension NotificationsCoordinator {
 }
 
 extension NotificationsCoordinator: SessionDataSourceDelegate, SessionStarsDataSourceDelegate {
-    func sessionDataSourceDidUpdate() {
+    func sessionDataSourceDidUpdate(filtering: Bool) {
         didChangeFavoriteSessions()
         sessionNotificationScheduler?.updateScheduledNotifications()
     }
