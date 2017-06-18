@@ -7,71 +7,103 @@
 //
 
 import UIKit
+import PDFKit
 
-import QuickLook
-
-class MapsViewController: UIViewController, QLPreviewControllerDataSource {
-    fileprivate var previewController: QLPreviewController!
-    fileprivate let mapFileNames = ["DoubleTree_Floor1", "DoubleTree_Floor2", "DoubleTree_Floor22"]
-    lazy fileprivate var mapPaths: [String] = {
+/**
+ Show multiple separate PDFs with a segmented control to choose which one is currently displayed.
+ */
+class MapsViewController: UIViewController {
+    @IBOutlet var pageSegmentedControl: UISegmentedControl!
+    
+    fileprivate let pageViewController = UIPageViewController(transitionStyle: UIPageViewControllerTransitionStyle.scroll, navigationOrientation: UIPageViewControllerNavigationOrientation.horizontal, options: nil)
+    var mapFileNames = ["DoubleTree_Floor1", "DoubleTree_Floor2", "DoubleTree_Floor22"] {
+        didSet {
+            guard isViewLoaded else {
+                return
+            }
+            
+            mapViewControllers = makeMapViewControllers()
+            pageViewController.setViewControllers([mapViewControllers.first!], direction: .forward, animated: false, completion: nil)
+        }
+    }
+    
+    fileprivate var mapPaths: [String] {
         let mainBundle = Bundle.main
         let mapPaths = self.mapFileNames.map { (filename: String) -> String in
             return mainBundle.path(forResource: filename, ofType: "pdf")!
         }
 
         return mapPaths
-    }()
+    }
+    
     fileprivate var activeMapIndex: Int = 0 {
         didSet {
-            previewController.reloadData()
+            let isForward: Bool = activeMapIndex > oldValue
+            let direction = isForward ? UIPageViewControllerNavigationDirection.forward : .reverse
+            pageViewController.setViewControllers([mapViewControllers[activeMapIndex]], direction: direction, animated: true, completion: nil)
         }
     }
-
-    fileprivate var observingPreviewIndex = false
+    fileprivate var mapViewControllers: [SingleMapViewController] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let previewController = QLPreviewController()
-        previewController.dataSource = self
-        previewController.automaticallyAdjustsScrollViewInsets = true
-        self.previewController = previewController
         
-        previewController.view.backgroundColor = UIColor.clear
-        previewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(previewController.view)
-        let bindings: [String : AnyObject] = [
-            "preview" : previewController.view,
-            "top" : topLayoutGuide,
-            "bottom" : bottomLayoutGuide
-        ]
-        let hConstraints = NSLayoutConstraint.constraints(withVisualFormat: "|[preview]|", options: [], metrics: nil, views: bindings)
-        let vConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[top][preview][bottom]", options: [], metrics: nil, views: bindings)
-        let previewConstraints = hConstraints + vConstraints
-        view.addConstraints(previewConstraints)
+        pageSegmentedControl.setTitle(NSLocalizedString("1st Floor", comment: "Map floor one"), forSegmentAt: 0)
+        pageSegmentedControl.setTitle(NSLocalizedString("2nd Floor", comment: "Map floor two"), forSegmentAt: 1)
+        pageSegmentedControl.setTitle(NSLocalizedString("22nd Floor", comment: "Map floor 22"), forSegmentAt: 2)
         
-        addChildViewController(previewController)
-
-        previewController.currentPreviewItemIndex = 0
+        pageViewController.dataSource = self
+        pageViewController.delegate = self
+        
+        let pageView = pageViewController.view!
+        view.dev_addSubview(pageView)
+        addChildViewController(pageViewController)
+        
+        let constraints: [NSLayoutConstraint] = [
+            pageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            pageView.topAnchor.constraint(equalTo: view.topAnchor),
+            pageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            pageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ]
+        NSLayoutConstraint.activate(constraints)
+        
+        mapViewControllers = makeMapViewControllers()
+        pageViewController.setViewControllers([mapViewControllers.first!], direction: .forward, animated: false, completion: nil)
     }
-
+    
+    private func makeMapViewControllers() -> [SingleMapViewController] {
+        return mapPaths.map(SingleMapViewController.init(mapFilePath:))
+    }
+    
     // MARK: - Segmented Control
 
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl?) {
         activeMapIndex = sender?.selectedSegmentIndex ?? 0
     }
+}
 
-    // MARK: - Preview Controller Data Source
-
-    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-        return 1
+extension MapsViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let mapVC = viewController as? SingleMapViewController, let idx = mapViewControllers.index(of: mapVC), idx > mapViewControllers.startIndex else {
+            return nil
+        }
+        
+        return mapViewControllers[idx - 1]
     }
-
-    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-        // Assume that we only ever want to show one item, at `activeMapIndex`.
-        // Change `activeMapIndex` to change the active item.
-        let item = URL(fileURLWithPath: mapPaths[activeMapIndex], isDirectory: false)
-        // `URL` doesn't conform to `QLPreviewItem`, but `NSURL` does.
-        return item as NSURL
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let mapVC = viewController as? SingleMapViewController, let idx = mapViewControllers.index(of: mapVC), idx + 1 < mapViewControllers.endIndex else {
+            return nil
+        }
+        
+        return mapViewControllers[idx + 1]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let currentViewControllers = pageViewController.viewControllers, let firstVC = currentViewControllers.first as? SingleMapViewController, let idx = mapViewControllers.index(of: firstVC) else {
+            return
+        }
+        
+        pageSegmentedControl.selectedSegmentIndex = idx
     }
 }

@@ -7,62 +7,45 @@
 //
 
 import UIKit
+import PDFKit
 
-import QuickLook
-
-class SingleMapViewController: UIViewController, QLPreviewControllerDataSource {
-    fileprivate var previewController: QLPreviewController!
-    var mapFilePath: String {
+/**
+ Show a single PDF.
+ */
+class SingleMapViewController: UIViewController {
+    fileprivate let pdfView = PDFView()
+    fileprivate lazy var pdfDocument: PDFDocument = self.makePdfDocument()
+    
+    @IBInspectable var mapFilePath: String = "" {
         didSet {
-            previewController?.reloadData()
+            pdfDocument = makePdfDocument()
+            pdfView.document = pdfDocument
         }
     }
     
-    init() {
-        mapFilePath = Bundle.main.path(forResource: "AnimeDetour2017DealersMap", ofType: "pdf")!
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        mapFilePath = Bundle.main.path(forResource: "AnimeDetour2017DealersMap", ofType: "pdf")!
-        super.init(coder: aDecoder)
+    convenience init(mapFilePath: String) {
+        self.init(nibName: nil, bundle: nil)
+        self.mapFilePath = mapFilePath
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let previewController = QLPreviewController()
-        previewController.dataSource = self
-        previewController.automaticallyAdjustsScrollViewInsets = true
-        self.previewController = previewController
+        view.dev_addSubview(pdfView)
         
-        previewController.view.backgroundColor = UIColor.clear
-        previewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(previewController.view)
-        let bindings: [String : AnyObject] = [
-            "preview" : previewController.view,
-            "top" : topLayoutGuide,
-            "bottom" : bottomLayoutGuide
-        ]
-        let hConstraints = NSLayoutConstraint.constraints(withVisualFormat: "|[preview]|", options: [], metrics: nil, views: bindings)
-        let vConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[top][preview][bottom]", options: [], metrics: nil, views: bindings)
-        let previewConstraints = hConstraints + vConstraints
-        view.addConstraints(previewConstraints)
+        let constraints: [NSLayoutConstraint] = [
+            pdfView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            pdfView.topAnchor.constraint(equalTo: view.topAnchor),
+            pdfView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            pdfView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ]
+        NSLayoutConstraint.activate(constraints)
         
-        addChildViewController(previewController)
-        
-        previewController.currentPreviewItemIndex = 0
+        pdfView.document = pdfDocument
     }
     
-    // MARK: - Preview Controller Data Source
-    
-    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-        return 1
-    }
-    
-    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-        let item = URL(fileURLWithPath: mapFilePath, isDirectory: false)
-        // `URL` doesn't conform to `QLPreviewItem`, but `NSURL` does.
-        return item as NSURL
+    private func makePdfDocument() -> PDFDocument {
+        let url = URL(fileURLWithPath: self.mapFilePath)
+        return PDFDocument(url: url)!
     }
 }
