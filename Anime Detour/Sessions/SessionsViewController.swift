@@ -341,12 +341,7 @@ private extension SessionsViewController {
     
     /// Update the top offset for our sticky header layout.
     func updateStickyHeaderLayoutTopOffset() {
-        // topLayoutGuide doesn't work for our purposes with a translucent navigation bar
-        if let navBar = navigationController?.navigationBar, navBar.isTranslucent {
-            stickyHeaderFlowLayout.headerTopOffset = navBar.frame.maxY
-        } else {
-            stickyHeaderFlowLayout.headerTopOffset = topLayoutGuide.length
-        }
+        stickyHeaderFlowLayout.headerTopOffset = view.safeAreaInsets.top
     }
     
     /**
