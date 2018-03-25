@@ -166,9 +166,11 @@ class InformationViewController: UITableViewController {
     // MARK: - Received actions
 
     @IBAction func showVenueOnMap(_ sender: AnyObject?) {
-        let query = "DoubleTree by Hilton, Bloomington, MN".addingPercentEncoding(withAllowedCharacters: CharacterSet())!
-        let urlString = "http://maps.apple.com/?q=\(query)"
-        UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
+        var components = URLComponents(string: "http://maps.apple.com/")!
+        let hotelNameInMaps = "Hyatt Regency Minneapolis, Minneapolis, MN"
+        components.queryItems = [URLQueryItem(name: "q", value: hotelNameInMaps)]
+        let url = components.url!
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 
