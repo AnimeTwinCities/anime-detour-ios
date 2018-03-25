@@ -43,9 +43,8 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
                 offsetForStickyHeader(itemAttributes)
             }
             
-            if let headerAttributes = layoutAttributesForSupplementaryView(ofKind: StickyHeaderFlowLayout.StickyHeaderElementKind, at: StickyHeaderFlowLayout.stickyHeaderIndexPath) {
-                attributes.append(headerAttributes)
-            }
+            let headerAttributes = layoutAttributesForStickyHeader(at: StickyHeaderFlowLayout.stickyHeaderIndexPath)
+            attributes.append(headerAttributes)
         }
 
         return attributes
@@ -65,29 +64,9 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
     override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes: UICollectionViewLayoutAttributes?
 
-        switch elementKind {
-        case StickyHeaderFlowLayout.StickyHeaderElementKind:
-            let cvOffset = collectionView?.contentOffset ?? CGPoint.zero
-            let cvBounds = collectionView?.bounds ?? CGRect.zero
-            let stickySize = CGSize(width: cvBounds.width, height: headerHeight)
-            
-            // Make sure that the sticky header's minY isn't negative.
-            // When over-scrolling past the top of the collection view, if we allow the sticky header's
-            // minY to go negative, the sticky header does not stay in the correct position relative to other
-            // elements in the collection view.
-            // Clamping the minY to zero results in it staying in the correct relative position in that case.
-            let stickyMinY = max(headerTopOffset + cvOffset.y, 0)
-            let stickyOrigin = CGPoint(x: 0, y: stickyMinY)
-            let stickyFrame = CGRect(origin: stickyOrigin, size: stickySize)
-
-            let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, with: indexPath)
-            headerAttributes.frame = stickyFrame
-            // The default `zIndex` for `UICollectionElementKindSectionHeader` attributes on iOS 9
-            // is `10`. Set the sticky header's `zIndex` much higher, so the sticky header is
-            // higher than section headers.
-            headerAttributes.zIndex = 100
-            attributes = headerAttributes
-        default:
+        if elementKind == StickyHeaderFlowLayout.StickyHeaderElementKind {
+            attributes = layoutAttributesForStickyHeader(at: indexPath)
+        } else {
             attributes = super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath).map(copy)
             
             // Offset all non-sticky-header views by the sticky header's height
@@ -145,7 +124,31 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
     be modified, since UICollectionViewFlowLayout caches attributes but
     can't because we're possibly modifying their frames to offset for our header.
     */
-    fileprivate func copy(_ attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+    private func copy(_ attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         return attributes.copy() as! UICollectionViewLayoutAttributes
+    }
+
+    private func layoutAttributesForStickyHeader(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes {
+        let cvOffset = collectionView?.contentOffset ?? CGPoint.zero
+        let cvBounds = collectionView?.bounds ?? CGRect.zero
+        let stickySize = CGSize(width: cvBounds.width, height: headerHeight)
+
+        // Make sure that the sticky header's minY isn't negative.
+        // When over-scrolling past the top of the collection view, if we allow the sticky header's
+        // minY to go negative, the sticky header does not stay in the correct position relative to other
+        // elements in the collection view.
+        // Clamping the minY to zero results in it staying in the correct relative position in that case.
+        let stickyMinY = max(headerTopOffset + cvOffset.y, 0)
+        let stickyOrigin = CGPoint(x: 0, y: stickyMinY)
+        let stickyFrame = CGRect(origin: stickyOrigin, size: stickySize)
+
+        let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: StickyHeaderFlowLayout.StickyHeaderElementKind, with: indexPath)
+        headerAttributes.frame = stickyFrame
+        // The default `zIndex` for `UICollectionElementKindSectionHeader` attributes on iOS 9
+        // is `10`. Set the sticky header's `zIndex` much higher, so the sticky header is
+        // higher than section headers.
+        headerAttributes.zIndex = 100
+
+        return headerAttributes
     }
 }
