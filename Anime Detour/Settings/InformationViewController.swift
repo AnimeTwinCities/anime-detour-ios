@@ -12,6 +12,8 @@ import SafariServices
 import FXForms
 
 class InformationViewController: UITableViewController {
+    private static let AreaMapPDFFileName = "AD2018-AreaMap"
+
     weak var delegate: SettingsDelegate?
 
     // MARK: - Cell reuse identifiers
@@ -139,7 +141,7 @@ class InformationViewController: UITableViewController {
             let destination = segue.destination
             destination.title = NSLocalizedString("Nearby Area", comment: "Nearby area map view controller title")
             if let mapVC = destination as? SingleMapViewController {
-                mapVC.mapFilePath = Bundle.main.path(forResource: "AD2017-AreaMap", ofType: "pdf")!
+                mapVC.mapFilePath = Bundle.main.path(forResource: InformationViewController.AreaMapPDFFileName, ofType: "pdf")!
             }
         case settingsSegue?:
             let acknowledgements = Acknowledgements()
