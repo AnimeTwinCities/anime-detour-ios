@@ -116,13 +116,13 @@ class InformationViewController: UITableViewController {
         let url: URL
         switch (cell.reuseIdentifier) {
         case harassmentPolicyIdentifier?:
-            url = URL(string: "http://www.animedetour.com/policyharassment")!
+            url = URL(string: "https://www.animedetour.com/policy/harassment")!
         case letterParentsIdentifier?:
             url = URL(string: "http://www.animedetour.com/faqparents")!
         case weaponsPolicyIdentifier?:
-            url = URL(string: "http://www.animedetour.com/policyweapons")!
+            url = URL(string: "https://www.animedetour.com/policy/weapons")!
         case costumePolicyIdentifier?:
-            url = URL(string: "http://www.animedetour.com/policycostume")!
+            url = URL(string: "https://www.animedetour.com/policy/costume")!
         case websiteIdentifier?:
             url = URL(string: "http://www.animedetour.com/")!
         default:
