@@ -12,6 +12,8 @@ import FXForms
 class SettingsViewController: FXFormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.largeTitleDisplayMode = .never
         
         title = NSLocalizedString("Settings", comment: "Settings view controller title")
     }

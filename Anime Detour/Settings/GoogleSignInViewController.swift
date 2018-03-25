@@ -30,6 +30,8 @@ class GoogleSignInViewController: UIViewController, GIDSignInUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.largeTitleDisplayMode = .never
         
         title = NSLocalizedString("Sign In", comment: "Google sign in view controller title")
         descriptionLabel.text = NSLocalizedString("Sign in with Google to sync your agenda with the Anime Detour schedule web site.", comment: "Describe why one would sign in with Google.")

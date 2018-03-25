@@ -26,6 +26,9 @@ class WebViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.largeTitleDisplayMode = .never
+        
         addWebView()
         load(url)
     }

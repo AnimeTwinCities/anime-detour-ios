@@ -55,6 +55,8 @@ class SpeakerDetailViewController: UIViewController, StretchingImageHeaderContai
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.largeTitleDisplayMode = .never
         
         let analytics: GAITracker? = GAI.sharedInstance().defaultTracker
         let dict = GAIDictionaryBuilder.createEventDictionary(.guest, action: .viewDetails, label: viewModel?.name, value: nil)
