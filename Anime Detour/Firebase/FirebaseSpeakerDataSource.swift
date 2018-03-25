@@ -23,11 +23,17 @@ class FirebaseSpeakerDataSource: SpeakerDataSource {
     }
     
     private var speakers: [SpeakerViewModel] = []
+
+    /**
+     Part of the path to the data in Firebase that we want to use.
+     */
+    private var yearKey: String
     
-    init(databaseReference: FIRDatabaseReference = FIRDatabase.database().reference()) {
+    init(databaseReference: FIRDatabaseReference = FIRDatabase.database().reference(), yearKey: String) {
         self.databaseReference = databaseReference
+        self.yearKey = yearKey
         
-        databaseReference.child("guests").child("ad-2017").observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
+        databaseReference.child("guests").child(yearKey).observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
             guard let dict = snapshot.value as? [String:Any], let strongSelf = self else {
                 return
             }

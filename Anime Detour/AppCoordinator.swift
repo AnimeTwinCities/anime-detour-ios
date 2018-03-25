@@ -202,16 +202,17 @@ class AppCoordinator {
         speakersViewController.title = NSLocalizedString("Guests", comment: "tab title")
         // Rely on `settingsCoordinator` to set `settingsViewController`'s title.
         
-        
+
         // Set data sources on our view controllers
-        firebaseStarsDataSource = FirebaseStarsDataSource()
+        let yearKey = "ad-2018"
+        firebaseStarsDataSource = FirebaseStarsDataSource(yearKey: yearKey)
         firebaseStarsDataSource.sessionStarsDataSourceDelegate = multiSessionStarsDataSourceDelegate
         
-        let speakerDataSource = FirebaseSpeakerDataSource()
+        let speakerDataSource = FirebaseSpeakerDataSource(yearKey: yearKey)
         
         // introduce new scopes to avoid similar-sounding variables being available to cause confusion later
         do {
-            let firebaseSessionsDataSource = FirebaseSessionDataSource(firebaseDateFormatter: firebaseDateFormatter, sectionHeaderDateFormatter: sectionHeaderDateFormatter)
+            let firebaseSessionsDataSource = FirebaseSessionDataSource(firebaseDateFormatter: firebaseDateFormatter, sectionHeaderDateFormatter: sectionHeaderDateFormatter, yearKey: yearKey)
             
             let starredSessionsDataSource = CombinedSessionDataSource(dataSource: firebaseSessionsDataSource, starsDataSource: firebaseStarsDataSource)
             starredSessionsDataSource.shouldIncludeOnlyStarred = true
@@ -223,7 +224,7 @@ class AppCoordinator {
         
         
         do {
-            let firebaseSessionsDataSource = FirebaseSessionDataSource(firebaseDateFormatter: firebaseDateFormatter, sectionHeaderDateFormatter: sectionHeaderDateFormatter)
+            let firebaseSessionsDataSource = FirebaseSessionDataSource(firebaseDateFormatter: firebaseDateFormatter, sectionHeaderDateFormatter: sectionHeaderDateFormatter, yearKey: yearKey)
             
             let sessionDataSource = CombinedSessionDataSource(dataSource: firebaseSessionsDataSource, starsDataSource: firebaseStarsDataSource)
             firebaseSessionsDataSource.sessionDataSourceDelegate = sessionDataSource
@@ -235,7 +236,7 @@ class AppCoordinator {
         
         
         do {
-            let starredSessionsFirebaseDataSource = FirebaseSessionDataSource(firebaseDateFormatter: firebaseDateFormatter, sectionHeaderDateFormatter: sectionHeaderDateFormatter)
+            let starredSessionsFirebaseDataSource = FirebaseSessionDataSource(firebaseDateFormatter: firebaseDateFormatter, sectionHeaderDateFormatter: sectionHeaderDateFormatter, yearKey: yearKey)
             
             let starredSessionsDataSource = CombinedSessionDataSource(dataSource: starredSessionsFirebaseDataSource, starsDataSource: firebaseStarsDataSource)
             starredSessionsDataSource.shouldIncludeOnlyStarred = true
@@ -248,7 +249,7 @@ class AppCoordinator {
         
         
         do {
-            let speakerDataSource = FirebaseSpeakerDataSource()
+            let speakerDataSource = FirebaseSpeakerDataSource(yearKey: yearKey)
             speakerDataSource.speakerDataSourceDelegate = speakersViewController
             
             speakersViewController.speakerDataSource = speakerDataSource

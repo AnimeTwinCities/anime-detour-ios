@@ -21,7 +21,7 @@ import FirebaseDatabase
 final class FirebaseStarsDataSource: SessionStarsDataSource {
     fileprivate let databaseReference: FIRDatabaseReference
     private let defaultsPersister = UserDefaultsPersister()
-    
+
     weak var sessionStarsDataSourceDelegate: SessionStarsDataSourceDelegate?
 
     /// The IDs of sessions that have been starred.
@@ -41,7 +41,12 @@ final class FirebaseStarsDataSource: SessionStarsDataSource {
             defaultsPersister.starredSessionIDs = starredSessionIDs
         }
     }
-    
+
+    /**
+     Part of the path to the data in Firebase that we want to use.
+     */
+    private var yearKey: String
+
     /**
      - seealso: `setFirebaseUserID(_:, shouldMergeLocalAndRemoteStarsOnce:)`
      */
@@ -52,8 +57,9 @@ final class FirebaseStarsDataSource: SessionStarsDataSource {
      */
     fileprivate var firebaseObservingHandle: UInt?
     
-    init(databaseReference: FIRDatabaseReference = FIRDatabase.database().reference()) {
+    init(databaseReference: FIRDatabaseReference = FIRDatabase.database().reference(), yearKey: String) {
         self.databaseReference = databaseReference
+        self.yearKey = yearKey
         starredSessionIDs = defaultsPersister.starredSessionIDs
     }
     
@@ -110,13 +116,13 @@ private extension FirebaseStarsDataSource {
             starsDict[sessionID] = true
         }
         
-        databaseReference.child("favorites").child("ad-2017").child(userID).setValue(starsDict)
+        databaseReference.child("favorites").child(yearKey).child(userID).setValue(starsDict)
     }
     
     func registerForObservingAgenda(forUserWithID userID: String, shouldMergeLocalAndRemoteStartsOnce: Bool) {
         var shouldMerge = shouldMergeLocalAndRemoteStartsOnce
         
-        firebaseObservingHandle = databaseReference.child("favorites").child("ad-2017").child(userID).observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
+        firebaseObservingHandle = databaseReference.child("favorites").child(yearKey).child(userID).observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
             // Assume a format like [{ "sessionIDGoesHere" : true }, { "anotherSessionID" : true }]
             guard let strongSelf = self, let sessionIDsDicts = snapshot.value as? [String:Any] else {
                 return

@@ -50,13 +50,19 @@ class FirebaseSessionDataSource: SessionDataSource, FilterableSessionDataSource 
             updateFilteredSessions()
         }
     }
+
+    /**
+     Part of the path to the data in Firebase that we want to use.
+     */
+    private var yearKey: String
     
-    init(databaseReference: FIRDatabaseReference = FIRDatabase.database().reference(), firebaseDateFormatter: DateFormatter, sectionHeaderDateFormatter: DateFormatter) {
+    init(databaseReference: FIRDatabaseReference = FIRDatabase.database().reference(), firebaseDateFormatter: DateFormatter, sectionHeaderDateFormatter: DateFormatter, yearKey: String) {
         self.databaseReference = databaseReference
         self.firebaseDateFormatter = firebaseDateFormatter
         self.sectionHeaderDateFormatter = sectionHeaderDateFormatter
+        self.yearKey = yearKey
         
-        databaseReference.child("events").child("ad-2017").observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
+        databaseReference.child("events").child(yearKey).observe(.value) { [weak self] (snapshot: FIRDataSnapshot) in
             guard let dict = snapshot.value as? [String:Any], let _ = self else {
                 return
             }
