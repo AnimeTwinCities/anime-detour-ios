@@ -25,6 +25,7 @@ struct Appearance {
         let navBar = UINavigationBar.appearance()
         navBar.barTintColor = mainColor
         navBar.tintColor = UIColor.white
+        navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navBar.isTranslucent = false
         
