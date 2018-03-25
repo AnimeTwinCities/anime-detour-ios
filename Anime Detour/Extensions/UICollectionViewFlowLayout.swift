@@ -11,7 +11,7 @@ import UIKit
 extension UICollectionViewFlowLayout {
     // Get the y-coordinate for the first item,
     // including section headers, in a section.
-    func yCoordinateForFirstItemInSection(_ section: Int) -> CGFloat {
+    @objc func yCoordinateForFirstItemInSection(_ section: Int) -> CGFloat {
         let indexPath = IndexPath(item: 0, section: section)
 
         if let headerAttributes = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: indexPath) {

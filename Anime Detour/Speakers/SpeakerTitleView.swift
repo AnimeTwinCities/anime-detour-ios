@@ -173,7 +173,7 @@ fileprivate extension SpeakerTitleView {
         imageView.contentMode = .scaleAspectFill
         let imageContainerViewWidth = imageContainerView.widthAnchor.constraint(equalToConstant: .dev_authorPhotoSideLength)
         imageContainerViewWidthConstraint = imageContainerViewWidth
-        imageContainerViewWidth.priority = UILayoutPriorityRequired - 1
+        imageContainerViewWidth.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(Int(UILayoutPriority.required.rawValue) - 1))
         let imageConstraints: [NSLayoutConstraint] = [
             // Make the image container view fixed-size and square
             imageContainerViewWidth,

@@ -31,7 +31,7 @@ class FirebaseCoordinator {
     
     /// A callback to run when we've finished trying to sign in, indicating failure if the error parameter
     /// is non-nil, else success. Only one of the parameters should be `nil` at a time.
-    var signInCallback: (FIRUser?, Error?) -> Void = { _ in }
+    var signInCallback: (FIRUser?, Error?) -> Void = { _,_  in }
     
     func start() {
         FIRApp.configure()

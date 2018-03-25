@@ -21,7 +21,7 @@ class SpeakerCell: UICollectionViewCell {
     }
     
     // `dynamic` allows the use of UIAppearance to set a value.
-    dynamic var highlightColor: UIColor = UIColor(white: 0.8, alpha: 1)
+    @objc dynamic var highlightColor: UIColor = UIColor(white: 0.8, alpha: 1)
     
     var image: UIImage? {
         get {

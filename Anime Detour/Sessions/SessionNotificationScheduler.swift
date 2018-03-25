@@ -86,8 +86,8 @@ class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
                 let sessionName = viewModel.title
                 var displayName = sessionName
                 let maxNameLength = 20
-                if displayName.characters.count > maxNameLength {
-                    displayName = sessionName.substring(to: displayName.index(displayName.startIndex, offsetBy: maxNameLength)) + "..."
+                if displayName.count > maxNameLength {
+                    displayName = sessionName.prefix(maxNameLength) + "…"
                 }
                 
                 let singleSessionFormatWithLocation = NSLocalizedString("%@ starting in %@ at %@", comment: "")

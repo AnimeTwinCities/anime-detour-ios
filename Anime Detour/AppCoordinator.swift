@@ -372,8 +372,8 @@ private extension AppCoordinator {
  `AppCoordinator` to not subclass `NSObject`.
  */
 private class GoogleSignInNotifier: NSObject, GIDSignInDelegate {
-    var didSignIn: (GIDSignIn?, GIDGoogleUser?, Error?) -> Void = { _ in }
-    var didDisconnectSignIn: (GIDSignIn?, GIDGoogleUser?, Error?) -> Void = { _ in }
+    var didSignIn: (GIDSignIn?, GIDGoogleUser?, Error?) -> Void = { _,_,_  in }
+    var didDisconnectSignIn: (GIDSignIn?, GIDGoogleUser?, Error?) -> Void = { _,_,_  in }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         if let error = error {

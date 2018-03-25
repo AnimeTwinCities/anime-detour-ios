@@ -71,11 +71,11 @@ class SegmentedControlCollectionReusableView: UICollectionReusableView {
         let vCenter = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0)
 
         let width = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 350)
-        width.priority = UILayoutPriorityDefaultLow
+        width.priority = UILayoutPriority.defaultLow
 
         // Greater priority than the width constraint, so it always has at least this margin.
         let leftSide = NSLayoutConstraint(item: segmentedControl, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 10)
-        leftSide.priority = UILayoutPriorityRequired
+        leftSide.priority = UILayoutPriority.required
 
         addConstraints([hCenter, vCenter, width, leftSide])
     }

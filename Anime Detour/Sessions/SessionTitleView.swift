@@ -245,11 +245,11 @@ class SessionTitleView: UIView {
 }
 
 extension UIResponder {
-    func dev_addSessionToSchedule() {
+    @objc func dev_addSessionToSchedule() {
         next?.dev_addSessionToSchedule()
     }
     
-    func dev_removeSessionFromSchedule() {
+    @objc func dev_removeSessionFromSchedule() {
         next?.dev_removeSessionFromSchedule()
     }
 }

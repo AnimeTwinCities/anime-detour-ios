@@ -23,7 +23,7 @@ class SessionCell: UICollectionViewCell, AgeRequirementDisplayingView {
     @IBOutlet var starButton: UIButton!
     
     // `dynamic` allows the use of UIAppearance to set a value.
-    dynamic var highlightColor: UIColor = UIColor(white: 0.8, alpha: 1)
+    @objc dynamic var highlightColor: UIColor = UIColor(white: 0.8, alpha: 1)
     
     override var isHighlighted: Bool {
         didSet {
@@ -89,7 +89,7 @@ extension SessionCell: ReusableItem {
 }
 
 extension UIResponder {
-    func adr_toggleStarred(forSessionID identifier: String) {
+    @objc func adr_toggleStarred(forSessionID identifier: String) {
         next?.adr_toggleStarred(forSessionID: identifier)
     }
 }

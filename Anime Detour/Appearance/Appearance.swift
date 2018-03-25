@@ -25,7 +25,7 @@ struct Appearance {
         let navBar = UINavigationBar.appearance()
         navBar.barTintColor = mainColor
         navBar.tintColor = UIColor.white
-        navBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navBar.isTranslucent = false
         
         // Make UISearchBars minimal style but with gray text fields by default

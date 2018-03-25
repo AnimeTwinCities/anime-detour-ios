@@ -53,7 +53,7 @@ extension NSObject {
      
      - SeeAlso: `dev_registerForAppearanceUpdates()`
      */
-    func dev_updateAppearance() {
+    @objc func dev_updateAppearance() {
         // empty by default
     }
 }
