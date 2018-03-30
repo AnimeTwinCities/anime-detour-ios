@@ -14,7 +14,7 @@ all other views.
 */
 class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
     static let StickyHeaderElementKind: String = "StickyHeaderElementKind"
-    static let stickyHeaderIndexPath = IndexPath(item: 0, section: 0)
+    static let StickyHeaderIndexPath = IndexPath(item: 0, section: 0)
 
     @IBInspectable var headerEnabled: Bool = true
     @IBInspectable var headerHeight: CGFloat = 50
@@ -43,7 +43,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
                 offsetForStickyHeader(itemAttributes)
             }
             
-            let headerAttributes = layoutAttributesForStickyHeader(at: StickyHeaderFlowLayout.stickyHeaderIndexPath)
+            let headerAttributes = layoutAttributesForStickyHeader(at: StickyHeaderFlowLayout.StickyHeaderIndexPath)
             attributes.append(headerAttributes)
         }
 
@@ -116,7 +116,7 @@ class StickyHeaderFlowLayout: UICollectionViewFlowLayout {
     }
 
     fileprivate func setStickyHeaderInvalid(_ invalidationContext: UICollectionViewLayoutInvalidationContext) {
-        invalidationContext.invalidateSupplementaryElements(ofKind: StickyHeaderFlowLayout.StickyHeaderElementKind, at: [StickyHeaderFlowLayout.stickyHeaderIndexPath])
+        invalidationContext.invalidateSupplementaryElements(ofKind: StickyHeaderFlowLayout.StickyHeaderElementKind, at: [StickyHeaderFlowLayout.StickyHeaderIndexPath])
     }
     
     /**

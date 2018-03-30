@@ -234,6 +234,12 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
         if kind == StickyHeaderFlowLayout.StickyHeaderElementKind {
             let view = collectionView.dequeueSupplementaryView(ofKind: kind, for: indexPath) as SegmentedControlCollectionReusableView
             segmentedControlHeaderView = view
+
+            // iOS Bug: In iOS 11, the sticky header shows behind section headers, despite its layout attributes
+            // including a higher zIndex than the section headers.
+            // Manually set the layer's zPosition to avoid this issue.
+            let zPosition = collectionView.layoutAttributesForSupplementaryElement(ofKind: StickyHeaderFlowLayout.StickyHeaderElementKind, at: StickyHeaderFlowLayout.StickyHeaderIndexPath)?.zIndex
+            view.layer.zPosition = CGFloat(zPosition ?? 0)
             return view
         }
         
