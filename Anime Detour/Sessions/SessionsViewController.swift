@@ -181,7 +181,7 @@ class SessionsViewController: UICollectionViewController, FlowLayoutContaining {
             let viewModel = indexPath.map { return self.viewModel(at: $0) }
             let speakers: [SpeakerViewModel]
             if let viewModel = viewModel, let speakerDataSource = speakerDataSource {
-                let speakerViewModels: [SpeakerViewModel] = viewModel.speakerIDs.flatMap { return speakerDataSource.viewModel(forSpeakerID: $0) }
+                let speakerViewModels: [SpeakerViewModel] = viewModel.speakerIDs.compactMap(speakerDataSource.viewModel(forSpeakerID:))
                 speakers = speakerViewModels
             } else {
                 speakers = []

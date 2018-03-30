@@ -66,7 +66,7 @@ class SessionNotificationScheduler: NSObject, SessionSettingsDelegate {
         
         let futureSessions = dataSource.sections(startingAfter: Date())
         
-        let notificationRequests = futureSessions.flatMap { (start, sectionInfo) -> UNNotificationRequest? in
+        let notificationRequests = futureSessions.compactMap { (start, sectionInfo) -> UNNotificationRequest? in
             guard let fireDate = self.fireDate(forSessionAt: start) else {
                 return nil
             }
