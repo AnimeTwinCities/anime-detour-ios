@@ -200,6 +200,7 @@ class AppCoordinator {
         sessionsViewController.title = NSLocalizedString("Sessions", comment: "tab title")
         starredSessionsViewController.title = NSLocalizedString("Your Schedule", comment: "tab title")
         speakersViewController.title = NSLocalizedString("Guests", comment: "tab title")
+        mapsViewController.title = NSLocalizedString("Hotel Maps", comment: "tab title")
         // Rely on `settingsCoordinator` to set `settingsViewController`'s title.
         
 

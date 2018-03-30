@@ -34,15 +34,8 @@ class SingleMapViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         view.dev_addSubview(pdfView)
-        
-        let constraints: [NSLayoutConstraint] = [
-            pdfView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            pdfView.topAnchor.constraint(equalTo: view.topAnchor),
-            pdfView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            pdfView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            ]
-        NSLayoutConstraint.activate(constraints)
-        
+        pdfView.dev_constrainToSuperEdges()
+
         pdfView.document = pdfDocument
     }
     

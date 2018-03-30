@@ -62,13 +62,10 @@
 		DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DA0E971F1CA23CFA00043A30 /* Settings.bundle */; };
 		DA50F8B71E901ACF0049244B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA50F8B61E901ACF0049244B /* SettingsViewController.swift */; };
 		DA50F8B91E9056CB0049244B /* SingleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA50F8B81E9056CB0049244B /* SingleMapViewController.swift */; };
-		DA50F8BD1E906CF00049244B /* AnimeDetour2017DealersMap.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA50F8BC1E906CEF0049244B /* AnimeDetour2017DealersMap.pdf */; };
-		DA50F8C11E906D090049244B /* DoubleTree_Floor1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA50F8BE1E906D090049244B /* DoubleTree_Floor1.pdf */; };
-		DA50F8C21E906D090049244B /* DoubleTree_Floor2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA50F8BF1E906D090049244B /* DoubleTree_Floor2.pdf */; };
-		DA50F8C31E906D090049244B /* DoubleTree_Floor22.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA50F8C01E906D090049244B /* DoubleTree_Floor22.pdf */; };
 		DA50F8C91E909D480049244B /* SessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA50F8C81E909D480049244B /* SessionsTableViewController.swift */; };
 		DA53F2911CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DA53F2901CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite */; };
 		DA5BF5612068142F00716AC2 /* AD2018-AreaMap.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA5BF5602068142E00716AC2 /* AD2018-AreaMap.pdf */; };
+		DA6C1548206ECDF10074A506 /* Hyatt-AllFloors.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DA6C1547206ECDF00074A506 /* Hyatt-AllFloors.pdf */; };
 		DA7C001F1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C001E1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift */; };
 		DA90BDA81CA23E07006A5ACD /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */; };
 		DA90BDA91CA23E07006A5ACD /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */; };
@@ -176,13 +173,10 @@
 		DA0E971F1CA23CFA00043A30 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		DA50F8B61E901ACF0049244B /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DA50F8B81E9056CB0049244B /* SingleMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleMapViewController.swift; sourceTree = "<group>"; };
-		DA50F8BC1E906CEF0049244B /* AnimeDetour2017DealersMap.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = AnimeDetour2017DealersMap.pdf; sourceTree = "<group>"; };
-		DA50F8BE1E906D090049244B /* DoubleTree_Floor1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DoubleTree_Floor1.pdf; sourceTree = "<group>"; };
-		DA50F8BF1E906D090049244B /* DoubleTree_Floor2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DoubleTree_Floor2.pdf; sourceTree = "<group>"; };
-		DA50F8C01E906D090049244B /* DoubleTree_Floor22.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DoubleTree_Floor22.pdf; sourceTree = "<group>"; };
 		DA50F8C81E909D480049244B /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
 		DA53F2901CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnimeDetourDataModel.sqlite; sourceTree = "<group>"; };
 		DA5BF5602068142E00716AC2 /* AD2018-AreaMap.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AD2018-AreaMap.pdf"; sourceTree = "<group>"; };
+		DA6C1547206ECDF00074A506 /* Hyatt-AllFloors.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Hyatt-AllFloors.pdf"; sourceTree = "<group>"; };
 		DA7C001E1E8A125400759C3A /* SegmentedControlCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlCollectionReusableView.swift; sourceTree = "<group>"; };
 		DA90BD641CA23E07006A5ACD /* AnalyticsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
 		DA90BD651CA23E07006A5ACD /* AnalyticsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
@@ -357,10 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				DA5BF5602068142E00716AC2 /* AD2018-AreaMap.pdf */,
-				DA50F8BC1E906CEF0049244B /* AnimeDetour2017DealersMap.pdf */,
-				DA50F8BE1E906D090049244B /* DoubleTree_Floor1.pdf */,
-				DA50F8BF1E906D090049244B /* DoubleTree_Floor2.pdf */,
-				DA50F8C01E906D090049244B /* DoubleTree_Floor22.pdf */,
+				DA6C1547206ECDF00074A506 /* Hyatt-AllFloors.pdf */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -599,20 +590,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAFD7F7A1E679EA500F3A47D /* GoogleService-Info.plist in Resources */,
-				DA50F8C31E906D090049244B /* DoubleTree_Floor22.pdf in Resources */,
 				DA5BF5612068142F00716AC2 /* AD2018-AreaMap.pdf in Resources */,
 				5C8A85421E74C96E008B4808 /* Maps.storyboard in Resources */,
 				5C8A853C1E74AA0F008B4808 /* Settings.storyboard in Resources */,
-				DA50F8C21E906D090049244B /* DoubleTree_Floor2.pdf in Resources */,
 				DA90BDB81CA23E07006A5ACD /* LaunchScreen.storyboard in Resources */,
 				DA90BDB01CA23E07006A5ACD /* Main.storyboard in Resources */,
 				DA90BDB71CA23E07006A5ACD /* Images.xcassets in Resources */,
 				5C8A85361E74A994008B4808 /* Main.storyboard in Resources */,
 				5C8A853A1E74A9D4008B4808 /* Speakers.storyboard in Resources */,
+				DA6C1548206ECDF10074A506 /* Hyatt-AllFloors.pdf in Resources */,
 				DA0E97231CA23CFA00043A30 /* Settings.bundle in Resources */,
-				DA50F8BD1E906CF00049244B /* AnimeDetour2017DealersMap.pdf in Resources */,
 				DA53F2911CAC8CEA00526BD9 /* AnimeDetourDataModel.sqlite in Resources */,
-				DA50F8C11E906D090049244B /* DoubleTree_Floor1.pdf in Resources */,
 				174BD80F9AFA4016A579F4E8 /* Pods-Anime Detour-metadata.plist in Resources */,
 				99C56289BA1E49DBB82753A0 /* Pods-Anime Detour-settings-metadata.plist in Resources */,
 				5C8A85381E74A9C9008B4808 /* Sessions.storyboard in Resources */,
