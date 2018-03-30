@@ -15,7 +15,8 @@ Settings which should be presented to the user.
 
 Specify the runtime class name for the benefit of FXForms.
 */
-@objc(SessionSettings) final class SessionSettings: NSObject, FXForm {
+@objc(SessionSettings) @objcMembers
+final class SessionSettings: NSObject, FXForm {
     struct SessionSettingsUserDefaultsKeys {
         static let FavoriteSessionAlertsKey = "SettingsFavoriteSessionAlertsKey"
     }

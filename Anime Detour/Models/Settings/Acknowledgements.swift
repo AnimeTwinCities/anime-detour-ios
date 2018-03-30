@@ -14,8 +14,9 @@ import FXForms
 Form that sends user to the acknowledgements section of the Settings app.
 Requires that a responder in the responder chain responds to `showSettings`.
 */
-@objc(Acknowledgements) public final class Acknowledgements: NSObject, FXForm {
-    public func extraFields() -> [Any]! {
+@objc(Acknowledgements) @objcMembers
+final class Acknowledgements: NSObject, FXForm {
+    func extraFields() -> [Any]! {
         return [
             [ FXFormFieldTitle : "View Acknowledgements", FXFormFieldAction : "showSettings" ],
         ]

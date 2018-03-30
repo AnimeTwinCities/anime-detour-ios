@@ -10,7 +10,7 @@ import Foundation
 
 import FXForms
 
-final class Settings: NSObject, FXForm {
+@objcMembers final class Settings: NSObject, FXForm {
     let acknowledgements: Acknowledgements
     let sessions: SessionSettings
     
