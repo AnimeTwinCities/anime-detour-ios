@@ -19,14 +19,17 @@ class AnimeDetourScreenshots: XCTestCase {
     
     func testTakeScreenshots() {
         let app = XCUIApplication()
-        
+
         let collectionViewsQuery = app.collectionViews
-        let sessionTitleToFind = "Anime in 2040"
+
+        let foundCollectionView = collectionViewsQuery.firstMatch.waitForExistence(timeout: 3)
+        XCTAssert(foundCollectionView)
+
+        let sessionTitleToFind = "Steven Universe 2018"
         while !collectionViewsQuery.staticTexts[sessionTitleToFind].exists {
             let allBoundByIndex = collectionViewsQuery.cells.allElementsBoundByIndex
-            // The middle item is very likely to be in the middle of the view,
-            // making it a safe choice to scroll as far as necessary.
-            allBoundByIndex[allBoundByIndex.count / 2].swipeUp()
+            // The second item should be safe to use to scroll.
+            allBoundByIndex[1].swipeUp()
         }
         
         snapshot("01-Sessions", waitForLoadingIndicator: false)
@@ -66,13 +69,13 @@ class AnimeDetourScreenshots: XCTestCase {
         snapshot("05-Single_Guest", waitForLoadingIndicator: false)
         
         guestsButton.tap()
-        tabBarsQuery.buttons["Map"].tap()
-        
-        // Wait a few seconds for the maps to load
-        sleep(3)
-        
-        snapshot("06-Maps", waitForLoadingIndicator: false)
-        
+//        tabBarsQuery.buttons["Hotel Maps"].tap()
+//
+//        // Wait a few seconds for the maps to load
+//        sleep(3)
+//
+//        snapshot("06-Maps", waitForLoadingIndicator: false)
+
         tabBarsQuery.buttons["Info"].tap()
         
         snapshot("07-Info", waitForLoadingIndicator: false)
