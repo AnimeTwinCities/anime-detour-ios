@@ -318,6 +318,10 @@ private extension SessionsViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self
+
+        // iOS Bug: For whatever reason, on iOS 11, the search field is too high up in its superview.
+        // Move it down manually.
+        searchController.searchBar.searchFieldBackgroundPositionAdjustment = UIOffset(horizontal: 0, vertical: 7)
     }
     
     /**
