@@ -17,7 +17,6 @@ import UIKit
  */
 protocol FlowLayoutContaining {
     var flowLayout: UICollectionViewFlowLayout! { get }
-    var view: UIView! { get }
     
     func updateFlowLayoutItemWidth(viewSize size: CGSize?)
 }

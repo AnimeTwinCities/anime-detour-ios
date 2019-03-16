@@ -205,7 +205,7 @@ class AppCoordinator {
         
 
         // Set data sources on our view controllers
-        let yearKey = "ad-2018"
+        let yearKey = "ad-2019"
         firebaseStarsDataSource = FirebaseStarsDataSource(yearKey: yearKey)
         firebaseStarsDataSource.sessionStarsDataSourceDelegate = multiSessionStarsDataSourceDelegate
         
